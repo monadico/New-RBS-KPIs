@@ -618,10 +618,140 @@ def print_total_stats():
     except Exception as e:
         print(f"❌ Error: {e}")
 
+def print_user_retention():
+    """Print user retention metrics week by week."""
+    print()
+    print("=" * 80)
+    print("👥 USER RETENTION METRICS")
+    print("=" * 80)
+    
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # Get all user transactions with week boundaries
+        query = """
+        WITH users_all AS (
+            SELECT 
+                tx_hash,
+                from_address,
+                timestamp,
+                DATE(timestamp, 'weekday 1', '-7 days') as week_start
+            FROM betting_transactions
+            WHERE DATE(timestamp) >= '2025-02-04'
+        ),
+        
+        base_table AS (
+            SELECT 
+                from_address as user,
+                week_start as date,
+                MIN(week_start) OVER(PARTITION BY from_address) as earliest_date,
+                (JULIANDAY(week_start) - JULIANDAY(MIN(week_start) OVER(PARTITION BY from_address))) / 7 as difference
+            FROM users_all
+        ),
+        
+        count_new_users AS (
+            SELECT 
+                earliest_date,
+                COUNT(DISTINCT user) as new_users 
+            FROM base_table
+            GROUP BY earliest_date
+        ),
+        
+        count_returning_users AS (
+            SELECT 
+                earliest_date,
+                difference,
+                COUNT(DISTINCT user) as existing_users 
+            FROM base_table
+            WHERE difference != 0
+            GROUP BY earliest_date, difference
+        ),
+        
+        long_retention_table AS (
+            SELECT 
+                cnu.earliest_date,
+                cru.difference,
+                cnu.new_users,
+                COALESCE(cru.existing_users, 0) as existing_users,
+                ROUND(CAST(COALESCE(cru.existing_users, 0) AS FLOAT) / cnu.new_users, 3) as retention_pct
+            FROM count_new_users cnu
+            LEFT JOIN count_returning_users cru ON cnu.earliest_date = cru.earliest_date
+        )
+        
+        SELECT 
+            earliest_date,
+            new_users as users,
+            MAX(CASE WHEN difference = 1 THEN retention_pct END) as one_week_later,
+            MAX(CASE WHEN difference = 2 THEN retention_pct END) as two_week_later,
+            MAX(CASE WHEN difference = 3 THEN retention_pct END) as three_week_later,
+            MAX(CASE WHEN difference = 4 THEN retention_pct END) as four_week_later,
+            MAX(CASE WHEN difference = 5 THEN retention_pct END) as five_week_later,
+            MAX(CASE WHEN difference = 6 THEN retention_pct END) as six_week_later,
+            MAX(CASE WHEN difference = 7 THEN retention_pct END) as seven_week_later,
+            MAX(CASE WHEN difference = 8 THEN retention_pct END) as eight_week_later,
+            MAX(CASE WHEN difference = 9 THEN retention_pct END) as nine_week_later,
+            MAX(CASE WHEN difference = 10 THEN retention_pct END) as ten_week_later,
+            MAX(CASE WHEN difference > 10 THEN retention_pct END) as over_ten_week_later
+        FROM long_retention_table
+        GROUP BY earliest_date, new_users
+        ORDER BY earliest_date
+        """
+        
+        cursor.execute(query)
+        retention_data = cursor.fetchall()
+        
+        if not retention_data:
+            print("❌ No retention data found!")
+            return
+        
+        print(f"📈 Found {len(retention_data)} weeks of retention data")
+        print()
+        
+        # Print header
+        print(f"{'Week Starting':<15} {'New Users':<12} {'1 Week':<10} {'2 Weeks':<10} {'3 Weeks':<10} {'4 Weeks':<10} {'5 Weeks':<10} {'6 Weeks':<10} {'7 Weeks':<10} {'8 Weeks':<10} {'9 Weeks':<10} {'10 Weeks':<12} {'11+ Weeks':<12}")
+        print("-" * 150)
+        
+        # Print each week's retention data
+        for row in retention_data:
+            earliest_date, users, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11plus = row
+            
+            print(f"{earliest_date:<15} {format_number(users):<12}", end="")
+            
+            # Print retention percentages
+            for retention in [w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11plus]:
+                if retention is not None:
+                    print(f"{retention*100:<10.1f}%", end="")
+                else:
+                    print(f"{'N/A':<10}", end="")
+            print()
+        
+        print("-" * 150)
+        
+        # Calculate overall averages
+        print("\n📊 OVERALL RETENTION AVERAGES:")
+        total_weeks = len(retention_data)
+        if total_weeks > 0:
+            avg_w1 = sum(row[2] or 0 for row in retention_data) / total_weeks
+            avg_w2 = sum(row[3] or 0 for row in retention_data) / total_weeks
+            avg_w3 = sum(row[4] or 0 for row in retention_data) / total_weeks
+            avg_w4 = sum(row[5] or 0 for row in retention_data) / total_weeks
+            
+            print(f"   Average 1-week retention: {avg_w1*100:.1f}%")
+            print(f"   Average 2-week retention: {avg_w2*100:.1f}%")
+            print(f"   Average 3-week retention: {avg_w3*100:.1f}%")
+            print(f"   Average 4-week retention: {avg_w4*100:.1f}%")
+        
+        conn.close()
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
+
 if __name__ == "__main__":
     print_total_stats()
     print_daily_data()
     print_weekly_data()
     print_period_stats()
     print_heatmap_data()
-    print_token_volume_heatmaps() 
+    print_token_volume_heatmaps()
+    print_user_retention() 
