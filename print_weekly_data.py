@@ -301,18 +301,35 @@ def print_heatmap_data():
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # Query to get data by week (Monday start) and day of week
+        # Query to get data by week (Sunday start) and day of week, aligned with weekly data
         query = """
-        SELECT
-          DATE(timestamp, 'weekday 1', '-7 days', 'start of day') AS week_start,
-          strftime('%w', timestamp) AS dow,
-          COUNT(DISTINCT from_address) AS users,
-          COUNT(DISTINCT tx_hash) AS bet_tx,
-          SUM(amount) AS volume
-        FROM betting_transactions
-        WHERE timestamp >= DATE('2025-02-03')
-        GROUP BY week_start, dow
-        ORDER BY week_start, dow
+        WITH RECURSIVE weeks AS (
+            SELECT 
+                DATE('2025-02-03', 'weekday 0', '-6 days') as week_start,
+                DATE('2025-02-03', 'weekday 0', '+0 days') as week_end,
+                1 as week_number
+            
+            UNION ALL
+            
+            SELECT 
+                DATE(week_start, '+7 days') as week_start,
+                DATE(week_end, '+7 days') as week_end,
+                week_number + 1 as week_number
+            FROM weeks
+            WHERE week_start <= DATE('now')
+        )
+        SELECT 
+            w.week_start,
+            strftime('%w', t.timestamp) AS dow,
+            COUNT(DISTINCT t.from_address) AS users,
+            COUNT(DISTINCT t.tx_hash) AS bet_tx,
+            SUM(t.amount) AS volume
+        FROM weeks w
+        LEFT JOIN betting_transactions t ON 
+            DATE(t.timestamp) >= w.week_start AND DATE(t.timestamp) <= w.week_end
+        GROUP BY w.week_start, strftime('%w', t.timestamp)
+        HAVING COUNT(DISTINCT t.tx_hash) > 0
+        ORDER BY w.week_start, dow
         """
         
         cursor.execute(query)
@@ -360,64 +377,72 @@ def print_token_volume_heatmaps():
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # Query for MON token volume heatmap
+        # Query for MON token volume heatmap - using calendar approach
         mon_query = """
-        WITH RECURSIVE weeks AS (
-            SELECT 
-                DATE('2025-02-03', 'weekday 0', '-6 days') as week_start,
-                DATE('2025-02-03', 'weekday 0', '+0 days') as week_end,
-                1 as week_number
-            
-            UNION ALL
-            
-            SELECT 
-                DATE(week_start, '+7 days') as week_start,
-                DATE(week_end, '+7 days') as week_end,
-                week_number + 1 as week_number
-            FROM weeks
-            WHERE week_start <= DATE('now')
+        WITH RECURSIVE calendar(full_date) AS (
+          SELECT '2025-02-03' -- Start on your desired date
+          UNION ALL
+          SELECT DATE(full_date, '+1 day')
+          FROM calendar
+          WHERE full_date < DATE('now')
         )
-        SELECT 
-            strftime('%w', t.timestamp) as day_of_week,
-            w.week_number,
-            w.week_start,
-            SUM(CASE WHEN t.token = 'MON' THEN t.amount ELSE 0 END) as mon_volume
-        FROM weeks w
-        LEFT JOIN betting_transactions t ON 
-            DATE(t.timestamp) >= w.week_start AND DATE(t.timestamp) <= w.week_end
-        GROUP BY strftime('%w', t.timestamp), w.week_number, w.week_start
-        HAVING SUM(CASE WHEN t.token = 'MON' THEN t.amount ELSE 0 END) > 0
-        ORDER BY w.week_start, day_of_week
+        SELECT
+          -- Use DENSE_RANK() to generate a sequential week number starting from 1
+          DENSE_RANK() OVER (ORDER BY DATE(c.full_date, '-6 days', 'weekday 1')) as week_number,
+          
+          -- Correctly calculate the Monday of the week for the given date
+          DATE(c.full_date, '-6 days', 'weekday 1') as week_start,
+          
+          -- Correctly calculate the day of the week (1=Mon, 2=Tue, ..., 7=Sun)
+          CASE CAST(strftime('%w', c.full_date) AS INTEGER)
+            WHEN 0 THEN 7 
+            ELSE CAST(strftime('%w', c.full_date) AS INTEGER)
+          END as day_of_week,
+          
+          -- Sum the volume for the specific token, defaulting to 0
+          SUM(CASE WHEN t.token = 'MON' THEN t.amount ELSE 0 END) as mon_volume
+        FROM 
+          calendar c
+        LEFT JOIN 
+          betting_transactions t ON DATE(t.timestamp) = c.full_date
+        GROUP BY 
+          week_start, c.full_date -- Group by the week and the specific date
+        ORDER BY 
+          week_start, day_of_week
         """
         
-        # Query for JERRY token volume heatmap
+        # Query for JERRY token volume heatmap - using calendar approach
         jerry_query = """
-        WITH RECURSIVE weeks AS (
-            SELECT 
-                DATE('2025-02-03', 'weekday 0', '-6 days') as week_start,
-                DATE('2025-02-03', 'weekday 0', '+0 days') as week_end,
-                1 as week_number
-            
-            UNION ALL
-            
-            SELECT 
-                DATE(week_start, '+7 days') as week_start,
-                DATE(week_end, '+7 days') as week_end,
-                week_number + 1 as week_number
-            FROM weeks
-            WHERE week_start <= DATE('now')
+        WITH RECURSIVE calendar(full_date) AS (
+          SELECT '2025-02-03' -- Start on your desired date
+          UNION ALL
+          SELECT DATE(full_date, '+1 day')
+          FROM calendar
+          WHERE full_date < DATE('now')
         )
-        SELECT 
-            strftime('%w', t.timestamp) as day_of_week,
-            w.week_number,
-            w.week_start,
-            SUM(CASE WHEN t.token = 'Jerry' THEN t.amount ELSE 0 END) as jerry_volume
-        FROM weeks w
-        LEFT JOIN betting_transactions t ON 
-            DATE(t.timestamp) >= w.week_start AND DATE(t.timestamp) <= w.week_end
-        GROUP BY strftime('%w', t.timestamp), w.week_number, w.week_start
-        HAVING SUM(CASE WHEN t.token = 'Jerry' THEN t.amount ELSE 0 END) > 0
-        ORDER BY w.week_start, day_of_week
+        SELECT
+          -- Use DENSE_RANK() to generate a sequential week number starting from 1
+          DENSE_RANK() OVER (ORDER BY DATE(c.full_date, '-6 days', 'weekday 1')) as week_number,
+          
+          -- Correctly calculate the Monday of the week for the given date
+          DATE(c.full_date, '-6 days', 'weekday 1') as week_start,
+          
+          -- Correctly calculate the day of the week (1=Mon, 2=Tue, ..., 7=Sun)
+          CASE CAST(strftime('%w', c.full_date) AS INTEGER)
+            WHEN 0 THEN 7 
+            ELSE CAST(strftime('%w', c.full_date) AS INTEGER)
+          END as day_of_week,
+          
+          -- Sum the volume for the specific token, defaulting to 0
+          SUM(CASE WHEN t.token = 'Jerry' THEN t.amount ELSE 0 END) as jerry_volume
+        FROM 
+          calendar c
+        LEFT JOIN 
+          betting_transactions t ON DATE(t.timestamp) = c.full_date
+        GROUP BY 
+          week_start, c.full_date -- Group by the week and the specific date
+        ORDER BY 
+          week_start, day_of_week
         """
         
         # Execute MON query
@@ -435,22 +460,28 @@ def print_token_volume_heatmaps():
         # Process MON data
         mon_weeks = {}
         for row in mon_data:
-            day_of_week, week_num, week_start, mon_volume = row
-            day_name = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][int(day_of_week)]
-            
-            if week_start not in mon_weeks:
-                mon_weeks[week_start] = {}
-            mon_weeks[week_start][day_name] = mon_volume or 0
+            week_num, week_start, day_of_week, mon_volume = row
+            if day_of_week is not None:  # Skip rows with no transactions
+                # Map day_of_week: 1=Monday, 2=Tuesday, ..., 7=Sunday
+                day_names = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                day_name = day_names[int(day_of_week)]
+                
+                if week_start not in mon_weeks:
+                    mon_weeks[week_start] = {}
+                mon_weeks[week_start][day_name] = mon_volume or 0
         
         # Process JERRY data
         jerry_weeks = {}
         for row in jerry_data:
-            day_of_week, week_num, week_start, jerry_volume = row
-            day_name = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][int(day_of_week)]
-            
-            if week_start not in jerry_weeks:
-                jerry_weeks[week_start] = {}
-            jerry_weeks[week_start][day_name] = jerry_volume or 0
+            week_num, week_start, day_of_week, jerry_volume = row
+            if day_of_week is not None:  # Skip rows with no transactions
+                # Map day_of_week: 1=Monday, 2=Tuesday, ..., 7=Sunday
+                day_names = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                day_name = day_names[int(day_of_week)]
+                
+                if week_start not in jerry_weeks:
+                    jerry_weeks[week_start] = {}
+                jerry_weeks[week_start][day_name] = jerry_volume or 0
         
         # Print MON Volume Heatmap
         print("\n🟢 MON TOKEN VOLUME HEATMAP:")
@@ -458,7 +489,7 @@ def print_token_volume_heatmaps():
         print("-" * 100)
         
         sorted_weeks = sorted(set(list(mon_weeks.keys()) + list(jerry_weeks.keys())))
-        for week_start in sorted_weeks[-12:]:  # Show last 12 weeks
+        for week_start in sorted_weeks:  # Show all weeks
             print(f"{week_start:<15}", end="")
             
             for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']:
@@ -484,7 +515,7 @@ def print_token_volume_heatmaps():
         print(f"{'Week Starting':<15} {'Mon':<12} {'Tue':<12} {'Wed':<12} {'Thu':<12} {'Fri':<12} {'Sat':<12} {'Sun':<12}")
         print("-" * 100)
         
-        for week_start in sorted_weeks[-12:]:  # Show last 12 weeks
+        for week_start in sorted_weeks:  # Show all weeks
             print(f"{week_start:<15}", end="")
             
             for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']:
