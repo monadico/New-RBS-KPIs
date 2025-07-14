@@ -1,86 +1,372 @@
-.App {
+/* RareBetSports-inspired Analytics Dashboard */
+:root {
+  --primary-color: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary-color: #10b981;
+  --accent-color: #f59e0b;
+  --background-dark: #0f172a;
+  --background-light: #f8fafc;
+  --surface-dark: #1e293b;
+  --surface-light: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-light: #f1f5f9;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, var(--background-light) 0%, #f1f5f9 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Header and Navigation */
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  border-radius: 16px;
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashboard-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+}
+
+/* Timeframe Selector */
+.timeframe-selector {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--surface-light);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.timeframe-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.timeframe-button.active {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.timeframe-button:hover:not(.active) {
+  background: var(--background-light);
+  color: var(--text-primary);
+}
+
+/* Metric Cards */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.big-metric-card {
+  background: var(--surface-light);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.big-metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.big-metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.big-metric-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.big-metric-title {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Chart Containers */
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.three-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chart-container {
+  background: var(--surface-light);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.chart-container:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.chart-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Tables */
+.card {
+  background: var(--surface-light);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Additional custom styles */
-h1 {
-  color: #333;
-  margin-bottom: 30px;
-  font-size: 2.5rem;
-}
-
-h2 {
-  color: #444;
-  margin-bottom: 20px;
-  font-size: 1.8rem;
-}
-
-.metric-card:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s ease;
-}
-
-.chart-container canvas {
-  max-height: 400px;
+.card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 0.9rem;
 }
 
+thead tr {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+}
+
 th {
+  padding: 1rem 0.75rem;
   font-weight: 600;
-  color: #555;
+  text-align: left;
+  border-bottom: 2px solid var(--border-color);
 }
 
 td {
-  color: #333;
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
-@media (max-width: 768px) {
-  .metrics-grid {
+tbody tr:hover {
+  background: var(--background-light);
+}
+
+/* Loading and Error States */
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.error {
+  color: #ef4444;
+}
+
+/* --- Top 20 Bettors Table Enhancements --- */
+.top-bettors-table {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: var(--surface-light);
+}
+.top-bettors-table thead tr {
+  background: #111827;
+  color: #000;
+  box-shadow: 0 2px 8px 0 rgba(17,24,39,0.10);
+}
+.top-bettors-table th {
+  padding: 1rem 0.75rem;
+  font-weight: 700;
+  text-align: left;
+  border-bottom: 2px solid var(--primary-color);
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+.top-bettors-table td {
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-family: 'Inter', monospace;
+  font-size: 1rem;
+}
+.top-bettors-table tbody tr:nth-child(even) {
+  background: #f3f4f6;
+}
+.top-bettors-table tbody tr:nth-child(odd) {
+  background: #fff;
+}
+.top-bettors-table tbody tr:hover {
+  background: #e0e7ff;
+}
+/* Top 3 highlights */
+.top-bettors-table tbody tr:nth-child(1) {
+  background: #ffe066;
+  color: #1e293b;
+  border-bottom: 2px solid #eab308;
+}
+.top-bettors-table tbody tr:nth-child(2) {
+  background: #e5e7eb;
+  color: #1e293b;
+  border-bottom: 2px solid #a3a3a3;
+}
+.top-bettors-table tbody tr:nth-child(3) {
+  background: #ffd6a5;
+  color: #1e293b;
+  border-bottom: 2px solid #f59e0b;
+}
+.top-bettors-table td, .top-bettors-table th {
+  white-space: nowrap;
+}
+.top-bettors-table td.address-cell {
+  font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+  word-break: break-all;
+  max-width: 320px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .three-charts-row {
     grid-template-columns: 1fr;
   }
   
-  .metric-value {
-    font-size: 1.5rem;
+  .chart-container[style*="gridColumn: span 2"] {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
   }
   
-  h1 {
+  .dashboard-header h1 {
     font-size: 2rem;
   }
   
-  h2 {
-    font-size: 1.5rem;
+  .metrics-row {
+    grid-template-columns: 1fr;
   }
+  
+  .charts-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .big-metric-value {
+    font-size: 2rem;
+  }
+  
+  .chart-container {
+    padding: 1rem;
+  }
+  
+  .timeframe-selector {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .timeframe-button {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
 } 

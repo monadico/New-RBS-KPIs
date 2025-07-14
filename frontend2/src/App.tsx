@@ -7,6 +7,29 @@ import './App.css';
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, BarElement);
 // ChartJS.register(ChartDataLabels); // Remove datalabels plugin registration
 
+// Fix for Chrome extension ethereum property conflict
+if (typeof window !== 'undefined') {
+  // Prevent Chrome extension from redefining ethereum property
+  const originalDefineProperty = Object.defineProperty;
+  Object.defineProperty = function(obj: any, prop: PropertyKey, descriptor: PropertyDescriptor): any {
+    if (obj === window && prop === 'ethereum' && (window as any).ethereum) {
+      return window; // Skip redefinition if ethereum already exists
+    }
+    return originalDefineProperty.call(this, obj, prop, descriptor);
+  };
+  
+  // Global error handler to prevent unhandled errors
+  window.addEventListener('error', (event) => {
+    console.error('Global error caught:', event.error);
+    event.preventDefault();
+  });
+  
+  window.addEventListener('unhandledrejection', (event) => {
+    console.error('Unhandled promise rejection:', event.reason);
+    event.preventDefault();
+  });
+}
+
 interface AnalyticsData {
   timeframe: string;
   start_date: string;
@@ -192,12 +215,16 @@ function App() {
       try {
         setLoading(true);
         const res = await fetch('/analytics_dump.json');
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
         const json = await res.json();
         if (!json.success) throw new Error(json.error || 'JSON error');
         setData(json);
         setError(null);
       } catch (err: any) {
-        setError('Failed to load analytics data');
+        console.error('Error loading analytics data:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load analytics data');
       } finally {
         setLoading(false);
       }
@@ -246,10 +273,10 @@ function App() {
       {
         data: data.player_activity.categories.map(cat => cat.player_count),
         backgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56',
-          '#4BC0C0'
+          '#6366f1', // Primary
+          '#10b981', // Secondary
+          '#f59e0b', // Accent
+          '#8b5cf6'  // Purple
         ],
         borderWidth: 2,
         borderColor: '#fff'
@@ -265,7 +292,7 @@ function App() {
       {
         data: overallSlipsByCardCount.map(item => item.bets),
         backgroundColor: [
-          '#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+          '#6366f1', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#06b6d4'
         ],
         borderWidth: 2,
         borderColor: '#fff'
@@ -319,10 +346,12 @@ function App() {
   // If no timeframe-specific data is available, fall back to weekly data for all timeframes
   const finalCardCountData = timeframeCardCountData.length > 0 ? timeframeCardCountData : (data.weekly_slips_by_card_count || []);
   
+  // For slips by card count chart
   const periods = finalCardCountData.map(period => {
-    // Handle both new format (period_number) and legacy format (week_number)
-    const periodNum = 'period_number' in period ? period.period_number : period.week_number;
-    return `${selectedTimeframe.charAt(0).toUpperCase() + selectedTimeframe.slice(1)} ${periodNum}`;
+    // Use period_start if available, else fallback to week_start (legacy weekly format)
+    if ('period_start' in period) return period.period_start;
+    if ('week_start' in period) return period.week_start;
+    return '';
   });
   
   const slipsByCardCount = cardCounts.map((count, idx) => {
@@ -331,7 +360,7 @@ function App() {
       label: `${count} cards`,
       data: dataArr,
       backgroundColor: [
-        '#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+        '#6366f1', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#06b6d4'
       ][idx],
       stack: 'slips',
       borderWidth: 1
@@ -344,13 +373,13 @@ function App() {
 
   // --- Submission Activity Over Time (Bar+Line) ---
   const submissionActivityData = {
-    labels: timeframeData.map(period => `${selectedTimeframe.charAt(0).toUpperCase() + selectedTimeframe.slice(1)} ${period.period}`),
+    labels: timeframeData.map(period => period.start_date),
     datasets: [
       {
         label: 'Submissions',
         data: timeframeData.map(period => period.submissions),
-        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(99, 102, 241, 0.6)',
+        borderColor: 'rgba(99, 102, 241, 1)',
         borderWidth: 2,
         type: 'bar' as const,
         yAxisID: 'y',
@@ -358,8 +387,8 @@ function App() {
       {
         label: 'Active Bettors',
         data: timeframeData.map(period => period.active_addresses),
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+        borderColor: 'rgba(16, 185, 129, 1)',
+        backgroundColor: 'rgba(16, 185, 129, 0.1)',
         borderWidth: 3,
         type: 'line' as const,
         yAxisID: 'y1',
@@ -377,13 +406,13 @@ function App() {
     return cumulativeBettors;
   });
   const newBettorsData = {
-    labels: timeframeData.map(period => `${selectedTimeframe.charAt(0).toUpperCase() + selectedTimeframe.slice(1)} ${period.period}`),
+    labels: timeframeData.map(period => period.start_date),
     datasets: [
       {
         label: 'New Bettors',
         data: timeframeData.map(period => period.new_bettors),
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(16, 185, 129, 0.6)',
+        borderColor: 'rgba(16, 185, 129, 1)',
         borderWidth: 2,
         type: 'bar' as const,
         yAxisID: 'y',
@@ -391,8 +420,8 @@ function App() {
       {
         label: 'Cumulative Bettors',
         data: cumulativeData,
-        borderColor: 'rgba(255, 159, 64, 1)',
-        backgroundColor: 'rgba(255, 159, 64, 0.1)',
+        borderColor: 'rgba(245, 158, 11, 1)',
+        backgroundColor: 'rgba(245, 158, 11, 0.1)',
         borderWidth: 3,
         type: 'line' as const,
         yAxisID: 'y1',
@@ -456,13 +485,13 @@ function App() {
 
   // --- MON & JERRY Volume Over Time (Stacked Area) ---
   const monJerryVolumeData = {
-    labels: timeframeData.map(period => `${selectedTimeframe.charAt(0).toUpperCase() + selectedTimeframe.slice(1)} ${period.period}`),
+    labels: timeframeData.map(period => period.start_date),
     datasets: [
       {
         label: '$MON Volume',
         data: timeframeData.map(period => period.mon_volume),
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.25)',
+        borderColor: 'rgba(99, 102, 241, 1)',
+        backgroundColor: 'rgba(99, 102, 241, 0.25)',
         borderWidth: 2,
         fill: 'origin', // ensure area is rendered
         tension: 0.4,
@@ -471,8 +500,8 @@ function App() {
       {
         label: '$JERRY Volume',
         data: timeframeData.map(period => period.jerry_volume),
-        borderColor: 'rgba(54, 162, 235, 1)',
-        backgroundColor: 'rgba(54, 162, 235, 0.25)',
+        borderColor: 'rgba(16, 185, 129, 1)',
+        backgroundColor: 'rgba(16, 185, 129, 0.25)',
         borderWidth: 2,
         fill: 'origin', // ensure area is rendered
         tension: 0.4,
@@ -490,13 +519,13 @@ function App() {
   });
   
   const activeBettorsChartData = {
-    labels: timeframeData.map(period => `${selectedTimeframe.charAt(0).toUpperCase() + selectedTimeframe.slice(1)} ${period.period}`),
+    labels: timeframeData.map(period => period.start_date),
     datasets: [
       {
         label: 'Cumulative Active Bettors',
         data: activeBettorsCumulativeData,
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+        borderColor: 'rgba(139, 92, 246, 1)',
+        backgroundColor: 'rgba(139, 92, 246, 0.1)',
         borderWidth: 3,
         tension: 0.4,
         fill: false,
@@ -507,13 +536,13 @@ function App() {
 
   // --- NEW: Total and Average Cards Over Time (Bar + Line) ---
   const cardsOverTimeData = {
-    labels: timeframeData.map(period => `${selectedTimeframe.charAt(0).toUpperCase() + selectedTimeframe.slice(1)} ${period.period}`),
+    labels: timeframeData.map(period => period.start_date),
     datasets: [
       {
         label: 'Total Cards',
         data: timeframeData.map(period => period.total_cards),
-        backgroundColor: 'rgba(255, 159, 64, 0.6)',
-        borderColor: 'rgba(255, 159, 64, 1)',
+        backgroundColor: 'rgba(245, 158, 11, 0.6)',
+        borderColor: 'rgba(245, 158, 11, 1)',
         borderWidth: 2,
         type: 'bar' as const,
         yAxisID: 'y',
@@ -521,8 +550,8 @@ function App() {
       {
         label: 'Average Cards per Submission',
         data: timeframeData.map(period => period.avg_cards_per_submission),
-        borderColor: 'rgba(153, 102, 255, 1)',
-        backgroundColor: 'rgba(153, 102, 255, 0.1)',
+        borderColor: 'rgba(139, 92, 246, 1)',
+        backgroundColor: 'rgba(139, 92, 246, 0.1)',
         borderWidth: 3,
         type: 'line' as const,
         yAxisID: 'y1',
@@ -591,30 +620,25 @@ function App() {
 
   return (
     <div className="container">
-      <h1>📊 Betting Analytics Dashboard</h1>
+      {/* Dashboard Header */}
+      <div className="dashboard-header">
+        <h1>📊 RBS Analytics Dashboard</h1>
+        <div className="dashboard-subtitle">
+          Real-time insights into RareBetSports ecosystem performance
+        </div>
+      </div>
       
       {/* Timeframe Selector */}
-      <div style={{ marginBottom: 20, textAlign: 'center' }}>
-        <div style={{ display: 'inline-flex', background: '#f3f4f6', borderRadius: 8, padding: 4 }}>
-          {(['daily', 'weekly', 'monthly'] as const).map((timeframe) => (
-            <button
-              key={timeframe}
-              onClick={() => setSelectedTimeframe(timeframe)}
-              style={{
-                padding: '8px 16px',
-                border: 'none',
-                borderRadius: 6,
-                background: selectedTimeframe === timeframe ? '#3b82f6' : 'transparent',
-                color: selectedTimeframe === timeframe ? 'white' : '#374151',
-                cursor: 'pointer',
-                fontWeight: selectedTimeframe === timeframe ? 'bold' : 'normal',
-                transition: 'all 0.2s'
-              }}
-            >
-              {timeframe.charAt(0).toUpperCase() + timeframe.slice(1)}
-            </button>
-          ))}
-        </div>
+      <div className="timeframe-selector">
+        {(['daily', 'weekly', 'monthly'] as const).map((timeframe) => (
+          <button
+            key={timeframe}
+            onClick={() => setSelectedTimeframe(timeframe)}
+            className={`timeframe-button ${selectedTimeframe === timeframe ? 'active' : ''}`}
+          >
+            {timeframe.charAt(0).toUpperCase() + timeframe.slice(1)}
+          </button>
+        ))}
       </div>
       
       {/* Line 1: Four Big Metric Cards */}
@@ -656,7 +680,7 @@ function App() {
       {/* Line 2: Two Charts */}
       <div className="charts-row">
         <div className="chart-container">
-          <h2>📈 RareLink Submission Activity Over Time</h2>
+          <h2 className="chart-title">📈 RareLink Submission Activity Over Time</h2>
           <Chart
             type="bar"
             data={submissionActivityData}
@@ -665,7 +689,7 @@ function App() {
         </div>
 
         <div className="chart-container">
-          <h2>👥 New Bettors Over Time</h2>
+          <h2 className="chart-title">👥 New Bettors Over Time</h2>
           <Chart
             type="bar"
             data={newBettorsData}
@@ -677,12 +701,12 @@ function App() {
       {/* LINE 3: Three Charts */}
       <div className="three-charts-row">
         {/* 1. Player Activity Pie */}
-        <div className="chart-container" style={{ minHeight: 320, minWidth: 320 }}>
+        <div className="chart-container">
           <h2 className="chart-title">👥 Players activity based on RareLinks submission</h2>
           <Pie data={playerActivityPieData} options={pieOptions} />
         </div>
         {/* 2. Stacked Bar: Slips by Card Count per Week - make this span 2 columns for more space */}
-        <div className="chart-container" style={{ gridColumn: 'span 2', minHeight: 400, minWidth: 600 }}>
+        <div className="chart-container" style={{ gridColumn: 'span 2' }}>
           <h2 className="chart-title">Distribution of RareLink slips by card count</h2>
           <Chart
             type="bar"
@@ -691,14 +715,14 @@ function App() {
           />
         </div>
         {/* 3. Pie: Overall Slips by Card Count */}
-        <div className="chart-container" style={{ minHeight: 320, minWidth: 320 }}>
+        <div className="chart-container">
           <h2 className="chart-title">Overall distribution of RareLink Slips by # of cards</h2>
           <Pie data={overallSlipsPieData} options={overallPieOptions} />
         </div>
       </div>
 
       {/* NEW: Stacked Area Chart for MON & JERRY Volume Over Time */}
-      <div className="chart-container" style={{ marginTop: 30, minHeight: 400 }}>
+      <div className="chart-container">
         <h2 className="chart-title">💰 $MON & $JERRY Volume Deposited in RareLinks Over Time</h2>
         <Chart
           type="line"
@@ -708,7 +732,7 @@ function App() {
       </div>
 
       {/* NEW: Active Bettors Over Time (Line Chart) */}
-      <div className="chart-container" style={{ marginTop: 30, minHeight: 400 }}>
+      <div className="chart-container">
         <h2 className="chart-title">👥 Active Bettors Over Time</h2>
         <Chart
           type="line"
@@ -718,7 +742,7 @@ function App() {
       </div>
 
       {/* NEW: Total and Average Cards Over Time (Bar + Line) */}
-      <div className="chart-container" style={{ marginTop: 30, minHeight: 400 }}>
+      <div className="chart-container">
         <h2 className="chart-title">📄 Total and Average Cards Over Time</h2>
         <Chart
           type="bar"
@@ -782,7 +806,7 @@ function App() {
               {topBettors.map((b: any) => (
                 <tr key={b.user_address} style={{ borderBottom: '1px solid #eee' }}>
                   <td style={{ padding: '8px', textAlign: 'center' }}>{b.rank}</td>
-                  <td style={{ padding: '8px', fontFamily: 'monospace', maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={b.user_address}>{b.user_address}</td>
+                  <td style={{ padding: '8px', fontFamily: 'monospace', wordBreak: 'break-all' }} title={b.user_address}>{b.user_address}</td>
                   <td style={{ padding: '8px', textAlign: 'right' }}>{b.total_mon.toLocaleString()}</td>
                   <td style={{ padding: '8px', textAlign: 'right' }}>{b.total_jerry.toLocaleString()}</td>
                   <td style={{ padding: '8px', textAlign: 'right' }}>{b.total_bets.toLocaleString()}</td>
