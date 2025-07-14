@@ -88,6 +88,11 @@ docs/_build/
 betting_transactions.db
 *.db
 
+# Analytics data files
+analytics_dump.json
+frontend2/public/analytics_dump.json
+frontend2/public/analytics_dump.json.gz
+
 # Node.js
 node_modules/
 npm-debug.log*
