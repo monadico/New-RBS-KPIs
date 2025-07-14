@@ -204,6 +204,18 @@ interface AnalyticsData {
   };
 }
 
+interface DailyData {
+  start_date: string;
+  submissions: number;
+  mon_volume: number;
+  jerry_volume: number;
+  [key: string]: any;
+}
+interface CalendarCell {
+  date: string;
+  value: number;
+}
+
 function App() {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -618,6 +630,207 @@ function App() {
   // Top 20 Bettors Table
   const topBettors = data.top_bettors || [];
 
+  // --- HEATMAP AGGREGATION LOGIC ---
+  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const submissionByDay = Array(7).fill(0);
+  const monVolumeByDay = Array(7).fill(0);
+  const jerryVolumeByDay = Array(7).fill(0);
+
+  // Use daily analytics if available, else fallback to activity_over_time
+  const dailyData: DailyData[] = data.timeframes?.daily?.activity_over_time || data.daily_analytics?.activity_over_time || data.activity_over_time || [];
+  dailyData.forEach((day: DailyData) => {
+    const date = new Date(day.start_date);
+    // getDay(): 0=Sunday, 1=Monday, ..., 6=Saturday
+    // We want Monday=0, ..., Sunday=6
+    let dow = date.getDay();
+    dow = (dow + 6) % 7; // shift so Monday=0
+    submissionByDay[dow] += day.submissions;
+    monVolumeByDay[dow] += day.mon_volume;
+    jerryVolumeByDay[dow] += day.jerry_volume;
+  });
+
+  // --- TYPES ---
+  // --- CALENDAR HEATMAP LOGIC ---
+  function buildCalendarMatrix(
+    dailyData: DailyData[],
+    valueKey: keyof DailyData
+  ): CalendarCell[][] {
+    // Map date string to value
+    const dateToValue: Record<string, number> = {};
+    let minDate: Date | null = null, maxDate: Date | null = null;
+    dailyData.forEach((day: DailyData) => {
+      dateToValue[day.start_date] = day[valueKey] as number;
+      const d = new Date(day.start_date);
+      if (!minDate || d < minDate) minDate = d;
+      if (!maxDate || d > maxDate) maxDate = d;
+    });
+    if (!minDate || !maxDate) return [];
+    // Find the Monday before or on minDate
+    let first = new Date(minDate);
+    let day = first.getDay();
+    // getDay(): 0=Sunday, 1=Monday, ..., 6=Saturday
+    // If not Monday, go back to previous Monday
+    if (day !== 1) {
+      // If Sunday (0), go back 6 days; else go back (day-1) days
+      const diff = day === 0 ? 6 : day - 1;
+      first.setDate(first.getDate() - diff);
+    }
+    // Find the last Sunday after or on maxDate
+    let last = new Date(maxDate);
+    day = last.getDay();
+    let offsetLast = day === 0 ? 0 : 7 - day;
+    last.setDate(last.getDate() + offsetLast);
+    // Build matrix: rows=days (Mon-Sun), cols=weeks
+    const weeks: CalendarCell[][] = [];
+    let d = new Date(first);
+    while (d <= last) {
+      const week: CalendarCell[] = [];
+      for (let i = 0; i < 7; i++) {
+        const dateStr = d.toISOString().slice(0, 10);
+        week.push({
+          date: dateStr,
+          value: dateToValue[dateStr] || 0
+        });
+        d.setDate(d.getDate() + 1);
+      }
+      weeks.push(week);
+    }
+    // Transpose: [7][N] (days, weeks)
+    const matrix: CalendarCell[][] = Array(7).fill(0).map((_, i) => weeks.map((w: CalendarCell[]) => w[i]));
+    return matrix;
+  }
+
+  function CalendarHeatmap({
+    matrix,
+    title,
+    colorScale,
+    valueFormatter
+  }: {
+    matrix: CalendarCell[][];
+    title: string;
+    colorScale: (v: number) => string;
+    valueFormatter?: (v: number) => string;
+  }) {
+    // Find max value for color scaling
+    const max = Math.max(...matrix.flat().map((cell: CalendarCell) => cell.value));
+
+    // Tooltip state
+    const [tooltip, setTooltip] = React.useState<{
+      x: number;
+      y: number;
+      date: string;
+      value: number;
+    } | null>(null);
+
+    // Tooltip element
+    const tooltipEl = tooltip ? (
+      <div
+        style={{
+          position: 'fixed',
+          left: tooltip.x + 12,
+          top: tooltip.y + 12,
+          background: 'rgba(30,41,59,0.95)',
+          color: '#fff',
+          padding: '8px 12px',
+          borderRadius: 8,
+          fontSize: 14,
+          pointerEvents: 'none',
+          zIndex: 1000,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+        }}
+      >
+        <div style={{ fontWeight: 600 }}>{tooltip.date}</div>
+        <div>{valueFormatter ? valueFormatter(tooltip.value) : tooltip.value}</div>
+      </div>
+    ) : null;
+
+    return (
+      <div className="card" style={{ marginBottom: 24, position: 'relative' }}>
+        <h2 style={{ marginBottom: 16 }}>{title}</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {matrix.map((row, dayIdx) => (
+            <div key={dayIdx} style={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+              {row.map((cell, weekIdx) => (
+                <div
+                  key={weekIdx}
+                  onMouseEnter={e => {
+                    setTooltip({
+                      x: e.clientX,
+                      y: e.clientY,
+                      date: cell.date,
+                      value: cell.value
+                    });
+                  }}
+                  onMouseMove={e => {
+                    setTooltip(t => t ? { ...t, x: e.clientX, y: e.clientY } : null);
+                  }}
+                  onMouseLeave={() => setTooltip(null)}
+                  style={{
+                    width: 22, height: 22, borderRadius: 4,
+                    background: colorScale(cell.value / (max || 1)),
+                    cursor: cell.value > 0 ? 'pointer' : 'default',
+                    border: '1px solid #e5e7eb',
+                    transition: 'background 0.2s',
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginTop: 8, color: '#64748b' }}>
+          {daysOfWeek.map((d: string) => <span key={d}>{d.slice(0,3)}</span>)}
+        </div>
+        {tooltipEl}
+      </div>
+    );
+  }
+
+  // Build matrices for each heatmap
+  const submissionMatrix = buildCalendarMatrix(dailyData, 'submissions');
+  const monMatrix = buildCalendarMatrix(dailyData, 'mon_volume');
+  const jerryMatrix = buildCalendarMatrix(dailyData, 'jerry_volume');
+
+  // After building the matrices, add these debug logs:
+  console.log('First week (all days):', submissionMatrix.map(row => row[0]));
+  console.log('First column (all weeks):', submissionMatrix[0].map(cell => cell.date));
+
+  // --- HEATMAP COMPONENT ---
+  function SimpleHeatmap({ values, title, colorScale, valueFormatter }: { values: number[], title: string, colorScale: (v: number) => string, valueFormatter?: (v: number) => string }) {
+    const max = Math.max(...values);
+    return (
+      <div className="card" style={{ marginBottom: 24 }}>
+        <h2 style={{ marginBottom: 16 }}>{title}</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
+          {values.map((v, i) => (
+            <div key={i} style={{
+              flex: 1,
+              background: colorScale(v / (max || 1)),
+              color: v / (max || 1) > 0.5 ? '#111' : '#fff',
+              borderRadius: 8,
+              padding: 12,
+              textAlign: 'center',
+              fontWeight: 600,
+              fontSize: 16,
+              boxShadow: '0 1px 4px rgba(0,0,0,0.06)'
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 6 }}>{daysOfWeek[i]}</div>
+              <div style={{ fontSize: 18 }}>{valueFormatter ? valueFormatter(v) : v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  // --- COLOR SCALE ---
+  function blueToYellow(t: number) {
+    // t: 0 (min) to 1 (max)
+    // interpolate from #6366f1 (blue) to #f59e0b (yellow)
+    const c1 = [99, 102, 241]; // blue
+    const c2 = [245, 158, 11]; // yellow
+    const rgb = c1.map((c, i) => Math.round(c + (c2[i] - c) * t));
+    return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+  }
+
   return (
     <div className="container">
       {/* Dashboard Header */}
@@ -817,6 +1030,49 @@ function App() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Place heatmaps after the last chart, before Top 20 Bettors table */}
+      <div className="card" style={{ marginTop: 30 }}>
+        <SimpleHeatmap
+          values={submissionByDay}
+          title="🗓️ Bet Submission Transactions by Day of Week"
+          colorScale={blueToYellow}
+          valueFormatter={formatNumber}
+        />
+        <SimpleHeatmap
+          values={monVolumeByDay}
+          title="$MON Volume by Day of Week"
+          colorScale={blueToYellow}
+          valueFormatter={formatCurrency}
+        />
+        <SimpleHeatmap
+          values={jerryVolumeByDay}
+          title="$JERRY Volume by Day of Week"
+          colorScale={blueToYellow}
+          valueFormatter={formatCurrency}
+        />
+      </div>
+      {/* Place calendar heatmaps after the last chart, before Top 20 Bettors table */}
+      <div className="card" style={{ marginTop: 30 }}>
+        <CalendarHeatmap
+          matrix={submissionMatrix}
+          title="🗓️ Bet Submission Transactions Calendar Heatmap"
+          colorScale={blueToYellow}
+          valueFormatter={formatNumber}
+        />
+        <CalendarHeatmap
+          matrix={monMatrix}
+          title="$MON Volume Calendar Heatmap"
+          colorScale={blueToYellow}
+          valueFormatter={formatCurrency}
+        />
+        <CalendarHeatmap
+          matrix={jerryMatrix}
+          title="$JERRY Volume Calendar Heatmap"
+          colorScale={blueToYellow}
+          valueFormatter={formatCurrency}
+        />
       </div>
     </div>
   );
