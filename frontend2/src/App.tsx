@@ -3,8 +3,10 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 // import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Pie, Chart } from 'react-chartjs-2';
 import './App.css';
+import './chartjs-setup';
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, BarElement);
+// Remove this line:
+// ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, BarElement);
 // ChartJS.register(ChartDataLabels); // Remove datalabels plugin registration
 
 // Fix for Chrome extension ethereum property conflict
