@@ -1,7 +1,7 @@
-import Chart from 'chart.js/auto';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './chartConfig';
 import App from './App';
 
 const root = ReactDOM.createRoot(
