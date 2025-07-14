@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Pie, Chart } from 'react-chartjs-2';
 import './App.css';
-import './chartjs-setup';
 
 // Remove this line:
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, BarElement } from 'chart.js';
