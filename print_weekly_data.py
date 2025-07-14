@@ -318,7 +318,7 @@ def print_heatmap_data():
             FROM weeks
             WHERE week_start <= DATE('now')
         )
-        SELECT 
+        SELECT
             w.week_start,
             strftime('%w', t.timestamp) AS dow,
             COUNT(DISTINCT t.from_address) AS users,
@@ -381,12 +381,12 @@ def print_token_volume_heatmaps():
         mon_query = """
         WITH RECURSIVE calendar(full_date) AS (
           SELECT '2025-02-03' -- Start on your desired date
-          UNION ALL
+            UNION ALL
           SELECT DATE(full_date, '+1 day')
           FROM calendar
           WHERE full_date < DATE('now')
         )
-        SELECT
+        SELECT 
           -- Use DENSE_RANK() to generate a sequential week number starting from 1
           DENSE_RANK() OVER (ORDER BY DATE(c.full_date, '-6 days', 'weekday 1')) as week_number,
           
@@ -400,7 +400,7 @@ def print_token_volume_heatmaps():
           END as day_of_week,
           
           -- Sum the volume for the specific token, defaulting to 0
-          SUM(CASE WHEN t.token = 'MON' THEN t.amount ELSE 0 END) as mon_volume
+            SUM(CASE WHEN t.token = 'MON' THEN t.amount ELSE 0 END) as mon_volume
         FROM 
           calendar c
         LEFT JOIN 
@@ -415,12 +415,12 @@ def print_token_volume_heatmaps():
         jerry_query = """
         WITH RECURSIVE calendar(full_date) AS (
           SELECT '2025-02-03' -- Start on your desired date
-          UNION ALL
+            UNION ALL
           SELECT DATE(full_date, '+1 day')
           FROM calendar
           WHERE full_date < DATE('now')
         )
-        SELECT
+        SELECT 
           -- Use DENSE_RANK() to generate a sequential week number starting from 1
           DENSE_RANK() OVER (ORDER BY DATE(c.full_date, '-6 days', 'weekday 1')) as week_number,
           
@@ -434,7 +434,7 @@ def print_token_volume_heatmaps():
           END as day_of_week,
           
           -- Sum the volume for the specific token, defaulting to 0
-          SUM(CASE WHEN t.token = 'Jerry' THEN t.amount ELSE 0 END) as jerry_volume
+            SUM(CASE WHEN t.token = 'Jerry' THEN t.amount ELSE 0 END) as jerry_volume
         FROM 
           calendar c
         LEFT JOIN 
@@ -465,10 +465,10 @@ def print_token_volume_heatmaps():
                 # Map day_of_week: 1=Monday, 2=Tuesday, ..., 7=Sunday
                 day_names = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
                 day_name = day_names[int(day_of_week)]
-                
-                if week_start not in mon_weeks:
-                    mon_weeks[week_start] = {}
-                mon_weeks[week_start][day_name] = mon_volume or 0
+            
+            if week_start not in mon_weeks:
+                mon_weeks[week_start] = {}
+            mon_weeks[week_start][day_name] = mon_volume or 0
         
         # Process JERRY data
         jerry_weeks = {}
@@ -478,10 +478,10 @@ def print_token_volume_heatmaps():
                 # Map day_of_week: 1=Monday, 2=Tuesday, ..., 7=Sunday
                 day_names = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
                 day_name = day_names[int(day_of_week)]
-                
-                if week_start not in jerry_weeks:
-                    jerry_weeks[week_start] = {}
-                jerry_weeks[week_start][day_name] = jerry_volume or 0
+            
+            if week_start not in jerry_weeks:
+                jerry_weeks[week_start] = {}
+            jerry_weeks[week_start][day_name] = jerry_volume or 0
         
         # Print MON Volume Heatmap
         print("\n🟢 MON TOKEN VOLUME HEATMAP:")
@@ -753,5 +753,5 @@ if __name__ == "__main__":
     print_weekly_data()
     print_period_stats()
     print_heatmap_data()
-    print_token_volume_heatmaps()
+    print_token_volume_heatmaps() 
     print_user_retention() 

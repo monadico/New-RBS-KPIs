@@ -1,0 +1,86 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Additional custom styles */
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+h2 {
+  color: #444;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.chart-container canvas {
+  max-height: 400px;
+}
+
+table {
+  font-size: 0.9rem;
+}
+
+th {
+  font-weight: 600;
+  color: #555;
+}
+
+td {
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metric-value {
+    font-size: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+} 
