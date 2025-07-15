@@ -9,7 +9,10 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
+  BarController,
+  LineController,
+  PieController
 } from 'chart.js';
 
 // Register all the components we need
@@ -23,7 +26,10 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
+  BarController,
+  LineController,
+  PieController
 );
 
 export default ChartJS; 

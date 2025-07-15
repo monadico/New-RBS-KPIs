@@ -2,33 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Pie, Chart } from 'react-chartjs-2';
 import './App.css';
 
-// Remove this line:
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, BarElement } from 'chart.js';
-// import ChartDataLabels from 'chartjs-plugin-datalabels';
-
-// Fix for Chrome extension ethereum property conflict
-if (typeof window !== 'undefined') {
-  // Prevent Chrome extension from redefining ethereum property
-  const originalDefineProperty = Object.defineProperty;
-  Object.defineProperty = function(obj: any, prop: PropertyKey, descriptor: PropertyDescriptor): any {
-    if (obj === window && prop === 'ethereum' && (window as any).ethereum) {
-      return window; // Skip redefinition if ethereum already exists
-    }
-    return originalDefineProperty.call(this, obj, prop, descriptor);
-  };
-  
-  // Global error handler to prevent unhandled errors
-  window.addEventListener('error', (event) => {
-    console.error('Global error caught:', event.error);
-    event.preventDefault();
-  });
-  
-  window.addEventListener('unhandledrejection', (event) => {
-    console.error('Unhandled promise rejection:', event.reason);
-    event.preventDefault();
-  });
-}
-
 interface AnalyticsData {
   timeframe: string;
   start_date: string;
