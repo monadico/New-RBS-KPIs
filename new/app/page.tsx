@@ -184,14 +184,15 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Charts Section - Row 1: Two Large Charts (Side by Side) */}
+        {/* Charts Section - Row 1: Three Large Charts */}
         <section
           id="submissions"
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-delayed"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed"
           style={{ animationDelay: "0.7s" }}
         >
           <SubmissionActivityChart data={timeframeData} />
           <NewBettorsChart data={timeframeData} />
+          <MonJerryVolumeArea data={timeframeData} />
         </section>
 
         {/* Charts Section - Row 2: Three Charts (Balanced Layout) */}
@@ -207,17 +208,18 @@ export default function Page() {
             </div>
           </div>
           <div className="lg:col-span-2">
-            <div className="space-y-6">
-              <SlipsByCardStackedBar data={cardCountData} />
-              <TotalAvgCardsChart data={timeframeData} />
+            <div className="h-full flex flex-col space-y-6">
+              <div className="flex-1">
+                <SlipsByCardStackedBar data={cardCountData} />
+              </div>
+              <div className="flex-1">
+                <TotalAvgCardsChart data={timeframeData} />
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Charts Section - Row 4: Single Large Chart ($MON & $JERRY Volume) */}
-        <section id="volume" className="animate-fade-in-delayed" style={{ animationDelay: "1.3s" }}>
-          <MonJerryVolumeArea data={timeframeData} />
-        </section>
+
 
         {/* Tables Section */}
         <section className="animate-fade-in-delayed" style={{ animationDelay: "1.5s" }}>

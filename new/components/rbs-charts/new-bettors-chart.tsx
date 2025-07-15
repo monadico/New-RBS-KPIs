@@ -21,7 +21,7 @@ export function NewBettorsChart({ data }: NewBettorsChartProps) {
   })
 
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group">
+    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group w-full overflow-hidden">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="space-y-2">
@@ -55,7 +55,7 @@ export function NewBettorsChart({ data }: NewBettorsChartProps) {
               color: "var(--rbs-purple)",
             },
           }}
-          className="h-[300px]"
+          className="h-[350px] w-full"
         >
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={dataWithCumulative} margin={{ top: 20, right: 40, left: 30, bottom: 20 }}>
@@ -85,6 +85,7 @@ export function NewBettorsChart({ data }: NewBettorsChartProps) {
                 tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
                 tickFormatter={formatNumber}
                 dx={15}
+                hide={true}
               />
               <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: "rgba(255, 255, 255, 0.02)" }} />
               <Bar yAxisId="left" dataKey="new_bettors" fill="var(--rbs-green)" radius={[4, 4, 0, 0]} maxBarSize={20} />

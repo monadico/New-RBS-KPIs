@@ -14,7 +14,7 @@ interface SubmissionActivityChartProps {
 
 export function SubmissionActivityChart({ data }: SubmissionActivityChartProps) {
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group">
+    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group w-full overflow-hidden">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="space-y-2">
@@ -48,7 +48,7 @@ export function SubmissionActivityChart({ data }: SubmissionActivityChartProps) 
               color: "var(--rbs-orange)",
             },
           }}
-          className="h-[300px]"
+          className="h-[400px] w-full"
         >
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data} margin={{ top: 20, right: 40, left: 30, bottom: 20 }}>
@@ -68,7 +68,7 @@ export function SubmissionActivityChart({ data }: SubmissionActivityChartProps) 
                 tickLine={false}
                 tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
                 tickFormatter={formatNumber}
-                dx={-15}
+                dx={-40}
               />
               <YAxis
                 yAxisId="right"
@@ -77,7 +77,8 @@ export function SubmissionActivityChart({ data }: SubmissionActivityChartProps) 
                 tickLine={false}
                 tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
                 tickFormatter={formatNumber}
-                dx={15}
+                dx={20}
+                hide={true}
               />
               <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: "rgba(255, 255, 255, 0.02)" }} />
               <Bar yAxisId="left" dataKey="submissions" fill="var(--rbs-blue)" radius={[4, 4, 0, 0]} maxBarSize={20} />

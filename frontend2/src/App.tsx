@@ -1039,31 +1039,31 @@ function App() {
 
       {/* NEW: RBS Stats by Different Periods Table */}
       {data.rbs_stats_by_periods && data.rbs_stats_by_periods.length > 0 && (
-        <div className="card" style={{ marginTop: 30 }}>
+        <div className="card">
           <h2>📊 RBS Stats by Different Periods</h2>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', fontSize: '0.95rem', borderCollapse: 'collapse' }}>
+            <table className="top-bettors-table">
               <thead>
-                <tr style={{ background: '#f3f4f6' }}>
-                  <th style={{ padding: '8px' }}>Period</th>
-                  <th style={{ padding: '8px' }}>MON Volume</th>
-                  <th style={{ padding: '8px' }}>JERRY Volume</th>
-                  <th style={{ padding: '8px' }}>Total Volume</th>
-                  <th style={{ padding: '8px' }}>Submissions</th>
-                  <th style={{ padding: '8px' }}>Active Bettors</th>
-                  <th style={{ padding: '8px' }}>Total Cards</th>
+                <tr>
+                  <th>Period</th>
+                  <th>MON Volume</th>
+                  <th>JERRY Volume</th>
+                  <th>Total Volume</th>
+                  <th>Submissions</th>
+                  <th>Active Bettors</th>
+                  <th>Total Cards</th>
                 </tr>
               </thead>
               <tbody>
                 {data.rbs_stats_by_periods.map((period: any, index: number) => (
-                  <tr key={index} style={{ borderBottom: '1px solid #eee' }}>
-                    <td style={{ padding: '8px', fontWeight: 'bold' }}>{period.period}</td>
-                    <td style={{ padding: '8px', textAlign: 'right' }}>{formatCurrency(period.mon_volume)}</td>
-                    <td style={{ padding: '8px', textAlign: 'right' }}>{formatCurrency(period.jerry_volume)}</td>
-                    <td style={{ padding: '8px', textAlign: 'right' }}>{formatCurrency(period.total_volume)}</td>
-                    <td style={{ padding: '8px', textAlign: 'right' }}>{formatNumber(period.submissions)}</td>
-                    <td style={{ padding: '8px', textAlign: 'right' }}>{formatNumber(period.active_bettors)}</td>
-                    <td style={{ padding: '8px', textAlign: 'right' }}>{formatNumber(period.total_cards)}</td>
+                  <tr key={index}>
+                    <td style={{ fontWeight: 'bold' }}>{period.period}</td>
+                    <td style={{ textAlign: 'right' }}>{formatCurrency(period.mon_volume)}</td>
+                    <td style={{ textAlign: 'right' }}>{formatCurrency(period.jerry_volume)}</td>
+                    <td style={{ textAlign: 'right' }}>{formatCurrency(period.total_volume)}</td>
+                    <td style={{ textAlign: 'right' }}>{formatNumber(period.submissions)}</td>
+                    <td style={{ textAlign: 'right' }}>{formatNumber(period.active_bettors)}</td>
+                    <td style={{ textAlign: 'right' }}>{formatNumber(period.total_cards)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -1073,31 +1073,31 @@ function App() {
       )}
 
       {/* Top 20 Bettors Table */}
-      <div className="card" style={{ marginTop: 30 }}>
+      <div className="card">
         <h2>🏆 Top 20 Bettors</h2>
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', fontSize: '0.95rem', borderCollapse: 'collapse' }}>
+          <table className="top-bettors-table">
             <thead>
-              <tr style={{ background: '#f3f4f6' }}>
-                <th style={{ padding: '8px' }}>Rank</th>
-                <th style={{ padding: '8px' }}>Address</th>
-                <th style={{ padding: '8px' }}>Total MON</th>
-                <th style={{ padding: '8px' }}>Total JERRY</th>
-                <th style={{ padding: '8px' }}>Total Bets</th>
-                <th style={{ padding: '8px' }}>Avg Cards/Slip</th>
-                <th style={{ padding: '8px' }}>Active Days</th>
+              <tr>
+                <th>Rank</th>
+                <th>Address</th>
+                <th>Total MON</th>
+                <th>Total JERRY</th>
+                <th>Total Bets</th>
+                <th>Avg Cards/Slip</th>
+                <th>Active Days</th>
               </tr>
             </thead>
             <tbody>
               {topBettors.map((b: any) => (
-                <tr key={b.user_address} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: '8px', textAlign: 'center' }}>{b.rank}</td>
-                  <td style={{ padding: '8px', fontFamily: 'monospace', wordBreak: 'break-all' }} title={b.user_address}>{b.user_address}</td>
-                  <td style={{ padding: '8px', textAlign: 'right' }}>{b.total_mon.toLocaleString()}</td>
-                  <td style={{ padding: '8px', textAlign: 'right' }}>{b.total_jerry.toLocaleString()}</td>
-                  <td style={{ padding: '8px', textAlign: 'right' }}>{b.total_bets.toLocaleString()}</td>
-                  <td style={{ padding: '8px', textAlign: 'right' }}>{b.avg_cards_per_slip.toFixed(2)}</td>
-                  <td style={{ padding: '8px', textAlign: 'right' }}>{b.active_days}</td>
+                <tr key={b.user_address}>
+                  <td style={{ textAlign: 'center' }}>{b.rank}</td>
+                  <td className="address-cell" title={b.user_address}>{b.user_address}</td>
+                  <td style={{ textAlign: 'right' }}>{b.total_mon.toLocaleString()}</td>
+                  <td style={{ textAlign: 'right' }}>{b.total_jerry.toLocaleString()}</td>
+                  <td style={{ textAlign: 'right' }}>{b.total_bets.toLocaleString()}</td>
+                  <td style={{ textAlign: 'right' }}>{b.avg_cards_per_slip.toFixed(2)}</td>
+                  <td style={{ textAlign: 'right' }}>{b.active_days}</td>
                 </tr>
               ))}
             </tbody>
@@ -1105,8 +1105,8 @@ function App() {
         </div>
       </div>
 
-      {/* Place heatmaps after the last chart, before Top 20 Bettors table */}
-      <div className="card" style={{ marginTop: 30 }}>
+      {/* Heatmaps Section */}
+      <div className="card">
         <SimpleHeatmap
           values={submissionByDay}
           title="🗓️ Bet Submission Transactions by Day of Week"
@@ -1126,8 +1126,9 @@ function App() {
           valueFormatter={formatCurrency}
         />
       </div>
-      {/* Place calendar heatmaps after the last chart, before Top 20 Bettors table */}
-      <div className="card" style={{ marginTop: 30 }}>
+      
+      {/* Calendar Heatmaps Section */}
+      <div className="card">
         <CalendarHeatmap
           matrix={submissionMatrix}
           title="🗓️ Bet Submission Transactions Calendar Heatmap"
@@ -1146,7 +1147,6 @@ function App() {
           colorScale={jerryColorScale}
           valueFormatter={formatCurrency}
         />
-
       </div>
     </div>
   );

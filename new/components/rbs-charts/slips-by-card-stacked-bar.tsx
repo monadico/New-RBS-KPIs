@@ -75,7 +75,7 @@ export function SlipsByCardStackedBar({ data }: SlipsByCardStackedBarProps) {
       </CardHeader>
 
       <CardContent>
-        <div className="h-[300px] w-full">
+        <div className="h-[500px] w-full">
           {transformedData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart

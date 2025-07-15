@@ -44,7 +44,7 @@ export function TotalAvgCardsChart({ data }: TotalAvgCardsChartProps) {
               color: "var(--rbs-orange)",
             },
           }}
-          className="h-[350px]"
+          className="h-[515px]"
         >
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data} margin={{ top: 20, right: 40, left: 30, bottom: 20 }}>

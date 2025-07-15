@@ -14,7 +14,7 @@ interface MonJerryVolumeAreaProps {
 
 export function MonJerryVolumeArea({ data }: MonJerryVolumeAreaProps) {
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group lg:col-span-full">
+    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group w-full overflow-hidden">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="space-y-2">
@@ -44,7 +44,7 @@ export function MonJerryVolumeArea({ data }: MonJerryVolumeAreaProps) {
               color: "var(--rbs-green)",
             },
           }}
-          className="h-[350px]"
+          className="h-[350px] w-full"
         >
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ top: 20, right: 40, left: 30, bottom: 20 }}>
