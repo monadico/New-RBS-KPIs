@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Pie, Chart } from 'react-chartjs-2';
+import HeatMap from 'react-heatmap-grid';
 import './App.css';
 
 interface AnalyticsData {
@@ -596,8 +597,7 @@ function App() {
     return `$${num.toLocaleString()}`;
   };
 
-  // Helper to format addresses
-  const formatAddress = (addr: string) => addr.slice(0, 6) + '...' + addr.slice(-4);
+
 
   // Top 20 Bettors Table
   const topBettors = data.top_bettors || [];
@@ -610,7 +610,56 @@ function App() {
 
   // Use daily analytics if available, else fallback to activity_over_time
   const dailyData: DailyData[] = data.timeframes?.daily?.activity_over_time || data.daily_analytics?.activity_over_time || data.activity_over_time || [];
-  dailyData.forEach((day: DailyData) => {
+  
+
+  
+  // Create a complete week grid by filling in missing days with zeros
+  const completeWeekData: DailyData[] = [];
+  
+  if (dailyData.length > 0) {
+    // Find the date range
+    const dates = dailyData.map(d => new Date(d.start_date)).sort((a, b) => a.getTime() - b.getTime());
+    const minDate = dates[0];
+    const maxDate = dates[dates.length - 1];
+    
+    // Create a map of existing data
+    const dataMap = new Map(dailyData.map(d => [d.start_date, d]));
+    
+    // Get a sample entry to understand the data structure
+    const sampleEntry = dailyData[0];
+    
+    // Fill in missing days with zero values
+    const currentDate = new Date(minDate);
+    while (currentDate <= maxDate) {
+      const dateStr = currentDate.toISOString().slice(0, 10);
+      if (dataMap.has(dateStr)) {
+        completeWeekData.push(dataMap.get(dateStr)!);
+      } else {
+        // Add zero entry for missing day, preserving all original fields
+        const zeroEntry: DailyData = {
+          start_date: dateStr,
+          submissions: 0,
+          mon_volume: 0,
+          jerry_volume: 0,
+          // Copy all other fields from sample entry with zero values
+          ...Object.fromEntries(
+            Object.keys(sampleEntry)
+              .filter(key => !['start_date', 'submissions', 'mon_volume', 'jerry_volume'].includes(key))
+              .map(key => [key, 0])
+          )
+        };
+        completeWeekData.push(zeroEntry);
+      }
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+  }
+  
+  // Use the complete week data for heatmaps
+  const heatmapData = completeWeekData.length > 0 ? completeWeekData : dailyData;
+  
+
+  
+  heatmapData.forEach((day: DailyData) => {
     const date = new Date(day.start_date);
     // getDay(): 0=Sunday, 1=Monday, ..., 6=Saturday
     // We want Monday=0, ..., Sunday=6
@@ -620,6 +669,8 @@ function App() {
     monVolumeByDay[dow] += day.mon_volume;
     jerryVolumeByDay[dow] += day.jerry_volume;
   });
+  
+
 
   // --- TYPES ---
   // --- CALENDAR HEATMAP LOGIC ---
@@ -636,7 +687,14 @@ function App() {
       if (!minDate || d < minDate) minDate = d;
       if (!maxDate || d > maxDate) maxDate = d;
     });
-    if (!minDate || !maxDate) return [];
+    
+    // If no data, create a default week
+    if (!minDate || !maxDate) {
+      const today = new Date();
+      minDate = new Date(today);
+      maxDate = new Date(today);
+    }
+    
     // Find the Monday before or on minDate
     let first = new Date(minDate);
     let day = first.getDay();
@@ -647,11 +705,13 @@ function App() {
       const diff = day === 0 ? 6 : day - 1;
       first.setDate(first.getDate() - diff);
     }
+    
     // Find the last Sunday after or on maxDate
     let last = new Date(maxDate);
     day = last.getDay();
     let offsetLast = day === 0 ? 0 : 7 - day;
     last.setDate(last.getDate() + offsetLast);
+    
     // Build matrix: rows=days (Mon-Sun), cols=weeks
     const weeks: CalendarCell[][] = [];
     let d = new Date(first);
@@ -667,8 +727,10 @@ function App() {
       }
       weeks.push(week);
     }
+    
     // Transpose: [7][N] (days, weeks)
     const matrix: CalendarCell[][] = Array(7).fill(0).map((_, i) => weeks.map((w: CalendarCell[]) => w[i]));
+    
     return matrix;
   }
 
@@ -683,88 +745,116 @@ function App() {
     colorScale: (v: number) => string;
     valueFormatter?: (v: number) => string;
   }) {
-    // Find max value for color scaling
-    const max = Math.max(...matrix.flat().map((cell: CalendarCell) => cell.value));
+    // Convert matrix to format expected by react-heatmap-grid
+    const xLabels = Array.from({ length: matrix[0]?.length || 0 }, (_, i) => `Week ${i + 1}`);
+    const yLabels = daysOfWeek.map(d => d.slice(0, 3));
+    
+    // Transpose the matrix for the heatmap library (rows become columns)
+    const data = matrix.map(row => row.map(cell => cell.value));
+    
+    const cellStyle = (background: string, value: number, min: number, max: number, data: any, x: number, y: number) => {
+      const dayName = daysOfWeek[y];
+      const weekNumber = x + 1;
+      const formattedValue = valueFormatter ? valueFormatter(value) : value.toString();
+      const tooltipText = `${dayName} - Week ${weekNumber}: ${formattedValue}`;
+      
+      return {
+        background: value === 0 ? '#f3f4f6' : colorScale(value / (max || 1)),
+        fontSize: '8px',
+        border: '1px solid #e5e7eb',
+        borderRadius: '2px',
+        cursor: value > 0 ? 'pointer' : 'default',
+        width: '12px',
+        height: '12px',
+        padding: '0px',
+        margin: '1px',
+        title: value > 0 ? tooltipText : undefined
+      };
+    };
 
-    // Tooltip state
-    const [tooltip, setTooltip] = React.useState<{
-      x: number;
-      y: number;
-      date: string;
-      value: number;
-    } | null>(null);
-
-    // Tooltip element
-    const tooltipEl = tooltip ? (
-      <div
-        style={{
-          position: 'fixed',
-          left: tooltip.x + 12,
-          top: tooltip.y + 12,
-          background: 'rgba(30,41,59,0.95)',
-          color: '#fff',
-          padding: '8px 12px',
-          borderRadius: 8,
-          fontSize: 14,
-          pointerEvents: 'none',
-          zIndex: 1000,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
-        }}
-      >
-        <div style={{ fontWeight: 600 }}>{tooltip.date}</div>
-        <div>{valueFormatter ? valueFormatter(tooltip.value) : tooltip.value}</div>
-      </div>
-    ) : null;
+    const cellRender = (value: number, x: number, y: number) => {
+      // Don't show any text in cells - only show on hover
+      return '';
+    };
 
     return (
-      <div className="card" style={{ marginBottom: 24, position: 'relative' }}>
+      <div className="card" style={{ marginBottom: 24 }}>
         <h2 style={{ marginBottom: 16 }}>{title}</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          {matrix.map((row, dayIdx) => (
-            <div key={dayIdx} style={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-              {row.map((cell, weekIdx) => (
-                <div
-                  key={weekIdx}
-                  onMouseEnter={e => {
-                    setTooltip({
-                      x: e.clientX,
-                      y: e.clientY,
-                      date: cell.date,
-                      value: cell.value
-                    });
-                  }}
-                  onMouseMove={e => {
-                    setTooltip(t => t ? { ...t, x: e.clientX, y: e.clientY } : null);
-                  }}
-                  onMouseLeave={() => setTooltip(null)}
-                  style={{
-                    width: 22, height: 22, borderRadius: 4,
-                    background: colorScale(cell.value / (max || 1)),
-                    cursor: cell.value > 0 ? 'pointer' : 'default',
-                    border: '1px solid #e5e7eb',
-                    transition: 'background 0.2s',
-                  }}
-                />
-              ))}
-            </div>
-          ))}
+        <div style={{ position: 'relative' }} className="heatmap-container">
+          <style>{`
+            /* Fix alignment issues with react-heatmap-grid */
+            /* Target the main heatmap container */
+            div[style*="display: flex"][style*="height"] {
+              align-items: flex-start !important;
+            }
+            /* Target the Y-labels container (first child) */
+            div[style*="display: flex"][style*="height"] > div:first-child {
+              display: flex !important;
+              flex-direction: column !important;
+              justify-content: space-between !important;
+              height: 100% !important;
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+            /* Target individual Y-label elements - FIX ALIGNMENT HERE */
+            div[style*="display: flex"][style*="height"] > div:first-child > div {
+              display: flex !important;
+              align-items: center !important;
+              justify-content: flex-end !important;
+              height: 14px !important;
+              line-height: 14px !important;
+              margin: 1px 0 !important;
+              font-size: 11px !important;
+              font-weight: 500 !important;
+              color: #374151 !important;
+              padding: 0 !important;
+              text-align: right !important;
+              /* CRITICAL: Force vertical centering */
+              position: relative !important;
+              top: 0 !important;
+              transform: none !important;
+            }
+            /* Target the grid container (second child) */
+            div[style*="display: flex"][style*="height"] > div:last-child {
+              display: flex !important;
+              flex-direction: column !important;
+              align-items: flex-start !important;
+            }
+            /* Target grid rows */
+            div[style*="display: flex"][style*="height"] > div:last-child > div {
+              display: flex !important;
+              align-items: center !important;
+              height: 14px !important;
+              margin: 1px 0 !important;
+            }
+            /* Target individual cells */
+            div[style*="display: flex"][style*="height"] > div:last-child > div > div {
+              width: 12px !important;
+              height: 12px !important;
+              margin: 1px !important;
+            }
+          `}</style>
+          <HeatMap
+            xLabels={xLabels}
+            yLabels={yLabels}
+            data={data}
+            cellStyle={cellStyle}
+            cellRender={cellRender}
+            height={120}
+          />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginTop: 8, color: '#64748b' }}>
-          {daysOfWeek.map((d: string) => <span key={d}>{d.slice(0,3)}</span>)}
-        </div>
-        {tooltipEl}
       </div>
     );
   }
 
   // Build matrices for each heatmap
-  const submissionMatrix = buildCalendarMatrix(dailyData, 'submissions');
-  const monMatrix = buildCalendarMatrix(dailyData, 'mon_volume');
-  const jerryMatrix = buildCalendarMatrix(dailyData, 'jerry_volume');
+  const submissionMatrix = buildCalendarMatrix(heatmapData, 'submissions');
+  const monMatrix = buildCalendarMatrix(heatmapData, 'mon_volume');
+  const jerryMatrix = buildCalendarMatrix(heatmapData, 'jerry_volume');
+  
 
-  // After building the matrices, add these debug logs:
-  console.log('First week (all days):', submissionMatrix.map(row => row[0]));
-  console.log('First column (all weeks):', submissionMatrix[0].map(cell => cell.date));
+  
+
 
   // --- HEATMAP COMPONENT ---
   function SimpleHeatmap({ values, title, colorScale, valueFormatter }: { values: number[], title: string, colorScale: (v: number) => string, valueFormatter?: (v: number) => string }) {
@@ -801,6 +891,17 @@ function App() {
     const c2 = [245, 158, 11]; // yellow
     const rgb = c1.map((c, i) => Math.round(c + (c2[i] - c) * t));
     return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+  }
+  
+  // Custom color scale for JERRY that makes small values more visible
+  function jerryColorScale(t: number) {
+    // For JERRY, use a more sensitive scale that shows even small values
+    if (t === 0) return '#f3f4f6'; // Light gray for zero
+    if (t < 0.1) return '#dbeafe'; // Very light blue for small values
+    if (t < 0.3) return '#93c5fd'; // Light blue
+    if (t < 0.6) return '#3b82f6'; // Blue
+    if (t < 0.8) return '#1d4ed8'; // Dark blue
+    return '#1e40af'; // Very dark blue for high values
   }
 
   return (
@@ -1042,9 +1143,10 @@ function App() {
         <CalendarHeatmap
           matrix={jerryMatrix}
           title="$JERRY Volume Calendar Heatmap"
-          colorScale={blueToYellow}
+          colorScale={jerryColorScale}
           valueFormatter={formatCurrency}
         />
+
       </div>
     </div>
   );

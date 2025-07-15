@@ -9,8 +9,10 @@
     "chart.js": "^4.0.0",
     "chartjs-plugin-datalabels": "^2.2.0",
     "react": "^18.0.0",
+    "react-calendar-heatmap": "^1.10.0",
     "react-chartjs-2": "^5.0.0",
     "react-dom": "^18.0.0",
+    "react-heatmap-grid": "^0.9.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.0"
   },
