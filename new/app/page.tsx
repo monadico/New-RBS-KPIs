@@ -48,13 +48,22 @@ export default function Page() {
       setLoading(true)
       setError(null)
       try {
-        const response = await fetch('/analytics_dump.json')
+        // Try API first, fallback to static JSON
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+        const response = await fetch(`${apiUrl}/api/analytics`)
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+          // Fallback to static JSON
+          const staticResponse = await fetch('/analytics_dump.json')
+          if (!staticResponse.ok) {
+            throw new Error(`HTTP ${staticResponse.status}: ${staticResponse.statusText}`)
+          }
+          const json = await staticResponse.json()
+          if (!json.success) throw new Error(json.error || 'JSON error')
+          setData(json)
+        } else {
+          const json = await response.json()
+          setData(json)
         }
-        const json = await response.json()
-        if (!json.success) throw new Error(json.error || 'JSON error')
-        setData(json)
       } catch (err: any) {
         console.error('Error loading analytics data:', err)
         setError(err instanceof Error ? err.message : 'Failed to load analytics data')

@@ -10,11 +10,7 @@ import uvicorn
 import os
 import sys
 
-# Add the current directory to Python path to import json_query
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-# Import your existing analytics logic
-from json_query import FlexibleAnalytics, get_overall_slips_by_card_count, get_average_metrics
+# No longer need to import analytics logic since we're serving pre-computed JSON
 
 app = FastAPI(title="Betting Analytics API", version="1.0.0")
 
@@ -27,125 +23,78 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Database connection
-def get_db_connection():
-    return sqlite3.connect('betting_transactions.db')
+# Database path for reference
+DB_PATH = "betting_transactions.db"
 
 @app.get("/")
 async def root():
-    return {"message": "Betting Analytics API"}
+    return {
+        "message": "Betting Analytics API",
+        "version": "1.0.0",
+        "endpoints": {
+            "/api/analytics": "Get complete analytics data",
+            "/api/analytics/rbs-stats": "Get RBS statistics",
+            "/api/analytics/volume-data": "Get volume data for charts",
+            "/docs": "API documentation"
+        }
+    }
 
 @app.get("/api/analytics")
 async def get_analytics():
-    """Get all analytics data using existing json_query logic"""
+    """Get all analytics data from pre-computed JSON file (fast!)"""
     try:
-        # Use your existing FlexibleAnalytics class
-        with FlexibleAnalytics() as analytics:
-            # Get all the data using your existing methods
-            total_metrics = analytics.get_total_metrics()
-            average_metrics = get_average_metrics(analytics)
-            player_activity = analytics.get_player_activity_analysis()
-            top_bettors = analytics.get_top_bettors()
-            overall_slips_by_card_count = get_overall_slips_by_card_count(analytics)
-            
-            # Get timeframe data (daily, weekly, monthly)
-            timeframes = {}
-            for timeframe in ['daily', 'weekly', 'monthly']:
-                timeframes[timeframe] = analytics.analyze_timeframe('2025-02-03', timeframe)
-            
-            # Get RBS stats
-            rbs_stats_by_periods = analytics.get_rbs_stats_by_periods()
-            
-            # Combine all data
-            analytics_data = {
-                "success": True,
-                "total_metrics": total_metrics,
-                "average_metrics": average_metrics,
-                "player_activity": player_activity,
-                "top_bettors": top_bettors,
-                "overall_slips_by_card_count": overall_slips_by_card_count,
-                "timeframes": timeframes,
-                "rbs_stats_by_periods": rbs_stats_by_periods
-            }
-            
-            return analytics_data
-            
+        # Read from the pre-computed JSON file (instant!)
+        json_file = Path("new/public/analytics_dump.json")
+        if json_file.exists():
+            print("📁 Serving pre-computed analytics JSON...")
+            with open(json_file, 'r') as f:
+                data = json.load(f)
+            print("✅ Analytics JSON served successfully")
+            return data
+        else:
+            print("❌ Analytics JSON file not found")
+            return {"error": "Analytics data not found. Run json_query.py first."}
     except Exception as e:
-        print(f"Error generating analytics: {e}")
+        print(f"❌ Error reading analytics JSON: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/analytics/rbs-stats")
 async def get_rbs_stats():
-    """Get RBS stats specifically"""
+    """Get RBS stats from pre-computed JSON file"""
     try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        
-        # Query for RBS stats (similar to your json_query.py)
-        query = """
-        SELECT 
-            strftime('%Y-%W', timestamp, 'weekday 0') as period,
-            COUNT(DISTINCT player_address) as active_bettors,
-            COUNT(*) as total_bets,
-            SUM(amount) as total_volume,
-            AVG(amount) as avg_bet_size
-        FROM betting_transactions 
-        WHERE timestamp >= date('now', '-30 days')
-        GROUP BY period
-        ORDER BY period DESC
-        LIMIT 10
-        """
-        
-        cursor.execute(query)
-        results = cursor.fetchall()
-        
-        data = []
-        for row in results:
-            data.append({
-                "period": row[0],
-                "active_bettors": row[1],
-                "total_bets": row[2],
-                "total_volume": float(row[3]) if row[3] else 0,
-                "avg_bet_size": float(row[4]) if row[4] else 0
-            })
-        
-        conn.close()
-        return {"rbs_stats": data}
+        json_file = Path("new/public/analytics_dump.json")
+        if json_file.exists():
+            with open(json_file, 'r') as f:
+                data = json.load(f)
+            return {"rbs_stats": data.get("rbs_stats_by_periods", [])}
+        else:
+            return {"error": "Analytics data not found"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/analytics/volume-data")
 async def get_volume_data():
-    """Get volume data for charts"""
+    """Get volume data from pre-computed JSON file"""
     try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        
-        # Query for volume data
-        query = """
-        SELECT 
-            strftime('%Y-%m-%d', timestamp) as date,
-            SUM(amount) as daily_volume,
-            COUNT(*) as daily_bets
-        FROM betting_transactions 
-        WHERE timestamp >= date('now', '-7 days')
-        GROUP BY date
-        ORDER BY date
-        """
-        
-        cursor.execute(query)
-        results = cursor.fetchall()
-        
-        data = []
-        for row in results:
-            data.append({
-                "date": row[0],
-                "volume": float(row[1]) if row[1] else 0,
-                "bets": row[2]
-            })
-        
-        conn.close()
-        return {"volume_data": data}
+        json_file = Path("new/public/analytics_dump.json")
+        if json_file.exists():
+            with open(json_file, 'r') as f:
+                data = json.load(f)
+            # Extract volume data from the JSON
+            activity_over_time = data.get("timeframes", {}).get("daily", {}).get("activity_over_time", [])
+            
+            # Format for volume charts
+            volume_data = []
+            for entry in activity_over_time[-7:]:  # Last 7 days
+                volume_data.append({
+                    "date": entry.get('period', ''),
+                    "volume": entry.get('total_volume', 0),
+                    "bets": entry.get('total_submissions', 0)
+                })
+            
+            return {"volume_data": volume_data}
+        else:
+            return {"error": "Analytics data not found"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

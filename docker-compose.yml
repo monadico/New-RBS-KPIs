@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  betting-analytics:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount the database file for persistence
+      - ./betting_transactions.db:/app/betting_transactions.db
+      # Mount data directory for any additional files
+      - ./data:/app/data
+    environment:
+      - MONAD_HYPERSYNC_URL=${MONAD_HYPERSYNC_URL:-https://monad-testnet.hypersync.xyz}
+      - HYPERSYNC_BEARER_TOKEN=${HYPERSYNC_BEARER_TOKEN}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s 
