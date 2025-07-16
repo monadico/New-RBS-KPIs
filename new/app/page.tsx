@@ -203,15 +203,15 @@ export default function Page() {
         >
           <div className="lg:col-span-1">
             <div className="space-y-6">
-              <PlayerActivityPie data={player_activity.categories} totalPlayers={player_activity.total_players} />
+            <PlayerActivityPie data={player_activity.categories} totalPlayers={player_activity.total_players} />
               <OverallSlipsPie data={overall_slips_by_card_count} />
             </div>
           </div>
           <div className="lg:col-span-2">
             <div className="h-full flex flex-col space-y-6">
               <div className="flex-1">
-                <SlipsByCardStackedBar data={cardCountData} />
-              </div>
+            <SlipsByCardStackedBar data={cardCountData} />
+          </div>
               <div className="flex-1">
                 <TotalAvgCardsChart data={timeframeData} />
               </div>
@@ -235,7 +235,7 @@ export default function Page() {
         <section className="animate-fade-in-delayed" style={{ animationDelay: "1.6s" }}>
           <div className="space-y-8">
             <TraditionalHeatmap data={data.timeframes?.daily?.activity_over_time || []} />
-            <DayOfWeekHeatmaps data={data.timeframes?.daily?.activity_over_time || []} />
+          <DayOfWeekHeatmaps data={data.timeframes?.daily?.activity_over_time || []} />
           </div>
         </section>
       </main>
