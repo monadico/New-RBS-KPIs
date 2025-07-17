@@ -2,7 +2,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { cn } from "../lib/utils"
 
 interface TimeframeSelectorProps {
   selectedTimeframe: "daily" | "weekly" | "monthly"
