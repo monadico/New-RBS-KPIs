@@ -11,7 +11,7 @@ interface SlipsByCardStackedBarProps {
   data: TimeframeCardCounts[]
 }
 
-const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#8B5CF6", "#EF4444", "#06B6D4"]
+const COLORS = ["#D12#9EF909", "#F07632", "#EC305D", "#1E90FF", "#5DD070"]
 const CARD_COUNTS = [2, 3, 4, 5, 6, 7]
 
 export function SlipsByCardStackedBar({ data }: SlipsByCardStackedBarProps) {

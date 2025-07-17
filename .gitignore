@@ -89,7 +89,7 @@ betting_transactions.db
 *.db
 
 # Analytics data files
-# analytics_dump.json
+analytics_dump.json
 # frontend2/public/analytics_dump.json
 # frontend2/public/analytics_dump.json.gz
 

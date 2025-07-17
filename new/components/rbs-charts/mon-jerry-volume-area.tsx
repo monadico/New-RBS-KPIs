@@ -37,11 +37,11 @@ export function MonJerryVolumeArea({ data }: MonJerryVolumeAreaProps) {
           config={{
             mon_volume: {
               label: "$MON Volume",
-              color: "var(--rbs-blue)",
+              color: "#D0FF12",
             },
             jerry_volume: {
               label: "$JERRY Volume",
-              color: "var(--rbs-green)",
+              color: "#EC305D",
             },
           }}
           className="h-[350px] w-full"
@@ -50,12 +50,12 @@ export function MonJerryVolumeArea({ data }: MonJerryVolumeAreaProps) {
             <AreaChart data={data} margin={{ top: 20, right: 40, left: 30, bottom: 20 }}>
               <defs>
                 <linearGradient id="monVolumeGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--rbs-blue)" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="var(--rbs-blue)" stopOpacity={0.05} />
+                  <stop offset="5%" stopColor="#D0FF12" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#D0FF12" stopOpacity={0.05} />
                 </linearGradient>
                 <linearGradient id="jerryVolumeGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--rbs-green)" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="var(--rbs-green)" stopOpacity={0.05} />
+                  <stop offset="5%" stopColor="#EC305D" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#EC305D" stopOpacity={0.05} />
                 </linearGradient>
               </defs>
               <XAxis
@@ -80,7 +80,7 @@ export function MonJerryVolumeArea({ data }: MonJerryVolumeAreaProps) {
                 type="monotone"
                 dataKey="jerry_volume"
                 stackId="1"
-                stroke="var(--rbs-green)"
+                stroke="#EC305D"
                 fill="url(#jerryVolumeGradient)"
                 strokeWidth={2}
               />
@@ -88,7 +88,7 @@ export function MonJerryVolumeArea({ data }: MonJerryVolumeAreaProps) {
                 type="monotone"
                 dataKey="mon_volume"
                 stackId="1"
-                stroke="var(--rbs-blue)"
+                stroke="#D0FF12"
                 fill="url(#monVolumeGradient)"
                 strokeWidth={2}
               />

@@ -23,7 +23,7 @@ export function MetricCard({
   icon,
   trend,
   subtitle,
-  accentColor = "text-rbs-blue",
+  accentColor = "text-rbs-lime",
 }: MetricCardProps) {
   const formattedValue =
     format === "currency" ? formatCurrency(value) : format === "number" ? formatNumber(value) : value.toFixed(1)
@@ -73,8 +73,8 @@ export function MetricCard({
               className={cn(
                 "flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold transition-all duration-300",
                 trend === "up"
-                  ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                  : "bg-red-500/10 text-red-400 border border-red-500/20",
+                  ? "bg-rbs-over/10 text-rbs-over border border-rbs-over/20"
+                  : "bg-rbs-alert/10 text-rbs-alert border border-rbs-alert/20",
               )}
             >
               {trend === "up" ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}

@@ -44,7 +44,7 @@ export function CumulativeActiveBettorsLine({ data }: CumulativeActiveBettorsLin
           config={{
             cumulative_active_bettors: {
               label: "Cumulative Active Bettors",
-              color: "var(--rbs-purple)",
+              color: "#8F65F7",
             },
           }}
           className="h-[350px]"
@@ -72,10 +72,10 @@ export function CumulativeActiveBettorsLine({ data }: CumulativeActiveBettorsLin
               <Line
                 type="monotone"
                 dataKey="cumulative_active_bettors"
-                stroke="var(--rbs-purple)"
+                stroke="#8F65F7"
                 strokeWidth={3}
-                dot={{ fill: "var(--rbs-purple)", strokeWidth: 0, r: 4 }}
-                activeDot={{ r: 6, stroke: "var(--rbs-purple)", strokeWidth: 2, fill: "var(--bg-base)" }}
+                dot={{ fill: "#8F65F7", strokeWidth: 0, r: 4 }}
+                activeDot={{ r: 6, stroke: "#8F65F7", strokeWidth: 2, fill: "var(--bg-base)" }}
               />
             </LineChart>
           </ResponsiveContainer>

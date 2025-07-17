@@ -37,11 +37,11 @@ export function TotalAvgCardsChart({ data }: TotalAvgCardsChartProps) {
           config={{
             total_cards: {
               label: "Total Cards",
-              color: "var(--rbs-blue)",
+              color: "#D0FF12",
             },
             avg_cards_per_submission: {
               label: "Avg Cards/Submission",
-              color: "var(--rbs-orange)",
+              color: "#1E90FF",
             },
           }}
           className="h-[515px]"
@@ -76,15 +76,15 @@ export function TotalAvgCardsChart({ data }: TotalAvgCardsChartProps) {
                 dx={15}
               />
               <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: "rgba(255, 255, 255, 0.02)" }} />
-              <Bar yAxisId="left" dataKey="total_cards" fill="var(--rbs-blue)" radius={[4, 4, 0, 0]} maxBarSize={20} />
+              <Bar yAxisId="left" dataKey="total_cards" fill="#D0FF12" radius={[4, 4, 0, 0]} maxBarSize={20} />
               <Line
                 yAxisId="right"
                 type="monotone"
                 dataKey="avg_cards_per_submission"
-                stroke="var(--rbs-orange)"
+                stroke="#1E90FF"
                 strokeWidth={2}
-                dot={{ fill: "var(--rbs-orange)", strokeWidth: 0, r: 3 }}
-                activeDot={{ r: 5, stroke: "var(--rbs-orange)", strokeWidth: 2, fill: "var(--bg-base)" }}
+                dot={{ fill: "#1E90FF", strokeWidth: 0, r: 3 }}
+                activeDot={{ r: 5, stroke: "#1E90FF", strokeWidth: 2, fill: "var(--bg-base)" }}
               />
             </ComposedChart>
           </ResponsiveContainer>

@@ -6,29 +6,67 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Refined color palette with more nuanced variations
-        "bg-base": "#1A1D24",
-        "bg-alt": "#12141A",
-        "bg-elevated": "#1F2229",
-        surface: "rgb(26, 29, 36)",
-        "surface-elevated": "rgb(31, 34, 41)",
-        "bg-deep": "rgb(4, 7, 13)",
-        "text-primary": "#F8FAFC",
-        "text-secondary": "rgba(248, 250, 252, 0.65)",
-        "text-tertiary": "rgba(248, 250, 252, 0.4)",
-        "border-subtle": "rgba(255, 255, 255, 0.08)",
-        "border-medium": "rgba(255, 255, 255, 0.12)",
-        "accent-primary": "#D0FF12", // Original neon glow
-        "accent-secondary": "#9EF01A", // Slightly darker neon
-        "accent-muted": "rgba(208, 255, 18, 0.15)", // Muted background for accent
-        "accent-glow": "rgba(208, 255, 18, 0.25)", // Stronger glow for hover
+        // RareBetSports Official Brand Colors
+        // Main Colors
+        "rbs-lime": "#D0FF12", // ARCTIC LIME - Primary brand color
+        "rbs-black": "#04070D", // BLACK MAIN
+        "rbs-white": "#FFFFFF", // JUST WHITE
+        
+        // Secondary Colors
+        "rbs-spring-morn": "#E3FAD4", // SPRING MORN
+        "rbs-davys-grey": "#7C8716", // DAVY'S GREY
+        "rbs-davys-grey-dark": "#36393A", // DAVY'S GREY DARK
+        "rbs-washed-black": "#1E1E29", // WASHED BLACK
+        "rbs-washed-black-dark": "#141C1C", // WASHED BLACK DARK
+        "rbs-selected-lime": "rgba(208, 255, 18, 0.08)", // SELECTED LIME GRADIENT (8% opacity)
+        "rbs-selected-white": "rgba(255, 255, 255, 0.08)", // SELECTED WHITE GRADIENT (8% opacity)
+        "rbs-dark-lime": "#9EF909", // DARK LIME
+        
+        // Service Colors (for alerts, states, feedback)
+        "rbs-alert": "#F66660", // ALERT - Error states
+        "rbs-over": "#50F895", // OVER - Success states
+        "rbs-under": "#FFB627", // UNDER - Warning states
+        "rbs-focused": "#9FFDFE", // FOCUSED - Focus states
+        "rbs-accent": "#FF6B35", // ACCENT - General accent
+        
+        // Sport Colors (for data visualization)
+        "rbs-soccer": "#5DD070", // SOCCER
+        "rbs-basketball": "#F07632", // BASKETBALL
+        "rbs-boxing": "#EC305D", // BOXING
+        "rbs-baseball": "#1E90FF", // BASEBALL
+        
+        // Background Colors (using official brand colors)
+        "bg-base": "#04070D", // BLACK MAIN
+        "bg-alt": "#1E1E29", // WASHED BLACK
+        "bg-elevated": "#141C1C", // WASHED BLACK DARK
+        "bg-deep": "#04070D", // BLACK MAIN
+        "surface": "#1E1E29",
+        "surface-elevated": "#141C1C",
+        
+        // Text Colors
+        "text-primary": "#FFFFFF", // JUST WHITE
+        "text-secondary": "rgba(255, 255, 255, 0.7)", // 70% opacity
+        "text-tertiary": "rgba(255, 255, 255, 0.6)", // 60% opacity
+        "text-brand": "#D0FF12", // ARCTIC LIME for highlights
+        "text-mono": "#E3FAD4", // SPRING MORN for monospace
+        
+        // Border Colors
+        "border-subtle": "rgba(208, 255, 18, 0.1)",
+        "border-medium": "rgba(208, 255, 18, 0.2)",
+        "border-brand": "rgba(208, 255, 18, 0.3)",
+        
+        // Legacy accent colors (keeping for compatibility)
+        "accent-primary": "#D0FF12",
+        "accent-secondary": "#9EF909",
+        "accent-muted": "rgba(208, 255, 18, 0.15)",
+        "accent-glow": "rgba(208, 255, 18, 0.25)",
 
-        // RBS Specific Colors
-        "rbs-blue": "#3B82F6", // For total metrics, submissions, etc.
-        "rbs-orange": "#F97316", // For active bettors line
-        "rbs-green": "#22C55E", // For new bettors bars, JERRY volume
-        "rbs-purple": "#A855F7", // For cumulative bettors line, active bettors line
-        "rbs-red": "#EF4444", // For negative trends
+        // Chart Colors (using brand palette)
+        "rbs-blue": "#D0FF12", // ARCTIC LIME
+        "rbs-orange": "#FF6B35", // ACCENT
+        "rbs-green": "#9EF909", // DARK LIME
+        "rbs-purple": "#8F65F7", // Purple for variety
+        "rbs-red": "#EF4444", // Red for alerts/negative
 
         // Shadcn/ui colors (kept for compatibility)
         border: "hsl(var(--border))",
@@ -66,7 +104,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Inter", ...fontFamily.sans],
+        sans: ["Red Hat Display", ...fontFamily.sans],
+        display: ["Sacco", ...fontFamily.sans],
         mono: ["JetBrains Mono", ...fontFamily.mono],
       },
       fontSize: {

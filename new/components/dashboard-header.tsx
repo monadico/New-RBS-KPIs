@@ -49,7 +49,7 @@ export function DashboardHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-20 bg-bg-base/80 backdrop-blur-xl border-b border-border-subtle shadow-lg transition-transform duration-300 ease-in-out",
+        "sticky top-0 z-20 bg-rbs-washed-black/85 backdrop-blur-xl border-b border-border-subtle shadow-lg transition-transform duration-300 ease-in-out",
         isVisible ? "translate-y-0" : "-translate-y-full", // Apply transform based on visibility
       )}
     >
@@ -63,7 +63,7 @@ export function DashboardHeader() {
               onClick={() => setActiveNav(item.label)}
               className={cn(
                 "relative text-sm font-medium py-2 px-3 rounded-lg transition-all duration-300",
-                "before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-0.5 before:bg-accent-primary before:rounded-full before:transition-all before:duration-300",
+                "before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-0.5 before:bg-rbs-lime before:rounded-full before:transition-all before:duration-300",
                 activeNav === item.label
                   ? "text-text-primary before:w-full before:opacity-100"
                   : "text-text-secondary hover:text-text-primary hover:before:w-2/3 hover:before:opacity-70",

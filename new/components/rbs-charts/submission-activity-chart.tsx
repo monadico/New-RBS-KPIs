@@ -41,11 +41,11 @@ export function SubmissionActivityChart({ data }: SubmissionActivityChartProps) 
           config={{
             submissions: {
               label: "Submissions",
-              color: "var(--rbs-blue)",
+              color: "#D0FF12",
             },
             active_addresses: {
               label: "Active Bettors",
-              color: "var(--rbs-orange)",
+              color: "#5DD070",
             },
           }}
           className="h-[400px] w-full"
@@ -81,15 +81,15 @@ export function SubmissionActivityChart({ data }: SubmissionActivityChartProps) 
                 hide={true}
               />
               <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: "rgba(255, 255, 255, 0.02)" }} />
-              <Bar yAxisId="left" dataKey="submissions" fill="var(--rbs-blue)" radius={[4, 4, 0, 0]} maxBarSize={20} />
+              <Bar yAxisId="left" dataKey="submissions" fill="#D0FF12" radius={[4, 4, 0, 0]} maxBarSize={20} />
               <Line
                 yAxisId="right"
                 type="monotone"
                 dataKey="active_addresses"
-                stroke="var(--rbs-orange)"
+                stroke="#5DD070"
                 strokeWidth={2}
-                dot={{ fill: "var(--rbs-orange)", strokeWidth: 0, r: 3 }}
-                activeDot={{ r: 5, stroke: "var(--rbs-orange)", strokeWidth: 2, fill: "var(--bg-base)" }}
+                dot={{ fill: "#5DD070", strokeWidth: 0, r: 3 }}
+                activeDot={{ r: 5, stroke: "#5DD070", strokeWidth: 2, fill: "#04070D" }}
               />
             </ComposedChart>
           </ResponsiveContainer>

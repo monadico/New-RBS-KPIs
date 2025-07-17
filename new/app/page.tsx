@@ -139,29 +139,29 @@ export default function Page() {
               title="Total RareLink Submissions"
               value={total_metrics.total_submissions}
               format="number"
-              accentColor="text-rbs-blue"
-              icon={<TrendingUp className="w-5 h-5" />}
+              accentColor="text-rbs-lime"
+              icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
             />
             <MetricCard
               title="Total Active Addresses"
               value={total_metrics.total_active_addresses}
               format="number"
-              accentColor="text-rbs-blue"
-              icon={<Users className="w-5 h-5" />}
+              accentColor="text-rbs-lime"
+              icon={<Users className="w-5 h-5 text-rbs-over" />}
             />
             <MetricCard
               title="Total $MON Volume"
               value={total_metrics.total_mon_volume}
               format="currency"
-              accentColor="text-rbs-blue"
-              icon={<DollarSign className="w-5 h-5" />}
+              accentColor="text-rbs-lime"
+              icon={<DollarSign className="w-5 h-5 text-rbs-under" />}
             />
             <MetricCard
               title="Total $JERRY Volume"
               value={total_metrics.total_jerry_volume}
               format="currency"
-              accentColor="text-rbs-blue"
-              icon={<DollarSign className="w-5 h-5" />}
+              accentColor="text-rbs-lime"
+              icon={<DollarSign className="w-5 h-5 text-rbs-focused" />}
             />
           </div>
         </section>
@@ -173,22 +173,22 @@ export default function Page() {
               title="Avg Submissions per Day"
               value={average_metrics.avg_submissions_per_day}
               format="number"
-              accentColor="text-rbs-blue"
-              icon={<TrendingUp className="w-5 h-5" />}
+              accentColor="text-rbs-lime"
+              icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
             />
             <MetricCard
               title="Avg Players per Day"
               value={average_metrics.avg_players_per_day}
               format="number"
-              accentColor="text-rbs-blue"
-              icon={<Users className="w-5 h-5" />}
+              accentColor="text-rbs-lime"
+              icon={<Users className="w-5 h-5 text-rbs-over" />}
             />
             <MetricCard
               title="Avg Cards per RareLink Slip"
               value={average_metrics.avg_cards_per_slip}
               format="decimal"
-              accentColor="text-rbs-blue"
-              icon={<CreditCard className="w-5 h-5" />}
+              accentColor="text-rbs-lime"
+              icon={<CreditCard className="w-5 h-5 text-rbs-focused" />}
             />
           </div>
         </section>

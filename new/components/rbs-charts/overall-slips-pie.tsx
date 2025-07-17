@@ -11,7 +11,7 @@ interface OverallSlipsPieProps {
   data: SlipCardCount[]
 }
 
-const COLORS = ["#3B82F6", "#8B5CF6", "#06B6D4", "#10B981", "#F59E0B", "#EF4444"]
+const COLORS = ["#D12#9EF909", "#F07632", "#EC305D", "#1E90FF"]
 
 export function OverallSlipsPie({ data }: OverallSlipsPieProps) {
   const totalBets = data.reduce((sum, item) => sum + item.bets, 0)

@@ -60,16 +60,16 @@ export function TopBettorsTable({ data }: TopBettorsTableProps) {
                   key={bettor.user_address}
                   className={cn(
                     "hover:bg-surface-elevated transition-colors duration-200 border-border-subtle",
-                    index === 0 && "bg-yellow-500/10 hover:bg-yellow-500/20", // Gold
-                    index === 1 && "bg-gray-400/10 hover:bg-gray-400/20", // Silver
-                    index === 2 && "bg-orange-500/10 hover:bg-orange-500/20", // Bronze
+                    index === 0 && "bg-rbs-lime/10 hover:bg-rbs-lime/20", // Gold - Arctic Lime
+                    index === 1 && "bg-rbs-accent/10 hover:bg-rbs-accent/20", // Silver - Accent
+                    index === 2 && "bg-rbs-dark-lime/10 hover:bg-rbs-dark-lime/20", // Bronze - Dark Lime
                   )}
                 >
                   <TableCell className="font-bold text-text-primary">
                     {bettor.rank}
-                    {index === 0 && <Crown className="inline-block w-4 h-4 ml-1 text-yellow-400 fill-yellow-400/20" />}
+                    {index === 0 && <Crown className="inline-block w-4 h-4 ml-1 text-rbs-lime fill-rbs-lime/20" />}
                   </TableCell>
-                  <TableCell className="font-mono text-text-secondary">
+                  <TableCell className="font-mono text-text-mono">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span>{formatAddress(bettor.user_address)}</span>

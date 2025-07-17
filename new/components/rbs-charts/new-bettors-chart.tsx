@@ -48,11 +48,11 @@ export function NewBettorsChart({ data }: NewBettorsChartProps) {
           config={{
             new_bettors: {
               label: "New Bettors",
-              color: "var(--rbs-green)",
+              color: "#9EF909",
             },
             cumulative_bettors: {
               label: "Cumulative Bettors",
-              color: "var(--rbs-purple)",
+              color: "#F07632",
             },
           }}
           className="h-[350px] w-full"
@@ -88,15 +88,15 @@ export function NewBettorsChart({ data }: NewBettorsChartProps) {
                 hide={true}
               />
               <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: "rgba(255, 255, 255, 0.02)" }} />
-              <Bar yAxisId="left" dataKey="new_bettors" fill="var(--rbs-green)" radius={[4, 4, 0, 0]} maxBarSize={20} />
+              <Bar yAxisId="left" dataKey="new_bettors" fill="#9EF909" radius={[4, 4, 0, 0]} maxBarSize={20} />
               <Line
                 yAxisId="right"
                 type="monotone"
                 dataKey="cumulative_bettors"
-                stroke="var(--rbs-purple)"
+                stroke="#F07632"
                 strokeWidth={2}
-                dot={{ fill: "var(--rbs-purple)", strokeWidth: 0, r: 3 }}
-                activeDot={{ r: 5, stroke: "var(--rbs-purple)", strokeWidth: 2, fill: "var(--bg-base)" }}
+                dot={{ fill: "#F07632", strokeWidth: 0, r: 3 }}
+                activeDot={{ r: 5, stroke: "#F07632", strokeWidth: 2, fill: "var(--bg-base)" }}
               />
             </ComposedChart>
           </ResponsiveContainer>

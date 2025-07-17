@@ -14,7 +14,7 @@ export function TimeframeSelector({ selectedTimeframe, onSelectTimeframe }: Time
     cn(
       "px-6 py-3 rounded-full text-sm font-medium transition-all duration-300",
       selectedTimeframe === timeframe
-        ? "bg-accent-primary text-bg-deep shadow-glow-subtle"
+        ? "bg-rbs-lime text-rbs-black shadow-glow-subtle"
         : "bg-surface-elevated text-text-secondary hover:bg-surface hover:text-text-primary border border-border-subtle",
     )
 
