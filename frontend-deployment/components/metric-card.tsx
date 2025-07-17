@@ -1,7 +1,7 @@
 // components/metric-card.tsx
 import { Card, CardContent } from "@/components/ui/card"
 import { TrendingUp, TrendingDown } from "lucide-react"
-import { cn, formatNumber, formatCurrency } from "../lib/utils" // Import utility functions
+import { cn, formatNumber, formatCurrency } from "@/lib/utils" // Import utility functions
 import type React from "react"
 
 interface MetricCardProps {

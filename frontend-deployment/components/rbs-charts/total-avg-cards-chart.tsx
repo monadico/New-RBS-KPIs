@@ -6,7 +6,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { Bar, ResponsiveContainer, XAxis, YAxis, Line, ComposedChart } from "recharts"
 import { CreditCard } from "lucide-react"
 import type { PeriodData } from "@/lib/data-types"
-import { formatNumber } from "../../lib/utils"
+import { formatNumber } from "@/lib/utils"
 
 interface TotalAvgCardsChartProps {
   data: PeriodData[]

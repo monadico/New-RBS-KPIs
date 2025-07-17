@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { TopBettor } from "@/lib/data-types"
-import { formatCurrency, formatNumber, formatAddress, cn } from "../../lib/utils"
+import { formatCurrency, formatNumber, formatAddress, cn } from "@/lib/utils"
 import { Crown } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 

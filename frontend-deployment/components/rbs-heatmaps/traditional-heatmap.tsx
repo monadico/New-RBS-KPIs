@@ -5,7 +5,7 @@ import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Calendar, TrendingUp, DollarSign } from "lucide-react"
-import { getHeatmapColor, formatNumber, formatCurrency } from "../../lib/utils"
+import { getHeatmapColor, formatNumber, formatCurrency } from "@/lib/utils"
 import type { PeriodData } from "@/lib/data-types"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
