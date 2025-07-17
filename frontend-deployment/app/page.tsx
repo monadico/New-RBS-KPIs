@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/button"
 import { DollarSign, Users, CreditCard, TrendingUp } from "lucide-react"
 
 import type { AnalyticsData } from "@/lib/data-types"
-import { getTimeframeData, getCardCountData } from "@/lib/utils"
+import { getTimeframeData, getCardCountData } from "../lib/utils"
 import { TimeframeSelector } from "@/components/timeframe-selector"
 
 export default function Page() {

@@ -1,5 +1,5 @@
 import { Home, Calendar, MessageCircle, HelpCircle, Settings, Upload } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "../lib/utils"
 import type React from "react" // Added import for React
 
 interface NavItemProps {

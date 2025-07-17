@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Cell, Pie, PieChart } from "recharts"
 import { PieChartIcon } from "lucide-react"
 import type { SlipCardCount } from "@/lib/data-types"
-import { formatNumber } from "@/lib/utils"
+import { formatNumber } from "../../lib/utils"
 
 interface OverallSlipsPieProps {
   data: SlipCardCount[]
