@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Cell, Pie, PieChart } from "recharts"
 import { Users } from "lucide-react"
 import type { PlayerCategory } from "@/lib/data-types"
-import { formatNumber } from "../../lib/utils"
+import { formatNumber } from "@/lib/utils"
 
 interface PlayerActivityPieProps {
   data: PlayerCategory[]

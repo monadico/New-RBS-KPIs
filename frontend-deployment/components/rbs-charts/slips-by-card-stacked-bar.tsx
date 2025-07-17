@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Bar, BarChart, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts"
 import { Layers } from "lucide-react"
 import type { TimeframeCardCounts } from "@/lib/data-types"
-import { formatNumber } from "../../lib/utils"
+import { formatNumber } from "@/lib/utils"
 
 interface SlipsByCardStackedBarProps {
   data: TimeframeCardCounts[]

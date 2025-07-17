@@ -6,7 +6,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { Users } from "lucide-react"
 import type { PeriodData } from "@/lib/data-types"
-import { formatNumber } from "../../lib/utils"
+import { formatNumber } from "@/lib/utils"
 
 interface CumulativeActiveBettorsLineProps {
   data: PeriodData[]

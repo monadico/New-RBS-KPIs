@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { RbsStatsPeriod } from "@/lib/data-types"
-import { formatCurrency, formatNumber } from "../../lib/utils"
+import { formatCurrency, formatNumber } from "@/lib/utils"
 import { TableIcon } from "lucide-react"
 
 interface RbsStatsTableProps {

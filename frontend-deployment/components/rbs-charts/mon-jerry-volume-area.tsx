@@ -6,7 +6,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { DollarSign } from "lucide-react"
 import type { PeriodData } from "@/lib/data-types"
-import { formatCurrency } from "../../lib/utils"
+import { formatCurrency } from "@/lib/utils"
 
 interface MonJerryVolumeAreaProps {
   data: PeriodData[]
