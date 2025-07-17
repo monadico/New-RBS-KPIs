@@ -1,22 +1,4 @@
-# Multi-stage Dockerfile for Betting Analytics API + Frontend
-FROM node:18-alpine AS frontend-builder
-
-# Set working directory
-WORKDIR /app
-
-# Copy package files
-COPY new/package*.json ./
-
-# Install dependencies
-RUN npm ci --only=production
-
-# Copy frontend source
-COPY new/ ./
-
-# Build the Next.js app
-RUN npm run build
-
-# Python API stage
+# Dockerfile for Betting Analytics API + Frontend
 FROM python:3.11-slim
 
 # Set working directory
@@ -25,6 +7,7 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install Python dependencies
@@ -36,9 +19,8 @@ COPY betting_database.py .
 COPY json_query.py .
 COPY api_server.py .
 
-# Copy the built frontend from the previous stage
-COPY --from=frontend-builder /app/.next ./new/.next
-COPY --from=frontend-builder /app/public ./new/public
+# Copy the entire frontend directory (including built files)
+COPY new/ ./new/
 
 # Create data directory for SQLite database
 RUN mkdir -p /app/data
