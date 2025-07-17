@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font Face Declarations */
+@font-face {
+  font-family: 'Red Hat Display';
+  src: url('/fonts/Red_Hat_Display/RedHatDisplay-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Red Hat Display';
+  src: url('/fonts/Red_Hat_Display/RedHatDisplay-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sacco';
+  src: url('/fonts/sacco/Sacco-SemiBoldCondensed.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sacco';
+  src: url('/fonts/sacco/Sacco-SemiBoldExtraCondensed.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: extra-condensed;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sacco';
+  src: url('/fonts/sacco/Sacco-SemiBoldUltraCondensed.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: ultra-condensed;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .font-display {
+    font-family: 'Sacco', sans-serif;
+  }
+  
+  .font-primary {
+    font-family: 'Red Hat Display', sans-serif;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 240 5.9% 10%;
+    --foreground: 0 0% 98%;
+    --card: 240 5.9% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 5.9% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 75 100% 53%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 75 100% 53%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 75 100% 53%;
+    --chart-1: 75 100% 53%;
+    --chart-2: 19 100% 60%;
+    --chart-3: 88 96% 62%;
+    --chart-4: 263 87% 68%;
+    --chart-5: 0 84% 60%;
+    --radius: 0.5rem;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* RBS Chart Colors */
+    --rbs-blue: 75 100% 53%;
+    --rbs-orange: 19 100% 60%;
+    --rbs-green: 88 96% 62%;
+    --rbs-purple: 263 87% 68%;
+    --rbs-red: 0 84% 60%;
+    
+    /* Service Colors */
+    --rbs-alert: 0 84% 60%;
+    --rbs-over: 142 84% 60%;
+    --rbs-under: 35 100% 60%;
+    --rbs-focused: 195 100% 70%;
+    --rbs-accent: 19 100% 60%;
+    
+    /* Sport Colors */
+    --rbs-soccer: 142 60% 60%;
+    --rbs-basketball: 20 85% 60%;
+    --rbs-boxing: 340 75% 60%;
+    --rbs-baseball: 210 100% 60%;
+  }
+  .dark {
+    --background: 240 5.9% 10%;
+    --foreground: 0 0% 98%;
+    --card: 240 5.9% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 5.9% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 75 100% 53%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 75 100% 53%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 75 100% 53%;
+    --chart-1: 75 100% 53%;
+    --chart-2: 19 100% 60%;
+    --chart-3: 88 96% 62%;
+    --chart-4: 263 87% 68%;
+    --chart-5: 0 84% 60%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* RBS Chart Colors (same for dark theme) */
+    --rbs-blue: 75 100% 53%;
+    --rbs-orange: 19 100% 60%;
+    --rbs-green: 88 96% 62%;
+    --rbs-purple: 263 87% 68%;
+    --rbs-red: 0 84% 60%;
+    
+    /* Service Colors */
+    --rbs-alert: 0 84% 60%;
+    --rbs-over: 142 84% 60%;
+    --rbs-under: 35 100% 60%;
+    --rbs-focused: 195 100% 70%;
+    --rbs-accent: 19 100% 60%;
+    
+    /* Sport Colors */
+    --rbs-soccer: 142 60% 60%;
+    --rbs-basketball: 20 85% 60%;
+    --rbs-boxing: 340 75% 60%;
+    --rbs-baseball: 210 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
