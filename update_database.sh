@@ -39,7 +39,10 @@ fi
 
 # Check if database file exists, create if not
 if [ ! -f "betting_transactions.db" ]; then
-    log_message "Database file not found, running initial database creation..."
+    log_message "Database file not found, creating empty database file first..."
+    touch betting_transactions.db
+    chmod 666 betting_transactions.db
+    log_message "Empty database file created, running initial database creation..."
     python3 betting_database.py --start-block 0
     if [ $? -eq 0 ]; then
         log_message "Initial database creation completed successfully"
@@ -51,6 +54,8 @@ fi
 
 # Run the database update with incremental flag
 log_message "Starting incremental database update..."
+log_message "Current directory: $(pwd)"
+log_message "Database file exists: $(ls -la betting_transactions.db 2>/dev/null || echo 'No database file')"
 python3 betting_database.py --incremental
 
 if [ $? -eq 0 ]; then
