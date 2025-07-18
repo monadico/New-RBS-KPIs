@@ -49,7 +49,7 @@ export default function Page() {
       setError(null)
       try {
         // Try API first, fallback to static JSON
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://173.249.24.245:8001'
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://173.249.24.245:8001'
         const response = await fetch(`${apiUrl}/api/analytics`)
         if (!response.ok) {
           // Fallback to static JSON
