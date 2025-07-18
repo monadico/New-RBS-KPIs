@@ -4,10 +4,10 @@
 # Runs every 6 hours to keep data fresh
 
 # Set the working directory
-cd /root/hypersync-client-python
+cd /app
 
 # Log file for tracking updates
-LOG_FILE="/root/hypersync-client-python/database_update.log"
+LOG_FILE="/app/database_update.log"
 
 # Function to log messages
 log_message() {
