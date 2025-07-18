@@ -49,7 +49,7 @@ export default function Page() {
       setError(null)
       try {
         // Try API first, fallback to static JSON
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://173.249.24.245:8001'
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://173.249.24.245:8000'
         const response = await fetch(`${apiUrl}/api/analytics`)
         if (!response.ok) {
           // Fallback to static JSON
@@ -66,6 +66,20 @@ export default function Page() {
         }
       } catch (err: any) {
         console.error('Error loading analytics data:', err)
+        // Try static JSON as fallback
+        try {
+          const staticResponse = await fetch('/analytics_dump.json')
+          if (staticResponse.ok) {
+            const json = await staticResponse.json()
+            if (json.success) {
+              setData(json)
+              setLoading(false)
+              return
+            }
+          }
+        } catch (fallbackErr) {
+          console.error('Fallback also failed:', fallbackErr)
+        }
         setError(err instanceof Error ? err.message : 'Failed to load analytics data')
       } finally {
         setLoading(false)
@@ -75,7 +89,12 @@ export default function Page() {
     fetchData()
   }, [mounted])
 
-  if (!mounted || loading) {
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return null
+  }
+
+  if (loading) {
     return (
       <div className="flex min-h-screen bg-bg-base items-center justify-center">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-accent-primary"></div>
