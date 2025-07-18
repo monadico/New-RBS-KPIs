@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
@@ -10,10 +12,10 @@ const nextConfig = {
     unoptimized: true,
   },
   output: 'standalone',
-  webpack: (config) => {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, './'),
+      '@': path.resolve(__dirname),
     };
     return config;
   },
