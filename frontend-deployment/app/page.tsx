@@ -49,7 +49,7 @@ export default function Page() {
       setError(null)
       try {
         // Try API first, fallback to static JSON
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://173.249.24.245:8000'
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://f8s8sk80ok44gw04osco04so.173.249.24.245.sslip.io'
         const response = await fetch(`${apiUrl}/api/analytics`)
         if (!response.ok) {
           // Fallback to static JSON
