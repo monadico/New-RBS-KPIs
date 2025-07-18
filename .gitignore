@@ -32,7 +32,6 @@ build/
 bin/
 develop-eggs/
 eggs/
-lib/
 lib64/
 parts/
 sdist/
