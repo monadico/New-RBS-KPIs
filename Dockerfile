@@ -18,6 +18,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY betting_database.py .
 COPY json_query.py .
 COPY api_server.py .
+COPY update_database.sh .
+RUN chmod +x update_database.sh
 
 # Copy the entire frontend directory (including built files)
 COPY new/ ./new/
