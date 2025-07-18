@@ -39,7 +39,14 @@ fi
 
 # Check if database file exists, create if not
 if [ ! -f "betting_transactions.db" ]; then
-    log_message "Database file not found, will create new one"
+    log_message "Database file not found, running initial database creation..."
+    python3 betting_database.py --start-block 0
+    if [ $? -eq 0 ]; then
+        log_message "Initial database creation completed successfully"
+    else
+        log_message "ERROR: Initial database creation failed"
+        exit 1
+    fi
 fi
 
 # Run the database update with incremental flag
