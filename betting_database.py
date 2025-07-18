@@ -523,10 +523,11 @@ async def main():
     parser.add_argument("--incremental", action="store_true", help="Only fetch new data")
     parser.add_argument("--start-block", type=int, help="Start from specific block")
     parser.add_argument("--stats", action="store_true", help="Show database statistics")
+    parser.add_argument("--db-path", type=str, default="betting_transactions.db", help="Path to database file")
     args = parser.parse_args()
     
     # Initialize database
-    db = BettingDatabase()
+    db = BettingDatabase(db_path=args.db_path)
     
     # Initialize Hypersync client
     config = ClientConfig(
