@@ -24,7 +24,7 @@ app.add_middleware(
 )
 
 # Database path for reference
-DB_PATH = "betting_transactions.db"
+DB_PATH = "/app/data/betting_transactions.db"
 
 @app.get("/")
 async def root():

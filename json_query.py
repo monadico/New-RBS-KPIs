@@ -18,7 +18,7 @@ def convert_datetime(val):
 sqlite3.register_adapter(datetime, adapt_datetime)
 sqlite3.register_converter("datetime", convert_datetime)
 
-DB_PATH = "/app/betting_transactions.db"
+DB_PATH = "/app/data/betting_transactions.db"
 OUTPUT_FILE = "analytics_dump.json"
 FRONTEND_PUBLIC = "new/public/analytics_dump.json"
 COMPRESSED_FILE = "new/public/analytics_dump.json.gz"

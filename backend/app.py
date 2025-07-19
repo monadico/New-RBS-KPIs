@@ -28,7 +28,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend
 
 # Configuration
-DATABASE_PATH = "/app/betting_transactions.db"
+DATABASE_PATH = "/app/data/betting_transactions.db"
 def get_db_connection():
     """Get database connection."""
     return sqlite3.connect(DATABASE_PATH)
