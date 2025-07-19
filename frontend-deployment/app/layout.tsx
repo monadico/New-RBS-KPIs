@@ -7,6 +7,47 @@ export const metadata: Metadata = {
   title: 'RBS Dashboard',
   description: 'RareBet Sports Analytics Dashboard - Check out the latest metrics of your favorite sports betting app!',
   generator: 'Next.js',
+  applicationName: 'RBS Dashboard',
+  keywords: ['RareBet Sports', 'Analytics', 'Dashboard', 'Sports Betting', 'Metrics'],
+  authors: [{ name: 'RareBet Sports' }],
+  creator: 'RareBet Sports',
+  publisher: 'RareBet Sports',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com',
+    siteName: 'RBS Dashboard',
+    title: 'RBS Dashboard - RareBet Sports Analytics',
+    description: 'Check out the latest metrics of your favorite sports betting app!',
+    images: [
+      {
+        url: '/favicon.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'RBS Dashboard - RareBet Sports Analytics',
+        type: 'image/jpeg',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@RareBetSports',
+    creator: '@RareBetSports',
+    title: 'RBS Dashboard - RareBet Sports Analytics',
+    description: 'Check out the latest metrics of your favorite sports betting app!',
+    images: ['/favicon.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
