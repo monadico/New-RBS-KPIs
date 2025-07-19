@@ -145,7 +145,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
               color: "#EC305D",
             },
           }}
-          className="h-[350px] w-full"
+          className="h-[400px] w-full"
         >
           {chartContent}
         </ChartContainer>

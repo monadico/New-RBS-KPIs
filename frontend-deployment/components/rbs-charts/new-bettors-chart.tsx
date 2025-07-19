@@ -31,7 +31,7 @@ export function NewBettorsChart({ data, onChartClick, isModal = false }: NewBett
   const finalCumulative = cumulativeBettors
   
   // Use smaller height for modal to ensure it fits within bounds and shows X-axis
-  const chartHeight = isModal ? "h-[450px]" : "h-[350px]"
+  const chartHeight = isModal ? "h-[450px]" : "h-[400px]"
 
   // Custom tooltip for modal chart
   const CustomTooltip = ({ active, payload, label }: any) => {

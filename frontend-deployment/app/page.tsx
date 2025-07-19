@@ -303,9 +303,13 @@ export default function Page() {
           style={{ animationDelay: "0.9s" }}
         >
           <div className="lg:col-span-1">
-            <div className="space-y-6">
-            <PlayerActivityPie data={player_activity.categories} totalPlayers={player_activity.total_players} />
-              <OverallSlipsPie data={overall_slips_by_card_count} />
+            <div className="h-full flex flex-col space-y-6">
+              <div className="flex-1">
+                <PlayerActivityPie data={player_activity.categories} totalPlayers={player_activity.total_players} />
+              </div>
+              <div className="flex-1">
+                <OverallSlipsPie data={overall_slips_by_card_count} />
+              </div>
             </div>
           </div>
           <div className="lg:col-span-2">

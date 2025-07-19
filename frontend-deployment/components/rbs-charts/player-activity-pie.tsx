@@ -36,7 +36,7 @@ export function PlayerActivityPie({ data, totalPlayers }: PlayerActivityPieProps
       <CardContent className="flex flex-col items-center gap-4">
         {/* Chart */}
         <div className="relative">
-          <PieChart width={180} height={180}>
+          <PieChart width={200} height={200}>
             <Pie
               data={data}
               cx="50%"

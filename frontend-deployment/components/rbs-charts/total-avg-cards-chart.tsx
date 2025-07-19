@@ -21,7 +21,7 @@ export function TotalAvgCardsChart({ data, onChartClick, isModal = false }: Tota
   const avgCardsPerSubmission = data.reduce((sum, period) => sum + period.avg_cards_per_submission, 0) / data.length
 
   // Use smaller height for modal to ensure it fits within bounds and shows X-axis
-  const chartHeight = isModal ? "h-[450px]" : "h-[350px]"
+  const chartHeight = isModal ? "h-[450px]" : "h-[515px]"
 
   // Custom tooltip for modal chart
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -157,7 +157,7 @@ export function TotalAvgCardsChart({ data, onChartClick, isModal = false }: Tota
               color: "#1E90FF",
             },
           }}
-          className="h-[515px]"
+          className="h-full"
         >
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data} margin={{ top: 20, right: 40, left: 30, bottom: 20 }}>

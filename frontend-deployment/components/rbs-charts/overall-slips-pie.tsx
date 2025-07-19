@@ -37,7 +37,7 @@ export function OverallSlipsPie({ data }: OverallSlipsPieProps) {
       <CardContent className="flex flex-col items-center gap-4">
         {/* Chart */}
         <div className="relative">
-          <PieChart width={180} height={180}>
+          <PieChart width={220} height={220}>
             <Pie 
               data={data} 
               cx="50%" 
