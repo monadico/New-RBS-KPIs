@@ -31,6 +31,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED=1
+# Optimize Node.js memory usage
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Install curl for healthcheck
 RUN apk add --no-cache curl
