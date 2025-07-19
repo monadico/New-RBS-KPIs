@@ -12,7 +12,7 @@ interface PlayerActivityPieProps {
   totalPlayers: number
 }
 
-const COLORS = ["#D12#9EF909", "#F07632", "#EC305D", "#1E90FF"]
+const COLORS = ["#D0FF12", "#FF6B35", "#FF1744", "#00E5FF", "#FFFF00", "#FF4081"]
 
 export function PlayerActivityPie({ data, totalPlayers }: PlayerActivityPieProps) {
   return (

@@ -208,9 +208,9 @@ export default function Page() {
       <main className="container mx-auto px-6 py-8 space-y-8">
         {/* Main Title and Subtitle */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-text-primary tracking-tight mb-2">📊 RBS Analytics Dashboard</h1>
+          <h1 className="text-4xl font-bold text-text-primary tracking-tight mb-2">RBS Analytics Dashboard</h1>
           <p className="text-text-secondary text-base leading-relaxed max-w-2xl mx-auto">
-            Real-time insights into RareBetSports ecosystem performance
+            Check out the latest metrics of your favorite sports betting app!
           </p>
         </div>
 
