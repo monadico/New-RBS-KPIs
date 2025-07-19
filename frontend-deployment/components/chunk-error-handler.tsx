@@ -4,32 +4,31 @@ import { useEffect } from 'react'
 
 export function ChunkErrorHandler() {
   useEffect(() => {
+    let hasReloaded = false;
+
     // Handle unhandled promise rejections (chunk errors)
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      if (event.reason?.name === 'ChunkLoadError') {
-        console.warn('Chunk load error caught:', event.reason);
-        event.preventDefault(); // Prevent default error handling
+      if (event.reason?.name === 'ChunkLoadError' && !hasReloaded) {
+        console.warn('Chunk load error detected, will reload page once:', event.reason);
+        hasReloaded = true;
         
-        // Show user-friendly message
-        console.log('A loading error occurred. The page will refresh automatically...');
-        
-        // Reload page after a short delay
+        // Reload page after a delay, but only once
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 3000);
       }
     };
 
     // Handle general script errors
     const handleError = (event: ErrorEvent) => {
-      if (event.error?.name === 'ChunkLoadError') {
-        console.warn('Chunk load error caught:', event.error);
-        event.preventDefault();
+      if (event.error?.name === 'ChunkLoadError' && !hasReloaded) {
+        console.warn('Script error detected, will reload page once:', event.error);
+        hasReloaded = true;
         
-        // Reload page after a short delay
+        // Reload page after a delay, but only once
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 3000);
       }
     };
 

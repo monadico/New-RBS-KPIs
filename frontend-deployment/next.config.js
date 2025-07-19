@@ -18,47 +18,22 @@ const nextConfig = {
     optimizeCss: false,
   },
   
-  // Webpack configuration for chunk loading reliability
-  webpack: (config, { isServer, webpack }) => {
+  // Simplified webpack configuration
+  webpack: (config, { isServer }) => {
+    // Only add basic fallbacks for client-side
     if (!isServer) {
-      // Add fallbacks for client-side
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
         net: false,
         tls: false,
       };
-
-      // Add chunk retry logic
-      config.plugins.push(
-        new webpack.DefinePlugin({
-          'process.env.CHUNK_RETRY_COUNT': JSON.stringify('3'),
-          'process.env.CHUNK_RETRY_DELAY': JSON.stringify('1000'),
-        })
-      );
     }
-
-    // Optimize chunks for better loading
-    config.optimization = {
-      ...config.optimization,
-      splitChunks: {
-        ...config.optimization.splitChunks,
-        cacheGroups: {
-          ...config.optimization.splitChunks.cacheGroups,
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-            maxSize: 244000, // 244kb chunks
-          },
-        },
-      },
-    };
 
     return config;
   },
 
-  // Add headers for better caching and security
+  // Basic headers for caching
   async headers() {
     return [
       {
@@ -70,39 +45,16 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-        ],
-      },
-    ];
-  },
-
-  // Handle redirects and rewrites if needed
-  async rewrites() {
-    return [
-      {
-        source: '/health',
-        destination: '/api/health',
-      },
     ];
   },
 
   // Optimize images
   images: {
     domains: [],
-    unoptimized: true, // Disable optimization for faster builds
+    unoptimized: true,
   },
 
-  // Enable source maps in production for debugging
+  // Disable source maps in production for faster loading
   productionBrowserSourceMaps: false,
 
   // Disable x-powered-by header
