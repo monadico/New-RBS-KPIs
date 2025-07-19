@@ -78,6 +78,11 @@ export default function RootLayout({
         <meta name="twitter:description" content="Check out the latest metrics of your favorite sports betting app!" />
         <meta name="twitter:image" content="/favicon.jpg" />
         <meta name="application-name" content="RBS Dashboard" />
+        <meta name="theme-color" content="#D0FF12" />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_SITE_URL || "https://your-domain.com"} />
+        <meta property="og:locale" content="en_US" />
+        <meta name="robots" content="index,follow" />
+        <meta name="author" content="RareBet Sports" />
       </head>
       <body>
         <ErrorBoundary>
