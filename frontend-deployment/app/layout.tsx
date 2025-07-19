@@ -68,6 +68,16 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.jpg" type="image/jpeg" />
         <link rel="apple-touch-icon" href="/favicon.jpg" />
+        <meta property="og:title" content="RBS Dashboard - RareBet Sports Analytics" />
+        <meta property="og:description" content="Check out the latest metrics of your favorite sports betting app!" />
+        <meta property="og:image" content="/favicon.jpg" />
+        <meta property="og:site_name" content="RBS Dashboard" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="RBS Dashboard - RareBet Sports Analytics" />
+        <meta name="twitter:description" content="Check out the latest metrics of your favorite sports betting app!" />
+        <meta name="twitter:image" content="/favicon.jpg" />
+        <meta name="application-name" content="RBS Dashboard" />
       </head>
       <body>
         <ErrorBoundary>
