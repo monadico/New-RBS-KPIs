@@ -28,14 +28,20 @@ import { DollarSign, Users, CreditCard, TrendingUp } from "lucide-react"
 
 import type { AnalyticsData } from "@/lib/data-types"
 import { getTimeframeData, getCardCountData } from "@/lib/utils"
-import { TimeframeSelector } from "@/components/timeframe-selector"
+import { EnhancedTimeframeSelector, getAvailableDateRange } from "@/components/date-range-selector"
+import { ChartModal, useChartModal } from "@/components/ui/chart-modal"
 
 export default function Page() {
-  const [selectedTimeframe, setSelectedTimeframe] = useState<"daily" | "weekly" | "monthly">("weekly")
+  const [selectedTimeframe, setSelectedTimeframe] = useState<"daily" | "weekly" | "monthly" | "custom">("weekly")
+  const [customStartDate, setCustomStartDate] = useState<Date>(new Date("2025-02-03"))
+  const [customEndDate, setCustomEndDate] = useState<Date>(new Date())
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
+  
+  // Chart modal functionality
+  const { isOpen, chartData, openModal, closeModal } = useChartModal()
 
   useEffect(() => {
     setMounted(true)
@@ -89,6 +95,65 @@ export default function Page() {
     fetchData()
   }, [mounted])
 
+  // Handle date range changes for custom timeframe
+  const handleDateRangeChange = (startDate: Date, endDate: Date) => {
+    setCustomStartDate(startDate)
+    setCustomEndDate(endDate)
+    // TODO: Implement custom date filtering logic here
+    console.log("Date range changed:", startDate, endDate)
+  }
+
+  // Chart click handlers
+  const handleSubmissionChartClick = () => {
+    if (!data) return
+    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    openModal({
+      title: "Submission Activity - Detailed View",
+      description: "Daily submission volume and active bettor trends over time",
+      component: <SubmissionActivityChart data={timeframeData} isModal={true} />
+    })
+  }
+
+  const handleVolumeChartClick = () => {
+    if (!data) return
+    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    openModal({
+      title: "Token Volume Trends - Detailed View", 
+      description: "$MON and $JERRY betting volume over time",
+      component: <MonJerryVolumeArea data={timeframeData} isModal={true} />
+    })
+  }
+
+  const handleCardCountChartClick = () => {
+    if (!data) return
+    const cardCountData = getCardCountData(data, selectedTimeframe)
+    openModal({
+      title: "Slips by Card Count - Detailed View",
+      description: "Distribution of betting slips by number of cards over time", 
+      component: <SlipsByCardStackedBar data={cardCountData} isModal={true} />
+    })
+  }
+
+  const handleNewBettorsChartClick = () => {
+    if (!data) return
+    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    openModal({
+      title: "New Bettors Growth - Detailed View",
+      description: "New and cumulative bettor acquisition over time",
+      component: <NewBettorsChart data={timeframeData} isModal={true} />
+    })
+  }
+
+  const handleTotalAvgCardsChartClick = () => {
+    if (!data) return
+    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    openModal({
+      title: "Total & Average Cards - Detailed View",
+      description: "Total cards submitted and average cards per submission over time",
+      component: <TotalAvgCardsChart data={timeframeData} isModal={true} />
+    })
+  }
+
   // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
     return null
@@ -123,8 +188,9 @@ export default function Page() {
   }
 
   // Get timeframe-specific data
-  const timeframeData = getTimeframeData(data, selectedTimeframe)
-  const cardCountData = getCardCountData(data, selectedTimeframe)
+  const timeframeData = getTimeframeData(data, selectedTimeframe === "custom" ? "daily" : selectedTimeframe)
+  const cardCountData = getCardCountData(data, selectedTimeframe === "custom" ? "daily" : selectedTimeframe)
+  const availableDateRange = getAvailableDateRange(data)
 
   const {
     total_metrics,
@@ -148,44 +214,51 @@ export default function Page() {
           </p>
         </div>
 
-        {/* Timeframe Selector */}
-        <TimeframeSelector selectedTimeframe={selectedTimeframe} onSelectTimeframe={setSelectedTimeframe} />
+        {/* Enhanced Timeframe Selector with Custom Date Range */}
+        <EnhancedTimeframeSelector 
+          selectedTimeframe={selectedTimeframe} 
+          onSelectTimeframe={setSelectedTimeframe}
+          startDate={customStartDate}
+          endDate={customEndDate}
+          onDateRangeChange={handleDateRangeChange}
+          availableDateRange={availableDateRange || undefined}
+        />
 
         {/* Metrics Section - Row 1: Primary Metrics */}
         <section id="overview" className="animate-fade-in-up">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <MetricCard
-              title="Total RareLink Submissions"
+              title="Total Submissions"
               value={total_metrics.total_submissions}
               format="number"
               accentColor="text-rbs-lime"
               icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
             />
             <MetricCard
-              title="Total Active Addresses"
+              title="Active Bettors"
               value={total_metrics.total_active_addresses}
               format="number"
               accentColor="text-rbs-lime"
               icon={<Users className="w-5 h-5 text-rbs-over" />}
             />
             <MetricCard
-              title="Total $MON Volume"
+              title="$MON Volume"
               value={total_metrics.total_mon_volume}
-              format="currency"
-              accentColor="text-rbs-lime"
-              icon={<DollarSign className="w-5 h-5 text-rbs-under" />}
-            />
-            <MetricCard
-              title="Total $JERRY Volume"
-              value={total_metrics.total_jerry_volume}
               format="currency"
               accentColor="text-rbs-lime"
               icon={<DollarSign className="w-5 h-5 text-rbs-focused" />}
             />
+            <MetricCard
+              title="$JERRY Volume"
+              value={total_metrics.total_jerry_volume}
+              format="currency"
+              accentColor="text-rbs-lime"
+              icon={<DollarSign className="w-5 h-5 text-rbs-boxing" />}
+            />
           </div>
         </section>
 
-        {/* Metrics Section - Row 2: Average Metrics */}
+        {/* Metrics Section - Row 2: Averages */}
         <section className="animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <MetricCard
@@ -218,9 +291,9 @@ export default function Page() {
           className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed"
           style={{ animationDelay: "0.7s" }}
         >
-          <SubmissionActivityChart data={timeframeData} />
-          <NewBettorsChart data={timeframeData} />
-          <MonJerryVolumeArea data={timeframeData} />
+          <SubmissionActivityChart data={timeframeData} onChartClick={handleSubmissionChartClick} />
+          <NewBettorsChart data={timeframeData} onChartClick={handleNewBettorsChartClick} />
+          <MonJerryVolumeArea data={timeframeData} onChartClick={handleVolumeChartClick} />
         </section>
 
         {/* Charts Section - Row 2: Three Charts (Balanced Layout) */}
@@ -238,16 +311,14 @@ export default function Page() {
           <div className="lg:col-span-2">
             <div className="h-full flex flex-col space-y-6">
               <div className="flex-1">
-            <SlipsByCardStackedBar data={cardCountData} />
+            <SlipsByCardStackedBar data={cardCountData} onChartClick={handleCardCountChartClick} />
           </div>
               <div className="flex-1">
-                <TotalAvgCardsChart data={timeframeData} />
+                <TotalAvgCardsChart data={timeframeData} onChartClick={handleTotalAvgCardsChartClick} />
               </div>
             </div>
           </div>
         </section>
-
-
 
         {/* Tables Section */}
         <section className="animate-fade-in-delayed" style={{ animationDelay: "1.5s" }}>
@@ -267,6 +338,16 @@ export default function Page() {
           </div>
         </section>
       </main>
+
+      {/* Chart Modal */}
+      <ChartModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        title={chartData?.title || ""}
+        description={chartData?.description}
+      >
+        {chartData?.component}
+      </ChartModal>
     </div>
   )
 }

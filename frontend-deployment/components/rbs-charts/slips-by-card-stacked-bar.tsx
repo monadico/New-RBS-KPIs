@@ -2,107 +2,184 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Bar, BarChart, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts"
-import { Layers } from "lucide-react"
+import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts"
+import { CreditCard, TrendingUp } from "lucide-react"
 import type { TimeframeCardCounts } from "@/lib/data-types"
 import { formatNumber } from "@/lib/utils"
+import { CHART_COLORS } from "@/lib/chart-colors"
+
+const CARD_COUNTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 interface SlipsByCardStackedBarProps {
   data: TimeframeCardCounts[]
+  onChartClick?: () => void
+  isModal?: boolean
 }
 
-const COLORS = ["#D12#9EF909", "#F07632", "#EC305D", "#1E90FF", "#5DD070"]
-const CARD_COUNTS = [2, 3, 4, 5, 6, 7]
-
-export function SlipsByCardStackedBar({ data }: SlipsByCardStackedBarProps) {
-  // Transform data for stacked bar chart
-  const transformedData = data.map((period, index) => {
-    const result: any = {
+export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: SlipsByCardStackedBarProps) {
+  // Transform data to include all card counts with default 0 values
+  const transformedData = data.map((period) => {
+    const transformed: any = {
       period: period.period_start,
-      periodNumber: period.period_number
+      total: 0,
     }
-    
-    // Add each card count as a separate data point
-    CARD_COUNTS.forEach((cardCount, cardIndex) => {
-      result[`${cardCount}cards`] = period.card_counts[cardIndex] || 0
+
+    // Initialize all card counts to 0
+    CARD_COUNTS.forEach((count) => {
+      transformed[`${count}cards`] = 0
     })
-    
-    return result
+
+    // Fill in actual data - card_counts is a number array where index corresponds to card count
+    period.card_counts.forEach((bets, index) => {
+      if (bets > 0) {
+        const cardCount = index + 1 // card counts start from 1
+        const key = `${cardCount}cards`
+        transformed[key] = bets
+        transformed.total += bets
+      }
+    })
+
+    return transformed
   })
 
+  // Calculate totals for all card counts
+  const totalBets = transformedData.reduce((sum, period) => sum + period.total, 0)
+
+  // Use smaller height for modal to ensure it fits within bounds and shows X-axis
+  const chartHeight = isModal ? "h-[450px]" : "h-[500px]"
+
+  // Custom tooltip for modal chart
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-bg-elevated border border-border-medium rounded-lg p-3 shadow-lg">
-          <p className="text-text-primary font-medium mb-2">Period: {label}</p>
-          <div className="space-y-1">
-            {payload.map((entry: any, index: number) => (
-              <div key={index} className="flex items-center gap-2">
-                <div 
-                  className="w-3 h-3 rounded-sm" 
-                  style={{ backgroundColor: entry.color }}
-                />
-                <span className="text-text-secondary text-sm">
-                  {entry.name}: {formatNumber(entry.value)}
-                </span>
-              </div>
-            ))}
-          </div>
+        <div className="bg-surface border border-border-subtle rounded-lg p-3 shadow-lg">
+          <p className="text-text-secondary text-sm mb-2">
+            {new Date(label).toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric',
+              year: 'numeric'
+            })}
+          </p>
+          {payload.filter((entry: any) => entry.value > 0).map((entry: any, index: number) => (
+            <div key={index} className="flex items-center gap-2">
+              <div 
+                className="w-3 h-3 rounded-full" 
+                style={{ backgroundColor: entry.color }}
+              />
+              <span className="text-text-primary text-sm">
+                {entry.dataKey.replace('cards', ' cards')}: {formatNumber(entry.value)}
+              </span>
+            </div>
+          ))}
         </div>
       )
     }
     return null
   }
 
-  return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group lg:col-span-2">
-      <CardHeader className="pb-4">
-        <div className="flex items-start justify-between">
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                <Layers className="w-4 h-4 text-blue-400" />
-              </div>
+  // Create standalone chart for modal mode
+  const modalChart = (
+    <div className="w-full h-[450px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={transformedData}
+          margin={{ top: 20, right: 40, left: 50, bottom: isModal ? 60 : 40 }}
+        >
+          <XAxis
+            dataKey="period"
+            dy={isModal ? 10 : 0}
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+            tickFormatter={(value) => {
+              const date = new Date(value)
+              return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric' 
+              })
+            }}
+          />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: CHART_COLORS.axis.text, fontSize: 11, fontWeight: 500 }}
+            tickFormatter={formatNumber}
+            dx={-30}
+          />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: CHART_COLORS.cursor }} />
+          <Legend />
+          {CARD_COUNTS.map((count, index) => (
+            <Bar
+              key={count}
+              dataKey={`${count}cards`}
+              stackId="cards"
+              fill={CHART_COLORS.extended[index % CHART_COLORS.extended.length]}
+              name={`${count} card${count > 1 ? 's' : ''}`}
+            />
+          ))}
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  )
+
+  // If this is for modal display, return standalone chart
+  if (isModal) {
+    return modalChart
+  }
+
+  const content = (
+    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500">
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-accent-muted rounded-lg border border-accent-primary/20">
+              <CreditCard className="w-4 h-4 text-accent-primary" />
+            </div>
+            <div>
               <CardTitle className="text-lg font-bold text-text-primary tracking-tight">
                 Slips by Card Count
               </CardTitle>
             </div>
             <CardDescription className="text-text-secondary text-sm leading-relaxed">
-              Distribution of slips based on number of cards over time
+              Distribution of betting slips by number of cards over time
             </CardDescription>
           </div>
         </div>
       </CardHeader>
 
       <CardContent>
-        <div className="h-[500px] w-full">
+        <div className={`${chartHeight} w-full`}>
           {transformedData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={transformedData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+                margin={{ top: 20, right: 40, left: 50, bottom: isModal ? 80 : 40 }}
               >
                 <XAxis
                   dataKey="period"
+                  dy={isModal ? 15 : 0}
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "white", fontSize: 11 }}
+                  tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                   tickFormatter={(value) => {
                     const date = new Date(value)
-                    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                    return date.toLocaleDateString('en-US', { 
+                      month: 'short', 
+                      day: 'numeric' 
+                    })
                   }}
                 />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "white", fontSize: 11 }}
+                  tick={{ fill: CHART_COLORS.axis.text, fontSize: 11 }}
                   tickFormatter={formatNumber}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend 
                   verticalAlign="top" 
                   height={36}
-                  wrapperStyle={{ fontSize: '12px', color: 'white' }}
+                  wrapperStyle={{ fontSize: '12px', color: CHART_COLORS.axis.text }}
                 />
                 
                 {/* Create a bar for each card count */}
@@ -111,8 +188,9 @@ export function SlipsByCardStackedBar({ data }: SlipsByCardStackedBarProps) {
                     key={`${cardCount}cards`}
                     dataKey={`${cardCount}cards`}
                     stackId="a"
-                    fill={COLORS[index]}
-                    name={`${cardCount} Cards`}
+                    fill={CHART_COLORS.cardCounts[index]}
+                    name={`${cardCount} Card${cardCount !== 1 ? 's' : ''}`}
+                    radius={index === CARD_COUNTS.length - 1 ? [4, 4, 0, 0] : [0, 0, 0, 0]}
                   />
                 ))}
               </BarChart>
@@ -126,4 +204,28 @@ export function SlipsByCardStackedBar({ data }: SlipsByCardStackedBarProps) {
       </CardContent>
     </Card>
   )
+
+  // If click handler provided, make it clickable
+  if (onChartClick) {
+    return (
+      <div 
+        className="cursor-pointer transition-all duration-200 group hover:scale-[1.02] hover:shadow-glow-medium relative"
+        onClick={onChartClick}
+      >
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 rounded-lg" />
+        
+        {/* Expand icon overlay */}
+        <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <div className="p-2 bg-bg-elevated/90 backdrop-blur-sm rounded-lg border border-border-subtle">
+            <CreditCard className="w-4 h-4 text-accent-primary" />
+          </div>
+        </div>
+        
+        {content}
+      </div>
+    )
+  }
+
+  return content
 }
