@@ -89,18 +89,4 @@ export function setupChunkErrorHandler(): void {
       chunkRetryManager.handleChunkError(event.error);
     }
   });
-}
-
-// Hook for React components
-export function useChunkErrorHandler(): void {
-  if (typeof window === 'undefined') return;
-
-  React.useEffect(() => {
-    setupChunkErrorHandler();
-  }, []);
-}
-
-// Fallback for missing React import
-declare global {
-  var React: any;
 } 
