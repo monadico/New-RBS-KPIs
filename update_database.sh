@@ -41,12 +41,12 @@ if [ -d "venv" ]; then
 fi
 
 # Check if database file exists, create if not
-if [ ! -f "/app/data/betting_transactions.db" ]; then
+if [ ! -f "/app/betting_transactions.db" ]; then
     log_message "Database file not found, creating empty database file first..."
-    touch /app/data/betting_transactions.db
-    chmod 666 /app/data/betting_transactions.db
+    touch /app/betting_transactions.db
+    chmod 666 /app/betting_transactions.db
     log_message "Empty database file created, running initial database creation..."
-    python3 betting_database.py --db-path /app/data/betting_transactions.db --start-block 0
+    python3 betting_database.py --db-path /app/betting_transactions.db --start-block 0
     if [ $? -eq 0 ]; then
         log_message "Initial database creation completed successfully"
     else
@@ -58,8 +58,8 @@ fi
 # Run the database update with incremental flag
 log_message "Starting incremental database update..."
 log_message "Current directory: $(pwd)"
-log_message "Database file exists: $(ls -la /app/data/betting_transactions.db 2>/dev/null || echo 'No database file')"
-python3 betting_database.py --db-path /app/data/betting_transactions.db --incremental
+log_message "Database file exists: $(ls -la /app/betting_transactions.db 2>/dev/null || echo 'No database file')"
+python3 betting_database.py --db-path /app/betting_transactions.db --incremental
 
 if [ $? -eq 0 ]; then
     log_message "Database update completed successfully"
