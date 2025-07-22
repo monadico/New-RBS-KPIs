@@ -9,6 +9,14 @@ from typing import Dict, List, Any
 import uvicorn
 import os
 import sys
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv('.env.local')  # Load local environment first
+load_dotenv()  # Load any other .env files
+
+# Environment-based configuration
+IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
 
 # No longer need to import analytics logic since we're serving pre-computed JSON
 
@@ -23,8 +31,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Database path for reference
-DB_PATH = "/app/data/betting_transactions.db"
+# Environment-based paths
+if IS_PRODUCTION:
+    DB_PATH = "/app/data/betting_transactions.db"
+    JSON_FILE_PATH = "new/public/analytics_dump.json"
+else:
+    DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
+    JSON_FILE_PATH = "new/public/analytics_dump.json"
 
 @app.get("/")
 async def root():
@@ -44,7 +57,7 @@ async def get_analytics():
     """Get all analytics data from pre-computed JSON file (fast!)"""
     try:
         # Read from the pre-computed JSON file (instant!)
-        json_file = Path("new/public/analytics_dump.json")
+        json_file = Path(JSON_FILE_PATH)
         if json_file.exists():
             print("📁 Serving pre-computed analytics JSON...")
             with open(json_file, 'r') as f:
@@ -62,7 +75,7 @@ async def get_analytics():
 async def get_rbs_stats():
     """Get RBS stats from pre-computed JSON file"""
     try:
-        json_file = Path("new/public/analytics_dump.json")
+        json_file = Path(JSON_FILE_PATH)
         if json_file.exists():
             with open(json_file, 'r') as f:
                 data = json.load(f)
@@ -76,7 +89,7 @@ async def get_rbs_stats():
 async def get_volume_data():
     """Get volume data from pre-computed JSON file"""
     try:
-        json_file = Path("new/public/analytics_dump.json")
+        json_file = Path(JSON_FILE_PATH)
         if json_file.exists():
             with open(json_file, 'r') as f:
                 data = json.load(f)

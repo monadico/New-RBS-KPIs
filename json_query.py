@@ -18,11 +18,28 @@ def convert_datetime(val):
 sqlite3.register_adapter(datetime, adapt_datetime)
 sqlite3.register_converter("datetime", convert_datetime)
 
-DB_PATH = "/app/data/betting_transactions.db"
-OUTPUT_FILE = "analytics_dump.json"
-FRONTEND_PUBLIC = "new/public/analytics_dump.json"
-COMPRESSED_FILE = "new/public/analytics_dump.json.gz"
-ANALYTICS_CHECKPOINT_FILE = "/app/data/analytics_checkpoint.json"
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv('.env.local')  # Load local environment first
+load_dotenv()  # Load any other .env files
+
+# Environment-based configuration
+IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
+
+if IS_PRODUCTION:
+    DB_PATH = "/app/data/betting_transactions.db"
+    OUTPUT_FILE = "/app/analytics_dump.json"
+    FRONTEND_PUBLIC = "/app/new/public/analytics_dump.json"
+    COMPRESSED_FILE = "/app/new/public/analytics_dump.json.gz"
+    ANALYTICS_CHECKPOINT_FILE = "/app/data/analytics_checkpoint.json"
+else:
+    DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
+    OUTPUT_FILE = "analytics_dump.json"
+    FRONTEND_PUBLIC = "new/public/analytics_dump.json"
+    COMPRESSED_FILE = "new/public/analytics_dump.json.gz"
+    ANALYTICS_CHECKPOINT_FILE = "data/analytics_checkpoint.json"
 
 class FlexibleAnalytics:
     """Main analytics class for flexible timeframe analysis."""

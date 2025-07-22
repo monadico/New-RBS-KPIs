@@ -1,13 +1,14 @@
 {
   "success": true,
   "metadata": {
-    "generated_at": "2025-01-27T00:00:00Z",
+    "generated_at": "2025-07-22T01:40:29.478718Z",
     "timeframes_available": [
       "daily",
       "weekly",
       "monthly"
     ],
-    "default_timeframe": "weekly"
+    "default_timeframe": "weekly",
+    "initial_generation": true
   },
   "total_metrics": {
     "total_submissions": 2199837,
@@ -288,6 +289,15 @@
     },
     {
       "period": "Week 25",
+      "mon_volume": 0.0,
+      "jerry_volume": 0.0,
+      "total_volume": 0.0,
+      "submissions": 0,
+      "active_bettors": 0,
+      "total_cards": 0
+    },
+    {
+      "period": "Week 26",
       "mon_volume": 0.0,
       "jerry_volume": 0.0,
       "total_volume": 0.0,

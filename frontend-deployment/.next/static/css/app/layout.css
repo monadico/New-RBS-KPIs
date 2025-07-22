@@ -1784,6 +1784,10 @@ video {
 .bg-yellow-500\/10 {
   background-color: rgb(234 179 8 / 0.1);
 }
+.bg-accent-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(208 255 18 / var(--tw-bg-opacity, 1));
+}
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }

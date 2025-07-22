@@ -40,6 +40,8 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
   
+
+  
   // Chart modal functionality
   const { isOpen, chartData, openModal, closeModal } = useChartModal()
 
@@ -55,7 +57,11 @@ export default function Page() {
       setError(null)
       try {
         // Try API first, fallback to static JSON
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://f8s8sk80ok44gw04osco04so.173.249.24.245.sslip.io'
+        // Environment-based API URL
+        const isProduction = process.env.NODE_ENV === 'production'
+        const apiUrl = isProduction 
+          ? 'https://f8s8sk80ok44gw04osco04so.173.249.24.245.sslip.io'
+          : 'http://localhost:8000'
         const response = await fetch(`${apiUrl}/api/analytics`)
         if (!response.ok) {
           // Fallback to static JSON
@@ -152,6 +158,14 @@ export default function Page() {
       description: "Total cards submitted and average cards per submission over time",
       component: <TotalAvgCardsChart data={timeframeData} isModal={true} />
     })
+  }
+  
+  // Calculate active users based on selected timeframe
+  const getActiveUsersForTimeframe = () => {
+    if (!data) return 0
+    
+    const timeframeData = data.timeframes?.[selectedTimeframe]?.activity_over_time || []
+    return timeframeData.length > 0 ? timeframeData[timeframeData.length - 1].active_addresses : 0
   }
 
   // Prevent hydration mismatch by not rendering until mounted
@@ -258,6 +272,8 @@ export default function Page() {
           </div>
         </section>
 
+
+
         {/* Metrics Section - Row 2: Averages */}
         <section className="animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -269,8 +285,8 @@ export default function Page() {
               icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
             />
             <MetricCard
-              title="Avg Players per Day"
-              value={average_metrics.avg_players_per_day}
+              title={selectedTimeframe === "daily" ? "Daily Active Users" : selectedTimeframe === "weekly" ? "Weekly Active Users" : "Monthly Active Users"}
+              value={getActiveUsersForTimeframe()}
               format="number"
               accentColor="text-rbs-lime"
               icon={<Users className="w-5 h-5 text-rbs-over" />}

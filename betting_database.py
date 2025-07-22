@@ -35,7 +35,13 @@ from hypersync import LogField, TransactionField, BlockField
 # CONFIGURATION
 # =============================================================================
 
-load_dotenv()
+# Load environment variables
+load_dotenv('.env.local')  # Load local environment first
+load_dotenv()  # Load any other .env files
+
+# Environment-based configuration
+IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
+
 MONAD_HYPERSYNC_URL = os.getenv("MONAD_HYPERSYNC_URL", "https://monad-testnet.hypersync.xyz")
 HYPERSYNC_BEARER_TOKEN = os.getenv("HYPERSYNC_BEARER_TOKEN")
 
@@ -523,7 +529,13 @@ async def main():
     parser.add_argument("--incremental", action="store_true", help="Only fetch new data")
     parser.add_argument("--start-block", type=int, help="Start from specific block")
     parser.add_argument("--stats", action="store_true", help="Show database statistics")
-    parser.add_argument("--db-path", type=str, default="betting_transactions.db", help="Path to database file")
+    # Set default database path based on environment
+    if IS_PRODUCTION:
+        default_db_path = "/app/data/betting_transactions.db"
+    else:
+        default_db_path = os.getenv('DB_PATH', 'betting_transactions.db')
+    
+    parser.add_argument("--db-path", type=str, default=default_db_path, help="Path to database file")
     args = parser.parse_args()
     
     # Initialize database
