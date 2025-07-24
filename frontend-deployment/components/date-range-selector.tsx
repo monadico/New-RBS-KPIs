@@ -33,7 +33,7 @@ export function DateRangeSelector({
 
   const handleReset = () => {
     // Reset to default dates
-    const defaultStart = new Date("2025-02-03")
+    const defaultStart = new Date("2025-02-04")
     const defaultEnd = maxDate || new Date()
     
     onStartDateChange(defaultStart)
@@ -175,7 +175,7 @@ export function EnhancedTimeframeSelector({
   availableDateRange,
   className
 }: EnhancedTimeframeSelectorProps) {
-  const [localStartDate, setLocalStartDate] = useState(startDate || new Date("2025-02-03"))
+  const [localStartDate, setLocalStartDate] = useState(startDate || new Date("2025-02-04"))
   const [localEndDate, setLocalEndDate] = useState(endDate || new Date())
 
   useEffect(() => {

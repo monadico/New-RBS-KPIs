@@ -33,7 +33,7 @@ import { ChartModal, useChartModal } from "@/components/ui/chart-modal"
 
 export default function Page() {
   const [selectedTimeframe, setSelectedTimeframe] = useState<"daily" | "weekly" | "monthly" | "custom">("weekly")
-  const [customStartDate, setCustomStartDate] = useState<Date>(new Date("2025-02-03"))
+  const [customStartDate, setCustomStartDate] = useState<Date>(new Date("2025-02-04"))
   const [customEndDate, setCustomEndDate] = useState<Date>(new Date())
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
