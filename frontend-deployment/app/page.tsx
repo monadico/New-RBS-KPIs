@@ -62,8 +62,14 @@ export default function Page() {
         const apiUrl = isProduction 
           ? 'https://f8s8sk80ok44gw04osco04so.173.249.24.245.sslip.io'
           : 'http://localhost:8000'
+        console.log('🔍 Trying API URL:', `${apiUrl}/api/analytics`)
+        
         const response = await fetch(`${apiUrl}/api/analytics`)
+        console.log('📡 API Response status:', response.status)
+        console.log('📡 API Response ok:', response.ok)
+        
         if (!response.ok) {
+          console.log('⚠️ API failed, falling back to static JSON')
           // Fallback to static JSON
           const staticResponse = await fetch('/analytics_dump.json')
           if (!staticResponse.ok) {
@@ -71,26 +77,30 @@ export default function Page() {
           }
           const json = await staticResponse.json()
           if (!json.success) throw new Error(json.error || 'JSON error')
+          console.log('📁 Using static JSON data')
           setData(json)
         } else {
           const json = await response.json()
+          console.log('✅ Using API data')
           setData(json)
         }
       } catch (err: any) {
-        console.error('Error loading analytics data:', err)
+        console.error('❌ Error loading analytics data:', err)
         // Try static JSON as fallback
         try {
+          console.log('🔄 Trying static JSON fallback...')
           const staticResponse = await fetch('/analytics_dump.json')
           if (staticResponse.ok) {
             const json = await staticResponse.json()
             if (json.success) {
+              console.log('📁 Using static JSON fallback data')
               setData(json)
               setLoading(false)
               return
             }
           }
         } catch (fallbackErr) {
-          console.error('Fallback also failed:', fallbackErr)
+          console.error('❌ Fallback also failed:', fallbackErr)
         }
         setError(err instanceof Error ? err.message : 'Failed to load analytics data')
       } finally {
