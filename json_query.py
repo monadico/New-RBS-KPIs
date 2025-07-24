@@ -340,7 +340,7 @@ class FlexibleAnalytics:
             SUM(CASE WHEN t.token = 'Jerry' THEN 1 ELSE 0 END) as jerry_transactions
         FROM periods p
         LEFT JOIN betting_transactions t ON 
-            DATE(t.timestamp) >= p.period_start AND DATE(t.timestamp) <= p.period_end
+            DATE(t.timestamp, 'utc') >= p.period_start AND DATE(t.timestamp, 'utc') <= p.period_end
             {timestamp_filter}
         LEFT JOIN first_time_users ftu ON t.from_address = ftu.from_address
         GROUP BY p.period_start, p.period_end, p.period_number
@@ -405,7 +405,7 @@ class FlexibleAnalytics:
             ROUND(CAST(COUNT(DISTINCT t.from_address) AS FLOAT) / COUNT(DISTINCT t.tx_hash), 2) as avg_submissions_per_player
         FROM periods p
         LEFT JOIN betting_transactions t ON 
-            DATE(t.timestamp) >= p.week_start AND DATE(t.timestamp) <= p.week_end
+            DATE(t.timestamp, 'utc') >= p.week_start AND DATE(t.timestamp, 'utc') <= p.week_end
         GROUP BY p.week_number, p.week_start, p.week_end
         ORDER BY p.week_number
         """
@@ -492,8 +492,8 @@ def get_weekly_slips_by_card_count(analytics, min_cards=2, max_cards=7):
         COUNT(DISTINCT t.tx_hash) as bets
     FROM weeks w
     LEFT JOIN betting_transactions t ON 
-        DATE(t.timestamp) >= w.week_start AND 
-        DATE(t.timestamp) <= w.week_end AND
+        DATE(t.timestamp, 'utc') >= w.week_start AND 
+        DATE(t.timestamp, 'utc') <= w.week_end AND
         t.n_cards BETWEEN ? AND ?
     GROUP BY w.week_number, w.week_start, w.week_end, t.n_cards
     HAVING COUNT(DISTINCT t.tx_hash) > 0
@@ -598,8 +598,8 @@ def get_timeframe_slips_by_card_count(analytics, timeframe, start_date='2025-02-
         COUNT(DISTINCT t.tx_hash) as bets
     FROM periods p
     LEFT JOIN betting_transactions t ON 
-        DATE(t.timestamp) >= p.period_start AND 
-        DATE(t.timestamp) <= p.period_end AND
+        DATE(t.timestamp, 'utc') >= p.period_start AND 
+        DATE(t.timestamp, 'utc') <= p.period_end AND
         t.n_cards BETWEEN ? AND ?
         {timestamp_filter}
     GROUP BY p.period_number, p.period_start, p.period_end, t.n_cards
@@ -639,7 +639,7 @@ def get_average_metrics(analytics):
         COUNT(DISTINCT tx_hash) as bet_tx,
         ROUND(AVG(n_cards)) as avg_cards,
         SUM(n_cards) as tot_cards,
-        COUNT(DISTINCT DATE(timestamp)) as total_days
+        COUNT(DISTINCT DATE(timestamp, 'utc')) as total_days
     FROM betting_transactions
     """
     
