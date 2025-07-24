@@ -39,7 +39,13 @@ export function TraditionalHeatmap({ data }: TraditionalHeatmapProps) {
       }
     })
     
-    return Object.values(calendarData).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    return Object.values(calendarData).sort((a, b) => {
+      const [yearA, monthA, dayA] = a.date.split('-').map(Number)
+      const [yearB, monthB, dayB] = b.date.split('-').map(Number)
+      const dateA = new Date(yearA, monthA - 1, dayA)
+      const dateB = new Date(yearB, monthB - 1, dayB)
+      return dateA.getTime() - dateB.getTime()
+    })
   }
 
   const calendarData = processCalendarData()
@@ -54,7 +60,8 @@ export function TraditionalHeatmap({ data }: TraditionalHeatmapProps) {
     const weeks: { [key: string]: CalendarDay[] } = {}
     
     calendarData.forEach(day => {
-      const date = new Date(day.date)
+      const [year, month, dayNum] = day.date.split('-').map(Number)
+      const date = new Date(year, month - 1, dayNum)
       const weekStart = new Date(date)
       weekStart.setDate(date.getDate() - date.getDay()) // Start of week (Sunday)
       const weekKey = weekStart.toISOString().split('T')[0]
@@ -230,7 +237,7 @@ export function TraditionalHeatmap({ data }: TraditionalHeatmapProps) {
                               />
                             </TooltipTrigger>
                             <TooltipContent className="bg-bg-elevated border-border-medium text-text-primary">
-                              <p className="text-sm font-medium">{new Date(dateStr).toLocaleDateString()}</p>
+                              <p className="text-sm font-medium">{new Date(dateStr + 'T00:00:00').toLocaleDateString()}</p>
                               <p className="text-text-secondary text-xs">
                                 {metricData.label}: {metricData.formatter(value)}
                               </p>

@@ -26,11 +26,15 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
       return (
         <div className="bg-surface border border-border-subtle rounded-lg p-3 shadow-lg">
           <p className="text-text-secondary text-sm mb-2">
-            {new Date(label).toLocaleDateString('en-US', { 
-              month: 'short', 
-              day: 'numeric',
-              year: 'numeric'
-            })}
+            {(() => {
+              const [year, month, day] = label.split('-').map(Number)
+              const date = new Date(year, month - 1, day)
+              return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+              })
+            })()}
           </p>
           {payload.map((entry: any, index: number) => (
             <div key={index} className="flex items-center gap-2">
@@ -68,9 +72,11 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
           tickLine={false}
           tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
           dy={10}
-          tickFormatter={(value) =>
-            new Date(value).toLocaleDateString("en-US", { month: "short", day: "numeric" })
-          }
+          tickFormatter={(value) => {
+            const [year, month, day] = value.split('-').map(Number)
+            const date = new Date(year, month - 1, day)
+            return date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+          }}
         />
         <YAxis
           axisLine={false}

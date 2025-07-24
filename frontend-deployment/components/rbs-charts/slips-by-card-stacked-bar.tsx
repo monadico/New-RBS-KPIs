@@ -54,11 +54,15 @@ export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: S
       return (
         <div className="bg-surface border border-border-subtle rounded-lg p-3 shadow-lg">
           <p className="text-text-secondary text-sm mb-2">
-            {new Date(label).toLocaleDateString('en-US', { 
-              month: 'short', 
-              day: 'numeric',
-              year: 'numeric'
-            })}
+            {(() => {
+              const [year, month, day] = label.split('-').map(Number)
+              const date = new Date(year, month - 1, day)
+              return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+              })
+            })()}
           </p>
           {payload.filter((entry: any) => entry.value > 0).map((entry: any, index: number) => (
             <div key={index} className="flex items-center gap-2">
@@ -92,7 +96,9 @@ export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: S
             tickLine={false}
             tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
             tickFormatter={(value) => {
-              const date = new Date(value)
+              // Parse date as local time to avoid timezone issues
+              const [year, month, day] = value.split('-').map(Number)
+              const date = new Date(year, month - 1, day) // month is 0-indexed
               return date.toLocaleDateString('en-US', { 
                 month: 'short', 
                 day: 'numeric' 
@@ -162,7 +168,8 @@ export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: S
                   tickLine={false}
                   tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                   tickFormatter={(value) => {
-                    const date = new Date(value)
+                    // Ensure date is parsed as local date, not UTC
+                    const date = new Date(value + 'T00:00:00')
                     return date.toLocaleDateString('en-US', { 
                       month: 'short', 
                       day: 'numeric' 

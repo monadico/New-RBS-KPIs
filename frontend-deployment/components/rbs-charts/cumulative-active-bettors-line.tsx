@@ -57,9 +57,11 @@ export function CumulativeActiveBettorsLine({ data }: CumulativeActiveBettorsLin
                 tickLine={false}
                 tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
                 dy={10}
-                tickFormatter={(value) =>
-                  new Date(value).toLocaleDateString("en-US", { month: "short", day: "numeric" })
-                }
+                tickFormatter={(value) => {
+                  const [year, month, day] = value.split('-').map(Number)
+                  const date = new Date(year, month - 1, day)
+                  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                }}
               />
               <YAxis
                 axisLine={false}

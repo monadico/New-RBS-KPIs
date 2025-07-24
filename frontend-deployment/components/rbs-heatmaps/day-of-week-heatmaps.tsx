@@ -21,7 +21,9 @@ export function DayOfWeekHeatmaps({ data }: DayOfWeekHeatmapsProps) {
 
     data.forEach((period) => {
       // Each period represents a single day, so we use the start_date directly
-      const date = new Date(period.start_date)
+      // Parse date as local time to avoid timezone issues
+      const [year, month, day] = period.start_date.split('-').map(Number)
+      const date = new Date(year, month - 1, day)
       
       // getDay() returns 0=Sunday, 1=Monday, ..., 6=Saturday
       // We want 0=Monday, 1=Tuesday, ..., 6=Sunday
