@@ -34,7 +34,7 @@ app.add_middleware(
 # Environment-based paths
 if IS_PRODUCTION:
     DB_PATH = "/app/data/betting_transactions.db"
-    JSON_FILE_PATH = "frontend-deployment/public/analytics_dump.json"
+    JSON_FILE_PATH = "/app/new/public/analytics_dump.json"
 else:
     DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
     JSON_FILE_PATH = "new/public/analytics_dump.json"
