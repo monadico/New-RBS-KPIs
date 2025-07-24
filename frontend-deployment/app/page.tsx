@@ -13,6 +13,7 @@ import { SlipsByCardStackedBar } from "@/components/rbs-charts/slips-by-card-sta
 import { OverallSlipsPie } from "@/components/rbs-charts/overall-slips-pie"
 import { MonJerryVolumeArea } from "@/components/rbs-charts/mon-jerry-volume-area"
 import { TotalAvgCardsChart } from "@/components/rbs-charts/total-avg-cards-chart"
+import { TokenVolumeDistributionPie } from "@/components/rbs-charts/token-volume-distribution-pie"
 
 // Table Components
 import { RbsStatsTable } from "@/components/rbs-tables/rbs-stats-table"
@@ -167,6 +168,16 @@ export default function Page() {
       title: "Total & Average Cards - Detailed View",
       description: "Total cards submitted and average cards per submission over time",
       component: <TotalAvgCardsChart data={timeframeData} isModal={true} />
+    })
+  }
+
+  const handleTokenVolumeDistributionClick = () => {
+    if (!data) return
+    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    openModal({
+      title: "Token Volume Distribution - Detailed View",
+      description: "Overall deposit volume distribution by token (MON vs JERRY)",
+      component: <TokenVolumeDistributionPie data={timeframeData} isModal={true} />
     })
   }
   
@@ -335,6 +346,9 @@ export default function Page() {
               </div>
               <div className="flex-1">
                 <OverallSlipsPie data={overall_slips_by_card_count} />
+              </div>
+              <div className="flex-1">
+                <TokenVolumeDistributionPie data={timeframeData} onChartClick={handleTokenVolumeDistributionClick} />
               </div>
             </div>
           </div>

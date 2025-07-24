@@ -1,0 +1,6718 @@
+{
+  "success": true,
+  "metadata": {
+    "generated_at": "2025-07-22T04:18:09.323769Z",
+    "timeframes_available": [
+      "daily",
+      "weekly",
+      "monthly"
+    ],
+    "default_timeframe": "weekly",
+    "initial_generation": true
+  },
+  "total_metrics": {
+    "total_submissions": 2437520,
+    "total_active_addresses": 324747,
+    "total_mon_volume": 500930.840157507,
+    "total_jerry_volume": 70305.5,
+    "total_cards": 6455253
+  },
+  "average_metrics": {
+    "avg_submissions_per_day": 15330.31,
+    "avg_users_per_day": 2042.43,
+    "avg_players_per_day": 2042.43,
+    "avg_cards_per_slip": 3.0,
+    "total_users": 324747,
+    "total_bet_tx": 2437520,
+    "total_cards": 6455253,
+    "total_days": 159
+  },
+  "player_activity": {
+    "categories": [
+      {
+        "category": "1 RareLink",
+        "player_count": 110609,
+        "percentage": 34.06
+      },
+      {
+        "category": "2~9 RareLinks",
+        "player_count": 139720,
+        "percentage": 43.02
+      },
+      {
+        "category": "10~99 RareLinks",
+        "player_count": 74018,
+        "percentage": 22.79
+      },
+      {
+        "category": "100+ RareLinks",
+        "player_count": 400,
+        "percentage": 0.12
+      }
+    ],
+    "total_players": 324747,
+    "summary": {
+      "1 RareLink": {
+        "count": 110609,
+        "percentage": 34.06
+      },
+      "2~9 RareLinks": {
+        "count": 139720,
+        "percentage": 43.02
+      },
+      "10~99 RareLinks": {
+        "count": 74018,
+        "percentage": 22.79
+      },
+      "100+ RareLinks": {
+        "count": 400,
+        "percentage": 0.12
+      }
+    }
+  },
+  "rbs_stats_by_periods": [
+    {
+      "period": "Week 1",
+      "mon_volume": 6.2,
+      "jerry_volume": 0.0,
+      "total_volume": 6.2,
+      "submissions": 16,
+      "active_bettors": 3,
+      "total_cards": 35
+    },
+    {
+      "period": "Week 2",
+      "mon_volume": 0.0,
+      "jerry_volume": 0.0,
+      "total_volume": 0.0,
+      "submissions": 0,
+      "active_bettors": 0,
+      "total_cards": 0
+    },
+    {
+      "period": "Week 3",
+      "mon_volume": 6051.9,
+      "jerry_volume": 0.0,
+      "total_volume": 6051.9,
+      "submissions": 15669,
+      "active_bettors": 6243,
+      "total_cards": 57398
+    },
+    {
+      "period": "Week 4",
+      "mon_volume": 11700.8,
+      "jerry_volume": 0.0,
+      "total_volume": 11700.8,
+      "submissions": 33851,
+      "active_bettors": 16069,
+      "total_cards": 107205
+    },
+    {
+      "period": "Week 5",
+      "mon_volume": 7737.6,
+      "jerry_volume": 0.0,
+      "total_volume": 7737.6,
+      "submissions": 18421,
+      "active_bettors": 8282,
+      "total_cards": 64110
+    },
+    {
+      "period": "Week 6",
+      "mon_volume": 8944.6,
+      "jerry_volume": 0.0,
+      "total_volume": 8944.6,
+      "submissions": 27058,
+      "active_bettors": 13142,
+      "total_cards": 90297
+    },
+    {
+      "period": "Week 7",
+      "mon_volume": 6444.900000000001,
+      "jerry_volume": 0.0,
+      "total_volume": 6444.900000000001,
+      "submissions": 22890,
+      "active_bettors": 12488,
+      "total_cards": 67653
+    },
+    {
+      "period": "Week 8",
+      "mon_volume": 6163.8,
+      "jerry_volume": 0.0,
+      "total_volume": 6163.8,
+      "submissions": 27088,
+      "active_bettors": 9657,
+      "total_cards": 119678
+    },
+    {
+      "period": "Week 9",
+      "mon_volume": 6639.6,
+      "jerry_volume": 0.0,
+      "total_volume": 6639.6,
+      "submissions": 20240,
+      "active_bettors": 10938,
+      "total_cards": 65778
+    },
+    {
+      "period": "Week 10",
+      "mon_volume": 7971.7,
+      "jerry_volume": 0.0,
+      "total_volume": 7971.7,
+      "submissions": 21668,
+      "active_bettors": 12562,
+      "total_cards": 71448
+    },
+    {
+      "period": "Week 11",
+      "mon_volume": 8077.8,
+      "jerry_volume": 0.0,
+      "total_volume": 8077.8,
+      "submissions": 21386,
+      "active_bettors": 11995,
+      "total_cards": 68439
+    },
+    {
+      "period": "Week 12",
+      "mon_volume": 15520.9,
+      "jerry_volume": 0.0,
+      "total_volume": 15520.9,
+      "submissions": 51591,
+      "active_bettors": 26447,
+      "total_cards": 158883
+    },
+    {
+      "period": "Week 13",
+      "mon_volume": 20123.511300000002,
+      "jerry_volume": 0.0,
+      "total_volume": 20123.511300000002,
+      "submissions": 99336,
+      "active_bettors": 42160,
+      "total_cards": 285791
+    },
+    {
+      "period": "Week 14",
+      "mon_volume": 18269.464567,
+      "jerry_volume": 0.0,
+      "total_volume": 18269.464567,
+      "submissions": 90070,
+      "active_bettors": 36382,
+      "total_cards": 258098
+    },
+    {
+      "period": "Week 15",
+      "mon_volume": 16926.487875067545,
+      "jerry_volume": 0.0,
+      "total_volume": 16926.487875067545,
+      "submissions": 72576,
+      "active_bettors": 31774,
+      "total_cards": 202791
+    },
+    {
+      "period": "Week 16",
+      "mon_volume": 18451.0,
+      "jerry_volume": 0.0,
+      "total_volume": 18451.0,
+      "submissions": 91429,
+      "active_bettors": 42656,
+      "total_cards": 259862
+    },
+    {
+      "period": "Week 17",
+      "mon_volume": 24696.100000000002,
+      "jerry_volume": 0.0,
+      "total_volume": 24696.100000000002,
+      "submissions": 112067,
+      "active_bettors": 42753,
+      "total_cards": 336270
+    },
+    {
+      "period": "Week 18",
+      "mon_volume": 29666.9,
+      "jerry_volume": 19799.9,
+      "total_volume": 49466.8,
+      "submissions": 157382,
+      "active_bettors": 44059,
+      "total_cards": 527354
+    },
+    {
+      "period": "Week 19",
+      "mon_volume": 36428.149450000004,
+      "jerry_volume": 9350.4,
+      "total_volume": 45778.549450000006,
+      "submissions": 192883,
+      "active_bettors": 74775,
+      "total_cards": 555614
+    },
+    {
+      "period": "Week 20",
+      "mon_volume": 49086.12273,
+      "jerry_volume": 11525.85,
+      "total_volume": 60611.97273,
+      "submissions": 239095,
+      "active_bettors": 75398,
+      "total_cards": 604618
+    },
+    {
+      "period": "Week 21",
+      "mon_volume": 46662.627603575485,
+      "jerry_volume": 6910.8,
+      "total_volume": 53573.42760357549,
+      "submissions": 264014,
+      "active_bettors": 63310,
+      "total_cards": 608443
+    },
+    {
+      "period": "Week 22",
+      "mon_volume": 48289.77663186393,
+      "jerry_volume": 6459.3,
+      "total_volume": 54749.076631863936,
+      "submissions": 319658,
+      "active_bettors": 71512,
+      "total_cards": 721780
+    },
+    {
+      "period": "Week 23",
+      "mon_volume": 50564.3,
+      "jerry_volume": 8818.55,
+      "total_volume": 59382.850000000006,
+      "submissions": 298203,
+      "active_bettors": 64830,
+      "total_cards": 660519
+    },
+    {
+      "period": "Week 24",
+      "mon_volume": 44429.8,
+      "jerry_volume": 5830.1,
+      "total_volume": 50259.9,
+      "submissions": 188674,
+      "active_bettors": 56298,
+      "total_cards": 443421
+    },
+    {
+      "period": "Week 25",
+      "mon_volume": 12076.800000000001,
+      "jerry_volume": 1610.6,
+      "total_volume": 13687.400000000001,
+      "submissions": 52255,
+      "active_bettors": 18739,
+      "total_cards": 119768
+    },
+    {
+      "period": "Week 26",
+      "mon_volume": 0.0,
+      "jerry_volume": 0.0,
+      "total_volume": 0.0,
+      "submissions": 0,
+      "active_bettors": 0,
+      "total_cards": 0
+    }
+  ],
+  "timeframes": {
+    "daily": {
+      "activity_over_time": [
+        {
+          "period": 2,
+          "start_date": "2025-02-04",
+          "end_date": "2025-02-04",
+          "submissions": 1,
+          "active_addresses": 1,
+          "new_bettors": 1,
+          "mon_volume": 0.1,
+          "jerry_volume": 0.0,
+          "total_volume": 0.1,
+          "total_cards": 2,
+          "avg_cards_per_submission": 2.0,
+          "avg_bet_amount": 0.1,
+          "mon_transactions": 1,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 3,
+          "start_date": "2025-02-05",
+          "end_date": "2025-02-05",
+          "submissions": 2,
+          "active_addresses": 1,
+          "new_bettors": 1,
+          "mon_volume": 2.0,
+          "jerry_volume": 0.0,
+          "total_volume": 2.0,
+          "total_cards": 4,
+          "avg_cards_per_submission": 2.0,
+          "avg_bet_amount": 1.0,
+          "mon_transactions": 2,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 4,
+          "start_date": "2025-02-06",
+          "end_date": "2025-02-06",
+          "submissions": 5,
+          "active_addresses": 2,
+          "new_bettors": 1,
+          "mon_volume": 3.3,
+          "jerry_volume": 0.0,
+          "total_volume": 3.3,
+          "total_cards": 13,
+          "avg_cards_per_submission": 2.6,
+          "avg_bet_amount": 0.6599999999999999,
+          "mon_transactions": 5,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 6,
+          "start_date": "2025-02-08",
+          "end_date": "2025-02-08",
+          "submissions": 8,
+          "active_addresses": 1,
+          "new_bettors": 0,
+          "mon_volume": 0.8,
+          "jerry_volume": 0.0,
+          "total_volume": 0.8,
+          "total_cards": 16,
+          "avg_cards_per_submission": 2.0,
+          "avg_bet_amount": 0.1,
+          "mon_transactions": 8,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 16,
+          "start_date": "2025-02-18",
+          "end_date": "2025-02-18",
+          "submissions": 63,
+          "active_addresses": 8,
+          "new_bettors": 6,
+          "mon_volume": 9.4,
+          "jerry_volume": 0.0,
+          "total_volume": 9.4,
+          "total_cards": 205,
+          "avg_cards_per_submission": 3.25,
+          "avg_bet_amount": 0.1492063492063492,
+          "mon_transactions": 63,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 17,
+          "start_date": "2025-02-19",
+          "end_date": "2025-02-19",
+          "submissions": 953,
+          "active_addresses": 557,
+          "new_bettors": 550,
+          "mon_volume": 338.7,
+          "jerry_volume": 0.0,
+          "total_volume": 338.7,
+          "total_cards": 3070,
+          "avg_cards_per_submission": 3.22,
+          "avg_bet_amount": 0.3554039874081847,
+          "mon_transactions": 953,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 18,
+          "start_date": "2025-02-20",
+          "end_date": "2025-02-20",
+          "submissions": 2936,
+          "active_addresses": 1851,
+          "new_bettors": 1662,
+          "mon_volume": 1224.6,
+          "jerry_volume": 0.0,
+          "total_volume": 1224.6,
+          "total_cards": 9322,
+          "avg_cards_per_submission": 3.18,
+          "avg_bet_amount": 0.41709809264305175,
+          "mon_transactions": 2936,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 19,
+          "start_date": "2025-02-21",
+          "end_date": "2025-02-21",
+          "submissions": 2866,
+          "active_addresses": 1658,
+          "new_bettors": 1160,
+          "mon_volume": 1132.6,
+          "jerry_volume": 0.0,
+          "total_volume": 1132.6,
+          "total_cards": 9737,
+          "avg_cards_per_submission": 3.4,
+          "avg_bet_amount": 0.39518492672714584,
+          "mon_transactions": 2866,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 20,
+          "start_date": "2025-02-22",
+          "end_date": "2025-02-22",
+          "submissions": 3583,
+          "active_addresses": 1746,
+          "new_bettors": 1106,
+          "mon_volume": 1605.1,
+          "jerry_volume": 0.0,
+          "total_volume": 1605.1,
+          "total_cards": 13920,
+          "avg_cards_per_submission": 3.89,
+          "avg_bet_amount": 0.4479765559586938,
+          "mon_transactions": 3583,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 21,
+          "start_date": "2025-02-23",
+          "end_date": "2025-02-23",
+          "submissions": 5268,
+          "active_addresses": 2553,
+          "new_bettors": 1756,
+          "mon_volume": 1741.5,
+          "jerry_volume": 0.0,
+          "total_volume": 1741.5,
+          "total_cards": 21144,
+          "avg_cards_per_submission": 4.01,
+          "avg_bet_amount": 0.33058086560364464,
+          "mon_transactions": 5268,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 22,
+          "start_date": "2025-02-24",
+          "end_date": "2025-02-24",
+          "submissions": 4392,
+          "active_addresses": 2808,
+          "new_bettors": 1743,
+          "mon_volume": 1641.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1641.9,
+          "total_cards": 12951,
+          "avg_cards_per_submission": 2.95,
+          "avg_bet_amount": 0.37383879781420765,
+          "mon_transactions": 4392,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 23,
+          "start_date": "2025-02-25",
+          "end_date": "2025-02-25",
+          "submissions": 6608,
+          "active_addresses": 4119,
+          "new_bettors": 2823,
+          "mon_volume": 2465.3,
+          "jerry_volume": 0.0,
+          "total_volume": 2465.3,
+          "total_cards": 20224,
+          "avg_cards_per_submission": 3.06,
+          "avg_bet_amount": 0.37307808716707025,
+          "mon_transactions": 6608,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 24,
+          "start_date": "2025-02-26",
+          "end_date": "2025-02-26",
+          "submissions": 7141,
+          "active_addresses": 4837,
+          "new_bettors": 3426,
+          "mon_volume": 2381.9,
+          "jerry_volume": 0.0,
+          "total_volume": 2381.9,
+          "total_cards": 21749,
+          "avg_cards_per_submission": 3.05,
+          "avg_bet_amount": 0.33355272370816413,
+          "mon_transactions": 7141,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 25,
+          "start_date": "2025-02-27",
+          "end_date": "2025-02-27",
+          "submissions": 3131,
+          "active_addresses": 2224,
+          "new_bettors": 1245,
+          "mon_volume": 1008.1,
+          "jerry_volume": 0.0,
+          "total_volume": 1008.1,
+          "total_cards": 9728,
+          "avg_cards_per_submission": 3.11,
+          "avg_bet_amount": 0.32197381028425426,
+          "mon_transactions": 3131,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 26,
+          "start_date": "2025-02-28",
+          "end_date": "2025-02-28",
+          "submissions": 1871,
+          "active_addresses": 1069,
+          "new_bettors": 521,
+          "mon_volume": 658.6,
+          "jerry_volume": 0.0,
+          "total_volume": 658.6,
+          "total_cards": 5675,
+          "avg_cards_per_submission": 3.03,
+          "avg_bet_amount": 0.3520042757883485,
+          "mon_transactions": 1871,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 27,
+          "start_date": "2025-03-01",
+          "end_date": "2025-03-01",
+          "submissions": 5511,
+          "active_addresses": 3264,
+          "new_bettors": 2086,
+          "mon_volume": 1956.3,
+          "jerry_volume": 0.0,
+          "total_volume": 1956.3,
+          "total_cards": 19293,
+          "avg_cards_per_submission": 3.5,
+          "avg_bet_amount": 0.3549809471965161,
+          "mon_transactions": 5511,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 28,
+          "start_date": "2025-03-02",
+          "end_date": "2025-03-02",
+          "submissions": 5197,
+          "active_addresses": 3281,
+          "new_bettors": 2046,
+          "mon_volume": 1588.7,
+          "jerry_volume": 0.0,
+          "total_volume": 1588.7,
+          "total_cards": 17585,
+          "avg_cards_per_submission": 3.38,
+          "avg_bet_amount": 0.30569559361169907,
+          "mon_transactions": 5197,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 29,
+          "start_date": "2025-03-03",
+          "end_date": "2025-03-03",
+          "submissions": 1850,
+          "active_addresses": 1026,
+          "new_bettors": 349,
+          "mon_volume": 857.0,
+          "jerry_volume": 0.0,
+          "total_volume": 857.0,
+          "total_cards": 5810,
+          "avg_cards_per_submission": 3.14,
+          "avg_bet_amount": 0.46324324324324323,
+          "mon_transactions": 1850,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 30,
+          "start_date": "2025-03-04",
+          "end_date": "2025-03-04",
+          "submissions": 3113,
+          "active_addresses": 1998,
+          "new_bettors": 855,
+          "mon_volume": 1172.7,
+          "jerry_volume": 0.0,
+          "total_volume": 1172.7,
+          "total_cards": 10103,
+          "avg_cards_per_submission": 3.25,
+          "avg_bet_amount": 0.3767105685833601,
+          "mon_transactions": 3113,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 31,
+          "start_date": "2025-03-05",
+          "end_date": "2025-03-05",
+          "submissions": 4373,
+          "active_addresses": 3257,
+          "new_bettors": 1731,
+          "mon_volume": 1234.0,
+          "jerry_volume": 0.0,
+          "total_volume": 1234.0,
+          "total_cards": 16858,
+          "avg_cards_per_submission": 3.86,
+          "avg_bet_amount": 0.28218614223645094,
+          "mon_transactions": 4373,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 32,
+          "start_date": "2025-03-06",
+          "end_date": "2025-03-06",
+          "submissions": 2759,
+          "active_addresses": 1740,
+          "new_bettors": 682,
+          "mon_volume": 1115.6,
+          "jerry_volume": 0.0,
+          "total_volume": 1115.6,
+          "total_cards": 8590,
+          "avg_cards_per_submission": 3.11,
+          "avg_bet_amount": 0.40434940195723085,
+          "mon_transactions": 2759,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 33,
+          "start_date": "2025-03-07",
+          "end_date": "2025-03-07",
+          "submissions": 1730,
+          "active_addresses": 946,
+          "new_bettors": 304,
+          "mon_volume": 951.2,
+          "jerry_volume": 0.0,
+          "total_volume": 951.2,
+          "total_cards": 5608,
+          "avg_cards_per_submission": 3.24,
+          "avg_bet_amount": 0.5498265895953758,
+          "mon_transactions": 1730,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 34,
+          "start_date": "2025-03-08",
+          "end_date": "2025-03-08",
+          "submissions": 3440,
+          "active_addresses": 2400,
+          "new_bettors": 1132,
+          "mon_volume": 1477.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1477.9,
+          "total_cards": 13528,
+          "avg_cards_per_submission": 3.93,
+          "avg_bet_amount": 0.4296220930232558,
+          "mon_transactions": 3440,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 35,
+          "start_date": "2025-03-09",
+          "end_date": "2025-03-09",
+          "submissions": 1156,
+          "active_addresses": 531,
+          "new_bettors": 149,
+          "mon_volume": 929.2,
+          "jerry_volume": 0.0,
+          "total_volume": 929.2,
+          "total_cards": 3613,
+          "avg_cards_per_submission": 3.13,
+          "avg_bet_amount": 0.8038062283737024,
+          "mon_transactions": 1156,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 36,
+          "start_date": "2025-03-10",
+          "end_date": "2025-03-10",
+          "submissions": 3924,
+          "active_addresses": 2852,
+          "new_bettors": 1609,
+          "mon_volume": 1426.7,
+          "jerry_volume": 0.0,
+          "total_volume": 1426.7,
+          "total_cards": 11188,
+          "avg_cards_per_submission": 2.85,
+          "avg_bet_amount": 0.36358307849133537,
+          "mon_transactions": 3924,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 37,
+          "start_date": "2025-03-11",
+          "end_date": "2025-03-11",
+          "submissions": 4140,
+          "active_addresses": 2988,
+          "new_bettors": 1381,
+          "mon_volume": 1317.6,
+          "jerry_volume": 0.0,
+          "total_volume": 1317.6,
+          "total_cards": 12961,
+          "avg_cards_per_submission": 3.13,
+          "avg_bet_amount": 0.3182608695652174,
+          "mon_transactions": 4140,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 38,
+          "start_date": "2025-03-12",
+          "end_date": "2025-03-12",
+          "submissions": 3775,
+          "active_addresses": 2593,
+          "new_bettors": 971,
+          "mon_volume": 1234.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1234.9,
+          "total_cards": 12224,
+          "avg_cards_per_submission": 3.24,
+          "avg_bet_amount": 0.32712582781456956,
+          "mon_transactions": 3775,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 39,
+          "start_date": "2025-03-13",
+          "end_date": "2025-03-13",
+          "submissions": 3776,
+          "active_addresses": 2596,
+          "new_bettors": 893,
+          "mon_volume": 1310.5,
+          "jerry_volume": 0.0,
+          "total_volume": 1310.5,
+          "total_cards": 11952,
+          "avg_cards_per_submission": 3.17,
+          "avg_bet_amount": 0.3470603813559322,
+          "mon_transactions": 3776,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 40,
+          "start_date": "2025-03-14",
+          "end_date": "2025-03-14",
+          "submissions": 3607,
+          "active_addresses": 2661,
+          "new_bettors": 814,
+          "mon_volume": 999.7,
+          "jerry_volume": 0.0,
+          "total_volume": 999.7,
+          "total_cards": 12657,
+          "avg_cards_per_submission": 3.51,
+          "avg_bet_amount": 0.27715553091211537,
+          "mon_transactions": 3607,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 41,
+          "start_date": "2025-03-15",
+          "end_date": "2025-03-15",
+          "submissions": 4020,
+          "active_addresses": 2712,
+          "new_bettors": 907,
+          "mon_volume": 1320.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1320.9,
+          "total_cards": 15792,
+          "avg_cards_per_submission": 3.93,
+          "avg_bet_amount": 0.32858208955223883,
+          "mon_transactions": 4020,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 42,
+          "start_date": "2025-03-16",
+          "end_date": "2025-03-16",
+          "submissions": 3816,
+          "active_addresses": 2762,
+          "new_bettors": 1098,
+          "mon_volume": 1334.3,
+          "jerry_volume": 0.0,
+          "total_volume": 1334.3,
+          "total_cards": 13523,
+          "avg_cards_per_submission": 3.54,
+          "avg_bet_amount": 0.3496593291404612,
+          "mon_transactions": 3816,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 43,
+          "start_date": "2025-03-17",
+          "end_date": "2025-03-17",
+          "submissions": 3793,
+          "active_addresses": 2935,
+          "new_bettors": 1217,
+          "mon_volume": 1114.2,
+          "jerry_volume": 0.0,
+          "total_volume": 1114.2,
+          "total_cards": 11454,
+          "avg_cards_per_submission": 3.02,
+          "avg_bet_amount": 0.29375164777221197,
+          "mon_transactions": 3793,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 44,
+          "start_date": "2025-03-18",
+          "end_date": "2025-03-18",
+          "submissions": 3967,
+          "active_addresses": 2993,
+          "new_bettors": 1520,
+          "mon_volume": 1127.6,
+          "jerry_volume": 0.0,
+          "total_volume": 1127.6,
+          "total_cards": 11441,
+          "avg_cards_per_submission": 2.88,
+          "avg_bet_amount": 0.2842450214267708,
+          "mon_transactions": 3967,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 45,
+          "start_date": "2025-03-19",
+          "end_date": "2025-03-19",
+          "submissions": 3915,
+          "active_addresses": 3002,
+          "new_bettors": 1082,
+          "mon_volume": 1047.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1047.9,
+          "total_cards": 13113,
+          "avg_cards_per_submission": 3.35,
+          "avg_bet_amount": 0.26766283524904216,
+          "mon_transactions": 3915,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 46,
+          "start_date": "2025-03-20",
+          "end_date": "2025-03-20",
+          "submissions": 2696,
+          "active_addresses": 2089,
+          "new_bettors": 867,
+          "mon_volume": 919.5,
+          "jerry_volume": 0.0,
+          "total_volume": 919.5,
+          "total_cards": 7947,
+          "avg_cards_per_submission": 2.95,
+          "avg_bet_amount": 0.3410608308605341,
+          "mon_transactions": 2696,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 47,
+          "start_date": "2025-03-21",
+          "end_date": "2025-03-21",
+          "submissions": 3146,
+          "active_addresses": 2279,
+          "new_bettors": 1023,
+          "mon_volume": 845.3000000000001,
+          "jerry_volume": 0.0,
+          "total_volume": 845.3000000000001,
+          "total_cards": 8734,
+          "avg_cards_per_submission": 2.78,
+          "avg_bet_amount": 0.26869040050858234,
+          "mon_transactions": 3146,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 48,
+          "start_date": "2025-03-22",
+          "end_date": "2025-03-22",
+          "submissions": 3089,
+          "active_addresses": 2473,
+          "new_bettors": 1148,
+          "mon_volume": 798.8000000000001,
+          "jerry_volume": 0.0,
+          "total_volume": 798.8000000000001,
+          "total_cards": 8572,
+          "avg_cards_per_submission": 2.78,
+          "avg_bet_amount": 0.2585950145678213,
+          "mon_transactions": 3089,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 49,
+          "start_date": "2025-03-23",
+          "end_date": "2025-03-23",
+          "submissions": 2284,
+          "active_addresses": 1842,
+          "new_bettors": 809,
+          "mon_volume": 591.6,
+          "jerry_volume": 0.0,
+          "total_volume": 591.6,
+          "total_cards": 6392,
+          "avg_cards_per_submission": 2.8,
+          "avg_bet_amount": 0.2590192644483363,
+          "mon_transactions": 2284,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 50,
+          "start_date": "2025-03-24",
+          "end_date": "2025-03-24",
+          "submissions": 3464,
+          "active_addresses": 1724,
+          "new_bettors": 610,
+          "mon_volume": 889.7,
+          "jerry_volume": 0.0,
+          "total_volume": 889.7,
+          "total_cards": 14034,
+          "avg_cards_per_submission": 4.05,
+          "avg_bet_amount": 0.2568418013856813,
+          "mon_transactions": 3464,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 51,
+          "start_date": "2025-03-25",
+          "end_date": "2025-03-25",
+          "submissions": 3409,
+          "active_addresses": 1851,
+          "new_bettors": 856,
+          "mon_volume": 746.5,
+          "jerry_volume": 0.0,
+          "total_volume": 746.5,
+          "total_cards": 13613,
+          "avg_cards_per_submission": 3.99,
+          "avg_bet_amount": 0.21897917277794074,
+          "mon_transactions": 3409,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 52,
+          "start_date": "2025-03-26",
+          "end_date": "2025-03-26",
+          "submissions": 3764,
+          "active_addresses": 2266,
+          "new_bettors": 984,
+          "mon_volume": 878.1,
+          "jerry_volume": 0.0,
+          "total_volume": 878.1,
+          "total_cards": 14901,
+          "avg_cards_per_submission": 3.96,
+          "avg_bet_amount": 0.23328905419766208,
+          "mon_transactions": 3764,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 53,
+          "start_date": "2025-03-27",
+          "end_date": "2025-03-27",
+          "submissions": 3266,
+          "active_addresses": 1734,
+          "new_bettors": 558,
+          "mon_volume": 779.3000000000001,
+          "jerry_volume": 0.0,
+          "total_volume": 779.3000000000001,
+          "total_cards": 14295,
+          "avg_cards_per_submission": 4.38,
+          "avg_bet_amount": 0.23860992039191675,
+          "mon_transactions": 3266,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 54,
+          "start_date": "2025-03-28",
+          "end_date": "2025-03-28",
+          "submissions": 2702,
+          "active_addresses": 1899,
+          "new_bettors": 757,
+          "mon_volume": 668.8000000000001,
+          "jerry_volume": 0.0,
+          "total_volume": 668.8000000000001,
+          "total_cards": 9320,
+          "avg_cards_per_submission": 3.45,
+          "avg_bet_amount": 0.24752035529237604,
+          "mon_transactions": 2702,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 55,
+          "start_date": "2025-03-29",
+          "end_date": "2025-03-29",
+          "submissions": 5669,
+          "active_addresses": 1929,
+          "new_bettors": 724,
+          "mon_volume": 1293.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1293.9,
+          "total_cards": 30466,
+          "avg_cards_per_submission": 5.37,
+          "avg_bet_amount": 0.22824131240077616,
+          "mon_transactions": 5669,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 56,
+          "start_date": "2025-03-30",
+          "end_date": "2025-03-30",
+          "submissions": 4814,
+          "active_addresses": 2108,
+          "new_bettors": 891,
+          "mon_volume": 907.5,
+          "jerry_volume": 0.0,
+          "total_volume": 907.5,
+          "total_cards": 23049,
+          "avg_cards_per_submission": 4.79,
+          "avg_bet_amount": 0.1885126713751558,
+          "mon_transactions": 4814,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 57,
+          "start_date": "2025-03-31",
+          "end_date": "2025-03-31",
+          "submissions": 3218,
+          "active_addresses": 2451,
+          "new_bettors": 1185,
+          "mon_volume": 1173.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1173.9,
+          "total_cards": 11327,
+          "avg_cards_per_submission": 3.52,
+          "avg_bet_amount": 0.364791796146675,
+          "mon_transactions": 3218,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 58,
+          "start_date": "2025-04-01",
+          "end_date": "2025-04-01",
+          "submissions": 3364,
+          "active_addresses": 2636,
+          "new_bettors": 1229,
+          "mon_volume": 797.6,
+          "jerry_volume": 0.0,
+          "total_volume": 797.6,
+          "total_cards": 10897,
+          "avg_cards_per_submission": 3.24,
+          "avg_bet_amount": 0.2370986920332937,
+          "mon_transactions": 3364,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 59,
+          "start_date": "2025-04-02",
+          "end_date": "2025-04-02",
+          "submissions": 2965,
+          "active_addresses": 2225,
+          "new_bettors": 860,
+          "mon_volume": 804.6,
+          "jerry_volume": 0.0,
+          "total_volume": 804.6,
+          "total_cards": 9863,
+          "avg_cards_per_submission": 3.33,
+          "avg_bet_amount": 0.27136593591905567,
+          "mon_transactions": 2965,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 60,
+          "start_date": "2025-04-03",
+          "end_date": "2025-04-03",
+          "submissions": 2657,
+          "active_addresses": 2100,
+          "new_bettors": 732,
+          "mon_volume": 1111.3,
+          "jerry_volume": 0.0,
+          "total_volume": 1111.3,
+          "total_cards": 8178,
+          "avg_cards_per_submission": 3.08,
+          "avg_bet_amount": 0.41825366955212645,
+          "mon_transactions": 2657,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 61,
+          "start_date": "2025-04-04",
+          "end_date": "2025-04-04",
+          "submissions": 2592,
+          "active_addresses": 1903,
+          "new_bettors": 600,
+          "mon_volume": 1039.4,
+          "jerry_volume": 0.0,
+          "total_volume": 1039.4,
+          "total_cards": 8678,
+          "avg_cards_per_submission": 3.35,
+          "avg_bet_amount": 0.40100308641975313,
+          "mon_transactions": 2592,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 62,
+          "start_date": "2025-04-05",
+          "end_date": "2025-04-05",
+          "submissions": 3162,
+          "active_addresses": 2218,
+          "new_bettors": 970,
+          "mon_volume": 1010.6,
+          "jerry_volume": 0.0,
+          "total_volume": 1010.6,
+          "total_cards": 10086,
+          "avg_cards_per_submission": 3.19,
+          "avg_bet_amount": 0.31960784313725493,
+          "mon_transactions": 3162,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 63,
+          "start_date": "2025-04-06",
+          "end_date": "2025-04-06",
+          "submissions": 2282,
+          "active_addresses": 1641,
+          "new_bettors": 602,
+          "mon_volume": 702.2,
+          "jerry_volume": 0.0,
+          "total_volume": 702.2,
+          "total_cards": 6749,
+          "avg_cards_per_submission": 2.96,
+          "avg_bet_amount": 0.3077125328659071,
+          "mon_transactions": 2282,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 64,
+          "start_date": "2025-04-07",
+          "end_date": "2025-04-07",
+          "submissions": 4906,
+          "active_addresses": 3559,
+          "new_bettors": 1901,
+          "mon_volume": 1103.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1103.9,
+          "total_cards": 15238,
+          "avg_cards_per_submission": 3.11,
+          "avg_bet_amount": 0.22501019160211988,
+          "mon_transactions": 4906,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 65,
+          "start_date": "2025-04-08",
+          "end_date": "2025-04-08",
+          "submissions": 4192,
+          "active_addresses": 2923,
+          "new_bettors": 1222,
+          "mon_volume": 1819.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1819.9,
+          "total_cards": 14978,
+          "avg_cards_per_submission": 3.57,
+          "avg_bet_amount": 0.4341364503816794,
+          "mon_transactions": 4192,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 66,
+          "start_date": "2025-04-09",
+          "end_date": "2025-04-09",
+          "submissions": 3160,
+          "active_addresses": 2398,
+          "new_bettors": 1004,
+          "mon_volume": 1111.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1111.9,
+          "total_cards": 11394,
+          "avg_cards_per_submission": 3.61,
+          "avg_bet_amount": 0.35186708860759497,
+          "mon_transactions": 3160,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 67,
+          "start_date": "2025-04-10",
+          "end_date": "2025-04-10",
+          "submissions": 2433,
+          "active_addresses": 1768,
+          "new_bettors": 954,
+          "mon_volume": 945.5,
+          "jerry_volume": 0.0,
+          "total_volume": 945.5,
+          "total_cards": 7063,
+          "avg_cards_per_submission": 2.9,
+          "avg_bet_amount": 0.38861487875051376,
+          "mon_transactions": 2433,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 68,
+          "start_date": "2025-04-11",
+          "end_date": "2025-04-11",
+          "submissions": 2589,
+          "active_addresses": 1844,
+          "new_bettors": 832,
+          "mon_volume": 1484.9,
+          "jerry_volume": 0.0,
+          "total_volume": 1484.9,
+          "total_cards": 8976,
+          "avg_cards_per_submission": 3.47,
+          "avg_bet_amount": 0.573541908072615,
+          "mon_transactions": 2589,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 69,
+          "start_date": "2025-04-12",
+          "end_date": "2025-04-12",
+          "submissions": 2265,
+          "active_addresses": 1679,
+          "new_bettors": 834,
+          "mon_volume": 733.1,
+          "jerry_volume": 0.0,
+          "total_volume": 733.1,
+          "total_cards": 7474,
+          "avg_cards_per_submission": 3.3,
+          "avg_bet_amount": 0.3236644591611479,
+          "mon_transactions": 2265,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 70,
+          "start_date": "2025-04-13",
+          "end_date": "2025-04-13",
+          "submissions": 2123,
+          "active_addresses": 1600,
+          "new_bettors": 853,
+          "mon_volume": 772.5,
+          "jerry_volume": 0.0,
+          "total_volume": 772.5,
+          "total_cards": 6325,
+          "avg_cards_per_submission": 2.98,
+          "avg_bet_amount": 0.36387187941592086,
+          "mon_transactions": 2123,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 71,
+          "start_date": "2025-04-14",
+          "end_date": "2025-04-14",
+          "submissions": 3086,
+          "active_addresses": 2133,
+          "new_bettors": 759,
+          "mon_volume": 1379.2,
+          "jerry_volume": 0.0,
+          "total_volume": 1379.2,
+          "total_cards": 11190,
+          "avg_cards_per_submission": 3.63,
+          "avg_bet_amount": 0.4469215813350616,
+          "mon_transactions": 3086,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 72,
+          "start_date": "2025-04-15",
+          "end_date": "2025-04-15",
+          "submissions": 3683,
+          "active_addresses": 2716,
+          "new_bettors": 904,
+          "mon_volume": 1081.8,
+          "jerry_volume": 0.0,
+          "total_volume": 1081.8,
+          "total_cards": 11696,
+          "avg_cards_per_submission": 3.18,
+          "avg_bet_amount": 0.2937279391800163,
+          "mon_transactions": 3683,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 73,
+          "start_date": "2025-04-16",
+          "end_date": "2025-04-16",
+          "submissions": 3563,
+          "active_addresses": 2792,
+          "new_bettors": 1268,
+          "mon_volume": 1130.0,
+          "jerry_volume": 0.0,
+          "total_volume": 1130.0,
+          "total_cards": 11251,
+          "avg_cards_per_submission": 3.16,
+          "avg_bet_amount": 0.3171484703901207,
+          "mon_transactions": 3563,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 74,
+          "start_date": "2025-04-17",
+          "end_date": "2025-04-17",
+          "submissions": 2585,
+          "active_addresses": 2028,
+          "new_bettors": 857,
+          "mon_volume": 769.7,
+          "jerry_volume": 0.0,
+          "total_volume": 769.7,
+          "total_cards": 7360,
+          "avg_cards_per_submission": 2.85,
+          "avg_bet_amount": 0.2977562862669246,
+          "mon_transactions": 2585,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 75,
+          "start_date": "2025-04-18",
+          "end_date": "2025-04-18",
+          "submissions": 2890,
+          "active_addresses": 2199,
+          "new_bettors": 999,
+          "mon_volume": 1455.5,
+          "jerry_volume": 0.0,
+          "total_volume": 1455.5,
+          "total_cards": 8912,
+          "avg_cards_per_submission": 3.08,
+          "avg_bet_amount": 0.5036332179930796,
+          "mon_transactions": 2890,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 76,
+          "start_date": "2025-04-19",
+          "end_date": "2025-04-19",
+          "submissions": 3083,
+          "active_addresses": 2256,
+          "new_bettors": 1146,
+          "mon_volume": 1333.5,
+          "jerry_volume": 0.0,
+          "total_volume": 1333.5,
+          "total_cards": 10334,
+          "avg_cards_per_submission": 3.35,
+          "avg_bet_amount": 0.43253324683749594,
+          "mon_transactions": 3083,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 77,
+          "start_date": "2025-04-20",
+          "end_date": "2025-04-20",
+          "submissions": 2496,
+          "active_addresses": 1895,
+          "new_bettors": 825,
+          "mon_volume": 928.1,
+          "jerry_volume": 0.0,
+          "total_volume": 928.1,
+          "total_cards": 7696,
+          "avg_cards_per_submission": 3.08,
+          "avg_bet_amount": 0.3718349358974359,
+          "mon_transactions": 2496,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 78,
+          "start_date": "2025-04-21",
+          "end_date": "2025-04-21",
+          "submissions": 3109,
+          "active_addresses": 2387,
+          "new_bettors": 958,
+          "mon_volume": 1416.7,
+          "jerry_volume": 0.0,
+          "total_volume": 1416.7,
+          "total_cards": 10623,
+          "avg_cards_per_submission": 3.42,
+          "avg_bet_amount": 0.4556770665808942,
+          "mon_transactions": 3109,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 79,
+          "start_date": "2025-04-22",
+          "end_date": "2025-04-22",
+          "submissions": 3635,
+          "active_addresses": 2703,
+          "new_bettors": 1055,
+          "mon_volume": 1386.8,
+          "jerry_volume": 0.0,
+          "total_volume": 1386.8,
+          "total_cards": 13156,
+          "avg_cards_per_submission": 3.62,
+          "avg_bet_amount": 0.3815130674002751,
+          "mon_transactions": 3635,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 80,
+          "start_date": "2025-04-23",
+          "end_date": "2025-04-23",
+          "submissions": 5135,
+          "active_addresses": 3274,
+          "new_bettors": 1817,
+          "mon_volume": 2171.1,
+          "jerry_volume": 0.0,
+          "total_volume": 2171.1,
+          "total_cards": 17489,
+          "avg_cards_per_submission": 3.41,
+          "avg_bet_amount": 0.42280428432327166,
+          "mon_transactions": 5135,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 81,
+          "start_date": "2025-04-24",
+          "end_date": "2025-04-24",
+          "submissions": 11970,
+          "active_addresses": 7780,
+          "new_bettors": 5373,
+          "mon_volume": 3133.4,
+          "jerry_volume": 0.0,
+          "total_volume": 3133.4,
+          "total_cards": 33135,
+          "avg_cards_per_submission": 2.77,
+          "avg_bet_amount": 0.2617710944026734,
+          "mon_transactions": 11970,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 82,
+          "start_date": "2025-04-25",
+          "end_date": "2025-04-25",
+          "submissions": 11020,
+          "active_addresses": 7063,
+          "new_bettors": 4494,
+          "mon_volume": 2863.4,
+          "jerry_volume": 0.0,
+          "total_volume": 2863.4,
+          "total_cards": 34211,
+          "avg_cards_per_submission": 3.1,
+          "avg_bet_amount": 0.2598366606170599,
+          "mon_transactions": 11020,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 83,
+          "start_date": "2025-04-26",
+          "end_date": "2025-04-26",
+          "submissions": 9007,
+          "active_addresses": 6256,
+          "new_bettors": 3257,
+          "mon_volume": 2362.0,
+          "jerry_volume": 0.0,
+          "total_volume": 2362.0,
+          "total_cards": 26686,
+          "avg_cards_per_submission": 2.96,
+          "avg_bet_amount": 0.2622404796269568,
+          "mon_transactions": 9007,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 84,
+          "start_date": "2025-04-27",
+          "end_date": "2025-04-27",
+          "submissions": 7715,
+          "active_addresses": 5171,
+          "new_bettors": 2376,
+          "mon_volume": 2187.5,
+          "jerry_volume": 0.0,
+          "total_volume": 2187.5,
+          "total_cards": 23583,
+          "avg_cards_per_submission": 3.06,
+          "avg_bet_amount": 0.28353856124432925,
+          "mon_transactions": 7715,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 85,
+          "start_date": "2025-04-28",
+          "end_date": "2025-04-28",
+          "submissions": 7847,
+          "active_addresses": 5230,
+          "new_bettors": 1922,
+          "mon_volume": 2269.7000000000003,
+          "jerry_volume": 0.0,
+          "total_volume": 2269.7000000000003,
+          "total_cards": 24087,
+          "avg_cards_per_submission": 3.07,
+          "avg_bet_amount": 0.2892442971836371,
+          "mon_transactions": 7847,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 86,
+          "start_date": "2025-04-29",
+          "end_date": "2025-04-29",
+          "submissions": 10326,
+          "active_addresses": 6603,
+          "new_bettors": 2789,
+          "mon_volume": 2869.4,
+          "jerry_volume": 0.0,
+          "total_volume": 2869.4,
+          "total_cards": 31635,
+          "avg_cards_per_submission": 3.06,
+          "avg_bet_amount": 0.2778810768932791,
+          "mon_transactions": 10326,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 87,
+          "start_date": "2025-04-30",
+          "end_date": "2025-04-30",
+          "submissions": 10006,
+          "active_addresses": 6641,
+          "new_bettors": 3461,
+          "mon_volume": 2201.3250000000003,
+          "jerry_volume": 0.0,
+          "total_volume": 2201.3250000000003,
+          "total_cards": 28817,
+          "avg_cards_per_submission": 2.88,
+          "avg_bet_amount": 0.22000049970017993,
+          "mon_transactions": 10006,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 88,
+          "start_date": "2025-05-01",
+          "end_date": "2025-05-01",
+          "submissions": 23297,
+          "active_addresses": 15230,
+          "new_bettors": 12145,
+          "mon_volume": 3521.6803,
+          "jerry_volume": 0.0,
+          "total_volume": 3521.6803,
+          "total_cards": 66147,
+          "avg_cards_per_submission": 2.84,
+          "avg_bet_amount": 0.15116454049877667,
+          "mon_transactions": 23297,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 89,
+          "start_date": "2025-05-02",
+          "end_date": "2025-05-02",
+          "submissions": 16579,
+          "active_addresses": 10859,
+          "new_bettors": 6339,
+          "mon_volume": 2955.7327,
+          "jerry_volume": 0.0,
+          "total_volume": 2955.7327,
+          "total_cards": 47014,
+          "avg_cards_per_submission": 2.84,
+          "avg_bet_amount": 0.1782817238675433,
+          "mon_transactions": 16579,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 90,
+          "start_date": "2025-05-03",
+          "end_date": "2025-05-03",
+          "submissions": 15867,
+          "active_addresses": 9874,
+          "new_bettors": 2688,
+          "mon_volume": 3079.0,
+          "jerry_volume": 0.0,
+          "total_volume": 3079.0,
+          "total_cards": 44642,
+          "avg_cards_per_submission": 2.81,
+          "avg_bet_amount": 0.19405054515661435,
+          "mon_transactions": 15867,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 91,
+          "start_date": "2025-05-04",
+          "end_date": "2025-05-04",
+          "submissions": 15414,
+          "active_addresses": 9326,
+          "new_bettors": 2449,
+          "mon_volume": 3226.6733,
+          "jerry_volume": 0.0,
+          "total_volume": 3226.6733,
+          "total_cards": 43449,
+          "avg_cards_per_submission": 2.82,
+          "avg_bet_amount": 0.20933393668093941,
+          "mon_transactions": 15414,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 92,
+          "start_date": "2025-05-05",
+          "end_date": "2025-05-05",
+          "submissions": 14674,
+          "active_addresses": 9407,
+          "new_bettors": 2841,
+          "mon_volume": 2804.3147,
+          "jerry_volume": 0.0,
+          "total_volume": 2804.3147,
+          "total_cards": 40939,
+          "avg_cards_per_submission": 2.79,
+          "avg_bet_amount": 0.19110772113943028,
+          "mon_transactions": 14674,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 93,
+          "start_date": "2025-05-06",
+          "end_date": "2025-05-06",
+          "submissions": 19272,
+          "active_addresses": 11954,
+          "new_bettors": 4246,
+          "mon_volume": 3358.9,
+          "jerry_volume": 0.0,
+          "total_volume": 3358.9,
+          "total_cards": 52895,
+          "avg_cards_per_submission": 2.74,
+          "avg_bet_amount": 0.17428912411789124,
+          "mon_transactions": 19272,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 94,
+          "start_date": "2025-05-07",
+          "end_date": "2025-05-07",
+          "submissions": 18048,
+          "active_addresses": 12454,
+          "new_bettors": 2830,
+          "mon_volume": 3464.4346,
+          "jerry_volume": 0.0,
+          "total_volume": 3464.4346,
+          "total_cards": 50982,
+          "avg_cards_per_submission": 2.82,
+          "avg_bet_amount": 0.19195670434397163,
+          "mon_transactions": 18048,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 95,
+          "start_date": "2025-05-08",
+          "end_date": "2025-05-08",
+          "submissions": 12540,
+          "active_addresses": 8421,
+          "new_bettors": 1765,
+          "mon_volume": 2448.2000000000003,
+          "jerry_volume": 0.0,
+          "total_volume": 2448.2000000000003,
+          "total_cards": 36622,
+          "avg_cards_per_submission": 2.92,
+          "avg_bet_amount": 0.1952312599681021,
+          "mon_transactions": 12540,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 96,
+          "start_date": "2025-05-09",
+          "end_date": "2025-05-09",
+          "submissions": 10029,
+          "active_addresses": 6742,
+          "new_bettors": 1171,
+          "mon_volume": 2128.015267,
+          "jerry_volume": 0.0,
+          "total_volume": 2128.015267,
+          "total_cards": 29396,
+          "avg_cards_per_submission": 2.93,
+          "avg_bet_amount": 0.21218618675840065,
+          "mon_transactions": 10029,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 97,
+          "start_date": "2025-05-10",
+          "end_date": "2025-05-10",
+          "submissions": 7336,
+          "active_addresses": 4989,
+          "new_bettors": 895,
+          "mon_volume": 1813.8,
+          "jerry_volume": 0.0,
+          "total_volume": 1813.8,
+          "total_cards": 23855,
+          "avg_cards_per_submission": 3.25,
+          "avg_bet_amount": 0.2472464558342421,
+          "mon_transactions": 7336,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 98,
+          "start_date": "2025-05-11",
+          "end_date": "2025-05-11",
+          "submissions": 8171,
+          "active_addresses": 5370,
+          "new_bettors": 1436,
+          "mon_volume": 2251.8,
+          "jerry_volume": 0.0,
+          "total_volume": 2251.8,
+          "total_cards": 23409,
+          "avg_cards_per_submission": 2.86,
+          "avg_bet_amount": 0.27558438379635297,
+          "mon_transactions": 8171,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 99,
+          "start_date": "2025-05-12",
+          "end_date": "2025-05-12",
+          "submissions": 14393,
+          "active_addresses": 9464,
+          "new_bettors": 2595,
+          "mon_volume": 3194.7000000000003,
+          "jerry_volume": 0.0,
+          "total_volume": 3194.7000000000003,
+          "total_cards": 40120,
+          "avg_cards_per_submission": 2.79,
+          "avg_bet_amount": 0.22196206489265616,
+          "mon_transactions": 14393,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 100,
+          "start_date": "2025-05-13",
+          "end_date": "2025-05-13",
+          "submissions": 13215,
+          "active_addresses": 9127,
+          "new_bettors": 2962,
+          "mon_volume": 2880.4,
+          "jerry_volume": 0.0,
+          "total_volume": 2880.4,
+          "total_cards": 36473,
+          "avg_cards_per_submission": 2.76,
+          "avg_bet_amount": 0.21796443435489973,
+          "mon_transactions": 13215,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 101,
+          "start_date": "2025-05-14",
+          "end_date": "2025-05-14",
+          "submissions": 9281,
+          "active_addresses": 6723,
+          "new_bettors": 2255,
+          "mon_volume": 2437.6,
+          "jerry_volume": 0.0,
+          "total_volume": 2437.6,
+          "total_cards": 25422,
+          "avg_cards_per_submission": 2.74,
+          "avg_bet_amount": 0.2626441116259024,
+          "mon_transactions": 9281,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 102,
+          "start_date": "2025-05-15",
+          "end_date": "2025-05-15",
+          "submissions": 9244,
+          "active_addresses": 6741,
+          "new_bettors": 1902,
+          "mon_volume": 2039.2,
+          "jerry_volume": 0.0,
+          "total_volume": 2039.2,
+          "total_cards": 25474,
+          "avg_cards_per_submission": 2.76,
+          "avg_bet_amount": 0.22059714409346604,
+          "mon_transactions": 9244,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 103,
+          "start_date": "2025-05-16",
+          "end_date": "2025-05-16",
+          "submissions": 7556,
+          "active_addresses": 5304,
+          "new_bettors": 1551,
+          "mon_volume": 2168.2,
+          "jerry_volume": 0.0,
+          "total_volume": 2168.2,
+          "total_cards": 20884,
+          "avg_cards_per_submission": 2.76,
+          "avg_bet_amount": 0.28695076760190574,
+          "mon_transactions": 7556,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 104,
+          "start_date": "2025-05-17",
+          "end_date": "2025-05-17",
+          "submissions": 9234,
+          "active_addresses": 5840,
+          "new_bettors": 1642,
+          "mon_volume": 2487.787875067546,
+          "jerry_volume": 0.0,
+          "total_volume": 2487.787875067546,
+          "total_cards": 27136,
+          "avg_cards_per_submission": 2.94,
+          "avg_bet_amount": 0.2694160575121882,
+          "mon_transactions": 9234,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 105,
+          "start_date": "2025-05-18",
+          "end_date": "2025-05-18",
+          "submissions": 9653,
+          "active_addresses": 6163,
+          "new_bettors": 1622,
+          "mon_volume": 1718.6000000000001,
+          "jerry_volume": 0.0,
+          "total_volume": 1718.6000000000001,
+          "total_cards": 27282,
+          "avg_cards_per_submission": 2.83,
+          "avg_bet_amount": 0.17803791567388377,
+          "mon_transactions": 9653,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 106,
+          "start_date": "2025-05-19",
+          "end_date": "2025-05-19",
+          "submissions": 10428,
+          "active_addresses": 7358,
+          "new_bettors": 2416,
+          "mon_volume": 2001.5,
+          "jerry_volume": 0.0,
+          "total_volume": 2001.5,
+          "total_cards": 29147,
+          "avg_cards_per_submission": 2.8,
+          "avg_bet_amount": 0.19193517453011125,
+          "mon_transactions": 10428,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 107,
+          "start_date": "2025-05-20",
+          "end_date": "2025-05-20",
+          "submissions": 12516,
+          "active_addresses": 8621,
+          "new_bettors": 3477,
+          "mon_volume": 2813.6,
+          "jerry_volume": 0.0,
+          "total_volume": 2813.6,
+          "total_cards": 35773,
+          "avg_cards_per_submission": 2.86,
+          "avg_bet_amount": 0.2248002556727389,
+          "mon_transactions": 12516,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 108,
+          "start_date": "2025-05-21",
+          "end_date": "2025-05-21",
+          "submissions": 14034,
+          "active_addresses": 9060,
+          "new_bettors": 4882,
+          "mon_volume": 2564.3,
+          "jerry_volume": 0.0,
+          "total_volume": 2564.3,
+          "total_cards": 39281,
+          "avg_cards_per_submission": 2.8,
+          "avg_bet_amount": 0.18272053584152773,
+          "mon_transactions": 14034,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 109,
+          "start_date": "2025-05-22",
+          "end_date": "2025-05-22",
+          "submissions": 15743,
+          "active_addresses": 8996,
+          "new_bettors": 3792,
+          "mon_volume": 3384.4,
+          "jerry_volume": 0.0,
+          "total_volume": 3384.4,
+          "total_cards": 46193,
+          "avg_cards_per_submission": 2.93,
+          "avg_bet_amount": 0.2149780854983167,
+          "mon_transactions": 15743,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 110,
+          "start_date": "2025-05-23",
+          "end_date": "2025-05-23",
+          "submissions": 13405,
+          "active_addresses": 8150,
+          "new_bettors": 2630,
+          "mon_volume": 2675.2000000000003,
+          "jerry_volume": 0.0,
+          "total_volume": 2675.2000000000003,
+          "total_cards": 37876,
+          "avg_cards_per_submission": 2.83,
+          "avg_bet_amount": 0.1995673256247669,
+          "mon_transactions": 13405,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 111,
+          "start_date": "2025-05-24",
+          "end_date": "2025-05-24",
+          "submissions": 12081,
+          "active_addresses": 7499,
+          "new_bettors": 2671,
+          "mon_volume": 2365.0,
+          "jerry_volume": 0.0,
+          "total_volume": 2365.0,
+          "total_cards": 34948,
+          "avg_cards_per_submission": 2.89,
+          "avg_bet_amount": 0.19576194023673538,
+          "mon_transactions": 12081,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 112,
+          "start_date": "2025-05-25",
+          "end_date": "2025-05-25",
+          "submissions": 13222,
+          "active_addresses": 8249,
+          "new_bettors": 2958,
+          "mon_volume": 2647.0,
+          "jerry_volume": 0.0,
+          "total_volume": 2647.0,
+          "total_cards": 36644,
+          "avg_cards_per_submission": 2.77,
+          "avg_bet_amount": 0.20019664196036907,
+          "mon_transactions": 13222,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 113,
+          "start_date": "2025-05-26",
+          "end_date": "2025-05-26",
+          "submissions": 12829,
+          "active_addresses": 8409,
+          "new_bettors": 3138,
+          "mon_volume": 2520.9,
+          "jerry_volume": 0.0,
+          "total_volume": 2520.9,
+          "total_cards": 36939,
+          "avg_cards_per_submission": 2.88,
+          "avg_bet_amount": 0.19650011692259725,
+          "mon_transactions": 12829,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 114,
+          "start_date": "2025-05-27",
+          "end_date": "2025-05-27",
+          "submissions": 18287,
+          "active_addresses": 10182,
+          "new_bettors": 4393,
+          "mon_volume": 3825.3,
+          "jerry_volume": 0.0,
+          "total_volume": 3825.3,
+          "total_cards": 54588,
+          "avg_cards_per_submission": 2.99,
+          "avg_bet_amount": 0.2091813856838191,
+          "mon_transactions": 18287,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 115,
+          "start_date": "2025-05-28",
+          "end_date": "2025-05-28",
+          "submissions": 17316,
+          "active_addresses": 9533,
+          "new_bettors": 4434,
+          "mon_volume": 3503.8,
+          "jerry_volume": 0.0,
+          "total_volume": 3503.8,
+          "total_cards": 50510,
+          "avg_cards_per_submission": 2.92,
+          "avg_bet_amount": 0.20234465234465235,
+          "mon_transactions": 17316,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 116,
+          "start_date": "2025-05-29",
+          "end_date": "2025-05-29",
+          "submissions": 18563,
+          "active_addresses": 9416,
+          "new_bettors": 3568,
+          "mon_volume": 4224.8,
+          "jerry_volume": 0.0,
+          "total_volume": 4224.8,
+          "total_cards": 56887,
+          "avg_cards_per_submission": 3.06,
+          "avg_bet_amount": 0.2275925227603297,
+          "mon_transactions": 18563,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 117,
+          "start_date": "2025-05-30",
+          "end_date": "2025-05-30",
+          "submissions": 18448,
+          "active_addresses": 10307,
+          "new_bettors": 2600,
+          "mon_volume": 4387.6,
+          "jerry_volume": 0.0,
+          "total_volume": 4387.6,
+          "total_cards": 57776,
+          "avg_cards_per_submission": 3.13,
+          "avg_bet_amount": 0.23783607979184737,
+          "mon_transactions": 18448,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 118,
+          "start_date": "2025-05-31",
+          "end_date": "2025-05-31",
+          "submissions": 11274,
+          "active_addresses": 6065,
+          "new_bettors": 1621,
+          "mon_volume": 3323.0,
+          "jerry_volume": 0.0,
+          "total_volume": 3323.0,
+          "total_cards": 35121,
+          "avg_cards_per_submission": 3.12,
+          "avg_bet_amount": 0.29474897995387617,
+          "mon_transactions": 11274,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 119,
+          "start_date": "2025-06-01",
+          "end_date": "2025-06-01",
+          "submissions": 15350,
+          "active_addresses": 9071,
+          "new_bettors": 2736,
+          "mon_volume": 2910.7000000000003,
+          "jerry_volume": 0.0,
+          "total_volume": 2910.7000000000003,
+          "total_cards": 44449,
+          "avg_cards_per_submission": 2.9,
+          "avg_bet_amount": 0.18962214983713357,
+          "mon_transactions": 15350,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 120,
+          "start_date": "2025-06-02",
+          "end_date": "2025-06-02",
+          "submissions": 20737,
+          "active_addresses": 12077,
+          "new_bettors": 2553,
+          "mon_volume": 3608.4,
+          "jerry_volume": 0.0,
+          "total_volume": 3608.4,
+          "total_cards": 63799,
+          "avg_cards_per_submission": 3.08,
+          "avg_bet_amount": 0.17400781212325794,
+          "mon_transactions": 20737,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 121,
+          "start_date": "2025-06-03",
+          "end_date": "2025-06-03",
+          "submissions": 23679,
+          "active_addresses": 11030,
+          "new_bettors": 2152,
+          "mon_volume": 4105.5,
+          "jerry_volume": 1717.0,
+          "total_volume": 5822.5,
+          "total_cards": 78268,
+          "avg_cards_per_submission": 3.31,
+          "avg_bet_amount": 0.24589298534566492,
+          "mon_transactions": 22486,
+          "jerry_transactions": 1193
+        },
+        {
+          "period": 122,
+          "start_date": "2025-06-04",
+          "end_date": "2025-06-04",
+          "submissions": 27233,
+          "active_addresses": 12850,
+          "new_bettors": 3025,
+          "mon_volume": 4357.900000000001,
+          "jerry_volume": 4711.6,
+          "total_volume": 9069.5,
+          "total_cards": 93738,
+          "avg_cards_per_submission": 3.44,
+          "avg_bet_amount": 0.33303345206183677,
+          "mon_transactions": 23556,
+          "jerry_transactions": 3677
+        },
+        {
+          "period": 123,
+          "start_date": "2025-06-05",
+          "end_date": "2025-06-05",
+          "submissions": 20402,
+          "active_addresses": 11237,
+          "new_bettors": 2455,
+          "mon_volume": 5160.5,
+          "jerry_volume": 753.3,
+          "total_volume": 5913.8,
+          "total_cards": 60484,
+          "avg_cards_per_submission": 2.96,
+          "avg_bet_amount": 0.28986373884913247,
+          "mon_transactions": 19992,
+          "jerry_transactions": 410
+        },
+        {
+          "period": 124,
+          "start_date": "2025-06-06",
+          "end_date": "2025-06-06",
+          "submissions": 20676,
+          "active_addresses": 10101,
+          "new_bettors": 2277,
+          "mon_volume": 4085.0,
+          "jerry_volume": 2495.1,
+          "total_volume": 6580.1,
+          "total_cards": 63484,
+          "avg_cards_per_submission": 3.07,
+          "avg_bet_amount": 0.31824821048558716,
+          "mon_transactions": 19373,
+          "jerry_transactions": 1303
+        },
+        {
+          "period": 125,
+          "start_date": "2025-06-07",
+          "end_date": "2025-06-07",
+          "submissions": 22420,
+          "active_addresses": 9478,
+          "new_bettors": 1739,
+          "mon_volume": 3830.0,
+          "jerry_volume": 5015.0,
+          "total_volume": 8845.0,
+          "total_cards": 82863,
+          "avg_cards_per_submission": 3.7,
+          "avg_bet_amount": 0.39451382694023196,
+          "mon_transactions": 17930,
+          "jerry_transactions": 4490
+        },
+        {
+          "period": 126,
+          "start_date": "2025-06-08",
+          "end_date": "2025-06-08",
+          "submissions": 22235,
+          "active_addresses": 8162,
+          "new_bettors": 1914,
+          "mon_volume": 4519.6,
+          "jerry_volume": 5107.9,
+          "total_volume": 9627.5,
+          "total_cards": 84718,
+          "avg_cards_per_submission": 3.81,
+          "avg_bet_amount": 0.43298853159433326,
+          "mon_transactions": 17265,
+          "jerry_transactions": 4970
+        },
+        {
+          "period": 127,
+          "start_date": "2025-06-09",
+          "end_date": "2025-06-09",
+          "submissions": 21963,
+          "active_addresses": 10932,
+          "new_bettors": 2133,
+          "mon_volume": 4873.1,
+          "jerry_volume": 1294.8,
+          "total_volume": 6167.900000000001,
+          "total_cards": 64029,
+          "avg_cards_per_submission": 2.92,
+          "avg_bet_amount": 0.28083139826071124,
+          "mon_transactions": 21824,
+          "jerry_transactions": 139
+        },
+        {
+          "period": 128,
+          "start_date": "2025-06-10",
+          "end_date": "2025-06-10",
+          "submissions": 22517,
+          "active_addresses": 11886,
+          "new_bettors": 2437,
+          "mon_volume": 5052.5,
+          "jerry_volume": 1888.5,
+          "total_volume": 6941.0,
+          "total_cards": 68145,
+          "avg_cards_per_submission": 3.03,
+          "avg_bet_amount": 0.3082559843673669,
+          "mon_transactions": 22331,
+          "jerry_transactions": 186
+        },
+        {
+          "period": 129,
+          "start_date": "2025-06-11",
+          "end_date": "2025-06-11",
+          "submissions": 27673,
+          "active_addresses": 16533,
+          "new_bettors": 5643,
+          "mon_volume": 5655.90622,
+          "jerry_volume": 857.0,
+          "total_volume": 6512.90622,
+          "total_cards": 78404,
+          "avg_cards_per_submission": 2.83,
+          "avg_bet_amount": 0.23535237307122464,
+          "mon_transactions": 27552,
+          "jerry_transactions": 121
+        },
+        {
+          "period": 130,
+          "start_date": "2025-06-12",
+          "end_date": "2025-06-12",
+          "submissions": 33586,
+          "active_addresses": 19907,
+          "new_bettors": 9481,
+          "mon_volume": 5541.7642000000005,
+          "jerry_volume": 1182.6,
+          "total_volume": 6724.3642,
+          "total_cards": 95784,
+          "avg_cards_per_submission": 2.85,
+          "avg_bet_amount": 0.20021330911689394,
+          "mon_transactions": 33429,
+          "jerry_transactions": 157
+        },
+        {
+          "period": 131,
+          "start_date": "2025-06-13",
+          "end_date": "2025-06-13",
+          "submissions": 35550,
+          "active_addresses": 21999,
+          "new_bettors": 10257,
+          "mon_volume": 6384.73395,
+          "jerry_volume": 762.6,
+          "total_volume": 7147.33395,
+          "total_cards": 102427,
+          "avg_cards_per_submission": 2.88,
+          "avg_bet_amount": 0.20105018143459916,
+          "mon_transactions": 35424,
+          "jerry_transactions": 126
+        },
+        {
+          "period": 132,
+          "start_date": "2025-06-14",
+          "end_date": "2025-06-14",
+          "submissions": 26127,
+          "active_addresses": 15231,
+          "new_bettors": 4809,
+          "mon_volume": 4627.77833,
+          "jerry_volume": 2073.9,
+          "total_volume": 6701.678330000001,
+          "total_cards": 75096,
+          "avg_cards_per_submission": 2.87,
+          "avg_bet_amount": 0.25650393577525166,
+          "mon_transactions": 25919,
+          "jerry_transactions": 208
+        },
+        {
+          "period": 133,
+          "start_date": "2025-06-15",
+          "end_date": "2025-06-15",
+          "submissions": 25467,
+          "active_addresses": 14148,
+          "new_bettors": 4187,
+          "mon_volume": 4292.36675,
+          "jerry_volume": 1291.0,
+          "total_volume": 5583.36675,
+          "total_cards": 71729,
+          "avg_cards_per_submission": 2.82,
+          "avg_bet_amount": 0.21923928024502298,
+          "mon_transactions": 25215,
+          "jerry_transactions": 252
+        },
+        {
+          "period": 134,
+          "start_date": "2025-06-16",
+          "end_date": "2025-06-16",
+          "submissions": 28773,
+          "active_addresses": 14947,
+          "new_bettors": 4596,
+          "mon_volume": 6496.55574,
+          "jerry_volume": 1280.5,
+          "total_volume": 7777.05574,
+          "total_cards": 76021,
+          "avg_cards_per_submission": 2.64,
+          "avg_bet_amount": 0.2702900545650436,
+          "mon_transactions": 28608,
+          "jerry_transactions": 165
+        },
+        {
+          "period": 135,
+          "start_date": "2025-06-17",
+          "end_date": "2025-06-17",
+          "submissions": 31664,
+          "active_addresses": 16738,
+          "new_bettors": 3372,
+          "mon_volume": 5524.32125,
+          "jerry_volume": 2316.0,
+          "total_volume": 7840.32125,
+          "total_cards": 77149,
+          "avg_cards_per_submission": 2.44,
+          "avg_bet_amount": 0.2476099434689237,
+          "mon_transactions": 31464,
+          "jerry_transactions": 200
+        },
+        {
+          "period": 136,
+          "start_date": "2025-06-18",
+          "end_date": "2025-06-18",
+          "submissions": 36919,
+          "active_addresses": 20517,
+          "new_bettors": 4134,
+          "mon_volume": 6362.94827,
+          "jerry_volume": 1658.55,
+          "total_volume": 8021.49827,
+          "total_cards": 91212,
+          "avg_cards_per_submission": 2.47,
+          "avg_bet_amount": 0.21727290202876567,
+          "mon_transactions": 36722,
+          "jerry_transactions": 197
+        },
+        {
+          "period": 137,
+          "start_date": "2025-06-19",
+          "end_date": "2025-06-19",
+          "submissions": 34189,
+          "active_addresses": 18511,
+          "new_bettors": 6572,
+          "mon_volume": 8059.52361,
+          "jerry_volume": 1695.2,
+          "total_volume": 9754.723610000001,
+          "total_cards": 97577,
+          "avg_cards_per_submission": 2.85,
+          "avg_bet_amount": 0.28531760537014833,
+          "mon_transactions": 33851,
+          "jerry_transactions": 338
+        },
+        {
+          "period": 138,
+          "start_date": "2025-06-20",
+          "end_date": "2025-06-20",
+          "submissions": 31790,
+          "active_addresses": 14295,
+          "new_bettors": 3205,
+          "mon_volume": 5513.5,
+          "jerry_volume": 1476.5,
+          "total_volume": 6990.0,
+          "total_cards": 80632,
+          "avg_cards_per_submission": 2.54,
+          "avg_bet_amount": 0.21988046555520604,
+          "mon_transactions": 31552,
+          "jerry_transactions": 238
+        },
+        {
+          "period": 139,
+          "start_date": "2025-06-21",
+          "end_date": "2025-06-21",
+          "submissions": 40162,
+          "active_addresses": 18432,
+          "new_bettors": 2912,
+          "mon_volume": 6878.5,
+          "jerry_volume": 1879.0,
+          "total_volume": 8757.5,
+          "total_cards": 98228,
+          "avg_cards_per_submission": 2.45,
+          "avg_bet_amount": 0.21805437976196404,
+          "mon_transactions": 39881,
+          "jerry_transactions": 281
+        },
+        {
+          "period": 140,
+          "start_date": "2025-06-22",
+          "end_date": "2025-06-22",
+          "submissions": 35598,
+          "active_addresses": 14569,
+          "new_bettors": 2562,
+          "mon_volume": 10250.77386,
+          "jerry_volume": 1220.1,
+          "total_volume": 11470.87386,
+          "total_cards": 83799,
+          "avg_cards_per_submission": 2.35,
+          "avg_bet_amount": 0.3222336608798247,
+          "mon_transactions": 35339,
+          "jerry_transactions": 259
+        },
+        {
+          "period": 141,
+          "start_date": "2025-06-23",
+          "end_date": "2025-06-23",
+          "submissions": 34019,
+          "active_addresses": 15550,
+          "new_bettors": 1936,
+          "mon_volume": 5815.39108,
+          "jerry_volume": 1813.8,
+          "total_volume": 7629.1910800000005,
+          "total_cards": 79171,
+          "avg_cards_per_submission": 2.33,
+          "avg_bet_amount": 0.22426264969575826,
+          "mon_transactions": 33824,
+          "jerry_transactions": 195
+        },
+        {
+          "period": 142,
+          "start_date": "2025-06-24",
+          "end_date": "2025-06-24",
+          "submissions": 31279,
+          "active_addresses": 13778,
+          "new_bettors": 2071,
+          "mon_volume": 5641.748970000001,
+          "jerry_volume": 1062.0,
+          "total_volume": 6703.748970000001,
+          "total_cards": 74305,
+          "avg_cards_per_submission": 2.38,
+          "avg_bet_amount": 0.21432107708046935,
+          "mon_transactions": 31145,
+          "jerry_transactions": 134
+        },
+        {
+          "period": 143,
+          "start_date": "2025-06-25",
+          "end_date": "2025-06-25",
+          "submissions": 39090,
+          "active_addresses": 16956,
+          "new_bettors": 2939,
+          "mon_volume": 6889.68668,
+          "jerry_volume": 878.2,
+          "total_volume": 7767.88668,
+          "total_cards": 90848,
+          "avg_cards_per_submission": 2.32,
+          "avg_bet_amount": 0.19871800153491942,
+          "mon_transactions": 38983,
+          "jerry_transactions": 107
+        },
+        {
+          "period": 144,
+          "start_date": "2025-06-26",
+          "end_date": "2025-06-26",
+          "submissions": 37738,
+          "active_addresses": 15089,
+          "new_bettors": 1941,
+          "mon_volume": 6915.7,
+          "jerry_volume": 1204.5,
+          "total_volume": 8120.2,
+          "total_cards": 85559,
+          "avg_cards_per_submission": 2.27,
+          "avg_bet_amount": 0.21517303513699718,
+          "mon_transactions": 37533,
+          "jerry_transactions": 205
+        },
+        {
+          "period": 145,
+          "start_date": "2025-06-27",
+          "end_date": "2025-06-27",
+          "submissions": 41311,
+          "active_addresses": 15852,
+          "new_bettors": 1978,
+          "mon_volume": 7020.1,
+          "jerry_volume": 906.9,
+          "total_volume": 7927.0,
+          "total_cards": 94831,
+          "avg_cards_per_submission": 2.3,
+          "avg_bet_amount": 0.19188593836992568,
+          "mon_transactions": 41198,
+          "jerry_transactions": 113
+        },
+        {
+          "period": 146,
+          "start_date": "2025-06-28",
+          "end_date": "2025-06-28",
+          "submissions": 41881,
+          "active_addresses": 15659,
+          "new_bettors": 1755,
+          "mon_volume": 7525.1,
+          "jerry_volume": 480.8,
+          "total_volume": 8005.900000000001,
+          "total_cards": 95232,
+          "avg_cards_per_submission": 2.27,
+          "avg_bet_amount": 0.1911582817984289,
+          "mon_transactions": 41783,
+          "jerry_transactions": 98
+        },
+        {
+          "period": 147,
+          "start_date": "2025-06-29",
+          "end_date": "2025-06-29",
+          "submissions": 38696,
+          "active_addresses": 15085,
+          "new_bettors": 1496,
+          "mon_volume": 6854.900873575484,
+          "jerry_volume": 564.6,
+          "total_volume": 7419.500873575485,
+          "total_cards": 88497,
+          "avg_cards_per_submission": 2.29,
+          "avg_bet_amount": 0.19173818672667678,
+          "mon_transactions": 38596,
+          "jerry_transactions": 100
+        },
+        {
+          "period": 148,
+          "start_date": "2025-06-30",
+          "end_date": "2025-06-30",
+          "submissions": 38831,
+          "active_addresses": 15402,
+          "new_bettors": 1245,
+          "mon_volume": 6790.838051863934,
+          "jerry_volume": 1376.1,
+          "total_volume": 8166.938051863934,
+          "total_cards": 87641,
+          "avg_cards_per_submission": 2.26,
+          "avg_bet_amount": 0.2103200549010825,
+          "mon_transactions": 38674,
+          "jerry_transactions": 157
+        },
+        {
+          "period": 149,
+          "start_date": "2025-07-01",
+          "end_date": "2025-07-01",
+          "submissions": 43389,
+          "active_addresses": 17311,
+          "new_bettors": 2956,
+          "mon_volume": 6455.8,
+          "jerry_volume": 680.4,
+          "total_volume": 7136.2,
+          "total_cards": 99854,
+          "avg_cards_per_submission": 2.3,
+          "avg_bet_amount": 0.16447025743852128,
+          "mon_transactions": 43246,
+          "jerry_transactions": 143
+        },
+        {
+          "period": 150,
+          "start_date": "2025-07-02",
+          "end_date": "2025-07-02",
+          "submissions": 51812,
+          "active_addresses": 19277,
+          "new_bettors": 3140,
+          "mon_volume": 7453.900000000001,
+          "jerry_volume": 789.4,
+          "total_volume": 8243.300000000001,
+          "total_cards": 113237,
+          "avg_cards_per_submission": 2.19,
+          "avg_bet_amount": 0.15910020844591988,
+          "mon_transactions": 51651,
+          "jerry_transactions": 161
+        },
+        {
+          "period": 151,
+          "start_date": "2025-07-03",
+          "end_date": "2025-07-03",
+          "submissions": 50002,
+          "active_addresses": 16745,
+          "new_bettors": 1386,
+          "mon_volume": 7382.62993,
+          "jerry_volume": 1099.8,
+          "total_volume": 8482.42993,
+          "total_cards": 113034,
+          "avg_cards_per_submission": 2.26,
+          "avg_bet_amount": 0.1696418129274829,
+          "mon_transactions": 49816,
+          "jerry_transactions": 186
+        },
+        {
+          "period": 152,
+          "start_date": "2025-07-04",
+          "end_date": "2025-07-04",
+          "submissions": 49060,
+          "active_addresses": 16745,
+          "new_bettors": 1840,
+          "mon_volume": 7204.80865,
+          "jerry_volume": 467.9,
+          "total_volume": 7672.70865,
+          "total_cards": 106920,
+          "avg_cards_per_submission": 2.18,
+          "avg_bet_amount": 0.1563943874847126,
+          "mon_transactions": 48958,
+          "jerry_transactions": 102
+        },
+        {
+          "period": 153,
+          "start_date": "2025-07-05",
+          "end_date": "2025-07-05",
+          "submissions": 37293,
+          "active_addresses": 14189,
+          "new_bettors": 1530,
+          "mon_volume": 5436.0,
+          "jerry_volume": 1149.0,
+          "total_volume": 6585.0,
+          "total_cards": 84830,
+          "avg_cards_per_submission": 2.27,
+          "avg_bet_amount": 0.1765746923015043,
+          "mon_transactions": 37137,
+          "jerry_transactions": 156
+        },
+        {
+          "period": 154,
+          "start_date": "2025-07-06",
+          "end_date": "2025-07-06",
+          "submissions": 49271,
+          "active_addresses": 17925,
+          "new_bettors": 3266,
+          "mon_volume": 7565.8,
+          "jerry_volume": 896.7,
+          "total_volume": 8462.5,
+          "total_cards": 116264,
+          "avg_cards_per_submission": 2.36,
+          "avg_bet_amount": 0.17175417588439448,
+          "mon_transactions": 49114,
+          "jerry_transactions": 157
+        },
+        {
+          "period": 155,
+          "start_date": "2025-07-07",
+          "end_date": "2025-07-07",
+          "submissions": 40963,
+          "active_addresses": 14187,
+          "new_bettors": 1462,
+          "mon_volume": 6041.400000000001,
+          "jerry_volume": 698.0,
+          "total_volume": 6739.400000000001,
+          "total_cards": 94344,
+          "avg_cards_per_submission": 2.3,
+          "avg_bet_amount": 0.164524082708786,
+          "mon_transactions": 40800,
+          "jerry_transactions": 163
+        },
+        {
+          "period": 156,
+          "start_date": "2025-07-08",
+          "end_date": "2025-07-08",
+          "submissions": 43749,
+          "active_addresses": 15705,
+          "new_bettors": 1414,
+          "mon_volume": 6676.900000000001,
+          "jerry_volume": 1350.35,
+          "total_volume": 8027.25,
+          "total_cards": 99646,
+          "avg_cards_per_submission": 2.28,
+          "avg_bet_amount": 0.18348419392443255,
+          "mon_transactions": 43449,
+          "jerry_transactions": 300
+        },
+        {
+          "period": 157,
+          "start_date": "2025-07-09",
+          "end_date": "2025-07-09",
+          "submissions": 39016,
+          "active_addresses": 14224,
+          "new_bettors": 1398,
+          "mon_volume": 6484.400000000001,
+          "jerry_volume": 853.5,
+          "total_volume": 7337.900000000001,
+          "total_cards": 86795,
+          "avg_cards_per_submission": 2.22,
+          "avg_bet_amount": 0.18807412343653887,
+          "mon_transactions": 38832,
+          "jerry_transactions": 184
+        },
+        {
+          "period": 158,
+          "start_date": "2025-07-10",
+          "end_date": "2025-07-10",
+          "submissions": 50740,
+          "active_addresses": 17275,
+          "new_bettors": 1400,
+          "mon_volume": 8218.9,
+          "jerry_volume": 1450.0,
+          "total_volume": 9668.9,
+          "total_cards": 110484,
+          "avg_cards_per_submission": 2.18,
+          "avg_bet_amount": 0.19055774536854553,
+          "mon_transactions": 50521,
+          "jerry_transactions": 219
+        },
+        {
+          "period": 159,
+          "start_date": "2025-07-11",
+          "end_date": "2025-07-11",
+          "submissions": 44046,
+          "active_addresses": 15619,
+          "new_bettors": 1354,
+          "mon_volume": 7632.1,
+          "jerry_volume": 1289.0,
+          "total_volume": 8921.1,
+          "total_cards": 96681,
+          "avg_cards_per_submission": 2.2,
+          "avg_bet_amount": 0.20254052581392182,
+          "mon_transactions": 43865,
+          "jerry_transactions": 181
+        },
+        {
+          "period": 160,
+          "start_date": "2025-07-12",
+          "end_date": "2025-07-12",
+          "submissions": 47888,
+          "active_addresses": 16608,
+          "new_bettors": 1761,
+          "mon_volume": 9260.5,
+          "jerry_volume": 2385.7,
+          "total_volume": 11646.2,
+          "total_cards": 103426,
+          "avg_cards_per_submission": 2.16,
+          "avg_bet_amount": 0.2431966254594053,
+          "mon_transactions": 47613,
+          "jerry_transactions": 275
+        },
+        {
+          "period": 161,
+          "start_date": "2025-07-13",
+          "end_date": "2025-07-13",
+          "submissions": 31801,
+          "active_addresses": 10592,
+          "new_bettors": 1086,
+          "mon_volume": 6250.1,
+          "jerry_volume": 792.0,
+          "total_volume": 7042.1,
+          "total_cards": 69143,
+          "avg_cards_per_submission": 2.17,
+          "avg_bet_amount": 0.22144272192698344,
+          "mon_transactions": 31618,
+          "jerry_transactions": 183
+        },
+        {
+          "period": 162,
+          "start_date": "2025-07-14",
+          "end_date": "2025-07-14",
+          "submissions": 12,
+          "active_addresses": 8,
+          "new_bettors": 0,
+          "mon_volume": 0.0,
+          "jerry_volume": 85.0,
+          "total_volume": 85.0,
+          "total_cards": 0,
+          "avg_cards_per_submission": 0.0,
+          "avg_bet_amount": 7.083333333333333,
+          "mon_transactions": 0,
+          "jerry_transactions": 12
+        },
+        {
+          "period": 163,
+          "start_date": "2025-07-15",
+          "end_date": "2025-07-15",
+          "submissions": 9,
+          "active_addresses": 6,
+          "new_bettors": 0,
+          "mon_volume": 0.0,
+          "jerry_volume": 342.0,
+          "total_volume": 342.0,
+          "total_cards": 0,
+          "avg_cards_per_submission": 0.0,
+          "avg_bet_amount": 38.0,
+          "mon_transactions": 0,
+          "jerry_transactions": 9
+        },
+        {
+          "period": 164,
+          "start_date": "2025-07-16",
+          "end_date": "2025-07-16",
+          "submissions": 3712,
+          "active_addresses": 1729,
+          "new_bettors": 361,
+          "mon_volume": 1334.5,
+          "jerry_volume": 615.5,
+          "total_volume": 1950.0,
+          "total_cards": 8516,
+          "avg_cards_per_submission": 2.29,
+          "avg_bet_amount": 0.525323275862069,
+          "mon_transactions": 3648,
+          "jerry_transactions": 64
+        },
+        {
+          "period": 165,
+          "start_date": "2025-07-17",
+          "end_date": "2025-07-17",
+          "submissions": 49397,
+          "active_addresses": 19208,
+          "new_bettors": 2386,
+          "mon_volume": 10072.0,
+          "jerry_volume": 1855.4,
+          "total_volume": 11927.4,
+          "total_cards": 113642,
+          "avg_cards_per_submission": 2.3,
+          "avg_bet_amount": 0.24146000769277487,
+          "mon_transactions": 49051,
+          "jerry_transactions": 346
+        },
+        {
+          "period": 166,
+          "start_date": "2025-07-18",
+          "end_date": "2025-07-18",
+          "submissions": 50046,
+          "active_addresses": 17409,
+          "new_bettors": 2465,
+          "mon_volume": 11302.4,
+          "jerry_volume": 550.3,
+          "total_volume": 11852.699999999999,
+          "total_cards": 116793,
+          "avg_cards_per_submission": 2.33,
+          "avg_bet_amount": 0.23683611077808417,
+          "mon_transactions": 49895,
+          "jerry_transactions": 151
+        },
+        {
+          "period": 167,
+          "start_date": "2025-07-19",
+          "end_date": "2025-07-19",
+          "submissions": 46363,
+          "active_addresses": 18963,
+          "new_bettors": 1735,
+          "mon_volume": 11966.4,
+          "jerry_volume": 1652.6,
+          "total_volume": 13619.0,
+          "total_cards": 112232,
+          "avg_cards_per_submission": 2.42,
+          "avg_bet_amount": 0.2937471690787913,
+          "mon_transactions": 46064,
+          "jerry_transactions": 299
+        },
+        {
+          "period": 168,
+          "start_date": "2025-07-20",
+          "end_date": "2025-07-20",
+          "submissions": 39135,
+          "active_addresses": 14294,
+          "new_bettors": 1556,
+          "mon_volume": 9754.5,
+          "jerry_volume": 729.3,
+          "total_volume": 10483.8,
+          "total_cards": 92238,
+          "avg_cards_per_submission": 2.36,
+          "avg_bet_amount": 0.2678880797240322,
+          "mon_transactions": 38968,
+          "jerry_transactions": 167
+        },
+        {
+          "period": 169,
+          "start_date": "2025-07-21",
+          "end_date": "2025-07-21",
+          "submissions": 44601,
+          "active_addresses": 16266,
+          "new_bettors": 1516,
+          "mon_volume": 10457.7,
+          "jerry_volume": 1528.9,
+          "total_volume": 11986.6,
+          "total_cards": 103265,
+          "avg_cards_per_submission": 2.32,
+          "avg_bet_amount": 0.26875182170803347,
+          "mon_transactions": 44326,
+          "jerry_transactions": 275
+        },
+        {
+          "period": 170,
+          "start_date": "2025-07-22",
+          "end_date": "2025-07-22",
+          "submissions": 7654,
+          "active_addresses": 2841,
+          "new_bettors": 217,
+          "mon_volume": 1619.1000000000001,
+          "jerry_volume": 81.7,
+          "total_volume": 1700.8000000000002,
+          "total_cards": 16503,
+          "avg_cards_per_submission": 2.16,
+          "avg_bet_amount": 0.22221060883198326,
+          "mon_transactions": 7638,
+          "jerry_transactions": 16
+        }
+      ],
+      "slips_by_card_count": [
+        {
+          "period_number": 2,
+          "period_start": "2025-02-04",
+          "period_end": "2025-02-04",
+          "card_counts": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "period_number": 3,
+          "period_start": "2025-02-05",
+          "period_end": "2025-02-05",
+          "card_counts": [
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "period_number": 4,
+          "period_start": "2025-02-06",
+          "period_end": "2025-02-06",
+          "card_counts": [
+            3,
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "period_number": 6,
+          "period_start": "2025-02-08",
+          "period_end": "2025-02-08",
+          "card_counts": [
+            8,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "period_number": 16,
+          "period_start": "2025-02-18",
+          "period_end": "2025-02-18",
+          "card_counts": [
+            32,
+            7,
+            16,
+            0,
+            0,
+            8
+          ]
+        },
+        {
+          "period_number": 17,
+          "period_start": "2025-02-19",
+          "period_end": "2025-02-19",
+          "card_counts": [
+            536,
+            145,
+            74,
+            50,
+            19,
+            129
+          ]
+        },
+        {
+          "period_number": 18,
+          "period_start": "2025-02-20",
+          "period_end": "2025-02-20",
+          "card_counts": [
+            1690,
+            413,
+            264,
+            133,
+            70,
+            366
+          ]
+        },
+        {
+          "period_number": 19,
+          "period_start": "2025-02-21",
+          "period_end": "2025-02-21",
+          "card_counts": [
+            1581,
+            391,
+            207,
+            89,
+            57,
+            541
+          ]
+        },
+        {
+          "period_number": 20,
+          "period_start": "2025-02-22",
+          "period_end": "2025-02-22",
+          "card_counts": [
+            1683,
+            386,
+            248,
+            180,
+            98,
+            988
+          ]
+        },
+        {
+          "period_number": 21,
+          "period_start": "2025-02-23",
+          "period_end": "2025-02-23",
+          "card_counts": [
+            2319,
+            539,
+            359,
+            305,
+            294,
+            1452
+          ]
+        },
+        {
+          "period_number": 22,
+          "period_start": "2025-02-24",
+          "period_end": "2025-02-24",
+          "card_counts": [
+            2824,
+            545,
+            349,
+            178,
+            90,
+            406
+          ]
+        },
+        {
+          "period_number": 23,
+          "period_start": "2025-02-25",
+          "period_end": "2025-02-25",
+          "card_counts": [
+            4010,
+            855,
+            590,
+            311,
+            170,
+            672
+          ]
+        },
+        {
+          "period_number": 24,
+          "period_start": "2025-02-26",
+          "period_end": "2025-02-26",
+          "card_counts": [
+            4436,
+            868,
+            622,
+            274,
+            172,
+            769
+          ]
+        },
+        {
+          "period_number": 25,
+          "period_start": "2025-02-27",
+          "period_end": "2025-02-27",
+          "card_counts": [
+            1902,
+            368,
+            231,
+            179,
+            156,
+            295
+          ]
+        },
+        {
+          "period_number": 26,
+          "period_start": "2025-02-28",
+          "period_end": "2025-02-28",
+          "card_counts": [
+            1155,
+            250,
+            144,
+            87,
+            41,
+            194
+          ]
+        },
+        {
+          "period_number": 27,
+          "period_start": "2025-03-01",
+          "period_end": "2025-03-01",
+          "card_counts": [
+            2698,
+            695,
+            674,
+            277,
+            438,
+            729
+          ]
+        },
+        {
+          "period_number": 28,
+          "period_start": "2025-03-02",
+          "period_end": "2025-03-02",
+          "card_counts": [
+            2908,
+            664,
+            339,
+            193,
+            195,
+            898
+          ]
+        },
+        {
+          "period_number": 29,
+          "period_start": "2025-03-03",
+          "period_end": "2025-03-03",
+          "card_counts": [
+            1119,
+            231,
+            145,
+            68,
+            50,
+            237
+          ]
+        },
+        {
+          "period_number": 30,
+          "period_start": "2025-03-04",
+          "period_end": "2025-03-04",
+          "card_counts": [
+            1784,
+            407,
+            283,
+            111,
+            69,
+            459
+          ]
+        },
+        {
+          "period_number": 31,
+          "period_start": "2025-03-05",
+          "period_end": "2025-03-05",
+          "card_counts": [
+            1756,
+            590,
+            705,
+            141,
+            216,
+            965
+          ]
+        },
+        {
+          "period_number": 32,
+          "period_start": "2025-03-06",
+          "period_end": "2025-03-06",
+          "card_counts": [
+            1628,
+            381,
+            278,
+            90,
+            45,
+            337
+          ]
+        },
+        {
+          "period_number": 33,
+          "period_start": "2025-03-07",
+          "period_end": "2025-03-07",
+          "card_counts": [
+            953,
+            235,
+            222,
+            52,
+            27,
+            241
+          ]
+        },
+        {
+          "period_number": 34,
+          "period_start": "2025-03-08",
+          "period_end": "2025-03-08",
+          "card_counts": [
+            1634,
+            299,
+            198,
+            255,
+            82,
+            972
+          ]
+        },
+        {
+          "period_number": 35,
+          "period_start": "2025-03-09",
+          "period_end": "2025-03-09",
+          "card_counts": [
+            714,
+            117,
+            104,
+            51,
+            27,
+            143
+          ]
+        },
+        {
+          "period_number": 36,
+          "period_start": "2025-03-10",
+          "period_end": "2025-03-10",
+          "card_counts": [
+            2615,
+            485,
+            331,
+            108,
+            56,
+            329
+          ]
+        },
+        {
+          "period_number": 37,
+          "period_start": "2025-03-11",
+          "period_end": "2025-03-11",
+          "card_counts": [
+            2400,
+            637,
+            349,
+            173,
+            78,
+            503
+          ]
+        },
+        {
+          "period_number": 38,
+          "period_start": "2025-03-12",
+          "period_end": "2025-03-12",
+          "card_counts": [
+            2183,
+            512,
+            303,
+            119,
+            91,
+            567
+          ]
+        },
+        {
+          "period_number": 39,
+          "period_start": "2025-03-13",
+          "period_end": "2025-03-13",
+          "card_counts": [
+            2214,
+            583,
+            261,
+            124,
+            47,
+            547
+          ]
+        },
+        {
+          "period_number": 40,
+          "period_start": "2025-03-14",
+          "period_end": "2025-03-14",
+          "card_counts": [
+            1896,
+            498,
+            246,
+            113,
+            156,
+            698
+          ]
+        },
+        {
+          "period_number": 41,
+          "period_start": "2025-03-15",
+          "period_end": "2025-03-15",
+          "card_counts": [
+            1892,
+            459,
+            231,
+            137,
+            85,
+            1216
+          ]
+        },
+        {
+          "period_number": 42,
+          "period_start": "2025-03-16",
+          "period_end": "2025-03-16",
+          "card_counts": [
+            2190,
+            392,
+            152,
+            88,
+            39,
+            955
+          ]
+        },
+        {
+          "period_number": 43,
+          "period_start": "2025-03-17",
+          "period_end": "2025-03-17",
+          "card_counts": [
+            2451,
+            501,
+            199,
+            86,
+            69,
+            487
+          ]
+        },
+        {
+          "period_number": 44,
+          "period_start": "2025-03-18",
+          "period_end": "2025-03-18",
+          "card_counts": [
+            2714,
+            450,
+            238,
+            96,
+            52,
+            417
+          ]
+        },
+        {
+          "period_number": 45,
+          "period_start": "2025-03-19",
+          "period_end": "2025-03-19",
+          "card_counts": [
+            2339,
+            426,
+            218,
+            89,
+            61,
+            782
+          ]
+        },
+        {
+          "period_number": 46,
+          "period_start": "2025-03-20",
+          "period_end": "2025-03-20",
+          "card_counts": [
+            1726,
+            381,
+            189,
+            83,
+            38,
+            279
+          ]
+        },
+        {
+          "period_number": 47,
+          "period_start": "2025-03-21",
+          "period_end": "2025-03-21",
+          "card_counts": [
+            2265,
+            317,
+            162,
+            82,
+            45,
+            275
+          ]
+        },
+        {
+          "period_number": 48,
+          "period_start": "2025-03-22",
+          "period_end": "2025-03-22",
+          "card_counts": [
+            2201,
+            325,
+            187,
+            70,
+            45,
+            261
+          ]
+        },
+        {
+          "period_number": 49,
+          "period_start": "2025-03-23",
+          "period_end": "2025-03-23",
+          "card_counts": [
+            1606,
+            237,
+            130,
+            103,
+            22,
+            186
+          ]
+        },
+        {
+          "period_number": 50,
+          "period_start": "2025-03-24",
+          "period_end": "2025-03-24",
+          "card_counts": [
+            1689,
+            277,
+            145,
+            76,
+            74,
+            1203
+          ]
+        },
+        {
+          "period_number": 51,
+          "period_start": "2025-03-25",
+          "period_end": "2025-03-25",
+          "card_counts": [
+            1692,
+            277,
+            168,
+            63,
+            52,
+            1157
+          ]
+        },
+        {
+          "period_number": 52,
+          "period_start": "2025-03-26",
+          "period_end": "2025-03-26",
+          "card_counts": [
+            1797,
+            409,
+            173,
+            125,
+            57,
+            1203
+          ]
+        },
+        {
+          "period_number": 53,
+          "period_start": "2025-03-27",
+          "period_end": "2025-03-27",
+          "card_counts": [
+            1304,
+            295,
+            202,
+            93,
+            75,
+            1297
+          ]
+        },
+        {
+          "period_number": 54,
+          "period_start": "2025-03-28",
+          "period_end": "2025-03-28",
+          "card_counts": [
+            1469,
+            329,
+            204,
+            117,
+            87,
+            496
+          ]
+        },
+        {
+          "period_number": 55,
+          "period_start": "2025-03-29",
+          "period_end": "2025-03-29",
+          "card_counts": [
+            1430,
+            258,
+            180,
+            178,
+            139,
+            3484
+          ]
+        },
+        {
+          "period_number": 56,
+          "period_start": "2025-03-30",
+          "period_end": "2025-03-30",
+          "card_counts": [
+            1703,
+            342,
+            166,
+            87,
+            94,
+            2422
+          ]
+        },
+        {
+          "period_number": 57,
+          "period_start": "2025-03-31",
+          "period_end": "2025-03-31",
+          "card_counts": [
+            1730,
+            356,
+            231,
+            160,
+            112,
+            629
+          ]
+        },
+        {
+          "period_number": 58,
+          "period_start": "2025-04-01",
+          "period_end": "2025-04-01",
+          "card_counts": [
+            1902,
+            442,
+            308,
+            129,
+            191,
+            392
+          ]
+        },
+        {
+          "period_number": 59,
+          "period_start": "2025-04-02",
+          "period_end": "2025-04-02",
+          "card_counts": [
+            1835,
+            252,
+            149,
+            97,
+            68,
+            564
+          ]
+        },
+        {
+          "period_number": 60,
+          "period_start": "2025-04-03",
+          "period_end": "2025-04-03",
+          "card_counts": [
+            1634,
+            350,
+            227,
+            69,
+            32,
+            345
+          ]
+        },
+        {
+          "period_number": 61,
+          "period_start": "2025-04-04",
+          "period_end": "2025-04-04",
+          "card_counts": [
+            1521,
+            252,
+            196,
+            107,
+            51,
+            465
+          ]
+        },
+        {
+          "period_number": 62,
+          "period_start": "2025-04-05",
+          "period_end": "2025-04-05",
+          "card_counts": [
+            1796,
+            377,
+            176,
+            504,
+            24,
+            285
+          ]
+        },
+        {
+          "period_number": 63,
+          "period_start": "2025-04-06",
+          "period_end": "2025-04-06",
+          "card_counts": [
+            1492,
+            291,
+            146,
+            68,
+            27,
+            258
+          ]
+        },
+        {
+          "period_number": 64,
+          "period_start": "2025-04-07",
+          "period_end": "2025-04-07",
+          "card_counts": [
+            3212,
+            456,
+            252,
+            150,
+            164,
+            672
+          ]
+        },
+        {
+          "period_number": 65,
+          "period_start": "2025-04-08",
+          "period_end": "2025-04-08",
+          "card_counts": [
+            2261,
+            416,
+            282,
+            210,
+            131,
+            892
+          ]
+        },
+        {
+          "period_number": 66,
+          "period_start": "2025-04-09",
+          "period_end": "2025-04-09",
+          "card_counts": [
+            1675,
+            372,
+            201,
+            94,
+            72,
+            746
+          ]
+        },
+        {
+          "period_number": 67,
+          "period_start": "2025-04-10",
+          "period_end": "2025-04-10",
+          "card_counts": [
+            1677,
+            228,
+            162,
+            77,
+            31,
+            258
+          ]
+        },
+        {
+          "period_number": 68,
+          "period_start": "2025-04-11",
+          "period_end": "2025-04-11",
+          "card_counts": [
+            1405,
+            296,
+            243,
+            82,
+            45,
+            518
+          ]
+        },
+        {
+          "period_number": 69,
+          "period_start": "2025-04-12",
+          "period_end": "2025-04-12",
+          "card_counts": [
+            1262,
+            347,
+            161,
+            85,
+            30,
+            380
+          ]
+        },
+        {
+          "period_number": 70,
+          "period_start": "2025-04-13",
+          "period_end": "2025-04-13",
+          "card_counts": [
+            1305,
+            343,
+            149,
+            83,
+            26,
+            217
+          ]
+        },
+        {
+          "period_number": 71,
+          "period_start": "2025-04-14",
+          "period_end": "2025-04-14",
+          "card_counts": [
+            1686,
+            284,
+            200,
+            89,
+            68,
+            759
+          ]
+        },
+        {
+          "period_number": 72,
+          "period_start": "2025-04-15",
+          "period_end": "2025-04-15",
+          "card_counts": [
+            2419,
+            260,
+            197,
+            131,
+            97,
+            579
+          ]
+        },
+        {
+          "period_number": 73,
+          "period_start": "2025-04-16",
+          "period_end": "2025-04-16",
+          "card_counts": [
+            2164,
+            380,
+            287,
+            182,
+            125,
+            425
+          ]
+        },
+        {
+          "period_number": 74,
+          "period_start": "2025-04-17",
+          "period_end": "2025-04-17",
+          "card_counts": [
+            1619,
+            355,
+            211,
+            281,
+            25,
+            94
+          ]
+        },
+        {
+          "period_number": 75,
+          "period_start": "2025-04-18",
+          "period_end": "2025-04-18",
+          "card_counts": [
+            1824,
+            319,
+            237,
+            76,
+            59,
+            375
+          ]
+        },
+        {
+          "period_number": 76,
+          "period_start": "2025-04-19",
+          "period_end": "2025-04-19",
+          "card_counts": [
+            1690,
+            368,
+            311,
+            108,
+            176,
+            430
+          ]
+        },
+        {
+          "period_number": 77,
+          "period_start": "2025-04-20",
+          "period_end": "2025-04-20",
+          "card_counts": [
+            1440,
+            315,
+            352,
+            98,
+            64,
+            227
+          ]
+        },
+        {
+          "period_number": 78,
+          "period_start": "2025-04-21",
+          "period_end": "2025-04-21",
+          "card_counts": [
+            1646,
+            395,
+            323,
+            136,
+            89,
+            520
+          ]
+        },
+        {
+          "period_number": 79,
+          "period_start": "2025-04-22",
+          "period_end": "2025-04-22",
+          "card_counts": [
+            1925,
+            359,
+            269,
+            156,
+            109,
+            817
+          ]
+        },
+        {
+          "period_number": 80,
+          "period_start": "2025-04-23",
+          "period_end": "2025-04-23",
+          "card_counts": [
+            2643,
+            857,
+            409,
+            204,
+            178,
+            844
+          ]
+        },
+        {
+          "period_number": 81,
+          "period_start": "2025-04-24",
+          "period_end": "2025-04-24",
+          "card_counts": [
+            8110,
+            1846,
+            692,
+            242,
+            161,
+            919
+          ]
+        },
+        {
+          "period_number": 82,
+          "period_start": "2025-04-25",
+          "period_end": "2025-04-25",
+          "card_counts": [
+            6422,
+            1814,
+            834,
+            388,
+            285,
+            1277
+          ]
+        },
+        {
+          "period_number": 83,
+          "period_start": "2025-04-26",
+          "period_end": "2025-04-26",
+          "card_counts": [
+            5410,
+            1522,
+            815,
+            327,
+            126,
+            807
+          ]
+        },
+        {
+          "period_number": 84,
+          "period_start": "2025-04-27",
+          "period_end": "2025-04-27",
+          "card_counts": [
+            4494,
+            1267,
+            731,
+            243,
+            205,
+            775
+          ]
+        },
+        {
+          "period_number": 85,
+          "period_start": "2025-04-28",
+          "period_end": "2025-04-28",
+          "card_counts": [
+            4574,
+            1389,
+            568,
+            238,
+            236,
+            842
+          ]
+        },
+        {
+          "period_number": 86,
+          "period_start": "2025-04-29",
+          "period_end": "2025-04-29",
+          "card_counts": [
+            6166,
+            1641,
+            851,
+            255,
+            190,
+            1223
+          ]
+        },
+        {
+          "period_number": 87,
+          "period_start": "2025-04-30",
+          "period_end": "2025-04-30",
+          "card_counts": [
+            6280,
+            1894,
+            550,
+            211,
+            177,
+            894
+          ]
+        },
+        {
+          "period_number": 88,
+          "period_start": "2025-05-01",
+          "period_end": "2025-05-01",
+          "card_counts": [
+            11791,
+            8128,
+            1481,
+            422,
+            178,
+            1297
+          ]
+        },
+        {
+          "period_number": 89,
+          "period_start": "2025-05-02",
+          "period_end": "2025-05-02",
+          "card_counts": [
+            8521,
+            5307,
+            1260,
+            665,
+            96,
+            730
+          ]
+        },
+        {
+          "period_number": 90,
+          "period_start": "2025-05-03",
+          "period_end": "2025-05-03",
+          "card_counts": [
+            8271,
+            4989,
+            1108,
+            787,
+            218,
+            494
+          ]
+        },
+        {
+          "period_number": 91,
+          "period_start": "2025-05-04",
+          "period_end": "2025-05-04",
+          "card_counts": [
+            8265,
+            4494,
+            1327,
+            537,
+            93,
+            698
+          ]
+        },
+        {
+          "period_number": 92,
+          "period_start": "2025-05-05",
+          "period_end": "2025-05-05",
+          "card_counts": [
+            8202,
+            4421,
+            706,
+            423,
+            121,
+            801
+          ]
+        },
+        {
+          "period_number": 93,
+          "period_start": "2025-05-06",
+          "period_end": "2025-05-06",
+          "card_counts": [
+            10577,
+            5971,
+            1163,
+            805,
+            141,
+            615
+          ]
+        },
+        {
+          "period_number": 94,
+          "period_start": "2025-05-07",
+          "period_end": "2025-05-07",
+          "card_counts": [
+            9612,
+            5456,
+            1249,
+            761,
+            201,
+            769
+          ]
+        },
+        {
+          "period_number": 95,
+          "period_start": "2025-05-08",
+          "period_end": "2025-05-08",
+          "card_counts": [
+            6955,
+            3001,
+            997,
+            637,
+            114,
+            836
+          ]
+        },
+        {
+          "period_number": 96,
+          "period_start": "2025-05-09",
+          "period_end": "2025-05-09",
+          "card_counts": [
+            5644,
+            2358,
+            737,
+            427,
+            90,
+            773
+          ]
+        },
+        {
+          "period_number": 97,
+          "period_start": "2025-05-10",
+          "period_end": "2025-05-10",
+          "card_counts": [
+            3823,
+            1375,
+            713,
+            312,
+            119,
+            994
+          ]
+        },
+        {
+          "period_number": 98,
+          "period_start": "2025-05-11",
+          "period_end": "2025-05-11",
+          "card_counts": [
+            4489,
+            2246,
+            595,
+            237,
+            100,
+            504
+          ]
+        },
+        {
+          "period_number": 99,
+          "period_start": "2025-05-12",
+          "period_end": "2025-05-12",
+          "card_counts": [
+            7931,
+            4508,
+            788,
+            238,
+            104,
+            824
+          ]
+        },
+        {
+          "period_number": 100,
+          "period_start": "2025-05-13",
+          "period_end": "2025-05-13",
+          "card_counts": [
+            7609,
+            3747,
+            750,
+            325,
+            99,
+            685
+          ]
+        },
+        {
+          "period_number": 101,
+          "period_start": "2025-05-14",
+          "period_end": "2025-05-14",
+          "card_counts": [
+            5996,
+            1885,
+            541,
+            153,
+            96,
+            610
+          ]
+        },
+        {
+          "period_number": 102,
+          "period_start": "2025-05-15",
+          "period_end": "2025-05-15",
+          "card_counts": [
+            5611,
+            2264,
+            566,
+            166,
+            93,
+            544
+          ]
+        },
+        {
+          "period_number": 103,
+          "period_start": "2025-05-16",
+          "period_end": "2025-05-16",
+          "card_counts": [
+            4827,
+            1505,
+            488,
+            155,
+            79,
+            502
+          ]
+        },
+        {
+          "period_number": 104,
+          "period_start": "2025-05-17",
+          "period_end": "2025-05-17",
+          "card_counts": [
+            5162,
+            1807,
+            1007,
+            676,
+            91,
+            491
+          ]
+        },
+        {
+          "period_number": 105,
+          "period_start": "2025-05-18",
+          "period_end": "2025-05-18",
+          "card_counts": [
+            5207,
+            2568,
+            891,
+            629,
+            51,
+            307
+          ]
+        },
+        {
+          "period_number": 106,
+          "period_start": "2025-05-19",
+          "period_end": "2025-05-19",
+          "card_counts": [
+            6160,
+            2233,
+            1032,
+            454,
+            113,
+            436
+          ]
+        },
+        {
+          "period_number": 107,
+          "period_start": "2025-05-20",
+          "period_end": "2025-05-20",
+          "card_counts": [
+            7305,
+            2484,
+            1384,
+            514,
+            198,
+            631
+          ]
+        },
+        {
+          "period_number": 108,
+          "period_start": "2025-05-21",
+          "period_end": "2025-05-21",
+          "card_counts": [
+            7897,
+            3239,
+            1978,
+            216,
+            150,
+            554
+          ]
+        },
+        {
+          "period_number": 109,
+          "period_start": "2025-05-22",
+          "period_end": "2025-05-22",
+          "card_counts": [
+            7796,
+            3800,
+            2637,
+            895,
+            127,
+            488
+          ]
+        },
+        {
+          "period_number": 110,
+          "period_start": "2025-05-23",
+          "period_end": "2025-05-23",
+          "card_counts": [
+            7031,
+            3541,
+            1786,
+            574,
+            134,
+            339
+          ]
+        },
+        {
+          "period_number": 111,
+          "period_start": "2025-05-24",
+          "period_end": "2025-05-24",
+          "card_counts": [
+            6333,
+            2948,
+            1878,
+            209,
+            110,
+            603
+          ]
+        },
+        {
+          "period_number": 112,
+          "period_start": "2025-05-25",
+          "period_end": "2025-05-25",
+          "card_counts": [
+            7096,
+            3673,
+            1793,
+            133,
+            93,
+            434
+          ]
+        },
+        {
+          "period_number": 113,
+          "period_start": "2025-05-26",
+          "period_end": "2025-05-26",
+          "card_counts": [
+            6721,
+            3161,
+            1936,
+            330,
+            147,
+            534
+          ]
+        },
+        {
+          "period_number": 114,
+          "period_start": "2025-05-27",
+          "period_end": "2025-05-27",
+          "card_counts": [
+            8228,
+            4914,
+            3417,
+            1135,
+            104,
+            489
+          ]
+        },
+        {
+          "period_number": 115,
+          "period_start": "2025-05-28",
+          "period_end": "2025-05-28",
+          "card_counts": [
+            8168,
+            4677,
+            3312,
+            545,
+            128,
+            486
+          ]
+        },
+        {
+          "period_number": 116,
+          "period_start": "2025-05-29",
+          "period_end": "2025-05-29",
+          "card_counts": [
+            7971,
+            4736,
+            3834,
+            1291,
+            171,
+            560
+          ]
+        },
+        {
+          "period_number": 117,
+          "period_start": "2025-05-30",
+          "period_end": "2025-05-30",
+          "card_counts": [
+            7435,
+            4671,
+            4346,
+            1119,
+            225,
+            652
+          ]
+        },
+        {
+          "period_number": 118,
+          "period_start": "2025-05-31",
+          "period_end": "2025-05-31",
+          "card_counts": [
+            4434,
+            2911,
+            2864,
+            660,
+            71,
+            334
+          ]
+        },
+        {
+          "period_number": 119,
+          "period_start": "2025-06-01",
+          "period_end": "2025-06-01",
+          "card_counts": [
+            6753,
+            4898,
+            2776,
+            626,
+            64,
+            233
+          ]
+        },
+        {
+          "period_number": 120,
+          "period_start": "2025-06-02",
+          "period_end": "2025-06-02",
+          "card_counts": [
+            9735,
+            5686,
+            3166,
+            197,
+            49,
+            1904
+          ]
+        },
+        {
+          "period_number": 121,
+          "period_start": "2025-06-03",
+          "period_end": "2025-06-03",
+          "card_counts": [
+            9688,
+            7037,
+            3306,
+            441,
+            97,
+            3110
+          ]
+        },
+        {
+          "period_number": 122,
+          "period_start": "2025-06-04",
+          "period_end": "2025-06-04",
+          "card_counts": [
+            10248,
+            7700,
+            4372,
+            821,
+            81,
+            4009
+          ]
+        },
+        {
+          "period_number": 123,
+          "period_start": "2025-06-05",
+          "period_end": "2025-06-05",
+          "card_counts": [
+            8753,
+            6465,
+            3743,
+            696,
+            84,
+            661
+          ]
+        },
+        {
+          "period_number": 124,
+          "period_start": "2025-06-06",
+          "period_end": "2025-06-06",
+          "card_counts": [
+            8818,
+            6557,
+            3408,
+            286,
+            92,
+            1509
+          ]
+        },
+        {
+          "period_number": 125,
+          "period_start": "2025-06-07",
+          "period_end": "2025-06-07",
+          "card_counts": [
+            8400,
+            5184,
+            3635,
+            136,
+            94,
+            4961
+          ]
+        },
+        {
+          "period_number": 126,
+          "period_start": "2025-06-08",
+          "period_end": "2025-06-08",
+          "card_counts": [
+            7627,
+            5058,
+            4079,
+            119,
+            71,
+            5279
+          ]
+        },
+        {
+          "period_number": 127,
+          "period_start": "2025-06-09",
+          "period_end": "2025-06-09",
+          "card_counts": [
+            10165,
+            5972,
+            4717,
+            339,
+            114,
+            648
+          ]
+        },
+        {
+          "period_number": 128,
+          "period_start": "2025-06-10",
+          "period_end": "2025-06-10",
+          "card_counts": [
+            10105,
+            5975,
+            4659,
+            444,
+            170,
+            1162
+          ]
+        },
+        {
+          "period_number": 129,
+          "period_start": "2025-06-11",
+          "period_end": "2025-06-11",
+          "card_counts": [
+            13703,
+            7254,
+            5631,
+            364,
+            99,
+            614
+          ]
+        },
+        {
+          "period_number": 130,
+          "period_start": "2025-06-12",
+          "period_end": "2025-06-12",
+          "card_counts": [
+            16594,
+            8250,
+            7163,
+            687,
+            303,
+            563
+          ]
+        },
+        {
+          "period_number": 131,
+          "period_start": "2025-06-13",
+          "period_end": "2025-06-13",
+          "card_counts": [
+            17888,
+            8329,
+            7382,
+            608,
+            242,
+            1092
+          ]
+        },
+        {
+          "period_number": 132,
+          "period_start": "2025-06-14",
+          "period_end": "2025-06-14",
+          "card_counts": [
+            13319,
+            6132,
+            5134,
+            470,
+            293,
+            774
+          ]
+        },
+        {
+          "period_number": 133,
+          "period_start": "2025-06-15",
+          "period_end": "2025-06-15",
+          "card_counts": [
+            14588,
+            4933,
+            4293,
+            396,
+            141,
+            1108
+          ]
+        },
+        {
+          "period_number": 134,
+          "period_start": "2025-06-16",
+          "period_end": "2025-06-16",
+          "card_counts": [
+            18723,
+            4473,
+            4161,
+            611,
+            115,
+            681
+          ]
+        },
+        {
+          "period_number": 135,
+          "period_start": "2025-06-17",
+          "period_end": "2025-06-17",
+          "card_counts": [
+            23515,
+            3889,
+            3454,
+            421,
+            59,
+            311
+          ]
+        },
+        {
+          "period_number": 136,
+          "period_start": "2025-06-18",
+          "period_end": "2025-06-18",
+          "card_counts": [
+            26690,
+            4981,
+            4283,
+            388,
+            89,
+            469
+          ]
+        },
+        {
+          "period_number": 137,
+          "period_start": "2025-06-19",
+          "period_end": "2025-06-19",
+          "card_counts": [
+            23924,
+            3255,
+            2563,
+            546,
+            297,
+            3600
+          ]
+        },
+        {
+          "period_number": 138,
+          "period_start": "2025-06-20",
+          "period_end": "2025-06-20",
+          "card_counts": [
+            24644,
+            2776,
+            2143,
+            387,
+            231,
+            1589
+          ]
+        },
+        {
+          "period_number": 139,
+          "period_start": "2025-06-21",
+          "period_end": "2025-06-21",
+          "card_counts": [
+            32699,
+            2705,
+            2544,
+            343,
+            161,
+            1694
+          ]
+        },
+        {
+          "period_number": 140,
+          "period_start": "2025-06-22",
+          "period_end": "2025-06-22",
+          "card_counts": [
+            29667,
+            2492,
+            2102,
+            242,
+            133,
+            939
+          ]
+        },
+        {
+          "period_number": 141,
+          "period_start": "2025-06-23",
+          "period_end": "2025-06-23",
+          "card_counts": [
+            28080,
+            2909,
+            2087,
+            169,
+            145,
+            603
+          ]
+        },
+        {
+          "period_number": 142,
+          "period_start": "2025-06-24",
+          "period_end": "2025-06-24",
+          "card_counts": [
+            24789,
+            3317,
+            2222,
+            239,
+            130,
+            559
+          ]
+        },
+        {
+          "period_number": 143,
+          "period_start": "2025-06-25",
+          "period_end": "2025-06-25",
+          "card_counts": [
+            31831,
+            4242,
+            1987,
+            226,
+            148,
+            642
+          ]
+        },
+        {
+          "period_number": 144,
+          "period_start": "2025-06-26",
+          "period_end": "2025-06-26",
+          "card_counts": [
+            32260,
+            2578,
+            2056,
+            255,
+            121,
+            440
+          ]
+        },
+        {
+          "period_number": 145,
+          "period_start": "2025-06-27",
+          "period_end": "2025-06-27",
+          "card_counts": [
+            34858,
+            3171,
+            2157,
+            316,
+            150,
+            642
+          ]
+        },
+        {
+          "period_number": 146,
+          "period_start": "2025-06-28",
+          "period_end": "2025-06-28",
+          "card_counts": [
+            36409,
+            2152,
+            2027,
+            453,
+            162,
+            659
+          ]
+        },
+        {
+          "period_number": 147,
+          "period_start": "2025-06-29",
+          "period_end": "2025-06-29",
+          "card_counts": [
+            33184,
+            2370,
+            2103,
+            206,
+            205,
+            621
+          ]
+        },
+        {
+          "period_number": 148,
+          "period_start": "2025-06-30",
+          "period_end": "2025-06-30",
+          "card_counts": [
+            33929,
+            2351,
+            1454,
+            250,
+            146,
+            684
+          ]
+        },
+        {
+          "period_number": 149,
+          "period_start": "2025-07-01",
+          "period_end": "2025-07-01",
+          "card_counts": [
+            35684,
+            5120,
+            1431,
+            212,
+            203,
+            732
+          ]
+        },
+        {
+          "period_number": 150,
+          "period_start": "2025-07-02",
+          "period_end": "2025-07-02",
+          "card_counts": [
+            46925,
+            2515,
+            1368,
+            177,
+            157,
+            649
+          ]
+        },
+        {
+          "period_number": 151,
+          "period_start": "2025-07-03",
+          "period_end": "2025-07-03",
+          "card_counts": [
+            44060,
+            2850,
+            1364,
+            354,
+            333,
+            1020
+          ]
+        },
+        {
+          "period_number": 152,
+          "period_start": "2025-07-04",
+          "period_end": "2025-07-04",
+          "card_counts": [
+            44772,
+            1948,
+            1412,
+            165,
+            177,
+            571
+          ]
+        },
+        {
+          "period_number": 153,
+          "period_start": "2025-07-05",
+          "period_end": "2025-07-05",
+          "card_counts": [
+            33205,
+            1537,
+            1032,
+            196,
+            273,
+            1009
+          ]
+        },
+        {
+          "period_number": 154,
+          "period_start": "2025-07-06",
+          "period_end": "2025-07-06",
+          "card_counts": [
+            41460,
+            3101,
+            2513,
+            327,
+            596,
+            1254
+          ]
+        },
+        {
+          "period_number": 155,
+          "period_start": "2025-07-07",
+          "period_end": "2025-07-07",
+          "card_counts": [
+            35571,
+            2018,
+            1849,
+            276,
+            224,
+            1004
+          ]
+        },
+        {
+          "period_number": 156,
+          "period_start": "2025-07-08",
+          "period_end": "2025-07-08",
+          "card_counts": [
+            37830,
+            3340,
+            951,
+            365,
+            280,
+            951
+          ]
+        },
+        {
+          "period_number": 157,
+          "period_start": "2025-07-09",
+          "period_end": "2025-07-09",
+          "card_counts": [
+            35256,
+            1741,
+            730,
+            284,
+            175,
+            810
+          ]
+        },
+        {
+          "period_number": 158,
+          "period_start": "2025-07-10",
+          "period_end": "2025-07-10",
+          "card_counts": [
+            46723,
+            1791,
+            960,
+            240,
+            228,
+            751
+          ]
+        },
+        {
+          "period_number": 159,
+          "period_start": "2025-07-11",
+          "period_end": "2025-07-11",
+          "card_counts": [
+            40394,
+            1432,
+            1031,
+            274,
+            218,
+            685
+          ]
+        },
+        {
+          "period_number": 160,
+          "period_start": "2025-07-12",
+          "period_end": "2025-07-12",
+          "card_counts": [
+            44577,
+            1350,
+            799,
+            194,
+            293,
+            614
+          ]
+        },
+        {
+          "period_number": 161,
+          "period_start": "2025-07-13",
+          "period_end": "2025-07-13",
+          "card_counts": [
+            29650,
+            700,
+            591,
+            152,
+            106,
+            569
+          ]
+        },
+        {
+          "period_number": 164,
+          "period_start": "2025-07-16",
+          "period_end": "2025-07-16",
+          "card_counts": [
+            3055,
+            309,
+            257,
+            15,
+            23,
+            34
+          ]
+        },
+        {
+          "period_number": 165,
+          "period_start": "2025-07-17",
+          "period_end": "2025-07-17",
+          "card_counts": [
+            42493,
+            3250,
+            1621,
+            712,
+            259,
+            1044
+          ]
+        },
+        {
+          "period_number": 166,
+          "period_start": "2025-07-18",
+          "period_end": "2025-07-18",
+          "card_counts": [
+            43077,
+            2650,
+            1777,
+            907,
+            357,
+            1272
+          ]
+        },
+        {
+          "period_number": 167,
+          "period_start": "2025-07-19",
+          "period_end": "2025-07-19",
+          "card_counts": [
+            36956,
+            4683,
+            2075,
+            1017,
+            321,
+            1280
+          ]
+        },
+        {
+          "period_number": 168,
+          "period_start": "2025-07-20",
+          "period_end": "2025-07-20",
+          "card_counts": [
+            33382,
+            1830,
+            1637,
+            1069,
+            267,
+            927
+          ]
+        },
+        {
+          "period_number": 169,
+          "period_start": "2025-07-21",
+          "period_end": "2025-07-21",
+          "card_counts": [
+            38404,
+            2387,
+            1770,
+            805,
+            293,
+            919
+          ]
+        },
+        {
+          "period_number": 170,
+          "period_start": "2025-07-22",
+          "period_end": "2025-07-22",
+          "card_counts": [
+            6959,
+            438,
+            135,
+            41,
+            27,
+            52
+          ]
+        }
+      ]
+    },
+    "weekly": {
+      "activity_over_time": [
+        {
+          "period": 1,
+          "start_date": "2025-02-03",
+          "end_date": "2025-02-09",
+          "submissions": 16,
+          "active_addresses": 3,
+          "new_bettors": 3,
+          "mon_volume": 6.2,
+          "jerry_volume": 0.0,
+          "total_volume": 6.2,
+          "total_cards": 35,
+          "avg_cards_per_submission": 2.19,
+          "avg_bet_amount": 0.3875,
+          "mon_transactions": 16,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 3,
+          "start_date": "2025-02-17",
+          "end_date": "2025-02-23",
+          "submissions": 15669,
+          "active_addresses": 6243,
+          "new_bettors": 6240,
+          "mon_volume": 6051.9,
+          "jerry_volume": 0.0,
+          "total_volume": 6051.9,
+          "total_cards": 57398,
+          "avg_cards_per_submission": 3.66,
+          "avg_bet_amount": 0.38623396515412595,
+          "mon_transactions": 15669,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 4,
+          "start_date": "2025-02-24",
+          "end_date": "2025-03-02",
+          "submissions": 33851,
+          "active_addresses": 16069,
+          "new_bettors": 13890,
+          "mon_volume": 11700.8,
+          "jerry_volume": 0.0,
+          "total_volume": 11700.8,
+          "total_cards": 107205,
+          "avg_cards_per_submission": 3.17,
+          "avg_bet_amount": 0.34565596289622164,
+          "mon_transactions": 33851,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 5,
+          "start_date": "2025-03-03",
+          "end_date": "2025-03-09",
+          "submissions": 18421,
+          "active_addresses": 8282,
+          "new_bettors": 5202,
+          "mon_volume": 7737.6,
+          "jerry_volume": 0.0,
+          "total_volume": 7737.6,
+          "total_cards": 64110,
+          "avg_cards_per_submission": 3.48,
+          "avg_bet_amount": 0.4200423429781228,
+          "mon_transactions": 18421,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 6,
+          "start_date": "2025-03-10",
+          "end_date": "2025-03-16",
+          "submissions": 27058,
+          "active_addresses": 13142,
+          "new_bettors": 7673,
+          "mon_volume": 8944.6,
+          "jerry_volume": 0.0,
+          "total_volume": 8944.6,
+          "total_cards": 90297,
+          "avg_cards_per_submission": 3.34,
+          "avg_bet_amount": 0.3305713652154631,
+          "mon_transactions": 27058,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 7,
+          "start_date": "2025-03-17",
+          "end_date": "2025-03-23",
+          "submissions": 22890,
+          "active_addresses": 12488,
+          "new_bettors": 7666,
+          "mon_volume": 6444.900000000001,
+          "jerry_volume": 0.0,
+          "total_volume": 6444.900000000001,
+          "total_cards": 67653,
+          "avg_cards_per_submission": 2.96,
+          "avg_bet_amount": 0.28155963302752296,
+          "mon_transactions": 22890,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 8,
+          "start_date": "2025-03-24",
+          "end_date": "2025-03-30",
+          "submissions": 27088,
+          "active_addresses": 9657,
+          "new_bettors": 5380,
+          "mon_volume": 6163.8,
+          "jerry_volume": 0.0,
+          "total_volume": 6163.8,
+          "total_cards": 119678,
+          "avg_cards_per_submission": 4.42,
+          "avg_bet_amount": 0.22754725339633786,
+          "mon_transactions": 27088,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 9,
+          "start_date": "2025-03-31",
+          "end_date": "2025-04-06",
+          "submissions": 20240,
+          "active_addresses": 10938,
+          "new_bettors": 6178,
+          "mon_volume": 6639.6,
+          "jerry_volume": 0.0,
+          "total_volume": 6639.6,
+          "total_cards": 65778,
+          "avg_cards_per_submission": 3.25,
+          "avg_bet_amount": 0.3280434782608696,
+          "mon_transactions": 20240,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 10,
+          "start_date": "2025-04-07",
+          "end_date": "2025-04-13",
+          "submissions": 21668,
+          "active_addresses": 12562,
+          "new_bettors": 7600,
+          "mon_volume": 7971.7,
+          "jerry_volume": 0.0,
+          "total_volume": 7971.7,
+          "total_cards": 71448,
+          "avg_cards_per_submission": 3.3,
+          "avg_bet_amount": 0.36790197526306073,
+          "mon_transactions": 21668,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 11,
+          "start_date": "2025-04-14",
+          "end_date": "2025-04-20",
+          "submissions": 21386,
+          "active_addresses": 11995,
+          "new_bettors": 6758,
+          "mon_volume": 8077.8,
+          "jerry_volume": 0.0,
+          "total_volume": 8077.8,
+          "total_cards": 68439,
+          "avg_cards_per_submission": 3.2,
+          "avg_bet_amount": 0.3777143925932853,
+          "mon_transactions": 21386,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 12,
+          "start_date": "2025-04-21",
+          "end_date": "2025-04-27",
+          "submissions": 51591,
+          "active_addresses": 26447,
+          "new_bettors": 19330,
+          "mon_volume": 15520.9,
+          "jerry_volume": 0.0,
+          "total_volume": 15520.9,
+          "total_cards": 158883,
+          "avg_cards_per_submission": 3.08,
+          "avg_bet_amount": 0.30084510864298036,
+          "mon_transactions": 51591,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 13,
+          "start_date": "2025-04-28",
+          "end_date": "2025-05-04",
+          "submissions": 99336,
+          "active_addresses": 42160,
+          "new_bettors": 31793,
+          "mon_volume": 20123.511300000002,
+          "jerry_volume": 0.0,
+          "total_volume": 20123.511300000002,
+          "total_cards": 285791,
+          "avg_cards_per_submission": 2.88,
+          "avg_bet_amount": 0.20258024583232667,
+          "mon_transactions": 99336,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 14,
+          "start_date": "2025-05-05",
+          "end_date": "2025-05-11",
+          "submissions": 90070,
+          "active_addresses": 36382,
+          "new_bettors": 15184,
+          "mon_volume": 18269.464567,
+          "jerry_volume": 0.0,
+          "total_volume": 18269.464567,
+          "total_cards": 258098,
+          "avg_cards_per_submission": 2.87,
+          "avg_bet_amount": 0.2028362891861885,
+          "mon_transactions": 90070,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 15,
+          "start_date": "2025-05-12",
+          "end_date": "2025-05-18",
+          "submissions": 72576,
+          "active_addresses": 31774,
+          "new_bettors": 14529,
+          "mon_volume": 16926.487875067545,
+          "jerry_volume": 0.0,
+          "total_volume": 16926.487875067545,
+          "total_cards": 202791,
+          "avg_cards_per_submission": 2.79,
+          "avg_bet_amount": 0.23322431485708148,
+          "mon_transactions": 72576,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 16,
+          "start_date": "2025-05-19",
+          "end_date": "2025-05-25",
+          "submissions": 91429,
+          "active_addresses": 42656,
+          "new_bettors": 22826,
+          "mon_volume": 18451.0,
+          "jerry_volume": 0.0,
+          "total_volume": 18451.0,
+          "total_cards": 259862,
+          "avg_cards_per_submission": 2.84,
+          "avg_bet_amount": 0.20180686653031313,
+          "mon_transactions": 91429,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 17,
+          "start_date": "2025-05-26",
+          "end_date": "2025-06-01",
+          "submissions": 112067,
+          "active_addresses": 42753,
+          "new_bettors": 22490,
+          "mon_volume": 24696.100000000002,
+          "jerry_volume": 0.0,
+          "total_volume": 24696.100000000002,
+          "total_cards": 336270,
+          "avg_cards_per_submission": 3.0,
+          "avg_bet_amount": 0.22036906493436964,
+          "mon_transactions": 112067,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 18,
+          "start_date": "2025-06-02",
+          "end_date": "2025-06-08",
+          "submissions": 157382,
+          "active_addresses": 44059,
+          "new_bettors": 16115,
+          "mon_volume": 29666.9,
+          "jerry_volume": 19799.9,
+          "total_volume": 49466.8,
+          "total_cards": 527354,
+          "avg_cards_per_submission": 3.35,
+          "avg_bet_amount": 0.314310403985208,
+          "mon_transactions": 141339,
+          "jerry_transactions": 16043
+        },
+        {
+          "period": 19,
+          "start_date": "2025-06-09",
+          "end_date": "2025-06-15",
+          "submissions": 192883,
+          "active_addresses": 74775,
+          "new_bettors": 38947,
+          "mon_volume": 36428.149450000004,
+          "jerry_volume": 9350.4,
+          "total_volume": 45778.549450000006,
+          "total_cards": 555614,
+          "avg_cards_per_submission": 2.88,
+          "avg_bet_amount": 0.23733843547642872,
+          "mon_transactions": 191694,
+          "jerry_transactions": 1189
+        },
+        {
+          "period": 20,
+          "start_date": "2025-06-16",
+          "end_date": "2025-06-22",
+          "submissions": 239095,
+          "active_addresses": 75398,
+          "new_bettors": 27353,
+          "mon_volume": 49086.12273,
+          "jerry_volume": 11525.85,
+          "total_volume": 60611.97273,
+          "total_cards": 604618,
+          "avg_cards_per_submission": 2.53,
+          "avg_bet_amount": 0.2535058145507016,
+          "mon_transactions": 237417,
+          "jerry_transactions": 1678
+        },
+        {
+          "period": 21,
+          "start_date": "2025-06-23",
+          "end_date": "2025-06-29",
+          "submissions": 264014,
+          "active_addresses": 63310,
+          "new_bettors": 14116,
+          "mon_volume": 46662.627603575485,
+          "jerry_volume": 6910.8,
+          "total_volume": 53573.42760357549,
+          "total_cards": 608443,
+          "avg_cards_per_submission": 2.3,
+          "avg_bet_amount": 0.20291888916336062,
+          "mon_transactions": 263062,
+          "jerry_transactions": 952
+        },
+        {
+          "period": 22,
+          "start_date": "2025-06-30",
+          "end_date": "2025-07-06",
+          "submissions": 319658,
+          "active_addresses": 71512,
+          "new_bettors": 15363,
+          "mon_volume": 48289.77663186393,
+          "jerry_volume": 6459.3,
+          "total_volume": 54749.076631863936,
+          "total_cards": 721780,
+          "avg_cards_per_submission": 2.26,
+          "avg_bet_amount": 0.17127391346959542,
+          "mon_transactions": 318596,
+          "jerry_transactions": 1062
+        },
+        {
+          "period": 23,
+          "start_date": "2025-07-07",
+          "end_date": "2025-07-13",
+          "submissions": 298203,
+          "active_addresses": 64830,
+          "new_bettors": 9875,
+          "mon_volume": 50564.3,
+          "jerry_volume": 8818.55,
+          "total_volume": 59382.850000000006,
+          "total_cards": 660519,
+          "avg_cards_per_submission": 2.21,
+          "avg_bet_amount": 0.1991356559122477,
+          "mon_transactions": 296698,
+          "jerry_transactions": 1505
+        },
+        {
+          "period": 24,
+          "start_date": "2025-07-14",
+          "end_date": "2025-07-20",
+          "submissions": 188674,
+          "active_addresses": 56298,
+          "new_bettors": 8503,
+          "mon_volume": 44429.8,
+          "jerry_volume": 5830.1,
+          "total_volume": 50259.9,
+          "total_cards": 443421,
+          "avg_cards_per_submission": 2.35,
+          "avg_bet_amount": 0.2663848754995389,
+          "mon_transactions": 187626,
+          "jerry_transactions": 1048
+        },
+        {
+          "period": 25,
+          "start_date": "2025-07-21",
+          "end_date": "2025-07-27",
+          "submissions": 52255,
+          "active_addresses": 18739,
+          "new_bettors": 1733,
+          "mon_volume": 12076.800000000001,
+          "jerry_volume": 1610.6,
+          "total_volume": 13687.400000000001,
+          "total_cards": 119768,
+          "avg_cards_per_submission": 2.29,
+          "avg_bet_amount": 0.26193474308678594,
+          "mon_transactions": 51964,
+          "jerry_transactions": 291
+        }
+      ],
+      "slips_by_card_count": [
+        {
+          "period_number": 1,
+          "period_start": "2025-02-03",
+          "period_end": "2025-02-09",
+          "card_counts": [
+            14,
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "period_number": 3,
+          "period_start": "2025-02-17",
+          "period_end": "2025-02-23",
+          "card_counts": [
+            7841,
+            1881,
+            1168,
+            757,
+            538,
+            3484
+          ]
+        },
+        {
+          "period_number": 4,
+          "period_start": "2025-02-24",
+          "period_end": "2025-03-02",
+          "card_counts": [
+            19933,
+            4245,
+            2949,
+            1499,
+            1262,
+            3963
+          ]
+        },
+        {
+          "period_number": 5,
+          "period_start": "2025-03-03",
+          "period_end": "2025-03-09",
+          "card_counts": [
+            9588,
+            2260,
+            1935,
+            768,
+            516,
+            3354
+          ]
+        },
+        {
+          "period_number": 6,
+          "period_start": "2025-03-10",
+          "period_end": "2025-03-16",
+          "card_counts": [
+            15390,
+            3566,
+            1873,
+            862,
+            552,
+            4815
+          ]
+        },
+        {
+          "period_number": 7,
+          "period_start": "2025-03-17",
+          "period_end": "2025-03-23",
+          "card_counts": [
+            15302,
+            2637,
+            1323,
+            609,
+            332,
+            2687
+          ]
+        },
+        {
+          "period_number": 8,
+          "period_start": "2025-03-24",
+          "period_end": "2025-03-30",
+          "card_counts": [
+            11084,
+            2187,
+            1238,
+            739,
+            578,
+            11262
+          ]
+        },
+        {
+          "period_number": 9,
+          "period_start": "2025-03-31",
+          "period_end": "2025-04-06",
+          "card_counts": [
+            11910,
+            2320,
+            1433,
+            1134,
+            505,
+            2938
+          ]
+        },
+        {
+          "period_number": 10,
+          "period_start": "2025-04-07",
+          "period_end": "2025-04-13",
+          "card_counts": [
+            12797,
+            2458,
+            1450,
+            781,
+            499,
+            3683
+          ]
+        },
+        {
+          "period_number": 11,
+          "period_start": "2025-04-14",
+          "period_end": "2025-04-20",
+          "card_counts": [
+            12842,
+            2281,
+            1795,
+            965,
+            614,
+            2889
+          ]
+        },
+        {
+          "period_number": 12,
+          "period_start": "2025-04-21",
+          "period_end": "2025-04-27",
+          "card_counts": [
+            30650,
+            8060,
+            4073,
+            1696,
+            1153,
+            5959
+          ]
+        },
+        {
+          "period_number": 13,
+          "period_start": "2025-04-28",
+          "period_end": "2025-05-04",
+          "card_counts": [
+            53868,
+            27842,
+            7145,
+            3115,
+            1188,
+            6178
+          ]
+        },
+        {
+          "period_number": 14,
+          "period_start": "2025-05-05",
+          "period_end": "2025-05-11",
+          "card_counts": [
+            49302,
+            24828,
+            6160,
+            3602,
+            886,
+            5292
+          ]
+        },
+        {
+          "period_number": 15,
+          "period_start": "2025-05-12",
+          "period_end": "2025-05-18",
+          "card_counts": [
+            42343,
+            18284,
+            5031,
+            2342,
+            613,
+            3963
+          ]
+        },
+        {
+          "period_number": 16,
+          "period_start": "2025-05-19",
+          "period_end": "2025-05-25",
+          "card_counts": [
+            49618,
+            21918,
+            12488,
+            2995,
+            925,
+            3485
+          ]
+        },
+        {
+          "period_number": 17,
+          "period_start": "2025-05-26",
+          "period_end": "2025-06-01",
+          "card_counts": [
+            49710,
+            29968,
+            22485,
+            5706,
+            910,
+            3288
+          ]
+        },
+        {
+          "period_number": 18,
+          "period_start": "2025-06-02",
+          "period_end": "2025-06-08",
+          "card_counts": [
+            63269,
+            43687,
+            25709,
+            2696,
+            568,
+            21433
+          ]
+        },
+        {
+          "period_number": 19,
+          "period_start": "2025-06-09",
+          "period_end": "2025-06-15",
+          "card_counts": [
+            96362,
+            46845,
+            38979,
+            3308,
+            1362,
+            5961
+          ]
+        },
+        {
+          "period_number": 20,
+          "period_start": "2025-06-16",
+          "period_end": "2025-06-22",
+          "card_counts": [
+            179862,
+            24571,
+            21250,
+            2938,
+            1085,
+            9283
+          ]
+        },
+        {
+          "period_number": 21,
+          "period_start": "2025-06-23",
+          "period_end": "2025-06-29",
+          "card_counts": [
+            221411,
+            20739,
+            14639,
+            1864,
+            1061,
+            4166
+          ]
+        },
+        {
+          "period_number": 22,
+          "period_start": "2025-06-30",
+          "period_end": "2025-07-06",
+          "card_counts": [
+            280035,
+            19422,
+            10574,
+            1681,
+            1885,
+            5919
+          ]
+        },
+        {
+          "period_number": 23,
+          "period_start": "2025-07-07",
+          "period_end": "2025-07-13",
+          "card_counts": [
+            270001,
+            12372,
+            6911,
+            1785,
+            1524,
+            5384
+          ]
+        },
+        {
+          "period_number": 24,
+          "period_start": "2025-07-14",
+          "period_end": "2025-07-20",
+          "card_counts": [
+            158963,
+            12722,
+            7367,
+            3720,
+            1227,
+            4557
+          ]
+        },
+        {
+          "period_number": 25,
+          "period_start": "2025-07-21",
+          "period_end": "2025-07-27",
+          "card_counts": [
+            45363,
+            2825,
+            1905,
+            846,
+            320,
+            971
+          ]
+        }
+      ]
+    },
+    "monthly": {
+      "activity_over_time": [
+        {
+          "period": 1,
+          "start_date": "2025-02-01",
+          "end_date": "2025-02-28",
+          "submissions": 38828,
+          "active_addresses": 16001,
+          "new_bettors": 16001,
+          "mon_volume": 14213.9,
+          "jerry_volume": 0.0,
+          "total_volume": 14213.9,
+          "total_cards": 127760,
+          "avg_cards_per_submission": 3.29,
+          "avg_bet_amount": 0.36607345214793446,
+          "mon_transactions": 38828,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 2,
+          "start_date": "2025-03-01",
+          "end_date": "2025-03-31",
+          "submissions": 109383,
+          "active_addresses": 36199,
+          "new_bettors": 31238,
+          "mon_volume": 34009.8,
+          "jerry_volume": 0.0,
+          "total_volume": 34009.8,
+          "total_cards": 389943,
+          "avg_cards_per_submission": 3.56,
+          "avg_bet_amount": 0.3109240009873564,
+          "mon_transactions": 109383,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 3,
+          "start_date": "2025-04-01",
+          "end_date": "2025-04-30",
+          "submissions": 139846,
+          "active_addresses": 57523,
+          "new_bettors": 46853,
+          "mon_volume": 44376.525,
+          "jerry_volume": 0.0,
+          "total_volume": 44376.525,
+          "total_cards": 437760,
+          "avg_cards_per_submission": 3.13,
+          "avg_bet_amount": 0.3173242352301818,
+          "mon_transactions": 139846,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 4,
+          "start_date": "2025-05-01",
+          "end_date": "2025-05-31",
+          "submissions": 421949,
+          "active_addresses": 116560,
+          "new_bettors": 95914,
+          "mon_volume": 88215.43874206755,
+          "jerry_volume": 0.0,
+          "total_volume": 88215.43874206755,
+          "total_cards": 1213824,
+          "avg_cards_per_submission": 2.88,
+          "avg_bet_amount": 0.20906659037482622,
+          "mon_transactions": 421949,
+          "jerry_transactions": 0
+        },
+        {
+          "period": 5,
+          "start_date": "2025-06-01",
+          "end_date": "2025-06-30",
+          "submissions": 907555,
+          "active_addresses": 151721,
+          "new_bettors": 100512,
+          "mon_volume": 171545.33783543942,
+          "jerry_volume": 48963.05,
+          "total_volume": 220508.3878354394,
+          "total_cards": 2428119,
+          "avg_cards_per_submission": 2.68,
+          "avg_bet_amount": 0.24296972396762664,
+          "mon_transactions": 887536,
+          "jerry_transactions": 20019
+        },
+        {
+          "period": 6,
+          "start_date": "2025-07-01",
+          "end_date": "2025-07-31",
+          "submissions": 819959,
+          "active_addresses": 112825,
+          "new_bettors": 34229,
+          "mon_volume": 148569.83858,
+          "jerry_volume": 21342.45,
+          "total_volume": 169912.28858000002,
+          "total_cards": 1857847,
+          "avg_cards_per_submission": 2.27,
+          "avg_bet_amount": 0.20722046904784264,
+          "mon_transactions": 816210,
+          "jerry_transactions": 3749
+        }
+      ],
+      "slips_by_card_count": [
+        {
+          "period_number": 1,
+          "period_start": "2025-02-01",
+          "period_end": "2025-02-28",
+          "card_counts": [
+            22182,
+            4768,
+            3105,
+            1786,
+            1167,
+            5820
+          ]
+        },
+        {
+          "period_number": 2,
+          "period_start": "2025-03-01",
+          "period_end": "2025-03-31",
+          "card_counts": [
+            58700,
+            12365,
+            7613,
+            3608,
+            2723,
+            24374
+          ]
+        },
+        {
+          "period_number": 3,
+          "period_start": "2025-04-01",
+          "period_end": "2025-04-30",
+          "card_counts": [
+            83489,
+            19687,
+            10489,
+            5120,
+            3262,
+            17799
+          ]
+        },
+        {
+          "period_number": 4,
+          "period_start": "2025-05-01",
+          "period_end": "2025-05-31",
+          "card_counts": [
+            221068,
+            113018,
+            48564,
+            16430,
+            3855,
+            19014
+          ]
+        },
+        {
+          "period_number": 5,
+          "period_start": "2025-06-01",
+          "period_end": "2025-06-30",
+          "card_counts": [
+            601586,
+            143091,
+            104807,
+            11682,
+            4286,
+            41760
+          ]
+        },
+        {
+          "period_number": 6,
+          "period_start": "2025-07-01",
+          "period_end": "2025-07-31",
+          "card_counts": [
+            720433,
+            44990,
+            25303,
+            7782,
+            4810,
+            16147
+          ]
+        }
+      ]
+    }
+  },
+  "activity_over_time": [
+    {
+      "period": 1,
+      "start_date": "2025-02-03",
+      "end_date": "2025-02-09",
+      "submissions": 16,
+      "active_addresses": 3,
+      "new_bettors": 3,
+      "mon_volume": 6.2,
+      "jerry_volume": 0.0,
+      "total_volume": 6.2,
+      "total_cards": 35,
+      "avg_cards_per_submission": 2.19,
+      "avg_bet_amount": 0.3875,
+      "mon_transactions": 16,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 3,
+      "start_date": "2025-02-17",
+      "end_date": "2025-02-23",
+      "submissions": 15669,
+      "active_addresses": 6243,
+      "new_bettors": 6240,
+      "mon_volume": 6051.9,
+      "jerry_volume": 0.0,
+      "total_volume": 6051.9,
+      "total_cards": 57398,
+      "avg_cards_per_submission": 3.66,
+      "avg_bet_amount": 0.38623396515412595,
+      "mon_transactions": 15669,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 4,
+      "start_date": "2025-02-24",
+      "end_date": "2025-03-02",
+      "submissions": 33851,
+      "active_addresses": 16069,
+      "new_bettors": 13890,
+      "mon_volume": 11700.8,
+      "jerry_volume": 0.0,
+      "total_volume": 11700.8,
+      "total_cards": 107205,
+      "avg_cards_per_submission": 3.17,
+      "avg_bet_amount": 0.34565596289622164,
+      "mon_transactions": 33851,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 5,
+      "start_date": "2025-03-03",
+      "end_date": "2025-03-09",
+      "submissions": 18421,
+      "active_addresses": 8282,
+      "new_bettors": 5202,
+      "mon_volume": 7737.6,
+      "jerry_volume": 0.0,
+      "total_volume": 7737.6,
+      "total_cards": 64110,
+      "avg_cards_per_submission": 3.48,
+      "avg_bet_amount": 0.4200423429781228,
+      "mon_transactions": 18421,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 6,
+      "start_date": "2025-03-10",
+      "end_date": "2025-03-16",
+      "submissions": 27058,
+      "active_addresses": 13142,
+      "new_bettors": 7673,
+      "mon_volume": 8944.6,
+      "jerry_volume": 0.0,
+      "total_volume": 8944.6,
+      "total_cards": 90297,
+      "avg_cards_per_submission": 3.34,
+      "avg_bet_amount": 0.3305713652154631,
+      "mon_transactions": 27058,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 7,
+      "start_date": "2025-03-17",
+      "end_date": "2025-03-23",
+      "submissions": 22890,
+      "active_addresses": 12488,
+      "new_bettors": 7666,
+      "mon_volume": 6444.900000000001,
+      "jerry_volume": 0.0,
+      "total_volume": 6444.900000000001,
+      "total_cards": 67653,
+      "avg_cards_per_submission": 2.96,
+      "avg_bet_amount": 0.28155963302752296,
+      "mon_transactions": 22890,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 8,
+      "start_date": "2025-03-24",
+      "end_date": "2025-03-30",
+      "submissions": 27088,
+      "active_addresses": 9657,
+      "new_bettors": 5380,
+      "mon_volume": 6163.8,
+      "jerry_volume": 0.0,
+      "total_volume": 6163.8,
+      "total_cards": 119678,
+      "avg_cards_per_submission": 4.42,
+      "avg_bet_amount": 0.22754725339633786,
+      "mon_transactions": 27088,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 9,
+      "start_date": "2025-03-31",
+      "end_date": "2025-04-06",
+      "submissions": 20240,
+      "active_addresses": 10938,
+      "new_bettors": 6178,
+      "mon_volume": 6639.6,
+      "jerry_volume": 0.0,
+      "total_volume": 6639.6,
+      "total_cards": 65778,
+      "avg_cards_per_submission": 3.25,
+      "avg_bet_amount": 0.3280434782608696,
+      "mon_transactions": 20240,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 10,
+      "start_date": "2025-04-07",
+      "end_date": "2025-04-13",
+      "submissions": 21668,
+      "active_addresses": 12562,
+      "new_bettors": 7600,
+      "mon_volume": 7971.7,
+      "jerry_volume": 0.0,
+      "total_volume": 7971.7,
+      "total_cards": 71448,
+      "avg_cards_per_submission": 3.3,
+      "avg_bet_amount": 0.36790197526306073,
+      "mon_transactions": 21668,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 11,
+      "start_date": "2025-04-14",
+      "end_date": "2025-04-20",
+      "submissions": 21386,
+      "active_addresses": 11995,
+      "new_bettors": 6758,
+      "mon_volume": 8077.8,
+      "jerry_volume": 0.0,
+      "total_volume": 8077.8,
+      "total_cards": 68439,
+      "avg_cards_per_submission": 3.2,
+      "avg_bet_amount": 0.3777143925932853,
+      "mon_transactions": 21386,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 12,
+      "start_date": "2025-04-21",
+      "end_date": "2025-04-27",
+      "submissions": 51591,
+      "active_addresses": 26447,
+      "new_bettors": 19330,
+      "mon_volume": 15520.9,
+      "jerry_volume": 0.0,
+      "total_volume": 15520.9,
+      "total_cards": 158883,
+      "avg_cards_per_submission": 3.08,
+      "avg_bet_amount": 0.30084510864298036,
+      "mon_transactions": 51591,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 13,
+      "start_date": "2025-04-28",
+      "end_date": "2025-05-04",
+      "submissions": 99336,
+      "active_addresses": 42160,
+      "new_bettors": 31793,
+      "mon_volume": 20123.511300000002,
+      "jerry_volume": 0.0,
+      "total_volume": 20123.511300000002,
+      "total_cards": 285791,
+      "avg_cards_per_submission": 2.88,
+      "avg_bet_amount": 0.20258024583232667,
+      "mon_transactions": 99336,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 14,
+      "start_date": "2025-05-05",
+      "end_date": "2025-05-11",
+      "submissions": 90070,
+      "active_addresses": 36382,
+      "new_bettors": 15184,
+      "mon_volume": 18269.464567,
+      "jerry_volume": 0.0,
+      "total_volume": 18269.464567,
+      "total_cards": 258098,
+      "avg_cards_per_submission": 2.87,
+      "avg_bet_amount": 0.2028362891861885,
+      "mon_transactions": 90070,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 15,
+      "start_date": "2025-05-12",
+      "end_date": "2025-05-18",
+      "submissions": 72576,
+      "active_addresses": 31774,
+      "new_bettors": 14529,
+      "mon_volume": 16926.487875067545,
+      "jerry_volume": 0.0,
+      "total_volume": 16926.487875067545,
+      "total_cards": 202791,
+      "avg_cards_per_submission": 2.79,
+      "avg_bet_amount": 0.23322431485708148,
+      "mon_transactions": 72576,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 16,
+      "start_date": "2025-05-19",
+      "end_date": "2025-05-25",
+      "submissions": 91429,
+      "active_addresses": 42656,
+      "new_bettors": 22826,
+      "mon_volume": 18451.0,
+      "jerry_volume": 0.0,
+      "total_volume": 18451.0,
+      "total_cards": 259862,
+      "avg_cards_per_submission": 2.84,
+      "avg_bet_amount": 0.20180686653031313,
+      "mon_transactions": 91429,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 17,
+      "start_date": "2025-05-26",
+      "end_date": "2025-06-01",
+      "submissions": 112067,
+      "active_addresses": 42753,
+      "new_bettors": 22490,
+      "mon_volume": 24696.100000000002,
+      "jerry_volume": 0.0,
+      "total_volume": 24696.100000000002,
+      "total_cards": 336270,
+      "avg_cards_per_submission": 3.0,
+      "avg_bet_amount": 0.22036906493436964,
+      "mon_transactions": 112067,
+      "jerry_transactions": 0
+    },
+    {
+      "period": 18,
+      "start_date": "2025-06-02",
+      "end_date": "2025-06-08",
+      "submissions": 157382,
+      "active_addresses": 44059,
+      "new_bettors": 16115,
+      "mon_volume": 29666.9,
+      "jerry_volume": 19799.9,
+      "total_volume": 49466.8,
+      "total_cards": 527354,
+      "avg_cards_per_submission": 3.35,
+      "avg_bet_amount": 0.314310403985208,
+      "mon_transactions": 141339,
+      "jerry_transactions": 16043
+    },
+    {
+      "period": 19,
+      "start_date": "2025-06-09",
+      "end_date": "2025-06-15",
+      "submissions": 192883,
+      "active_addresses": 74775,
+      "new_bettors": 38947,
+      "mon_volume": 36428.149450000004,
+      "jerry_volume": 9350.4,
+      "total_volume": 45778.549450000006,
+      "total_cards": 555614,
+      "avg_cards_per_submission": 2.88,
+      "avg_bet_amount": 0.23733843547642872,
+      "mon_transactions": 191694,
+      "jerry_transactions": 1189
+    },
+    {
+      "period": 20,
+      "start_date": "2025-06-16",
+      "end_date": "2025-06-22",
+      "submissions": 239095,
+      "active_addresses": 75398,
+      "new_bettors": 27353,
+      "mon_volume": 49086.12273,
+      "jerry_volume": 11525.85,
+      "total_volume": 60611.97273,
+      "total_cards": 604618,
+      "avg_cards_per_submission": 2.53,
+      "avg_bet_amount": 0.2535058145507016,
+      "mon_transactions": 237417,
+      "jerry_transactions": 1678
+    },
+    {
+      "period": 21,
+      "start_date": "2025-06-23",
+      "end_date": "2025-06-29",
+      "submissions": 264014,
+      "active_addresses": 63310,
+      "new_bettors": 14116,
+      "mon_volume": 46662.627603575485,
+      "jerry_volume": 6910.8,
+      "total_volume": 53573.42760357549,
+      "total_cards": 608443,
+      "avg_cards_per_submission": 2.3,
+      "avg_bet_amount": 0.20291888916336062,
+      "mon_transactions": 263062,
+      "jerry_transactions": 952
+    },
+    {
+      "period": 22,
+      "start_date": "2025-06-30",
+      "end_date": "2025-07-06",
+      "submissions": 319658,
+      "active_addresses": 71512,
+      "new_bettors": 15363,
+      "mon_volume": 48289.77663186393,
+      "jerry_volume": 6459.3,
+      "total_volume": 54749.076631863936,
+      "total_cards": 721780,
+      "avg_cards_per_submission": 2.26,
+      "avg_bet_amount": 0.17127391346959542,
+      "mon_transactions": 318596,
+      "jerry_transactions": 1062
+    },
+    {
+      "period": 23,
+      "start_date": "2025-07-07",
+      "end_date": "2025-07-13",
+      "submissions": 298203,
+      "active_addresses": 64830,
+      "new_bettors": 9875,
+      "mon_volume": 50564.3,
+      "jerry_volume": 8818.55,
+      "total_volume": 59382.850000000006,
+      "total_cards": 660519,
+      "avg_cards_per_submission": 2.21,
+      "avg_bet_amount": 0.1991356559122477,
+      "mon_transactions": 296698,
+      "jerry_transactions": 1505
+    },
+    {
+      "period": 24,
+      "start_date": "2025-07-14",
+      "end_date": "2025-07-20",
+      "submissions": 188674,
+      "active_addresses": 56298,
+      "new_bettors": 8503,
+      "mon_volume": 44429.8,
+      "jerry_volume": 5830.1,
+      "total_volume": 50259.9,
+      "total_cards": 443421,
+      "avg_cards_per_submission": 2.35,
+      "avg_bet_amount": 0.2663848754995389,
+      "mon_transactions": 187626,
+      "jerry_transactions": 1048
+    },
+    {
+      "period": 25,
+      "start_date": "2025-07-21",
+      "end_date": "2025-07-27",
+      "submissions": 52255,
+      "active_addresses": 18739,
+      "new_bettors": 1733,
+      "mon_volume": 12076.800000000001,
+      "jerry_volume": 1610.6,
+      "total_volume": 13687.400000000001,
+      "total_cards": 119768,
+      "avg_cards_per_submission": 2.29,
+      "avg_bet_amount": 0.26193474308678594,
+      "mon_transactions": 51964,
+      "jerry_transactions": 291
+    }
+  ],
+  "overall_slips_by_card_count": [
+    {
+      "cards_in_slip": 2,
+      "bets": 1707458,
+      "percentage": 70.07
+    },
+    {
+      "cards_in_slip": 3,
+      "bets": 337919,
+      "percentage": 13.87
+    },
+    {
+      "cards_in_slip": 4,
+      "bets": 199881,
+      "percentage": 8.2
+    },
+    {
+      "cards_in_slip": 5,
+      "bets": 46408,
+      "percentage": 1.9
+    },
+    {
+      "cards_in_slip": 6,
+      "bets": 20103,
+      "percentage": 0.83
+    },
+    {
+      "cards_in_slip": 7,
+      "bets": 124914,
+      "percentage": 5.13
+    }
+  ],
+  "weekly_slips_by_card_count": [
+    {
+      "period_number": 1,
+      "period_start": "2025-02-03",
+      "period_end": "2025-02-09",
+      "card_counts": [
+        14,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "period_number": 3,
+      "period_start": "2025-02-17",
+      "period_end": "2025-02-23",
+      "card_counts": [
+        7841,
+        1881,
+        1168,
+        757,
+        538,
+        3484
+      ]
+    },
+    {
+      "period_number": 4,
+      "period_start": "2025-02-24",
+      "period_end": "2025-03-02",
+      "card_counts": [
+        19933,
+        4245,
+        2949,
+        1499,
+        1262,
+        3963
+      ]
+    },
+    {
+      "period_number": 5,
+      "period_start": "2025-03-03",
+      "period_end": "2025-03-09",
+      "card_counts": [
+        9588,
+        2260,
+        1935,
+        768,
+        516,
+        3354
+      ]
+    },
+    {
+      "period_number": 6,
+      "period_start": "2025-03-10",
+      "period_end": "2025-03-16",
+      "card_counts": [
+        15390,
+        3566,
+        1873,
+        862,
+        552,
+        4815
+      ]
+    },
+    {
+      "period_number": 7,
+      "period_start": "2025-03-17",
+      "period_end": "2025-03-23",
+      "card_counts": [
+        15302,
+        2637,
+        1323,
+        609,
+        332,
+        2687
+      ]
+    },
+    {
+      "period_number": 8,
+      "period_start": "2025-03-24",
+      "period_end": "2025-03-30",
+      "card_counts": [
+        11084,
+        2187,
+        1238,
+        739,
+        578,
+        11262
+      ]
+    },
+    {
+      "period_number": 9,
+      "period_start": "2025-03-31",
+      "period_end": "2025-04-06",
+      "card_counts": [
+        11910,
+        2320,
+        1433,
+        1134,
+        505,
+        2938
+      ]
+    },
+    {
+      "period_number": 10,
+      "period_start": "2025-04-07",
+      "period_end": "2025-04-13",
+      "card_counts": [
+        12797,
+        2458,
+        1450,
+        781,
+        499,
+        3683
+      ]
+    },
+    {
+      "period_number": 11,
+      "period_start": "2025-04-14",
+      "period_end": "2025-04-20",
+      "card_counts": [
+        12842,
+        2281,
+        1795,
+        965,
+        614,
+        2889
+      ]
+    },
+    {
+      "period_number": 12,
+      "period_start": "2025-04-21",
+      "period_end": "2025-04-27",
+      "card_counts": [
+        30650,
+        8060,
+        4073,
+        1696,
+        1153,
+        5959
+      ]
+    },
+    {
+      "period_number": 13,
+      "period_start": "2025-04-28",
+      "period_end": "2025-05-04",
+      "card_counts": [
+        53868,
+        27842,
+        7145,
+        3115,
+        1188,
+        6178
+      ]
+    },
+    {
+      "period_number": 14,
+      "period_start": "2025-05-05",
+      "period_end": "2025-05-11",
+      "card_counts": [
+        49302,
+        24828,
+        6160,
+        3602,
+        886,
+        5292
+      ]
+    },
+    {
+      "period_number": 15,
+      "period_start": "2025-05-12",
+      "period_end": "2025-05-18",
+      "card_counts": [
+        42343,
+        18284,
+        5031,
+        2342,
+        613,
+        3963
+      ]
+    },
+    {
+      "period_number": 16,
+      "period_start": "2025-05-19",
+      "period_end": "2025-05-25",
+      "card_counts": [
+        49618,
+        21918,
+        12488,
+        2995,
+        925,
+        3485
+      ]
+    },
+    {
+      "period_number": 17,
+      "period_start": "2025-05-26",
+      "period_end": "2025-06-01",
+      "card_counts": [
+        49710,
+        29968,
+        22485,
+        5706,
+        910,
+        3288
+      ]
+    },
+    {
+      "period_number": 18,
+      "period_start": "2025-06-02",
+      "period_end": "2025-06-08",
+      "card_counts": [
+        63269,
+        43687,
+        25709,
+        2696,
+        568,
+        21433
+      ]
+    },
+    {
+      "period_number": 19,
+      "period_start": "2025-06-09",
+      "period_end": "2025-06-15",
+      "card_counts": [
+        96362,
+        46845,
+        38979,
+        3308,
+        1362,
+        5961
+      ]
+    },
+    {
+      "period_number": 20,
+      "period_start": "2025-06-16",
+      "period_end": "2025-06-22",
+      "card_counts": [
+        179862,
+        24571,
+        21250,
+        2938,
+        1085,
+        9283
+      ]
+    },
+    {
+      "period_number": 21,
+      "period_start": "2025-06-23",
+      "period_end": "2025-06-29",
+      "card_counts": [
+        221411,
+        20739,
+        14639,
+        1864,
+        1061,
+        4166
+      ]
+    },
+    {
+      "period_number": 22,
+      "period_start": "2025-06-30",
+      "period_end": "2025-07-06",
+      "card_counts": [
+        280035,
+        19422,
+        10574,
+        1681,
+        1885,
+        5919
+      ]
+    },
+    {
+      "period_number": 23,
+      "period_start": "2025-07-07",
+      "period_end": "2025-07-13",
+      "card_counts": [
+        270001,
+        12372,
+        6911,
+        1785,
+        1524,
+        5384
+      ]
+    },
+    {
+      "period_number": 24,
+      "period_start": "2025-07-14",
+      "period_end": "2025-07-20",
+      "card_counts": [
+        158963,
+        12722,
+        7367,
+        3720,
+        1227,
+        4557
+      ]
+    },
+    {
+      "period_number": 25,
+      "period_start": "2025-07-21",
+      "period_end": "2025-07-27",
+      "card_counts": [
+        45363,
+        2825,
+        1905,
+        846,
+        320,
+        971
+      ]
+    }
+  ],
+  "top_bettors": [
+    {
+      "rank": 1,
+      "user_address": "0xe9f1f580d6eff56f77e8962669d6d3645fc96b7a",
+      "total_mon": 2310.5,
+      "total_jerry": 20.0,
+      "total_bet": 2330.5,
+      "avg_cards_per_slip": 2.05,
+      "total_bets": 5958,
+      "active_days": 60
+    },
+    {
+      "rank": 2,
+      "user_address": "0x817268fc06af234842b52fc937b796b21dcbe6d0",
+      "total_mon": 431.20000000000005,
+      "total_jerry": 0.0,
+      "total_bet": 431.20000000000005,
+      "avg_cards_per_slip": 6.81,
+      "total_bets": 3644,
+      "active_days": 41
+    },
+    {
+      "rank": 3,
+      "user_address": "0x2476ce470f1833d31ce4fc5b5215266a6f261d2b",
+      "total_mon": 328.0,
+      "total_jerry": 0.0,
+      "total_bet": 328.0,
+      "avg_cards_per_slip": 6.86,
+      "total_bets": 3254,
+      "active_days": 14
+    },
+    {
+      "rank": 4,
+      "user_address": "0x4074206083e4dbedb41890b3f0e431c9a54f12bd",
+      "total_mon": 300.6,
+      "total_jerry": 0.0,
+      "total_bet": 300.6,
+      "avg_cards_per_slip": 6.88,
+      "total_bets": 2755,
+      "active_days": 27
+    },
+    {
+      "rank": 5,
+      "user_address": "0x3bd5f25b1a666b12177196884d1eead36c970770",
+      "total_mon": 157.20000000000002,
+      "total_jerry": 1396.0,
+      "total_bet": 1553.2,
+      "avg_cards_per_slip": 6.99,
+      "total_bets": 2374,
+      "active_days": 6
+    },
+    {
+      "rank": 6,
+      "user_address": "0x40f5a8cbcf8af6def23885fddf152f3f66150991",
+      "total_mon": 588.3,
+      "total_jerry": 802.0,
+      "total_bet": 1390.3,
+      "avg_cards_per_slip": 4.72,
+      "total_bets": 2307,
+      "active_days": 17
+    },
+    {
+      "rank": 7,
+      "user_address": "0x44d8eb039e1e5dd65e199cb27f83ba9b49576844",
+      "total_mon": 0.0,
+      "total_jerry": 2171.0,
+      "total_bet": 2171.0,
+      "avg_cards_per_slip": 7.0,
+      "total_bets": 2171,
+      "active_days": 4
+    },
+    {
+      "rank": 8,
+      "user_address": "0x2a7637f565680f737746d787932203af1cbf8215",
+      "total_mon": 136.20000000000002,
+      "total_jerry": 582.0,
+      "total_bet": 718.2,
+      "avg_cards_per_slip": 7.0,
+      "total_bets": 1944,
+      "active_days": 3
+    },
+    {
+      "rank": 9,
+      "user_address": "0x59c49b3f540742ddc80eee5a1d3eaaf94216dc43",
+      "total_mon": 56.6,
+      "total_jerry": 1283.0,
+      "total_bet": 1339.6,
+      "avg_cards_per_slip": 7.0,
+      "total_bets": 1849,
+      "active_days": 3
+    },
+    {
+      "rank": 10,
+      "user_address": "0x1fe74822d8e76423baafd5fee86b66ff150a73ce",
+      "total_mon": 1406.2,
+      "total_jerry": 19.7,
+      "total_bet": 1425.9,
+      "avg_cards_per_slip": 5.67,
+      "total_bets": 1569,
+      "active_days": 133
+    },
+    {
+      "rank": 11,
+      "user_address": "0x6081f08b8d7292c4a4576a12b68fbe8a24fa5430",
+      "total_mon": 0.0,
+      "total_jerry": 1492.0,
+      "total_bet": 1492.0,
+      "avg_cards_per_slip": 7.0,
+      "total_bets": 1492,
+      "active_days": 1
+    },
+    {
+      "rank": 12,
+      "user_address": "0xc1d47bc87509b56a1cfb847385bb1bbb01846180",
+      "total_mon": 19.2,
+      "total_jerry": 1429.0,
+      "total_bet": 1448.2,
+      "avg_cards_per_slip": 7.0,
+      "total_bets": 1450,
+      "active_days": 4
+    },
+    {
+      "rank": 13,
+      "user_address": "0xd417935c2bf2c04d5dea6fa874de7ec71ae1b655",
+      "total_mon": 0.0,
+      "total_jerry": 1434.0,
+      "total_bet": 1434.0,
+      "avg_cards_per_slip": 7.0,
+      "total_bets": 1434,
+      "active_days": 3
+    },
+    {
+      "rank": 14,
+      "user_address": "0xcd1390195d45fecbbc055e2d7d83b0310c9a0003",
+      "total_mon": 20.0,
+      "total_jerry": 1429.0,
+      "total_bet": 1449.0,
+      "avg_cards_per_slip": 6.99,
+      "total_bets": 1430,
+      "active_days": 3
+    },
+    {
+      "rank": 15,
+      "user_address": "0xdda5a01ccb3d1217b83ae25b4d3635220f639b04",
+      "total_mon": 0.0,
+      "total_jerry": 1121.0,
+      "total_bet": 1121.0,
+      "avg_cards_per_slip": 7.0,
+      "total_bets": 1121,
+      "active_days": 1
+    },
+    {
+      "rank": 16,
+      "user_address": "0x1f4fae57a91f0344aa8fce9dbfc18e43ea66212f",
+      "total_mon": 4164.4,
+      "total_jerry": 20.0,
+      "total_bet": 4184.4,
+      "avg_cards_per_slip": 6.83,
+      "total_bets": 1055,
+      "active_days": 102
+    },
+    {
+      "rank": 17,
+      "user_address": "0x0e3715cd8cf0ad6016055f507f86d4076e25192f",
+      "total_mon": 0.0,
+      "total_jerry": 1029.0,
+      "total_bet": 1029.0,
+      "avg_cards_per_slip": 7.0,
+      "total_bets": 1029,
+      "active_days": 2
+    },
+    {
+      "rank": 18,
+      "user_address": "0x03fd4c2e532fdfd3f85993d7fec5d925c226f1a8",
+      "total_mon": 12480.0,
+      "total_jerry": 0.0,
+      "total_bet": 12480.0,
+      "avg_cards_per_slip": 3.81,
+      "total_bets": 941,
+      "active_days": 35
+    },
+    {
+      "rank": 19,
+      "user_address": "0x4d3ddf170f06f4ab3cc6b464ffa730ff7ccc0373",
+      "total_mon": 91.2,
+      "total_jerry": 0.0,
+      "total_bet": 91.2,
+      "avg_cards_per_slip": 6.4,
+      "total_bets": 876,
+      "active_days": 9
+    },
+    {
+      "rank": 20,
+      "user_address": "0xafbfa6876b705af1a8c5a77adcec18b191967abf",
+      "total_mon": 184.5,
+      "total_jerry": 0.0,
+      "total_bet": 184.5,
+      "avg_cards_per_slip": 3.25,
+      "total_bets": 871,
+      "active_days": 118
+    }
+  ]
+}
