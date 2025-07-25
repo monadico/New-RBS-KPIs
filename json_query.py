@@ -32,12 +32,14 @@ if IS_PRODUCTION:
     DB_PATH = "/app/data/betting_transactions.db"
     OUTPUT_FILE = "/app/analytics_dump.json"
     FRONTEND_PUBLIC = "/app/new/public/analytics_dump.json"
+    FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/analytics_dump.json"
     COMPRESSED_FILE = "/app/new/public/analytics_dump.json.gz"
     ANALYTICS_CHECKPOINT_FILE = "/app/data/analytics_checkpoint.json"
 else:
     DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
     OUTPUT_FILE = "analytics_dump.json"
     FRONTEND_PUBLIC = "new/public/analytics_dump.json"
+    FRONTEND_DEPLOYMENT_PUBLIC = "frontend-deployment/public/analytics_dump.json"
     COMPRESSED_FILE = "new/public/analytics_dump.json.gz"
     ANALYTICS_CHECKPOINT_FILE = "data/analytics_checkpoint.json"
 
@@ -880,11 +882,18 @@ if __name__ == "__main__":
             json.dump(data, f, indent=2)
         print(f"✅ Analytics data saved to {OUTPUT_FILE}")
         
-        # Copy to frontend public dir
+        # Copy to frontend public dirs
+        os.makedirs(os.path.dirname(FRONTEND_PUBLIC), exist_ok=True)
         shutil.copyfile(OUTPUT_FILE, FRONTEND_PUBLIC)
         print(f"✅ Analytics data copied to {FRONTEND_PUBLIC}")
         
+        # Also copy to frontend-deployment public dir
+        os.makedirs(os.path.dirname(FRONTEND_DEPLOYMENT_PUBLIC), exist_ok=True)
+        shutil.copyfile(OUTPUT_FILE, FRONTEND_DEPLOYMENT_PUBLIC)
+        print(f"✅ Analytics data copied to {FRONTEND_DEPLOYMENT_PUBLIC}")
+        
         # Create compressed version for faster loading
+        os.makedirs(os.path.dirname(COMPRESSED_FILE), exist_ok=True)
         with open(FRONTEND_PUBLIC, 'rb') as f_in:
             with gzip.open(COMPRESSED_FILE, 'wb') as f_out:
                 f_out.writelines(f_in)
