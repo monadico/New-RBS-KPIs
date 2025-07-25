@@ -17,7 +17,7 @@ import { TokenVolumeDistributionPie } from "@/components/rbs-charts/token-volume
 
 // Table Components
 import { RbsDailyStatsTable } from "@/components/rbs-tables/rbs-daily-stats-table"
-import { RbsStatsTable } from "@/components/rbs-tables/rbs-stats-table"
+import { RbsPeriodsTable } from "@/components/rbs-tables/rbs-periods-table"
 import { TopBettorsTable } from "@/components/rbs-tables/top-bettors-table"
 
 // Auth Components
@@ -378,9 +378,16 @@ export default function Page() {
               <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
             </ProtectedComponent>
           </div>
+          {/* Debug info */}
+          <div className="mb-4 p-4 bg-gray-100 rounded">
+            <p>Debug: rbs_stats_by_periods exists: {rbs_stats_by_periods ? 'Yes' : 'No'}</p>
+            <p>Debug: rbs_stats_by_periods length: {rbs_stats_by_periods?.length || 0}</p>
+            <p>Debug: rbs_stats_by_periods data: {JSON.stringify(rbs_stats_by_periods?.slice(0, 2), null, 2)}</p>
+          </div>
+          
           {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
             <div className="mb-8">
-              <RbsStatsTable data={rbs_stats_by_periods} />
+              <RbsPeriodsTable data={rbs_stats_by_periods} />
             </div>
           )}
           <TopBettorsTable data={top_bettors} />

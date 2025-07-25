@@ -375,27 +375,41 @@ class FlexibleAnalytics:
         return activity_data
 
     def get_rbs_stats_by_periods(self) -> List[Dict]:
-        """Get RBS statistics by periods for the stats table."""
+        """Get RBS statistics for specific time periods (All Time, Last 90/30/7/1 days)."""
         query = """
-        WITH periods AS (
-            SELECT 
-                DATE('2025-02-03', 'weekday 0', '-6 days') as week_start,
-                DATE('2025-02-03', 'weekday 0', '+0 days') as week_end,
-                1 as week_number
+        WITH timeframes AS (
+            SELECT 'All Time' as period_name, 
+                   DATE('2025-02-03') as start_date, 
+                   DATE('now') as end_date
             
             UNION ALL
             
-            SELECT 
-                DATE(week_start, '+7 days') as week_start,
-                DATE(week_end, '+7 days') as week_end,
-                week_number + 1 as week_number
-            FROM periods
-            WHERE week_start <= DATE('now')
+            SELECT 'Last 90 Days' as period_name,
+                   DATE('now', '-90 days') as start_date,
+                   DATE('now') as end_date
+            
+            UNION ALL
+            
+            SELECT 'Last 30 Days' as period_name,
+                   DATE('now', '-30 days') as start_date,
+                   DATE('now') as end_date
+            
+            UNION ALL
+            
+            SELECT 'Last 7 Days' as period_name,
+                   DATE('now', '-7 days') as start_date,
+                   DATE('now') as end_date
+            
+            UNION ALL
+            
+            SELECT 'Last Day' as period_name,
+                   DATE('now', '-1 day') as start_date,
+                   DATE('now', '-1 day') as end_date
         )
         SELECT 
-            p.week_number,
-            p.week_start,
-            p.week_end,
+            tf.period_name,
+            tf.start_date,
+            tf.end_date,
             COUNT(DISTINCT t.tx_hash) as total_submissions,
             COUNT(DISTINCT t.from_address) as unique_players,
             SUM(t.n_cards) as total_cards,
@@ -403,11 +417,18 @@ class FlexibleAnalytics:
             SUM(CASE WHEN t.token = 'MON' THEN t.amount ELSE 0 END) as mon_volume,
             SUM(CASE WHEN t.token = 'Jerry' THEN t.amount ELSE 0 END) as jerry_volume,
             ROUND(CAST(COUNT(DISTINCT t.from_address) AS FLOAT) / COUNT(DISTINCT t.tx_hash), 2) as avg_submissions_per_player
-        FROM periods p
+        FROM timeframes tf
         LEFT JOIN betting_transactions t ON 
-            DATE(t.timestamp, 'utc') >= p.week_start AND DATE(t.timestamp, 'utc') <= p.week_end
-        GROUP BY p.week_number, p.week_start, p.week_end
-        ORDER BY p.week_number
+            DATE(t.timestamp, 'utc') >= tf.start_date AND DATE(t.timestamp, 'utc') <= tf.end_date
+        GROUP BY tf.period_name, tf.start_date, tf.end_date
+        ORDER BY 
+            CASE tf.period_name
+                WHEN 'All Time' THEN 1
+                WHEN 'Last 90 Days' THEN 2
+                WHEN 'Last 30 Days' THEN 3
+                WHEN 'Last 7 Days' THEN 4
+                WHEN 'Last Day' THEN 5
+            END
         """
         
         self.cursor.execute(query)
@@ -415,9 +436,9 @@ class FlexibleAnalytics:
         
         stats_data = []
         for row in results:
-            week_num, start_date, end_date, submissions, players, cards, avg_cards, mon_vol, jerry_vol, avg_sub_per_player = row
+            period_name, start_date, end_date, submissions, players, cards, avg_cards, mon_vol, jerry_vol, avg_sub_per_player = row
             stats_data.append({
-                'period': f"Week {week_num}",
+                'period': period_name,
                 'mon_volume': mon_vol or 0.0,
                 'jerry_volume': jerry_vol or 0.0,
                 'total_volume': (mon_vol or 0.0) + (jerry_vol or 0.0),
