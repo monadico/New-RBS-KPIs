@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ErrorBoundary } from '@/components/error-boundary'
 import { ChunkErrorHandler } from '@/components/chunk-error-handler'
+import { AuthProvider } from '@/components/auth/auth-context'
 
 export const metadata: Metadata = {
   title: 'RBS Dashboard',
@@ -87,7 +88,9 @@ export default function RootLayout({
       <body>
         <ErrorBoundary>
           <ChunkErrorHandler />
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ErrorBoundary>
       </body>
     </html>

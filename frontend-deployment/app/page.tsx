@@ -20,6 +20,9 @@ import { RbsDailyStatsTable } from "@/components/rbs-tables/rbs-daily-stats-tabl
 import { RbsStatsTable } from "@/components/rbs-tables/rbs-stats-table"
 import { TopBettorsTable } from "@/components/rbs-tables/top-bettors-table"
 
+// Auth Components
+import { ProtectedComponent } from "@/components/auth/protected-component"
+
 // Heatmap Components
 import { DayOfWeekHeatmaps } from "@/components/rbs-heatmaps/day-of-week-heatmaps"
 import { TraditionalHeatmap } from "@/components/rbs-heatmaps/traditional-heatmap"
@@ -368,7 +371,12 @@ export default function Page() {
         {/* Tables Section */}
         <section className="animate-fade-in-delayed" style={{ animationDelay: "1.5s" }}>
           <div className="mb-8">
-            <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
+            <ProtectedComponent 
+              title="Daily Statistics" 
+              description="Login to view detailed daily analytics and performance metrics"
+            >
+              <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
+            </ProtectedComponent>
           </div>
           {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
             <div className="mb-8">
@@ -381,8 +389,18 @@ export default function Page() {
         {/* Heatmaps Section */}
         <section className="animate-fade-in-delayed" style={{ animationDelay: "1.6s" }}>
           <div className="space-y-8">
-            <TraditionalHeatmap data={data.timeframes?.daily?.activity_over_time || []} />
-          <DayOfWeekHeatmaps data={data.timeframes?.daily?.activity_over_time || []} />
+            <ProtectedComponent 
+              title="Activity Heatmap" 
+              description="Login to view detailed activity patterns and heatmap analytics"
+            >
+              <TraditionalHeatmap data={data.timeframes?.daily?.activity_over_time || []} />
+            </ProtectedComponent>
+            <ProtectedComponent 
+              title="Day of Week Heatmaps" 
+              description="Login to view day-of-week activity patterns and trends"
+            >
+              <DayOfWeekHeatmaps data={data.timeframes?.daily?.activity_over_time || []} />
+            </ProtectedComponent>
           </div>
         </section>
       </main>
