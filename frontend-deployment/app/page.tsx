@@ -378,16 +378,14 @@ export default function Page() {
               <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
             </ProtectedComponent>
           </div>
-          {/* Debug info */}
-          <div className="mb-4 p-4 bg-gray-100 rounded">
-            <p>Debug: rbs_stats_by_periods exists: {rbs_stats_by_periods ? 'Yes' : 'No'}</p>
-            <p>Debug: rbs_stats_by_periods length: {rbs_stats_by_periods?.length || 0}</p>
-            <p>Debug: rbs_stats_by_periods data: {JSON.stringify(rbs_stats_by_periods?.slice(0, 2), null, 2)}</p>
-          </div>
-          
           {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
             <div className="mb-8">
-              <RbsPeriodsTable data={rbs_stats_by_periods} />
+              <ProtectedComponent 
+                title="RBS Stats by Periods" 
+                description="Login to view aggregated performance metrics for different time periods"
+              >
+                <RbsPeriodsTable data={rbs_stats_by_periods} />
+              </ProtectedComponent>
             </div>
           )}
           <TopBettorsTable data={top_bettors} />
