@@ -18,6 +18,7 @@ import { TokenVolumeDistributionPie } from "@/components/rbs-charts/token-volume
 // Table Components
 import { RbsDailyStatsTable } from "@/components/rbs-tables/rbs-daily-stats-table"
 import { RbsPeriodsTable } from "@/components/rbs-tables/rbs-periods-table"
+import { CohortRetentionTable } from "@/components/rbs-tables/cohort-retention-table"
 import { TopBettorsTable } from "@/components/rbs-tables/top-bettors-table"
 
 // Auth Components
@@ -239,6 +240,7 @@ export default function Page() {
     overall_slips_by_card_count,
     top_bettors,
     rbs_stats_by_periods,
+    cohort_retention,
   } = data
 
   return (
@@ -385,6 +387,16 @@ export default function Page() {
                 description="Login to view aggregated performance metrics for different time periods"
               >
                 <RbsPeriodsTable data={rbs_stats_by_periods} />
+              </ProtectedComponent>
+            </div>
+          )}
+          {cohort_retention && cohort_retention.length > 0 && (
+            <div className="mb-8">
+              <ProtectedComponent 
+                title="Cohort Retention Analysis" 
+                description="Login to view weekly user retention patterns and engagement metrics"
+              >
+                <CohortRetentionTable data={cohort_retention} />
               </ProtectedComponent>
             </div>
           )}

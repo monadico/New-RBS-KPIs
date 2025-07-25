@@ -48,6 +48,19 @@ export interface RbsStatsPeriod {
   total_cards: number
 }
 
+export interface CohortRetentionWeek {
+  users: number
+  percentage: number
+}
+
+export interface CohortRetentionData {
+  earliest_date: string
+  users: number
+  retention_weeks: {
+    [key: string]: CohortRetentionWeek
+  }
+}
+
 export interface CumulativeActiveBettors {
   period: number
   start_date: string
@@ -102,6 +115,7 @@ export interface AnalyticsData {
   overall_slips_by_card_count: SlipCardCount[]
   top_bettors: TopBettor[]
   rbs_stats_by_periods?: RbsStatsPeriod[]
+  cohort_retention?: CohortRetentionData[]
   cumulative_active_bettors?: CumulativeActiveBettors[]
   
   // Multi-timeframe data

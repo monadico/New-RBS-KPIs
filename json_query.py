@@ -451,6 +451,102 @@ class FlexibleAnalytics:
         
         return stats_data
 
+    def get_cohort_retention_data(self) -> List[Dict]:
+        """Get weekly cohort retention data for RBS users."""
+        query = """
+        WITH users_all AS (
+            SELECT 
+                tx_hash,
+                from_address as user_address,
+                timestamp
+            FROM betting_transactions 
+            WHERE DATE(timestamp) >= '2025-02-04'
+        ),
+        
+        base_table AS (
+            SELECT  
+                user_address as user,
+                DATE(timestamp, 'weekday 0', '-6 days') as date,
+                MIN(DATE(timestamp, 'weekday 0', '-6 days')) OVER(PARTITION BY user_address) as earliest_date
+            FROM users_all
+        ),
+        
+        base_table_with_diff AS (
+            SELECT 
+                user,
+                date,
+                earliest_date,
+                CAST((JULIANDAY(date) - JULIANDAY(earliest_date)) / 7 AS INTEGER) as difference
+            FROM base_table
+        ),
+        
+        count_new_users AS (
+            SELECT 
+                earliest_date,
+                COUNT(DISTINCT user) as new_users 
+            FROM base_table_with_diff
+            GROUP BY earliest_date
+        ),
+        
+        count_returning_users AS (
+            SELECT 
+                earliest_date,
+                difference,
+                COUNT(DISTINCT user) as existing_users 
+            FROM base_table_with_diff
+            WHERE difference != 0
+            GROUP BY earliest_date, difference
+        )
+        
+        SELECT 
+            cnu.earliest_date,
+            COALESCE(cru.difference, 0) as difference,
+            cnu.new_users,
+            COALESCE(cru.existing_users, 0) as existing_users,
+            CASE 
+                WHEN cnu.new_users > 0 THEN ROUND(CAST(COALESCE(cru.existing_users, 0) AS FLOAT) / cnu.new_users, 4)
+                ELSE 0 
+            END as retention_pct
+        FROM count_new_users cnu
+        LEFT JOIN count_returning_users cru ON cnu.earliest_date = cru.earliest_date
+        ORDER BY cnu.earliest_date, COALESCE(cru.difference, 0)
+        """
+        
+        self.cursor.execute(query)
+        results = self.cursor.fetchall()
+        
+        # Process results into cohort retention format
+        cohort_data = {}
+        
+        for row in results:
+            earliest_date, difference, new_users, existing_users, retention_pct = row
+            
+            if earliest_date not in cohort_data:
+                cohort_data[earliest_date] = {
+                    'earliest_date': earliest_date,
+                    'users': new_users,
+                    'retention_weeks': {}
+                }
+            
+            if difference > 0:  # Skip week 0 (same week)
+                week_key = f"{difference}_week_later"
+                cohort_data[earliest_date]['retention_weeks'][week_key] = {
+                    'users': existing_users,
+                    'percentage': retention_pct * 100  # Convert to percentage
+                }
+        
+        # Convert to list format for JSON
+        cohort_list = []
+        for earliest_date, data in cohort_data.items():
+            cohort_entry = {
+                'earliest_date': data['earliest_date'],
+                'users': data['users'],
+                'retention_weeks': data['retention_weeks']
+            }
+            cohort_list.append(cohort_entry)
+        
+        return cohort_list
+
     def analyze_timeframe(self, start_date: str, timeframe: str, since_timestamp: Optional[str] = None) -> Dict:
         """Analyze data for a specific timeframe and start date."""
         total_metrics = self.get_total_metrics()
@@ -763,6 +859,10 @@ if __name__ == "__main__":
             weekly_slips_by_card_count = get_weekly_slips_by_card_count(analytics, 2, 7)
             average_metrics = get_average_metrics(analytics)
             
+            # Get cohort retention data
+            print("📊 Getting cohort retention data...")
+            cohort_retention = analytics.get_cohort_retention_data()
+            
             # Get timeframe-specific card count data
             print("🎯 Getting card count data for all timeframes...")
             daily_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'day', '2025-02-03', 2, 7)
@@ -787,6 +887,7 @@ if __name__ == "__main__":
                 "average_metrics": average_metrics,
                 "player_activity": main_data['player_activity'],
                 "rbs_stats_by_periods": main_data['rbs_stats_by_periods'],
+                "cohort_retention": cohort_retention,
                 
                 # Timeframe-specific data
                 "timeframes": {
@@ -830,6 +931,10 @@ if __name__ == "__main__":
             weekly_slips_by_card_count = get_weekly_slips_by_card_count(analytics, 2, 7)
             average_metrics = get_average_metrics(analytics)
             
+            # Get cohort retention data
+            print("📊 Getting cohort retention data...")
+            cohort_retention = analytics.get_cohort_retention_data()
+            
             # Get timeframe-specific card count data
             print("🎯 Getting card count data for all timeframes...")
             daily_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'day', '2025-02-03', 2, 7)
@@ -853,6 +958,7 @@ if __name__ == "__main__":
                 "average_metrics": average_metrics,
                 "player_activity": main_data['player_activity'],
                 "rbs_stats_by_periods": main_data['rbs_stats_by_periods'],
+                "cohort_retention": cohort_retention,
                 
                 # Timeframe-specific data
                 "timeframes": {
