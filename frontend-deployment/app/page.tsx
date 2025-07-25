@@ -16,6 +16,7 @@ import { TotalAvgCardsChart } from "@/components/rbs-charts/total-avg-cards-char
 import { TokenVolumeDistributionPie } from "@/components/rbs-charts/token-volume-distribution-pie"
 
 // Table Components
+import { RbsDailyStatsTable } from "@/components/rbs-tables/rbs-daily-stats-table"
 import { RbsStatsTable } from "@/components/rbs-tables/rbs-stats-table"
 import { TopBettorsTable } from "@/components/rbs-tables/top-bettors-table"
 
@@ -366,6 +367,9 @@ export default function Page() {
 
         {/* Tables Section */}
         <section className="animate-fade-in-delayed" style={{ animationDelay: "1.5s" }}>
+          <div className="mb-8">
+            <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
+          </div>
           {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
             <div className="mb-8">
               <RbsStatsTable data={rbs_stats_by_periods} />

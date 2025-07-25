@@ -35,7 +35,7 @@ export function RbsDailyStatsTable({ data }: RbsDailyStatsTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = useState("")
 
-  // Transform data to include day of week
+  // Transform data to include day of week, average slip size, and corrected date
   const transformedData = useMemo<ExtendedPeriodData[]>(() => {
     return data.map((period) => {
       // Parse date as local time to avoid timezone issues
