@@ -1,7 +1,7 @@
 {
   "success": true,
   "metadata": {
-    "generated_at": "2025-07-24T23:25:42.711460Z",
+    "generated_at": "2025-07-25T13:04:18.968527Z",
     "timeframes_available": [
       "daily",
       "weekly",
@@ -115,6 +115,1251 @@
       "submissions": 6072,
       "active_bettors": 2217,
       "total_cards": 13337
+    }
+  ],
+  "cohort_retention": [
+    {
+      "earliest_date": "2025-02-03",
+      "users": 3,
+      "retention_weeks": {
+        "2_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "3_week_later": {
+          "users": 2,
+          "percentage": 66.67
+        },
+        "4_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "5_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "6_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "7_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "8_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "9_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "10_week_later": {
+          "users": 2,
+          "percentage": 66.67
+        },
+        "11_week_later": {
+          "users": 2,
+          "percentage": 66.67
+        },
+        "12_week_later": {
+          "users": 1,
+          "percentage": 33.33
+        },
+        "13_week_later": {
+          "users": 1,
+          "percentage": 33.33
+        },
+        "14_week_later": {
+          "users": 1,
+          "percentage": 33.33
+        },
+        "15_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "16_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "17_week_later": {
+          "users": 3,
+          "percentage": 100.0
+        },
+        "18_week_later": {
+          "users": 2,
+          "percentage": 66.67
+        },
+        "19_week_later": {
+          "users": 2,
+          "percentage": 66.67
+        },
+        "20_week_later": {
+          "users": 1,
+          "percentage": 33.33
+        },
+        "22_week_later": {
+          "users": 1,
+          "percentage": 33.33
+        },
+        "23_week_later": {
+          "users": 2,
+          "percentage": 66.67
+        },
+        "24_week_later": {
+          "users": 2,
+          "percentage": 66.67
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-02-17",
+      "users": 6240,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 2177,
+          "percentage": 34.89
+        },
+        "2_week_later": {
+          "users": 993,
+          "percentage": 15.909999999999998
+        },
+        "3_week_later": {
+          "users": 1140,
+          "percentage": 18.27
+        },
+        "4_week_later": {
+          "users": 861,
+          "percentage": 13.8
+        },
+        "5_week_later": {
+          "users": 656,
+          "percentage": 10.51
+        },
+        "6_week_later": {
+          "users": 573,
+          "percentage": 9.180000000000001
+        },
+        "7_week_later": {
+          "users": 513,
+          "percentage": 8.219999999999999
+        },
+        "8_week_later": {
+          "users": 474,
+          "percentage": 7.6
+        },
+        "9_week_later": {
+          "users": 598,
+          "percentage": 9.58
+        },
+        "10_week_later": {
+          "users": 629,
+          "percentage": 10.08
+        },
+        "11_week_later": {
+          "users": 483,
+          "percentage": 7.739999999999999
+        },
+        "12_week_later": {
+          "users": 446,
+          "percentage": 7.1499999999999995
+        },
+        "13_week_later": {
+          "users": 466,
+          "percentage": 7.470000000000001
+        },
+        "14_week_later": {
+          "users": 347,
+          "percentage": 5.56
+        },
+        "15_week_later": {
+          "users": 278,
+          "percentage": 4.46
+        },
+        "16_week_later": {
+          "users": 407,
+          "percentage": 6.52
+        },
+        "17_week_later": {
+          "users": 285,
+          "percentage": 4.569999999999999
+        },
+        "18_week_later": {
+          "users": 233,
+          "percentage": 3.73
+        },
+        "19_week_later": {
+          "users": 255,
+          "percentage": 4.09
+        },
+        "20_week_later": {
+          "users": 229,
+          "percentage": 3.6700000000000004
+        },
+        "21_week_later": {
+          "users": 228,
+          "percentage": 3.65
+        },
+        "22_week_later": {
+          "users": 179,
+          "percentage": 2.87
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-02-24",
+      "users": 13890,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 2084,
+          "percentage": 15.0
+        },
+        "2_week_later": {
+          "users": 2430,
+          "percentage": 17.49
+        },
+        "3_week_later": {
+          "users": 1487,
+          "percentage": 10.71
+        },
+        "4_week_later": {
+          "users": 1049,
+          "percentage": 7.55
+        },
+        "5_week_later": {
+          "users": 844,
+          "percentage": 6.08
+        },
+        "6_week_later": {
+          "users": 764,
+          "percentage": 5.5
+        },
+        "7_week_later": {
+          "users": 672,
+          "percentage": 4.84
+        },
+        "8_week_later": {
+          "users": 1204,
+          "percentage": 8.67
+        },
+        "9_week_later": {
+          "users": 1081,
+          "percentage": 7.779999999999999
+        },
+        "10_week_later": {
+          "users": 864,
+          "percentage": 6.22
+        },
+        "11_week_later": {
+          "users": 750,
+          "percentage": 5.4
+        },
+        "12_week_later": {
+          "users": 754,
+          "percentage": 5.43
+        },
+        "13_week_later": {
+          "users": 551,
+          "percentage": 3.9699999999999998
+        },
+        "14_week_later": {
+          "users": 471,
+          "percentage": 3.39
+        },
+        "15_week_later": {
+          "users": 611,
+          "percentage": 4.3999999999999995
+        },
+        "16_week_later": {
+          "users": 466,
+          "percentage": 3.35
+        },
+        "17_week_later": {
+          "users": 374,
+          "percentage": 2.69
+        },
+        "18_week_later": {
+          "users": 353,
+          "percentage": 2.54
+        },
+        "19_week_later": {
+          "users": 351,
+          "percentage": 2.53
+        },
+        "20_week_later": {
+          "users": 421,
+          "percentage": 3.0300000000000002
+        },
+        "21_week_later": {
+          "users": 286,
+          "percentage": 2.06
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-03-03",
+      "users": 5202,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 1896,
+          "percentage": 36.449999999999996
+        },
+        "2_week_later": {
+          "users": 1033,
+          "percentage": 19.86
+        },
+        "3_week_later": {
+          "users": 411,
+          "percentage": 7.9
+        },
+        "4_week_later": {
+          "users": 352,
+          "percentage": 6.77
+        },
+        "5_week_later": {
+          "users": 381,
+          "percentage": 7.32
+        },
+        "6_week_later": {
+          "users": 327,
+          "percentage": 6.29
+        },
+        "7_week_later": {
+          "users": 598,
+          "percentage": 11.5
+        },
+        "8_week_later": {
+          "users": 351,
+          "percentage": 6.75
+        },
+        "9_week_later": {
+          "users": 334,
+          "percentage": 6.419999999999999
+        },
+        "10_week_later": {
+          "users": 267,
+          "percentage": 5.13
+        },
+        "11_week_later": {
+          "users": 279,
+          "percentage": 5.36
+        },
+        "12_week_later": {
+          "users": 259,
+          "percentage": 4.9799999999999995
+        },
+        "13_week_later": {
+          "users": 152,
+          "percentage": 2.92
+        },
+        "14_week_later": {
+          "users": 250,
+          "percentage": 4.81
+        },
+        "15_week_later": {
+          "users": 186,
+          "percentage": 3.58
+        },
+        "16_week_later": {
+          "users": 118,
+          "percentage": 2.27
+        },
+        "17_week_later": {
+          "users": 107,
+          "percentage": 2.06
+        },
+        "18_week_later": {
+          "users": 99,
+          "percentage": 1.9
+        },
+        "19_week_later": {
+          "users": 122,
+          "percentage": 2.35
+        },
+        "20_week_later": {
+          "users": 74,
+          "percentage": 1.4200000000000002
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-03-10",
+      "users": 7673,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 1438,
+          "percentage": 18.740000000000002
+        },
+        "2_week_later": {
+          "users": 1149,
+          "percentage": 14.97
+        },
+        "3_week_later": {
+          "users": 1046,
+          "percentage": 13.63
+        },
+        "4_week_later": {
+          "users": 1073,
+          "percentage": 13.98
+        },
+        "5_week_later": {
+          "users": 986,
+          "percentage": 12.85
+        },
+        "6_week_later": {
+          "users": 1160,
+          "percentage": 15.120000000000001
+        },
+        "7_week_later": {
+          "users": 849,
+          "percentage": 11.06
+        },
+        "8_week_later": {
+          "users": 816,
+          "percentage": 10.63
+        },
+        "9_week_later": {
+          "users": 497,
+          "percentage": 6.4799999999999995
+        },
+        "10_week_later": {
+          "users": 554,
+          "percentage": 7.22
+        },
+        "11_week_later": {
+          "users": 436,
+          "percentage": 5.680000000000001
+        },
+        "12_week_later": {
+          "users": 306,
+          "percentage": 3.9899999999999998
+        },
+        "13_week_later": {
+          "users": 802,
+          "percentage": 10.45
+        },
+        "14_week_later": {
+          "users": 306,
+          "percentage": 3.9899999999999998
+        },
+        "15_week_later": {
+          "users": 224,
+          "percentage": 2.92
+        },
+        "16_week_later": {
+          "users": 258,
+          "percentage": 3.36
+        },
+        "17_week_later": {
+          "users": 263,
+          "percentage": 3.4299999999999997
+        },
+        "18_week_later": {
+          "users": 250,
+          "percentage": 3.26
+        },
+        "19_week_later": {
+          "users": 185,
+          "percentage": 2.41
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-03-17",
+      "users": 7666,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 1009,
+          "percentage": 13.16
+        },
+        "2_week_later": {
+          "users": 1029,
+          "percentage": 13.420000000000002
+        },
+        "3_week_later": {
+          "users": 856,
+          "percentage": 11.17
+        },
+        "4_week_later": {
+          "users": 686,
+          "percentage": 8.95
+        },
+        "5_week_later": {
+          "users": 773,
+          "percentage": 10.08
+        },
+        "6_week_later": {
+          "users": 851,
+          "percentage": 11.1
+        },
+        "7_week_later": {
+          "users": 994,
+          "percentage": 12.97
+        },
+        "8_week_later": {
+          "users": 410,
+          "percentage": 5.35
+        },
+        "9_week_later": {
+          "users": 594,
+          "percentage": 7.75
+        },
+        "10_week_later": {
+          "users": 363,
+          "percentage": 4.74
+        },
+        "11_week_later": {
+          "users": 259,
+          "percentage": 3.38
+        },
+        "12_week_later": {
+          "users": 827,
+          "percentage": 10.79
+        },
+        "13_week_later": {
+          "users": 231,
+          "percentage": 3.01
+        },
+        "14_week_later": {
+          "users": 192,
+          "percentage": 2.5
+        },
+        "15_week_later": {
+          "users": 217,
+          "percentage": 2.83
+        },
+        "16_week_later": {
+          "users": 262,
+          "percentage": 3.42
+        },
+        "17_week_later": {
+          "users": 223,
+          "percentage": 2.91
+        },
+        "18_week_later": {
+          "users": 169,
+          "percentage": 2.1999999999999997
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-03-24",
+      "users": 5380,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 913,
+          "percentage": 16.97
+        },
+        "2_week_later": {
+          "users": 608,
+          "percentage": 11.3
+        },
+        "3_week_later": {
+          "users": 432,
+          "percentage": 8.03
+        },
+        "4_week_later": {
+          "users": 434,
+          "percentage": 8.07
+        },
+        "5_week_later": {
+          "users": 731,
+          "percentage": 13.59
+        },
+        "6_week_later": {
+          "users": 785,
+          "percentage": 14.59
+        },
+        "7_week_later": {
+          "users": 411,
+          "percentage": 7.64
+        },
+        "8_week_later": {
+          "users": 605,
+          "percentage": 11.25
+        },
+        "9_week_later": {
+          "users": 338,
+          "percentage": 6.279999999999999
+        },
+        "10_week_later": {
+          "users": 223,
+          "percentage": 4.14
+        },
+        "11_week_later": {
+          "users": 589,
+          "percentage": 10.95
+        },
+        "12_week_later": {
+          "users": 296,
+          "percentage": 5.5
+        },
+        "13_week_later": {
+          "users": 181,
+          "percentage": 3.36
+        },
+        "14_week_later": {
+          "users": 168,
+          "percentage": 3.1199999999999997
+        },
+        "15_week_later": {
+          "users": 184,
+          "percentage": 3.42
+        },
+        "16_week_later": {
+          "users": 248,
+          "percentage": 4.61
+        },
+        "17_week_later": {
+          "users": 270,
+          "percentage": 5.0200000000000005
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-03-31",
+      "users": 6178,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 764,
+          "percentage": 12.370000000000001
+        },
+        "2_week_later": {
+          "users": 804,
+          "percentage": 13.01
+        },
+        "3_week_later": {
+          "users": 721,
+          "percentage": 11.67
+        },
+        "4_week_later": {
+          "users": 694,
+          "percentage": 11.23
+        },
+        "5_week_later": {
+          "users": 584,
+          "percentage": 9.45
+        },
+        "6_week_later": {
+          "users": 346,
+          "percentage": 5.6000000000000005
+        },
+        "7_week_later": {
+          "users": 415,
+          "percentage": 6.72
+        },
+        "8_week_later": {
+          "users": 288,
+          "percentage": 4.66
+        },
+        "9_week_later": {
+          "users": 206,
+          "percentage": 3.3300000000000005
+        },
+        "10_week_later": {
+          "users": 516,
+          "percentage": 8.35
+        },
+        "11_week_later": {
+          "users": 250,
+          "percentage": 4.05
+        },
+        "12_week_later": {
+          "users": 171,
+          "percentage": 2.77
+        },
+        "13_week_later": {
+          "users": 138,
+          "percentage": 2.23
+        },
+        "14_week_later": {
+          "users": 108,
+          "percentage": 1.7500000000000002
+        },
+        "15_week_later": {
+          "users": 287,
+          "percentage": 4.65
+        },
+        "16_week_later": {
+          "users": 267,
+          "percentage": 4.32
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-04-07",
+      "users": 7600,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 854,
+          "percentage": 11.24
+        },
+        "2_week_later": {
+          "users": 782,
+          "percentage": 10.290000000000001
+        },
+        "3_week_later": {
+          "users": 746,
+          "percentage": 9.82
+        },
+        "4_week_later": {
+          "users": 676,
+          "percentage": 8.89
+        },
+        "5_week_later": {
+          "users": 531,
+          "percentage": 6.99
+        },
+        "6_week_later": {
+          "users": 684,
+          "percentage": 9.0
+        },
+        "7_week_later": {
+          "users": 369,
+          "percentage": 4.859999999999999
+        },
+        "8_week_later": {
+          "users": 220,
+          "percentage": 2.8899999999999997
+        },
+        "9_week_later": {
+          "users": 366,
+          "percentage": 4.82
+        },
+        "10_week_later": {
+          "users": 293,
+          "percentage": 3.8600000000000003
+        },
+        "11_week_later": {
+          "users": 230,
+          "percentage": 3.0300000000000002
+        },
+        "12_week_later": {
+          "users": 242,
+          "percentage": 3.18
+        },
+        "13_week_later": {
+          "users": 236,
+          "percentage": 3.11
+        },
+        "14_week_later": {
+          "users": 236,
+          "percentage": 3.11
+        },
+        "15_week_later": {
+          "users": 185,
+          "percentage": 2.4299999999999997
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-04-14",
+      "users": 6758,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 845,
+          "percentage": 12.5
+        },
+        "2_week_later": {
+          "users": 715,
+          "percentage": 10.58
+        },
+        "3_week_later": {
+          "users": 746,
+          "percentage": 11.04
+        },
+        "4_week_later": {
+          "users": 470,
+          "percentage": 6.950000000000001
+        },
+        "5_week_later": {
+          "users": 555,
+          "percentage": 8.21
+        },
+        "6_week_later": {
+          "users": 358,
+          "percentage": 5.3
+        },
+        "7_week_later": {
+          "users": 443,
+          "percentage": 6.5600000000000005
+        },
+        "8_week_later": {
+          "users": 670,
+          "percentage": 9.91
+        },
+        "9_week_later": {
+          "users": 358,
+          "percentage": 5.3
+        },
+        "10_week_later": {
+          "users": 361,
+          "percentage": 5.34
+        },
+        "11_week_later": {
+          "users": 258,
+          "percentage": 3.82
+        },
+        "12_week_later": {
+          "users": 278,
+          "percentage": 4.109999999999999
+        },
+        "13_week_later": {
+          "users": 327,
+          "percentage": 4.84
+        },
+        "14_week_later": {
+          "users": 250,
+          "percentage": 3.6999999999999997
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-04-21",
+      "users": 19330,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 3719,
+          "percentage": 19.24
+        },
+        "2_week_later": {
+          "users": 2809,
+          "percentage": 14.530000000000001
+        },
+        "3_week_later": {
+          "users": 1899,
+          "percentage": 9.82
+        },
+        "4_week_later": {
+          "users": 2659,
+          "percentage": 13.76
+        },
+        "5_week_later": {
+          "users": 1695,
+          "percentage": 8.77
+        },
+        "6_week_later": {
+          "users": 1562,
+          "percentage": 8.08
+        },
+        "7_week_later": {
+          "users": 2167,
+          "percentage": 11.21
+        },
+        "8_week_later": {
+          "users": 1367,
+          "percentage": 7.07
+        },
+        "9_week_later": {
+          "users": 961,
+          "percentage": 4.97
+        },
+        "10_week_later": {
+          "users": 898,
+          "percentage": 4.65
+        },
+        "11_week_later": {
+          "users": 808,
+          "percentage": 4.18
+        },
+        "12_week_later": {
+          "users": 1080,
+          "percentage": 5.59
+        },
+        "13_week_later": {
+          "users": 738,
+          "percentage": 3.82
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-04-28",
+      "users": 31793,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 12106,
+          "percentage": 38.080000000000005
+        },
+        "2_week_later": {
+          "users": 7884,
+          "percentage": 24.8
+        },
+        "3_week_later": {
+          "users": 6706,
+          "percentage": 21.09
+        },
+        "4_week_later": {
+          "users": 5419,
+          "percentage": 17.04
+        },
+        "5_week_later": {
+          "users": 3950,
+          "percentage": 12.42
+        },
+        "6_week_later": {
+          "users": 4593,
+          "percentage": 14.45
+        },
+        "7_week_later": {
+          "users": 4189,
+          "percentage": 13.18
+        },
+        "8_week_later": {
+          "users": 4857,
+          "percentage": 15.28
+        },
+        "9_week_later": {
+          "users": 4934,
+          "percentage": 15.52
+        },
+        "10_week_later": {
+          "users": 3190,
+          "percentage": 10.03
+        },
+        "11_week_later": {
+          "users": 3531,
+          "percentage": 11.110000000000001
+        },
+        "12_week_later": {
+          "users": 1402,
+          "percentage": 4.41
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-05-05",
+      "users": 15184,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 3333,
+          "percentage": 21.95
+        },
+        "2_week_later": {
+          "users": 2238,
+          "percentage": 14.74
+        },
+        "3_week_later": {
+          "users": 1265,
+          "percentage": 8.33
+        },
+        "4_week_later": {
+          "users": 905,
+          "percentage": 5.96
+        },
+        "5_week_later": {
+          "users": 1594,
+          "percentage": 10.5
+        },
+        "6_week_later": {
+          "users": 1073,
+          "percentage": 7.07
+        },
+        "7_week_later": {
+          "users": 765,
+          "percentage": 5.04
+        },
+        "8_week_later": {
+          "users": 851,
+          "percentage": 5.6000000000000005
+        },
+        "9_week_later": {
+          "users": 926,
+          "percentage": 6.1
+        },
+        "10_week_later": {
+          "users": 2642,
+          "percentage": 17.4
+        },
+        "11_week_later": {
+          "users": 2296,
+          "percentage": 15.120000000000001
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-05-12",
+      "users": 14529,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 3318,
+          "percentage": 22.84
+        },
+        "2_week_later": {
+          "users": 1932,
+          "percentage": 13.3
+        },
+        "3_week_later": {
+          "users": 2248,
+          "percentage": 15.47
+        },
+        "4_week_later": {
+          "users": 1508,
+          "percentage": 10.38
+        },
+        "5_week_later": {
+          "users": 1387,
+          "percentage": 9.55
+        },
+        "6_week_later": {
+          "users": 1496,
+          "percentage": 10.299999999999999
+        },
+        "7_week_later": {
+          "users": 1959,
+          "percentage": 13.48
+        },
+        "8_week_later": {
+          "users": 1393,
+          "percentage": 9.59
+        },
+        "9_week_later": {
+          "users": 1230,
+          "percentage": 8.469999999999999
+        },
+        "10_week_later": {
+          "users": 269,
+          "percentage": 1.8499999999999999
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-05-19",
+      "users": 22826,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 6640,
+          "percentage": 29.09
+        },
+        "2_week_later": {
+          "users": 6873,
+          "percentage": 30.11
+        },
+        "3_week_later": {
+          "users": 6083,
+          "percentage": 26.650000000000002
+        },
+        "4_week_later": {
+          "users": 5645,
+          "percentage": 24.73
+        },
+        "5_week_later": {
+          "users": 7356,
+          "percentage": 32.23
+        },
+        "6_week_later": {
+          "users": 7815,
+          "percentage": 34.239999999999995
+        },
+        "7_week_later": {
+          "users": 7397,
+          "percentage": 32.41
+        },
+        "8_week_later": {
+          "users": 4794,
+          "percentage": 21.0
+        },
+        "9_week_later": {
+          "users": 4550,
+          "percentage": 19.93
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-05-26",
+      "users": 22490,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 9845,
+          "percentage": 43.78
+        },
+        "2_week_later": {
+          "users": 7143,
+          "percentage": 31.759999999999998
+        },
+        "3_week_later": {
+          "users": 6700,
+          "percentage": 29.79
+        },
+        "4_week_later": {
+          "users": 8046,
+          "percentage": 35.78
+        },
+        "5_week_later": {
+          "users": 8304,
+          "percentage": 36.919999999999995
+        },
+        "6_week_later": {
+          "users": 8116,
+          "percentage": 36.09
+        },
+        "7_week_later": {
+          "users": 5127,
+          "percentage": 22.8
+        },
+        "8_week_later": {
+          "users": 5062,
+          "percentage": 22.509999999999998
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-06-02",
+      "users": 16115,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 7700,
+          "percentage": 47.78
+        },
+        "2_week_later": {
+          "users": 8071,
+          "percentage": 50.080000000000005
+        },
+        "3_week_later": {
+          "users": 7213,
+          "percentage": 44.76
+        },
+        "4_week_later": {
+          "users": 6226,
+          "percentage": 38.629999999999995
+        },
+        "5_week_later": {
+          "users": 5296,
+          "percentage": 32.86
+        },
+        "6_week_later": {
+          "users": 3315,
+          "percentage": 20.57
+        },
+        "7_week_later": {
+          "users": 3660,
+          "percentage": 22.71
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-06-09",
+      "users": 38947,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 16940,
+          "percentage": 43.5
+        },
+        "2_week_later": {
+          "users": 6326,
+          "percentage": 16.24
+        },
+        "3_week_later": {
+          "users": 6035,
+          "percentage": 15.5
+        },
+        "4_week_later": {
+          "users": 4185,
+          "percentage": 10.75
+        },
+        "5_week_later": {
+          "users": 3929,
+          "percentage": 10.09
+        },
+        "6_week_later": {
+          "users": 3361,
+          "percentage": 8.63
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-06-16",
+      "users": 27353,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 10089,
+          "percentage": 36.88
+        },
+        "2_week_later": {
+          "users": 8772,
+          "percentage": 32.07
+        },
+        "3_week_later": {
+          "users": 10409,
+          "percentage": 38.05
+        },
+        "4_week_later": {
+          "users": 7112,
+          "percentage": 26.0
+        },
+        "5_week_later": {
+          "users": 6873,
+          "percentage": 25.130000000000003
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-06-23",
+      "users": 14116,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 8359,
+          "percentage": 59.21999999999999
+        },
+        "2_week_later": {
+          "users": 6321,
+          "percentage": 44.78
+        },
+        "3_week_later": {
+          "users": 5008,
+          "percentage": 35.480000000000004
+        },
+        "4_week_later": {
+          "users": 3894,
+          "percentage": 27.589999999999996
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-06-30",
+      "users": 15363,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 4903,
+          "percentage": 31.91
+        },
+        "2_week_later": {
+          "users": 4906,
+          "percentage": 31.929999999999996
+        },
+        "3_week_later": {
+          "users": 1731,
+          "percentage": 11.27
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-07-07",
+      "users": 9875,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 2777,
+          "percentage": 28.12
+        },
+        "2_week_later": {
+          "users": 2079,
+          "percentage": 21.05
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-07-14",
+      "users": 8503,
+      "retention_weeks": {
+        "1_week_later": {
+          "users": 2750,
+          "percentage": 32.34
+        }
+      }
+    },
+    {
+      "earliest_date": "2025-07-21",
+      "users": 5804,
+      "retention_weeks": {}
     }
   ],
   "timeframes": {

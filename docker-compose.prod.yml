@@ -8,10 +8,13 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Mount the database file
+      # Mount the entire data directory for persistence
+      - ./data:/app/data
+      # Also mount the database file directly for backward compatibility
       - ./betting_transactions.db:/app/betting_transactions.db
-      # Mount analytics JSON
+      # Mount analytics JSON files
       - ./analytics_dump.json:/app/new/public/analytics_dump.json
+      - ./cohort_retention.json:/app/new/public/cohort_retention.json
     environment:
       - MONAD_HYPERSYNC_URL=${MONAD_HYPERSYNC_URL:-https://monad-testnet.hypersync.xyz}
       - HYPERSYNC_BEARER_TOKEN=${HYPERSYNC_BEARER_TOKEN}
@@ -32,6 +35,9 @@ services:
     restart: "no"
     command: ["python", "betting_database.py", "--incremental"]
     volumes:
+      # Mount the entire data directory for persistence
+      - ./data:/app/data
+      # Also mount the database file directly for backward compatibility
       - ./betting_transactions.db:/app/betting_transactions.db
     environment:
       - MONAD_HYPERSYNC_URL=${MONAD_HYPERSYNC_URL:-https://monad-testnet.hypersync.xyz}

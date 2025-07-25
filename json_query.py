@@ -34,14 +34,12 @@ if IS_PRODUCTION:
     FRONTEND_PUBLIC = "/app/new/public/analytics_dump.json"
     FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/analytics_dump.json"
     COMPRESSED_FILE = "/app/new/public/analytics_dump.json.gz"
-    ANALYTICS_CHECKPOINT_FILE = "/app/data/analytics_checkpoint.json"
 else:
     DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
     OUTPUT_FILE = "analytics_dump.json"
     FRONTEND_PUBLIC = "new/public/analytics_dump.json"
     FRONTEND_DEPLOYMENT_PUBLIC = "frontend-deployment/public/analytics_dump.json"
     COMPRESSED_FILE = "new/public/analytics_dump.json.gz"
-    ANALYTICS_CHECKPOINT_FILE = "data/analytics_checkpoint.json"
 
 class FlexibleAnalytics:
     """Main analytics class for flexible timeframe analysis."""
@@ -62,55 +60,7 @@ class FlexibleAnalytics:
         if self.conn:
             self.conn.close()
 
-    def get_last_analytics_checkpoint(self) -> Optional[str]:
-        """Get the last timestamp when analytics were generated."""
-        try:
-            if os.path.exists(ANALYTICS_CHECKPOINT_FILE):
-                with open(ANALYTICS_CHECKPOINT_FILE, 'r') as f:
-                    checkpoint = json.load(f)
-                    return checkpoint.get('last_generated')
-            return None
-        except Exception as e:
-            print(f"Warning: Could not read analytics checkpoint: {e}")
-            return None
 
-    def update_analytics_checkpoint(self, timestamp: str):
-        """Update the analytics checkpoint timestamp."""
-        try:
-            os.makedirs(os.path.dirname(ANALYTICS_CHECKPOINT_FILE), exist_ok=True)
-            checkpoint = {
-                'last_generated': timestamp,
-                'updated_at': datetime.now().isoformat()
-            }
-            with open(ANALYTICS_CHECKPOINT_FILE, 'w') as f:
-                json.dump(checkpoint, f, indent=2)
-        except Exception as e:
-            print(f"Warning: Could not update analytics checkpoint: {e}")
-
-    def get_new_transactions_since(self, since_timestamp: str) -> List[Dict]:
-        """Get new transactions since the last analytics generation."""
-        query = """
-        SELECT 
-            tx_hash, from_address, token, amount, n_cards, timestamp
-        FROM betting_transactions 
-        WHERE timestamp > ?
-        ORDER BY timestamp
-        """
-        self.cursor.execute(query, (since_timestamp,))
-        results = self.cursor.fetchall()
-        
-        transactions = []
-        for row in results:
-            tx_hash, from_address, token, amount, n_cards, timestamp = row
-            transactions.append({
-                'tx_hash': tx_hash,
-                'from_address': from_address,
-                'token': token,
-                'amount': amount,
-                'n_cards': n_cards,
-                'timestamp': timestamp
-            })
-        return transactions
 
     def get_total_metrics(self) -> Dict:
         """Get total metrics for all time."""
@@ -821,167 +771,77 @@ def merge_analytics_data(existing_data: Dict, new_data: Dict, since_timestamp: s
 if __name__ == "__main__":
     with FlexibleAnalytics(DB_PATH) as analytics:
         print("🔄 Starting analytics generation...")
-        
-        # Check for incremental update
-        last_checkpoint = analytics.get_last_analytics_checkpoint()
         current_timestamp = datetime.now().isoformat()
         
-        if last_checkpoint:
-            print(f"📅 Last analytics generated: {last_checkpoint}")
-            print("🔄 Running incremental update...")
+        print("🔄 Running full analytics generation...")
+        
+        # Generate analytics for multiple timeframes
+        timeframes = ['day', 'week', 'month']
+        all_analytics = {}
+        
+        for timeframe in timeframes:
+            print(f"📊 Processing {timeframe} data...")
+            analysis = analytics.analyze_timeframe('2025-02-03', timeframe)
+            all_analytics[timeframe] = analysis
+        
+        # Get additional data
+        print("📈 Getting additional metrics...")
+        top_bettors = analytics.get_top_bettors(20)
+        overall_slips_by_card_count = get_overall_slips_by_card_count(analytics, 2, 7)
+        weekly_slips_by_card_count = get_weekly_slips_by_card_count(analytics, 2, 7)
+        average_metrics = get_average_metrics(analytics)
+        
+        # Get cohort retention data
+        print("📊 Getting cohort retention data...")
+        cohort_retention = analytics.get_cohort_retention_data()
+        
+        # Get timeframe-specific card count data
+        print("🎯 Getting card count data for all timeframes...")
+        daily_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'day', '2025-02-03', 2, 7)
+        weekly_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'week', '2025-02-03', 2, 7)
+        monthly_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'month', '2025-02-03', 2, 7)
+        
+        # Use weekly data as the main data (for backward compatibility)
+        main_data = all_analytics['week']
+        
+        # Create optimized structure
+        data = {
+            "success": True,
+            "metadata": {
+                "generated_at": current_timestamp + "Z",
+                "timeframes_available": ["daily", "weekly", "monthly"],
+                "default_timeframe": "weekly",
+                "full_generation": True
+            },
+            # Main metrics (all time)
+            "total_metrics": main_data['total_metrics'],
+            "average_metrics": average_metrics,
+            "player_activity": main_data['player_activity'],
+            "rbs_stats_by_periods": main_data['rbs_stats_by_periods'],
+            "cohort_retention": cohort_retention,
             
-            # Check if there are new transactions
-            new_transactions = analytics.get_new_transactions_since(last_checkpoint)
-            if not new_transactions:
-                print("✅ No new transactions found. Analytics are up to date.")
-                analytics.update_analytics_checkpoint(current_timestamp)
-                exit(0)
-            
-            print(f"📊 Found {len(new_transactions)} new transactions since {last_checkpoint}")
-            
-            # Load existing analytics
-            existing_analytics = load_existing_analytics()
-            
-            # Generate new analytics (full regeneration for now)
-            print("🔄 Generating analytics for all timeframes...")
-            timeframes = ['day', 'week', 'month']
-            all_analytics = {}
-            
-            for timeframe in timeframes:
-                print(f"📊 Processing {timeframe} data...")
-                analysis = analytics.analyze_timeframe('2025-02-03', timeframe)
-                all_analytics[timeframe] = analysis
-            
-            # Get additional data
-            print("📈 Getting additional metrics...")
-            top_bettors = analytics.get_top_bettors(20)
-            overall_slips_by_card_count = get_overall_slips_by_card_count(analytics, 2, 7)
-            weekly_slips_by_card_count = get_weekly_slips_by_card_count(analytics, 2, 7)
-            average_metrics = get_average_metrics(analytics)
-            
-            # Get cohort retention data
-            print("📊 Getting cohort retention data...")
-            cohort_retention = analytics.get_cohort_retention_data()
-            
-            # Get timeframe-specific card count data
-            print("🎯 Getting card count data for all timeframes...")
-            daily_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'day', '2025-02-03', 2, 7)
-            weekly_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'week', '2025-02-03', 2, 7)
-            monthly_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'month', '2025-02-03', 2, 7)
-            
-            # Use weekly data as the main data (for backward compatibility)
-            main_data = all_analytics['week']
-            
-            # Create optimized structure
-            data = {
-                "success": True,
-                "metadata": {
-                    "generated_at": current_timestamp + "Z",
-                    "timeframes_available": ["daily", "weekly", "monthly"],
-                    "default_timeframe": "weekly",
-                    "last_incremental_update": last_checkpoint,
-                    "new_transactions_processed": len(new_transactions)
+            # Timeframe-specific data
+            "timeframes": {
+                "daily": {
+                    "activity_over_time": all_analytics['day']['activity_over_time'],
+                    "slips_by_card_count": daily_slips_by_card_count
                 },
-                # Main metrics (all time)
-                "total_metrics": main_data['total_metrics'],
-                "average_metrics": average_metrics,
-                "player_activity": main_data['player_activity'],
-                "rbs_stats_by_periods": main_data['rbs_stats_by_periods'],
-                "cohort_retention": cohort_retention,
-                
-                # Timeframe-specific data
-                "timeframes": {
-                    "daily": {
-                        "activity_over_time": all_analytics['day']['activity_over_time'],
-                        "slips_by_card_count": daily_slips_by_card_count
-                    },
-                    "weekly": {
-                        "activity_over_time": all_analytics['week']['activity_over_time'],
-                        "slips_by_card_count": weekly_slips_by_card_count
-                    },
-                    "monthly": {
-                        "activity_over_time": all_analytics['month']['activity_over_time'],
-                        "slips_by_card_count": monthly_slips_by_card_count
-                    }
+                "weekly": {
+                    "activity_over_time": all_analytics['week']['activity_over_time'],
+                    "slips_by_card_count": weekly_slips_by_card_count
                 },
-                
-                # Legacy data (for backward compatibility)
-                "activity_over_time": main_data['activity_over_time'],
-                "overall_slips_by_card_count": overall_slips_by_card_count,
-                "weekly_slips_by_card_count": weekly_slips_by_card_count,
-                "top_bettors": top_bettors
-            }
+                "monthly": {
+                    "activity_over_time": all_analytics['month']['activity_over_time'],
+                    "slips_by_card_count": monthly_slips_by_card_count
+                }
+            },
             
-        else:
-            print("🔄 No previous analytics found. Running full generation...")
-            
-            # Generate analytics for multiple timeframes
-            timeframes = ['day', 'week', 'month']
-            all_analytics = {}
-            
-            for timeframe in timeframes:
-                print(f"📊 Processing {timeframe} data...")
-                analysis = analytics.analyze_timeframe('2025-02-03', timeframe)
-                all_analytics[timeframe] = analysis
-            
-            # Get additional data
-            print("📈 Getting additional metrics...")
-            top_bettors = analytics.get_top_bettors(20)
-            overall_slips_by_card_count = get_overall_slips_by_card_count(analytics, 2, 7)
-            weekly_slips_by_card_count = get_weekly_slips_by_card_count(analytics, 2, 7)
-            average_metrics = get_average_metrics(analytics)
-            
-            # Get cohort retention data
-            print("📊 Getting cohort retention data...")
-            cohort_retention = analytics.get_cohort_retention_data()
-            
-            # Get timeframe-specific card count data
-            print("🎯 Getting card count data for all timeframes...")
-            daily_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'day', '2025-02-03', 2, 7)
-            weekly_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'week', '2025-02-03', 2, 7)
-            monthly_slips_by_card_count = get_timeframe_slips_by_card_count(analytics, 'month', '2025-02-03', 2, 7)
-            
-            # Use weekly data as the main data (for backward compatibility)
-            main_data = all_analytics['week']
-            
-            # Create optimized structure
-            data = {
-                "success": True,
-                "metadata": {
-                    "generated_at": current_timestamp + "Z",
-                    "timeframes_available": ["daily", "weekly", "monthly"],
-                    "default_timeframe": "weekly",
-                    "initial_generation": True
-                },
-                # Main metrics (all time)
-                "total_metrics": main_data['total_metrics'],
-                "average_metrics": average_metrics,
-                "player_activity": main_data['player_activity'],
-                "rbs_stats_by_periods": main_data['rbs_stats_by_periods'],
-                "cohort_retention": cohort_retention,
-                
-                # Timeframe-specific data
-                "timeframes": {
-                    "daily": {
-                        "activity_over_time": all_analytics['day']['activity_over_time'],
-                        "slips_by_card_count": daily_slips_by_card_count
-                    },
-                    "weekly": {
-                        "activity_over_time": all_analytics['week']['activity_over_time'],
-                        "slips_by_card_count": weekly_slips_by_card_count
-                    },
-                    "monthly": {
-                        "activity_over_time": all_analytics['month']['activity_over_time'],
-                        "slips_by_card_count": monthly_slips_by_card_count
-                    }
-                },
-                
-                # Legacy data (for backward compatibility)
-                "activity_over_time": main_data['activity_over_time'],
-                "overall_slips_by_card_count": overall_slips_by_card_count,
-                "weekly_slips_by_card_count": weekly_slips_by_card_count,
-                "top_bettors": top_bettors
-            }
+            # Legacy data (for backward compatibility)
+            "activity_over_time": main_data['activity_over_time'],
+            "overall_slips_by_card_count": overall_slips_by_card_count,
+            "weekly_slips_by_card_count": weekly_slips_by_card_count,
+            "top_bettors": top_bettors
+        }
         
         # Save uncompressed JSON
         with open(OUTPUT_FILE, "w") as f:
@@ -1004,10 +864,6 @@ if __name__ == "__main__":
             with gzip.open(COMPRESSED_FILE, 'wb') as f_out:
                 f_out.writelines(f_in)
         print(f"✅ Compressed version saved to {COMPRESSED_FILE}")
-        
-        # Update checkpoint
-        analytics.update_analytics_checkpoint(current_timestamp)
-        print(f"✅ Analytics checkpoint updated: {current_timestamp}")
         
         # Print file sizes
         import os
