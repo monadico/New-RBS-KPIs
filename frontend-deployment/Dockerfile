@@ -61,8 +61,8 @@ ENV HOSTNAME="0.0.0.0"
 
 # Traefik labels for domain routing
 LABEL traefik.enable=true
-LABEL traefik.http.routers.frontend.rule=Host(`rarebetsportsanalytics.io`)
-LABEL traefik.http.services.frontend.loadbalancer.server.port=3000
+LABEL traefik.http.routers.betting-app.rule=Host(`rarebetsportsanalytics.io`)
+LABEL traefik.http.services.betting-app.loadbalancer.server.port=3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
