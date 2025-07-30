@@ -31,10 +31,22 @@ export function DateRangeSelector({
   const [startCalendarOpen, setStartCalendarOpen] = useState(false)
   const [endCalendarOpen, setEndCalendarOpen] = useState(false)
 
+  // Set minimum start date to 2025-02-03
+  const effectiveMinDate = new Date("2025-02-03")
+  
+  // Use the provided maxDate (from API data) or fallback to current date
+  const effectiveMaxDate = maxDate || new Date()
+
+  // Debug logging
+  console.log("DateRangeSelector - maxDate:", maxDate)
+  console.log("DateRangeSelector - effectiveMaxDate:", effectiveMaxDate)
+  console.log("DateRangeSelector - startDate:", startDate)
+  console.log("DateRangeSelector - endDate:", endDate)
+
   const handleReset = () => {
     // Reset to default dates
     const defaultStart = new Date("2025-02-04")
-    const defaultEnd = maxDate || new Date()
+    const defaultEnd = effectiveMaxDate
     
     onStartDateChange(defaultStart)
     onEndDateChange(defaultEnd)
@@ -79,8 +91,12 @@ export function DateRangeSelector({
                 }
               }}
               disabled={(date) => {
-                if (minDate && date < minDate) return true
-                if (maxDate && date > maxDate) return true
+                // Can't select dates before minimum start date
+                if (date < effectiveMinDate) return true
+                // Can't select dates after maximum end date
+                if (date > effectiveMaxDate) return true
+                // Can't select start date after current end date
+                if (endDate && date > endDate) return true
                 return false
               }}
               initialFocus
@@ -124,8 +140,12 @@ export function DateRangeSelector({
                 }
               }}
               disabled={(date) => {
-                if (minDate && date < minDate) return true
-                if (maxDate && date > maxDate) return true
+                // Can't select dates before minimum start date
+                if (date < effectiveMinDate) return true
+                // Can't select dates after maximum end date
+                if (date > effectiveMaxDate) return true
+                // Can't select end date before current start date
+                if (startDate && date < startDate) return true
                 return false
               }}
               initialFocus
@@ -164,6 +184,9 @@ interface EnhancedTimeframeSelectorProps {
   onDateRangeChange?: (startDate: Date, endDate: Date) => void
   availableDateRange?: { min: Date; max: Date }
   className?: string
+  onReset?: () => void
+  customRangeConfirmed?: boolean
+  onConfirmCustomRange?: () => void
 }
 
 export function EnhancedTimeframeSelector({
@@ -173,10 +196,22 @@ export function EnhancedTimeframeSelector({
   endDate,
   onDateRangeChange,
   availableDateRange,
-  className
+  className,
+  onReset,
+  customRangeConfirmed,
+  onConfirmCustomRange
 }: EnhancedTimeframeSelectorProps) {
-  const [localStartDate, setLocalStartDate] = useState(startDate || new Date("2025-02-04"))
-  const [localEndDate, setLocalEndDate] = useState(endDate || new Date())
+  // Set default dates based on available range
+  const defaultStartDate = availableDateRange?.min || new Date("2025-02-04")
+  const defaultEndDate = availableDateRange?.max || new Date()
+  
+  // Debug logging
+  console.log("EnhancedTimeframeSelector - availableDateRange:", availableDateRange)
+  console.log("EnhancedTimeframeSelector - defaultStartDate:", defaultStartDate)
+  console.log("EnhancedTimeframeSelector - defaultEndDate:", defaultEndDate)
+  
+  const [localStartDate, setLocalStartDate] = useState(startDate || defaultStartDate)
+  const [localEndDate, setLocalEndDate] = useState(endDate || defaultEndDate)
 
   useEffect(() => {
     if (startDate) setLocalStartDate(startDate)
@@ -186,7 +221,22 @@ export function EnhancedTimeframeSelector({
   const handleDateChange = (newStartDate: Date, newEndDate: Date) => {
     setLocalStartDate(newStartDate)
     setLocalEndDate(newEndDate)
-    onDateRangeChange?.(newStartDate, newEndDate)
+    
+    // If only start date was changed, set end date to a reasonable default
+    if (newStartDate !== localStartDate && newEndDate === localEndDate) {
+      // Set end date to 7 days after start date, or max available date
+      const defaultEndDate = new Date(newStartDate)
+      defaultEndDate.setDate(defaultEndDate.getDate() + 7)
+      
+      // Don't exceed the max available date from API data
+      const maxDate = availableDateRange?.max || new Date()
+      const finalEndDate = defaultEndDate > maxDate ? maxDate : defaultEndDate
+        
+      setLocalEndDate(finalEndDate)
+      onDateRangeChange?.(newStartDate, finalEndDate)
+    } else {
+      onDateRangeChange?.(newStartDate, newEndDate)
+    }
   }
 
   const buttonClass = (timeframe: string) =>
@@ -217,7 +267,7 @@ export function EnhancedTimeframeSelector({
 
       {/* Date Range Selector - Only shown when custom is selected */}
       {selectedTimeframe === "custom" && (
-        <div className="flex justify-center animate-fade-in-up">
+        <div className="flex flex-col items-center gap-4 animate-fade-in-up">
           <DateRangeSelector
             startDate={localStartDate}
             endDate={localEndDate}
@@ -227,6 +277,31 @@ export function EnhancedTimeframeSelector({
             maxDate={availableDateRange?.max}
             className="bg-surface-elevated p-4 rounded-lg border border-border-subtle"
           />
+          
+          {/* Confirm Button */}
+          {!customRangeConfirmed && localStartDate && localEndDate && (
+            <Button
+              onClick={onConfirmCustomRange}
+              className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-2 rounded-lg font-medium"
+            >
+              Confirm Range
+            </Button>
+          )}
+        </div>
+      )}
+
+      {/* Reset Button - Only shown when custom is selected */}
+      {selectedTimeframe === "custom" && onReset && (
+        <div className="flex justify-center mt-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onReset}
+            className="bg-surface-elevated hover:bg-surface border-border-subtle"
+          >
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Reset to Weekly
+          </Button>
         </div>
       )}
     </div>

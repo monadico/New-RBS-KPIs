@@ -2768,6 +2768,10 @@ body {
   background-color: rgb(208 255 18 / 0.2);
 }
 
+.hover\:bg-rbs-lime\/90:hover {
+  background-color: rgb(208 255 18 / 0.9);
+}
+
 .hover\:bg-secondary:hover {
   background-color: hsl(var(--secondary));
 }

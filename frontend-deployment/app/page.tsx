@@ -33,14 +33,15 @@ import { Button } from "@/components/ui/button"
 import { DollarSign, Users, CreditCard, TrendingUp } from "lucide-react"
 
 import type { AnalyticsData } from "@/lib/data-types"
-import { getTimeframeData, getCardCountData } from "@/lib/utils"
+import { getTimeframeData, getCardCountData, getFilteredTimeframeData, getFilteredCardCountData, getFilteredMetrics } from "@/lib/utils"
 import { EnhancedTimeframeSelector, getAvailableDateRange } from "@/components/date-range-selector"
 import { ChartModal, useChartModal } from "@/components/ui/chart-modal"
 
 export default function Page() {
   const [selectedTimeframe, setSelectedTimeframe] = useState<"daily" | "weekly" | "monthly" | "custom">("weekly")
-  const [customStartDate, setCustomStartDate] = useState<Date>(new Date("2025-02-04"))
-  const [customEndDate, setCustomEndDate] = useState<Date>(new Date())
+  const [customStartDate, setCustomStartDate] = useState<Date | undefined>(undefined)
+  const [customEndDate, setCustomEndDate] = useState<Date | undefined>(undefined)
+  const [customRangeConfirmed, setCustomRangeConfirmed] = useState(false)
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -121,14 +122,27 @@ export default function Page() {
   const handleDateRangeChange = (startDate: Date, endDate: Date) => {
     setCustomStartDate(startDate)
     setCustomEndDate(endDate)
-    // TODO: Implement custom date filtering logic here
+    // The filtered data will automatically update when these state variables change
     console.log("Date range changed:", startDate, endDate)
+  }
+
+  // Handle reset to default configuration
+  const handleReset = () => {
+    setSelectedTimeframe("weekly")
+    setCustomStartDate(undefined)
+    setCustomEndDate(undefined)
+    setCustomRangeConfirmed(false)
+  }
+
+  // Handle confirm custom range
+  const handleConfirmCustomRange = () => {
+    setCustomRangeConfirmed(true)
   }
 
   // Chart click handlers
   const handleSubmissionChartClick = () => {
     if (!data) return
-    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    const timeframeData = getFilteredTimeframeData(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
     openModal({
       title: "Submission Activity - Detailed View",
       description: "Daily submission volume and active bettor trends over time",
@@ -138,7 +152,7 @@ export default function Page() {
 
   const handleVolumeChartClick = () => {
     if (!data) return
-    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    const timeframeData = getFilteredTimeframeData(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
     openModal({
       title: "Token Volume Trends - Detailed View", 
       description: "$MON and $JERRY betting volume over time",
@@ -148,7 +162,7 @@ export default function Page() {
 
   const handleCardCountChartClick = () => {
     if (!data) return
-    const cardCountData = getCardCountData(data, selectedTimeframe)
+    const cardCountData = getCardCountData(data, selectedTimeframe === "custom" ? (customRangeConfirmed ? "daily" : "weekly") : selectedTimeframe)
     openModal({
       title: "Slips by Card Count - Detailed View",
       description: "Distribution of betting slips by number of cards over time", 
@@ -158,7 +172,7 @@ export default function Page() {
 
   const handleNewBettorsChartClick = () => {
     if (!data) return
-    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    const timeframeData = getFilteredTimeframeData(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
     openModal({
       title: "New Bettors Growth - Detailed View",
       description: "New and cumulative bettor acquisition over time",
@@ -168,7 +182,7 @@ export default function Page() {
 
   const handleTotalAvgCardsChartClick = () => {
     if (!data) return
-    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    const timeframeData = getFilteredTimeframeData(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
     openModal({
       title: "Total & Average Cards - Detailed View",
       description: "Total cards submitted and average cards per submission over time",
@@ -178,7 +192,7 @@ export default function Page() {
 
   const handleTokenVolumeDistributionClick = () => {
     if (!data) return
-    const timeframeData = getTimeframeData(data, selectedTimeframe)
+    const timeframeData = getFilteredTimeframeData(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
     openModal({
       title: "Token Volume Distribution - Detailed View",
       description: "Overall deposit volume distribution by token (MON vs JERRY)",
@@ -190,8 +204,19 @@ export default function Page() {
   const getActiveUsersForTimeframe = () => {
     if (!data) return 0
     
-    const timeframeData = data.timeframes?.[selectedTimeframe]?.activity_over_time || []
-    return timeframeData.length > 0 ? timeframeData[timeframeData.length - 1].active_addresses : 0
+    if (selectedTimeframe === "custom" && customRangeConfirmed && customStartDate && customEndDate) {
+      // Use filtered data for custom timeframe
+      const filteredData = getFilteredTimeframeData(data, selectedTimeframe, customStartDate, customEndDate, customRangeConfirmed)
+      return filteredData.length > 0 ? filteredData[filteredData.length - 1].active_addresses : 0
+    } else if (selectedTimeframe === "custom" && !customRangeConfirmed) {
+      // Use weekly data when custom is selected but not confirmed
+      const timeframeData = data.timeframes?.weekly?.activity_over_time || []
+      return timeframeData.length > 0 ? timeframeData[timeframeData.length - 1].active_addresses : 0
+    } else {
+      // Use regular timeframe data
+      const timeframeData = data.timeframes?.[selectedTimeframe]?.activity_over_time || []
+      return timeframeData.length > 0 ? timeframeData[timeframeData.length - 1].active_addresses : 0
+    }
   }
 
   // Prevent hydration mismatch by not rendering until mounted
@@ -228,9 +253,20 @@ export default function Page() {
   }
 
   // Get timeframe-specific data
-  const timeframeData = getTimeframeData(data, selectedTimeframe === "custom" ? "daily" : selectedTimeframe)
-  const cardCountData = getCardCountData(data, selectedTimeframe === "custom" ? "daily" : selectedTimeframe)
+  const timeframeData = getFilteredTimeframeData(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
+  const cardCountData = getCardCountData(data, selectedTimeframe === "custom" ? (customRangeConfirmed ? "daily" : "weekly") : selectedTimeframe)
   const availableDateRange = getAvailableDateRange(data)
+
+  // Debug logging
+  console.log("Available date range:", availableDateRange)
+  console.log("Custom start date:", customStartDate)
+  console.log("Custom end date:", customEndDate)
+  console.log("Custom range confirmed:", customRangeConfirmed)
+  console.log("Selected timeframe:", selectedTimeframe)
+  console.log("Timeframe data length:", timeframeData?.length)
+
+  // Get filtered metrics for custom timeframe
+  const filteredMetrics = getFilteredMetrics(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
 
   const {
     total_metrics,
@@ -263,6 +299,9 @@ export default function Page() {
           endDate={customEndDate}
           onDateRangeChange={handleDateRangeChange}
           availableDateRange={availableDateRange || undefined}
+          onReset={handleReset}
+          onConfirmCustomRange={handleConfirmCustomRange}
+          customRangeConfirmed={customRangeConfirmed}
         />
 
         {/* Metrics Section - Row 1: Primary Metrics */}
@@ -270,28 +309,28 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <MetricCard
               title="Total Submissions"
-              value={total_metrics.total_submissions}
+              value={filteredMetrics.total_submissions}
               format="number"
               accentColor="text-rbs-lime"
               icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
             />
             <MetricCard
               title="Active Bettors"
-              value={total_metrics.total_active_addresses}
+              value={filteredMetrics.total_active_addresses}
               format="number"
               accentColor="text-rbs-lime"
               icon={<Users className="w-5 h-5 text-rbs-over" />}
             />
             <MetricCard
               title="$MON Volume"
-              value={total_metrics.total_mon_volume}
+              value={filteredMetrics.total_mon_volume}
               format="currency"
               accentColor="text-rbs-lime"
               icon={<DollarSign className="w-5 h-5 text-rbs-focused" />}
             />
             <MetricCard
               title="$JERRY Volume"
-              value={total_metrics.total_jerry_volume}
+              value={filteredMetrics.total_jerry_volume}
               format="currency"
               accentColor="text-rbs-lime"
               icon={<DollarSign className="w-5 h-5 text-rbs-boxing" />}
@@ -306,13 +345,13 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <MetricCard
               title="Avg Submissions per Day"
-              value={average_metrics.avg_submissions_per_day}
+              value={filteredMetrics.avg_submissions_per_day}
               format="number"
               accentColor="text-rbs-lime"
               icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
             />
             <MetricCard
-              title={selectedTimeframe === "daily" ? "Daily Active Users" : selectedTimeframe === "weekly" ? "Weekly Active Users" : "Monthly Active Users"}
+              title={selectedTimeframe === "daily" ? "Daily Active Users" : selectedTimeframe === "weekly" ? "Weekly Active Users" : selectedTimeframe === "monthly" ? "Monthly Active Users" : selectedTimeframe === "custom" && customRangeConfirmed ? "Custom Range Active Users" : "Weekly Active Users"}
               value={getActiveUsersForTimeframe()}
               format="number"
               accentColor="text-rbs-lime"
@@ -320,7 +359,7 @@ export default function Page() {
             />
             <MetricCard
               title="Avg Cards per RareLink Slip"
-              value={average_metrics.avg_cards_per_slip}
+              value={filteredMetrics.avg_cards_per_slip}
               format="decimal"
               accentColor="text-rbs-lime"
               icon={<CreditCard className="w-5 h-5 text-rbs-focused" />}

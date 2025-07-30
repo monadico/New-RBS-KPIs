@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/letsencrypt
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - betting-analytics
+    restart: unless-stopped
+    networks:
+      - betting-network
+
+  betting-analytics:
+    build: .
+    container_name: betting-analytics
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount the database file for persistence
+      - ./betting_transactions.db:/app/betting_transactions.db
+      # Mount data directory for any additional files
+      - ./data:/app/data
+      # Mount analytics JSON files
+      - ./analytics_dump.json:/app/new/public/analytics_dump.json
+      - ./cohort_retention.json:/app/new/public/cohort_retention.json
+    environment:
+      - MONAD_HYPERSYNC_URL=${MONAD_HYPERSYNC_URL:-https://monad-testnet.hypersync.xyz}
+      - HYPERSYNC_BEARER_TOKEN=${HYPERSYNC_BEARER_TOKEN}
+      - IS_PRODUCTION=true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - betting-network
+
+  # Optional: Add a database update service
+  db-updater:
+    build: .
+    container_name: betting-db-updater
+    restart: "no"
+    command: ["python", "betting_database.py", "--incremental"]
+    volumes:
+      # Mount the entire data directory for persistence
+      - ./data:/app/data
+      # Also mount the database file directly for backward compatibility
+      - ./betting_transactions.db:/app/betting_transactions.db
+    environment:
+      - MONAD_HYPERSYNC_URL=${MONAD_HYPERSYNC_URL:-https://monad-testnet.hypersync.xyz}
+      - HYPERSYNC_BEARER_TOKEN=${HYPERSYNC_BEARER_TOKEN}
+    networks:
+      - betting-network
+    profiles:
+      - update
+
+networks:
+  betting-network:
+    driver: bridge 
