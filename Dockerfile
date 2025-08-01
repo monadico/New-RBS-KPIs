@@ -16,7 +16,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy Python application files
 COPY betting_database.py .
+COPY claiming_database.py .
 COPY json_query.py .
+COPY claiming_query.py .
 COPY api_server.py .
 COPY update_database.sh .
 RUN chmod +x update_database.sh

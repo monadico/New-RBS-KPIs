@@ -24,6 +24,8 @@ out/
 
 # Database (will be mounted as volume)
 betting_transactions.db
+comprehensive_claiming_transactions.db
+comprehensive_claiming_transactions_fixed.db
 
 # Development files
 *.log

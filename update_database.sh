@@ -40,54 +40,100 @@ if [ -d "venv" ]; then
     log_message "Activated virtual environment"
 fi
 
-# Check if database file exists, create if not
+# Check if betting database file exists, create if not
 if [ ! -f "/app/data/betting_transactions.db" ]; then
-    log_message "Database file not found, creating empty database file first..."
+    log_message "Betting database file not found, creating empty database file first..."
     touch /app/data/betting_transactions.db
     chmod 666 /app/data/betting_transactions.db
-    log_message "Empty database file created, running initial database creation..."
+    log_message "Empty betting database file created, running initial database creation..."
     python3 betting_database.py --db-path /app/data/betting_transactions.db --start-block 0
     if [ $? -eq 0 ]; then
-        log_message "Initial database creation completed successfully"
+        log_message "Initial betting database creation completed successfully"
     else
-        log_message "ERROR: Initial database creation failed"
+        log_message "ERROR: Initial betting database creation failed"
         exit 1
     fi
 fi
 
-# Run the database update with incremental flag
-log_message "Starting incremental database update..."
+# Check if claiming database file exists, create if not
+if [ ! -f "/app/data/comprehensive_claiming_transactions_fixed.db" ]; then
+    log_message "Claiming database file not found, creating empty database file first..."
+    touch /app/data/comprehensive_claiming_transactions_fixed.db
+    chmod 666 /app/data/comprehensive_claiming_transactions_fixed.db
+    log_message "Empty claiming database file created, running initial database creation..."
+    python3 claiming_database.py --start-block 0
+    if [ $? -eq 0 ]; then
+        log_message "Initial claiming database creation completed successfully"
+    else
+        log_message "ERROR: Initial claiming database creation failed"
+        exit 1
+    fi
+fi
+
+# Run the betting database update with incremental flag
+log_message "Starting incremental betting database update..."
 log_message "Current directory: $(pwd)"
-log_message "Database file exists: $(ls -la /app/data/betting_transactions.db 2>/dev/null || echo 'No database file')"
+log_message "Betting database file exists: $(ls -la /app/data/betting_transactions.db 2>/dev/null || echo 'No betting database file')"
 python3 betting_database.py --db-path /app/data/betting_transactions.db --incremental
 
 if [ $? -eq 0 ]; then
-    log_message "Database update completed successfully"
+    log_message "Betting database update completed successfully"
 else
-    log_message "ERROR: Database update failed"
+    log_message "ERROR: Betting database update failed"
     exit 1
 fi
 
-# Generate updated analytics JSON
-log_message "Generating analytics JSON..."
+# Run the claiming database update with incremental flag
+log_message "Starting incremental claiming database update..."
+log_message "Claiming database file exists: $(ls -la /app/data/comprehensive_claiming_transactions_fixed.db 2>/dev/null || echo 'No claiming database file')"
+python3 claiming_database.py --incremental
+
+if [ $? -eq 0 ]; then
+    log_message "Claiming database update completed successfully"
+else
+    log_message "ERROR: Claiming database update failed"
+    exit 1
+fi
+
+# Generate updated betting analytics JSON
+log_message "Generating betting analytics JSON..."
 python3 json_query.py
 
 if [ $? -eq 0 ]; then
-    log_message "Analytics JSON generated successfully"
+    log_message "Betting analytics JSON generated successfully"
 else
-    log_message "ERROR: Analytics JSON generation failed"
+    log_message "ERROR: Betting analytics JSON generation failed"
     exit 1
 fi
 
-# Copy the updated JSON to the frontend deployment directory
+# Generate updated claiming analytics JSON
+log_message "Generating claiming analytics JSON..."
+python3 claiming_query.py
+
+if [ $? -eq 0 ]; then
+    log_message "Claiming analytics JSON generated successfully"
+else
+    log_message "ERROR: Claiming analytics JSON generation failed"
+    exit 1
+fi
+
+# Copy the updated JSON files to the frontend deployment directory
 if [ -f "new/public/analytics_dump.json" ]; then
     cp new/public/analytics_dump.json frontend-deployment/public/analytics_dump.json
-    log_message "Copied analytics JSON to frontend deployment"
+    log_message "Copied betting analytics JSON to frontend deployment"
+fi
+
+if [ -f "new/public/claiming_analytics_dump.json" ]; then
+    cp new/public/claiming_analytics_dump.json frontend-deployment/public/claiming_analytics_dump.json
+    log_message "Copied claiming analytics JSON to frontend deployment"
 fi
 
 # Show database statistics
-log_message "Database Statistics:"
+log_message "Betting Database Statistics:"
 python3 betting_database.py --stats | tee -a "$LOG_FILE"
+
+log_message "Claiming Database Statistics:"
+python3 claiming_database.py --stats | tee -a "$LOG_FILE"
 
 log_message "=== Database Update Complete ==="
 log_message ""

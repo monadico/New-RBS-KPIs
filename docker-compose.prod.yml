@@ -14,6 +14,7 @@ services:
       - ./betting_transactions.db:/app/betting_transactions.db
       # Mount analytics JSON files
       - ./analytics_dump.json:/app/new/public/analytics_dump.json
+      - ./claiming_analytics_dump.json:/app/new/public/claiming_analytics_dump.json
       - ./cohort_retention.json:/app/new/public/cohort_retention.json
     environment:
       - MONAD_HYPERSYNC_URL=${MONAD_HYPERSYNC_URL:-https://monad-testnet.hypersync.xyz}
@@ -33,7 +34,7 @@ services:
     build: .
     container_name: betting-db-updater
     restart: "no"
-    command: ["python", "betting_database.py", "--incremental"]
+    command: ["bash", "-c", "python betting_database.py --incremental && python claiming_database.py --incremental && python json_query.py && python claiming_query.py"]
     volumes:
       # Mount the entire data directory for persistence
       - ./data:/app/data
