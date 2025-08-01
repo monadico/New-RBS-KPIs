@@ -35,7 +35,7 @@ if IS_PRODUCTION:
     FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/claiming_analytics_dump.json"
     COMPRESSED_FILE = "/app/new/public/claiming_analytics_dump.json.gz"
 else:
-    DB_PATH = os.getenv('CLAIMING_DB_PATH', 'comprehensive_claiming_transactions.db')
+    DB_PATH = os.getenv('CLAIMING_DB_PATH', 'comprehensive_claiming_transactions_fixed.db')
     OUTPUT_FILE = "claiming_analytics_dump.json"
     FRONTEND_PUBLIC = "new/public/claiming_analytics_dump.json"
     FRONTEND_DEPLOYMENT_PUBLIC = "frontend-deployment/public/claiming_analytics_dump.json"

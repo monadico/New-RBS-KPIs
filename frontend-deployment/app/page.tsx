@@ -14,6 +14,7 @@ import { OverallSlipsPie } from "@/components/rbs-charts/overall-slips-pie"
 import { MonJerryVolumeArea } from "@/components/rbs-charts/mon-jerry-volume-area"
 import { TotalAvgCardsChart } from "@/components/rbs-charts/total-avg-cards-chart"
 import { TokenVolumeDistributionPie } from "@/components/rbs-charts/token-volume-distribution-pie"
+import { ClaimingVolumeDistributionPie } from "@/components/rbs-charts/claiming-volume-distribution-pie"
 
 // Claiming Chart Components
 // import { ClaimingVolumeChart } from "@/components/claiming-charts/claiming-volume-chart"
@@ -49,6 +50,7 @@ export default function Page() {
   const [customEndDate, setCustomEndDate] = useState<Date | undefined>(undefined)
   const [customRangeConfirmed, setCustomRangeConfirmed] = useState(false)
   const [data, setData] = useState<AnalyticsData | null>(null)
+  const [claimingAnalytics, setClaimingAnalytics] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
@@ -77,6 +79,7 @@ export default function Page() {
           : 'http://localhost:8000'
         console.log('🔍 Trying API URL:', `${apiUrl}/api/analytics`)
         
+        // Fetch betting analytics data
         const response = await fetch(`${apiUrl}/api/analytics`)
         console.log('📡 API Response status:', response.status)
         console.log('📡 API Response ok:', response.ok)
@@ -96,6 +99,41 @@ export default function Page() {
           const json = await response.json()
           console.log('✅ Using API data')
           setData(json)
+        }
+
+        // Fetch claiming analytics data
+        console.log('🔍 Fetching claiming analytics...')
+        const claimingResponse = await fetch(`${apiUrl}/api/claiming/analytics`)
+        console.log('📡 Claiming API Response status:', claimingResponse.status)
+        console.log('📡 Claiming API Response ok:', claimingResponse.ok)
+        
+        if (claimingResponse.ok) {
+          const claimingJson = await claimingResponse.json()
+          console.log('✅ Using claiming API data')
+          console.log('📊 Claiming data received:', claimingJson.total_metrics)
+          setClaimingAnalytics(claimingJson)
+        } else {
+          console.log('⚠️ Claiming API failed, trying static JSON')
+          // Fallback to static claiming JSON
+          try {
+            console.log('🔄 Trying static claiming JSON...')
+            const staticClaimingResponse = await fetch('/claiming_analytics_dump.json')
+            console.log('📡 Static claiming JSON Response status:', staticClaimingResponse.status)
+            console.log('📡 Static claiming JSON Response ok:', staticClaimingResponse.ok)
+            
+            if (staticClaimingResponse.ok) {
+              const claimingJson = await staticClaimingResponse.json()
+              console.log('📁 Using static claiming JSON data')
+              console.log('📊 Static claiming data received:', claimingJson.total_metrics)
+              setClaimingAnalytics(claimingJson)
+            } else {
+              console.log('❌ Static claiming JSON failed with status:', staticClaimingResponse.status)
+              setClaimingAnalytics(null)
+            }
+          } catch (claimingErr) {
+            console.log('❌ Static claiming JSON also failed with error:', claimingErr)
+            setClaimingAnalytics(null)
+          }
         }
       } catch (err: any) {
         console.error('❌ Error loading analytics data:', err)
@@ -203,6 +241,21 @@ export default function Page() {
       title: "Token Volume Distribution - Detailed View",
       description: "Overall deposit volume distribution by token (MON vs JERRY)",
       component: <TokenVolumeDistributionPie data={timeframeData} isModal={true} />
+    })
+  }
+
+  const handleClaimingVolumeDistributionClick = () => {
+    if (!claimingAnalytics) return
+    openModal({
+      title: "Claiming Volume Distribution - Detailed View",
+      description: "Distribution of claimed tokens between $MON and $JERRY",
+      component: (
+        <ClaimingVolumeDistributionPie 
+          monVolume={claimingAnalytics.total_metrics?.total_mon_volume || 0}
+          jerryVolume={claimingAnalytics.total_metrics?.total_jerry_volume || 0}
+          isModal={true}
+        />
+      )
     })
   }
 
@@ -436,28 +489,39 @@ export default function Page() {
           className="animate-fade-in-delayed"
           style={{ animationDelay: "0.75s" }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <MetricCard
               title="Total Claimer Addresses"
-              value={0}
+              value={claimingAnalytics?.total_metrics?.total_unique_claimers || 0}
               format="number"
               accentColor="text-rbs-lime"
               icon={<Users className="w-5 h-5 text-rbs-over" />}
             />
             <MetricCard
               title="Total MON Claimed"
-              value={data.total_metrics?.total_mon_volume || 0}
+              value={claimingAnalytics?.total_metrics?.total_mon_volume || 0}
               format="currency"
               accentColor="text-rbs-lime"
               icon={<DollarSign className="w-5 h-5 text-rbs-under" />}
             />
             <MetricCard
               title="Total JERRY Claimed"
-              value={data.total_metrics?.total_jerry_volume || 0}
+              value={claimingAnalytics?.total_metrics?.total_jerry_volume || 0}
               format="currency"
               accentColor="text-rbs-lime"
               icon={<DollarSign className="w-5 h-5 text-rbs-focused" />}
             />
+          </div>
+          
+          {/* Claiming Volume Distribution Chart */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-1">
+              <ClaimingVolumeDistributionPie 
+                monVolume={claimingAnalytics?.total_metrics?.total_mon_volume || 0}
+                jerryVolume={claimingAnalytics?.total_metrics?.total_jerry_volume || 0}
+                onChartClick={handleClaimingVolumeDistributionClick}
+              />
+            </div>
           </div>
         </section>
 

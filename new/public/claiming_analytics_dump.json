@@ -1,7 +1,7 @@
 {
   "success": true,
   "metadata": {
-    "generated_at": "2025-08-01T14:56:45.464326Z",
+    "generated_at": "2025-08-01T15:29:21.803648Z",
     "timeframes_available": [
       "daily",
       "weekly",
@@ -13,9 +13,9 @@
   "total_metrics": {
     "total_claims": 194335,
     "total_unique_claimers": 71239,
-    "total_mon_volume": 192120.76315,
+    "total_mon_volume": 181032.26315,
     "total_jerry_volume": 7585.25,
-    "total_rbsd_volume": 0.0
+    "total_rbsd_volume": 11088.5
   },
   "average_metrics": {
     "avg_claims_per_day": 1439.52,
@@ -29,9 +29,9 @@
   "claiming_stats_by_periods": [
     {
       "period": "All Time",
-      "mon_volume": 192120.76315,
+      "mon_volume": 181032.26315,
       "jerry_volume": 7585.25,
-      "rbsd_volume": 0.0,
+      "rbsd_volume": 11088.5,
       "total_volume": 199706.01315,
       "claims": 194335,
       "unique_claimers": 71239,
@@ -93,14 +93,14 @@
           "claims": 3,
           "active_claimers": 1,
           "new_claimers": 1,
-          "mon_volume": 3150.0,
+          "mon_volume": 0.0,
           "jerry_volume": 0.0,
-          "rbsd_volume": 0.0,
+          "rbsd_volume": 3150.0,
           "total_volume": 3150.0,
           "avg_claim_amount": 1050.0,
-          "mon_transactions": 3,
+          "mon_transactions": 0,
           "jerry_transactions": 0,
-          "rbsd_transactions": 0
+          "rbsd_transactions": 3
         },
         {
           "period": 12,
@@ -109,14 +109,14 @@
           "claims": 3,
           "active_claimers": 1,
           "new_claimers": 0,
-          "mon_volume": 3000.0,
+          "mon_volume": 0.0,
           "jerry_volume": 0.0,
-          "rbsd_volume": 0.0,
+          "rbsd_volume": 3000.0,
           "total_volume": 3000.0,
           "avg_claim_amount": 1000.0,
-          "mon_transactions": 3,
+          "mon_transactions": 0,
           "jerry_transactions": 0,
-          "rbsd_transactions": 0
+          "rbsd_transactions": 3
         },
         {
           "period": 18,
@@ -125,14 +125,14 @@
           "claims": 44,
           "active_claimers": 36,
           "new_claimers": 35,
-          "mon_volume": 1062.7,
+          "mon_volume": 40.2,
           "jerry_volume": 0.0,
-          "rbsd_volume": 0.0,
+          "rbsd_volume": 1022.5,
           "total_volume": 1062.7,
           "avg_claim_amount": 24.152272727272727,
-          "mon_transactions": 44,
+          "mon_transactions": 40,
           "jerry_transactions": 0,
-          "rbsd_transactions": 0
+          "rbsd_transactions": 4
         },
         {
           "period": 19,
@@ -157,14 +157,14 @@
           "claims": 117,
           "active_claimers": 89,
           "new_claimers": 64,
-          "mon_volume": 4154.75,
+          "mon_volume": 238.75,
           "jerry_volume": 0.0,
-          "rbsd_volume": 0.0,
+          "rbsd_volume": 3916.0,
           "total_volume": 4154.75,
           "avg_claim_amount": 35.51068376068376,
-          "mon_transactions": 117,
+          "mon_transactions": 115,
           "jerry_transactions": 0,
-          "rbsd_transactions": 0
+          "rbsd_transactions": 2
         },
         {
           "period": 21,
@@ -2257,14 +2257,14 @@
           "claims": 6,
           "active_claimers": 1,
           "new_claimers": 1,
-          "mon_volume": 6150.0,
+          "mon_volume": 0.0,
           "jerry_volume": 0.0,
-          "rbsd_volume": 0.0,
+          "rbsd_volume": 6150.0,
           "total_volume": 6150.0,
           "avg_claim_amount": 1025.0,
-          "mon_transactions": 6,
+          "mon_transactions": 0,
           "jerry_transactions": 0,
-          "rbsd_transactions": 0
+          "rbsd_transactions": 6
         },
         {
           "period": 3,
@@ -2273,14 +2273,14 @@
           "claims": 403,
           "active_claimers": 281,
           "new_claimers": 280,
-          "mon_volume": 5625.7,
+          "mon_volume": 687.2,
           "jerry_volume": 0.0,
-          "rbsd_volume": 0.0,
+          "rbsd_volume": 4938.5,
           "total_volume": 5625.7,
           "avg_claim_amount": 13.95955334987593,
-          "mon_transactions": 403,
+          "mon_transactions": 397,
           "jerry_transactions": 0,
-          "rbsd_transactions": 0
+          "rbsd_transactions": 6
         },
         {
           "period": 4,
@@ -2597,14 +2597,14 @@
           "claims": 1623,
           "active_claimers": 929,
           "new_claimers": 929,
-          "mon_volume": 13439.35,
+          "mon_volume": 2350.85,
           "jerry_volume": 0.0,
-          "rbsd_volume": 0.0,
+          "rbsd_volume": 11088.5,
           "total_volume": 13439.35,
           "avg_claim_amount": 8.2805606900801,
-          "mon_transactions": 1623,
+          "mon_transactions": 1611,
           "jerry_transactions": 0,
-          "rbsd_transactions": 0
+          "rbsd_transactions": 12
         },
         {
           "period": 2,
@@ -2697,14 +2697,14 @@
       "claims": 6,
       "active_claimers": 1,
       "new_claimers": 1,
-      "mon_volume": 6150.0,
+      "mon_volume": 0.0,
       "jerry_volume": 0.0,
-      "rbsd_volume": 0.0,
+      "rbsd_volume": 6150.0,
       "total_volume": 6150.0,
       "avg_claim_amount": 1025.0,
-      "mon_transactions": 6,
+      "mon_transactions": 0,
       "jerry_transactions": 0,
-      "rbsd_transactions": 0
+      "rbsd_transactions": 6
     },
     {
       "period": 3,
@@ -2713,14 +2713,14 @@
       "claims": 403,
       "active_claimers": 281,
       "new_claimers": 280,
-      "mon_volume": 5625.7,
+      "mon_volume": 687.2,
       "jerry_volume": 0.0,
-      "rbsd_volume": 0.0,
+      "rbsd_volume": 4938.5,
       "total_volume": 5625.7,
       "avg_claim_amount": 13.95955334987593,
-      "mon_transactions": 403,
+      "mon_transactions": 397,
       "jerry_transactions": 0,
-      "rbsd_transactions": 0
+      "rbsd_transactions": 6
     },
     {
       "period": 4,
@@ -3041,9 +3041,9 @@
     {
       "rank": 2,
       "user_address": "0xd5f925cad78d091f1a5ee5fc7093f2cd44b4647a",
-      "total_mon": 11128.05,
+      "total_mon": 39.55,
       "total_jerry": 62.5,
-      "total_rbsd": 0.0,
+      "total_rbsd": 11088.5,
       "total_claimed": 11190.55,
       "total_claims": 27,
       "active_days": 17
