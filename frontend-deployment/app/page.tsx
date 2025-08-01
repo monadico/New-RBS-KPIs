@@ -15,6 +15,12 @@ import { MonJerryVolumeArea } from "@/components/rbs-charts/mon-jerry-volume-are
 import { TotalAvgCardsChart } from "@/components/rbs-charts/total-avg-cards-chart"
 import { TokenVolumeDistributionPie } from "@/components/rbs-charts/token-volume-distribution-pie"
 
+// Claiming Chart Components
+// import { ClaimingVolumeChart } from "@/components/claiming-charts/claiming-volume-chart"
+// import { ClaimingTokenDistributionPie } from "@/components/claiming-charts/claiming-token-distribution-pie"
+// import { ClaimingActivityTimeline } from "@/components/claiming-charts/claiming-activity-timeline"
+// import { ClaimingUserActivityChart } from "@/components/claiming-charts/claiming-user-activity-chart"
+
 // Table Components
 import { RbsDailyStatsTable } from "@/components/rbs-tables/rbs-daily-stats-table"
 import { RbsPeriodsTable } from "@/components/rbs-tables/rbs-periods-table"
@@ -199,6 +205,49 @@ export default function Page() {
       component: <TokenVolumeDistributionPie data={timeframeData} isModal={true} />
     })
   }
+
+  // Claiming Activity Click Handlers - Coming Soon
+  /*
+  const handleClaimingVolumeClick = () => {
+    if (!data) return
+    const claimingData = data.claiming_data || []
+    openModal({
+      title: "Claiming Volume - Detailed View",
+      description: "MON and JERRY claiming volumes over time",
+      component: <ClaimingVolumeChart data={claimingData} isModal={true} />
+    })
+  }
+
+  const handleClaimingTokenDistributionClick = () => {
+    if (!data) return
+    const claimingData = data.claiming_data || []
+    openModal({
+      title: "Claiming Token Distribution - Detailed View",
+      description: "Distribution of MON vs JERRY claiming transactions",
+      component: <ClaimingTokenDistributionPie data={claimingData} isModal={true} />
+    })
+  }
+
+  const handleClaimingActivityClick = () => {
+    if (!data) return
+    const claimingData = data.claiming_data || []
+    openModal({
+      title: "Claiming Activity Timeline - Detailed View",
+      description: "Timeline of claiming activity and patterns",
+      component: <ClaimingActivityTimeline data={claimingData} isModal={true} />
+    })
+  }
+
+  const handleClaimingUserActivityClick = () => {
+    if (!data) return
+    const claimingData = data.claiming_data || []
+    openModal({
+      title: "Claiming User Activity - Detailed View",
+      description: "User activity patterns in claiming transactions",
+      component: <ClaimingUserActivityChart data={claimingData} isModal={true} />
+    })
+  }
+  */
   
   // Calculate active users based on selected timeframe
   const getActiveUsersForTimeframe = () => {
@@ -256,6 +305,9 @@ export default function Page() {
   const timeframeData = getFilteredTimeframeData(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
   const cardCountData = getCardCountData(data, selectedTimeframe === "custom" ? (customRangeConfirmed ? "daily" : "weekly") : selectedTimeframe)
   const availableDateRange = getAvailableDateRange(data)
+  
+  // Get claiming data (placeholder for now)
+  const claimingData = data.claiming_data || []
 
   // Debug logging
   console.log("Available date range:", availableDateRange)
@@ -377,6 +429,65 @@ export default function Page() {
           <NewBettorsChart data={timeframeData} onChartClick={handleNewBettorsChartClick} />
           <MonJerryVolumeArea data={timeframeData} onChartClick={handleVolumeChartClick} />
         </section>
+
+        {/* Claiming Metrics Section */}
+        <section
+          id="claiming-metrics"
+          className="animate-fade-in-delayed"
+          style={{ animationDelay: "0.75s" }}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <MetricCard
+              title="Total Claimer Addresses"
+              value={0}
+              format="number"
+              accentColor="text-rbs-lime"
+              icon={<Users className="w-5 h-5 text-rbs-over" />}
+            />
+            <MetricCard
+              title="Total MON Claimed"
+              value={data.total_metrics?.total_mon_volume || 0}
+              format="currency"
+              accentColor="text-rbs-lime"
+              icon={<DollarSign className="w-5 h-5 text-rbs-under" />}
+            />
+            <MetricCard
+              title="Total JERRY Claimed"
+              value={data.total_metrics?.total_jerry_volume || 0}
+              format="currency"
+              accentColor="text-rbs-lime"
+              icon={<DollarSign className="w-5 h-5 text-rbs-focused" />}
+            />
+          </div>
+        </section>
+
+        {/* Claiming Activity Section - Coming Soon */}
+        {/* <section
+          id="claiming"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed"
+          style={{ animationDelay: "0.8s" }}
+        >
+          <div className="lg:col-span-1">
+            <div className="h-full flex flex-col space-y-6">
+              <div className="flex-1">
+                <ClaimingVolumeChart data={claimingData} onChartClick={handleClaimingVolumeClick} />
+              </div>
+              <div className="flex-1">
+                <ClaimingTokenDistributionPie data={claimingData} onChartClick={handleClaimingTokenDistributionClick} />
+              </div>
+            </div>
+          </div>
+          <div className="lg:col-span-2">
+            <div className="h-full flex flex-col space-y-6">
+              <div className="flex-1">
+                <ClaimingActivityTimeline data={claimingData} onChartClick={handleClaimingActivityClick} />
+              </div>
+              <div className="flex-1">
+                <ClaimingUserActivityChart data={claimingData} onChartClick={handleClaimingUserActivityClick} />
+              </div>
+            </div>
+          </div>
+        </section> */}
 
         {/* Charts Section - Row 2: Three Charts (Balanced Layout) */}
         <section

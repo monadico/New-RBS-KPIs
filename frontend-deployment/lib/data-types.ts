@@ -131,6 +131,9 @@ export interface AnalyticsData {
   timeframes?: {
     [key: string]: TimeframeData
   }
+  
+  // Claiming data
+  claiming_data?: ClaimingData[]
 }
 
 export interface DailyData {
@@ -139,6 +142,16 @@ export interface DailyData {
   mon_volume: number
   jerry_volume: number
   [key: string]: any
+}
+
+export interface ClaimingData {
+  date: string
+  mon_volume: number
+  jerry_volume: number
+  transactions: number
+  unique_users: number
+  active_claimers: number
+  new_claimers: number
 }
 
 export interface CalendarCell {

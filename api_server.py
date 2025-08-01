@@ -35,9 +35,11 @@ app.add_middleware(
 if IS_PRODUCTION:
     DB_PATH = "/app/data/betting_transactions.db"
     JSON_FILE_PATH = "/app/new/public/analytics_dump.json"
+    CLAIMING_JSON_FILE_PATH = "/app/new/public/claiming_analytics_dump.json"
 else:
     DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
     JSON_FILE_PATH = "new/public/analytics_dump.json"
+    CLAIMING_JSON_FILE_PATH = "new/public/claiming_analytics_dump.json"
 
 @app.get("/")
 async def root():
@@ -48,6 +50,9 @@ async def root():
             "/api/analytics": "Get complete analytics data",
             "/api/analytics/rbs-stats": "Get RBS statistics",
             "/api/analytics/volume-data": "Get volume data for charts",
+            "/api/claiming/analytics": "Get complete claiming analytics data",
+            "/api/claiming/stats": "Get claiming statistics",
+            "/api/claiming/volume-data": "Get claiming volume data for charts",
             "/docs": "API documentation"
         }
     }
@@ -108,6 +113,64 @@ async def get_volume_data():
             return {"volume_data": volume_data}
         else:
             return {"error": "Analytics data not found"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/claiming/analytics")
+async def get_claiming_analytics():
+    """Get all claiming analytics data from pre-computed JSON file"""
+    try:
+        json_file = Path(CLAIMING_JSON_FILE_PATH)
+        if json_file.exists():
+            print("📁 Serving pre-computed claiming analytics JSON...")
+            with open(json_file, 'r') as f:
+                data = json.load(f)
+            print("✅ Claiming analytics JSON served successfully")
+            return data
+        else:
+            print("❌ Claiming analytics JSON file not found")
+            return {"error": "Claiming analytics data not found. Run claiming_query.py first."}
+    except Exception as e:
+        print(f"❌ Error reading claiming analytics JSON: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/claiming/stats")
+async def get_claiming_stats():
+    """Get claiming stats from pre-computed JSON file"""
+    try:
+        json_file = Path(CLAIMING_JSON_FILE_PATH)
+        if json_file.exists():
+            with open(json_file, 'r') as f:
+                data = json.load(f)
+            return {"claiming_stats": data.get("claiming_stats_by_periods", [])}
+        else:
+            return {"error": "Claiming analytics data not found"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/claiming/volume-data")
+async def get_claiming_volume_data():
+    """Get claiming volume data from pre-computed JSON file"""
+    try:
+        json_file = Path(CLAIMING_JSON_FILE_PATH)
+        if json_file.exists():
+            with open(json_file, 'r') as f:
+                data = json.load(f)
+            # Extract volume data from the JSON
+            activity_over_time = data.get("timeframes", {}).get("daily", {}).get("activity_over_time", [])
+            
+            # Format for volume charts
+            volume_data = []
+            for entry in activity_over_time[-7:]:  # Last 7 days
+                volume_data.append({
+                    "date": entry.get('period', ''),
+                    "volume": entry.get('total_volume', 0),
+                    "claims": entry.get('claims', 0)
+                })
+            
+            return {"volume_data": volume_data}
+        else:
+            return {"error": "Claiming analytics data not found"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
