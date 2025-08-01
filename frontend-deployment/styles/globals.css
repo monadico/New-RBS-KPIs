@@ -92,3 +92,41 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom Calendar Styles to fix alignment */
+.rdp-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+.rdp-head_row {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 0 !important;
+  width: 100% !important;
+}
+
+.rdp-head_cell {
+  text-align: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: auto !important;
+  font-size: 0.8rem !important;
+  font-weight: normal !important;
+}
+
+.rdp-row {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  margin-top: 0.5rem !important;
+}
+
+.rdp-cell {
+  text-align: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: auto !important;
+  height: 2.25rem !important;
+}
