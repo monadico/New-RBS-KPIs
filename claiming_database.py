@@ -16,6 +16,7 @@ import sqlite3
 from datetime import datetime
 from dotenv import load_dotenv
 from typing import List, Dict, Any, Tuple
+from contextlib import contextmanager
 
 # Load environment variables
 load_dotenv('.env.local')
@@ -54,9 +55,18 @@ class ComprehensiveClaimingDatabase:
         self.db_path = db_path
         self.init_database()
     
+    @contextmanager
+    def get_connection(self):
+        """Context manager for database connections."""
+        conn = sqlite3.connect(self.db_path)
+        try:
+            yield conn
+        finally:
+            conn.close()
+    
     def init_database(self):
         """Initialize the database with the claiming transactions table."""
-        with sqlite3.connect(self.db_path) as conn:
+        with self.get_connection() as conn:
             cursor = conn.cursor()
             
             # Create claiming transactions table
@@ -104,7 +114,7 @@ class ComprehensiveClaimingDatabase:
         if not transactions:
             return 0
         
-        with sqlite3.connect(self.db_path) as conn:
+        with self.get_connection() as conn:
             cursor = conn.cursor()
             inserted_count = 0
             
@@ -134,7 +144,7 @@ class ComprehensiveClaimingDatabase:
     
     def get_last_processed_block(self) -> int:
         """Get the last processed block number."""
-        with sqlite3.connect(self.db_path) as conn:
+        with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT last_processed_block FROM checkpoints ORDER BY id DESC LIMIT 1")
             result = cursor.fetchone()
@@ -142,7 +152,7 @@ class ComprehensiveClaimingDatabase:
     
     def update_last_processed_block(self, block_number: int):
         """Update the last processed block number."""
-        with sqlite3.connect(self.db_path) as conn:
+        with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
                 UPDATE checkpoints 
@@ -154,7 +164,7 @@ class ComprehensiveClaimingDatabase:
     
     def get_database_stats(self) -> Dict[str, Any]:
         """Get database statistics."""
-        with sqlite3.connect(self.db_path) as conn:
+        with self.get_connection() as conn:
             cursor = conn.cursor()
             
             # Basic stats
@@ -426,15 +436,18 @@ async def fetch_all_claiming_transactions_fixed(client: HypersyncClient, start_b
     
     return mon_transactions, jerry_transactions, rbsd_transactions
 
-async def process_all_claiming_transactions(db: ComprehensiveClaimingDatabase, client: HypersyncClient, start_block: int = None):
-    """Process all claiming transactions from start_block to current height."""
+async def process_all_claiming_transactions(db: ComprehensiveClaimingDatabase, client: HypersyncClient, start_block: int = None, end_block: int = None):
+    """Process all claiming transactions from start_block to end_block."""
     if start_block is None:
         start_block = db.get_last_processed_block()
         if start_block == 0:
             start_block = 0  # Start from block 0 for complete historical data
     
-    end_block = await client.get_height()
-    print(f"Current blockchain height: {end_block}")
+    if end_block is None:
+        end_block = await client.get_height()
+        print(f"Current blockchain height: {end_block}")
+    else:
+        print(f"Using specified end block: {end_block}")
     
     if start_block >= end_block:
         print(f"No new blocks to process (last processed: {start_block}, current: {end_block})")
@@ -570,12 +583,12 @@ async def main():
     parser = argparse.ArgumentParser(description="Claiming Database System")
     parser.add_argument("--incremental", action="store_true", help="Only fetch new data")
     parser.add_argument("--start-block", type=int, help="Start from specific block")
+    parser.add_argument("--end-block", type=int, help="End at specific block (defaults to current height)")
     parser.add_argument("--stats", action="store_true", help="Show database statistics")
-    parser.add_argument("--db-path", type=str, default="comprehensive_claiming_transactions.db", help="Path to database file")
     args = parser.parse_args()
     
     # Initialize database
-    db = ComprehensiveClaimingDatabase(db_path=args.db_path)
+    db = ComprehensiveClaimingDatabase(db_path="comprehensive_claiming_transactions_fixed.db")
     
     # Initialize Hypersync client
     config = ClientConfig(
@@ -609,7 +622,7 @@ async def main():
         print(f"Starting data processing from block {start_block}")
         
         # Process and store data
-        inserted_count = await process_all_claiming_transactions(db, client, start_block)
+        inserted_count = await process_all_claiming_transactions(db, client, start_block, args.end_block)
         
         if inserted_count > 0:
             print(f"\nProcessing complete! Inserted {inserted_count} new transactions.")

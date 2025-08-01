@@ -85,6 +85,8 @@ docs/_build/
 
 # Database files
 betting_transactions.db
+comprehensive_claiming_transactions.db
+comprehensive_claiming_transactions_fixed.db
 *.db
 
 # Analytics data files
