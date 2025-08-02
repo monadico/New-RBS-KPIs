@@ -31,6 +31,25 @@ export function DashboardHeader() {
       // If scrolling down and past threshold, keep hidden until scroll up.
 
       setLastScrollY(currentScrollY)
+
+      // Scroll spy functionality
+      const sections = navItems.map(item => ({
+        id: item.href.substring(1),
+        label: item.label
+      }))
+
+      let currentSection = "Overview"
+      for (const section of sections) {
+        const element = document.getElementById(section.id)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            currentSection = section.label
+            break
+          }
+        }
+      }
+      setActiveNav(currentSection)
     }
 
     window.addEventListener("scroll", handleScroll)
@@ -42,13 +61,20 @@ export function DashboardHeader() {
 
   const navItems = [
     { label: "Overview", href: "#overview" },
-    { label: "Submissions", href: "#submissions" },
-    { label: "Volume", href: "#volume" },
-    { label: "Players", href: "#players" },
+    { label: "Stats and Retention", href: "#stats-retention" },
     { label: "Heatmaps", href: "#heatmaps" },
-    { label: "Top Bettors", href: "#top-bettors" },
-    { label: "Raw Data", href: "#raw-data" },
   ]
+
+  const handleNavClick = (href: string, label: string) => {
+    setActiveNav(label)
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
 
   return (
     <header
@@ -62,10 +88,9 @@ export function DashboardHeader() {
           {/* Main Navigation */}
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.label}
-                href={item.href}
-                onClick={() => setActiveNav(item.label)}
+                onClick={() => handleNavClick(item.href, item.label)}
                 className={cn(
                   "relative text-sm font-medium py-2 px-3 rounded-lg transition-all duration-300",
                   "before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-0.5 before:bg-rbs-lime before:rounded-full before:transition-all before:duration-300",
@@ -75,7 +100,7 @@ export function DashboardHeader() {
                 )}
               >
                 {item.label}
-              </a>
+              </button>
             ))}
           </nav>
 

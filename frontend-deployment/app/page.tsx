@@ -462,7 +462,7 @@ export default function Page() {
         />
 
         {/* Betting Analytics Section */}
-        <section className="space-y-8">
+        <section id="overview" className="space-y-8">
           {/* Betting Metrics Cards */}
           <div className="space-y-6">
             {/* Primary Metrics */}
@@ -617,8 +617,8 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Tables Section */}
-        <section className="animate-fade-in-delayed" style={{ animationDelay: "1.2s" }}>
+        {/* Stats and Retention Section */}
+        <section id="stats-retention" className="animate-fade-in-delayed" style={{ animationDelay: "1.2s" }}>
           <div className="space-y-8">
             <ProtectedComponent 
               title="Daily Statistics" 
@@ -626,6 +626,8 @@ export default function Page() {
             >
               <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
             </ProtectedComponent>
+            
+            <TopBettorsTable data={top_bettors} />
             
             {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
               <ProtectedComponent 
@@ -644,13 +646,11 @@ export default function Page() {
                 <CohortRetentionTable data={cohort_retention} />
               </ProtectedComponent>
             )}
-            
-            <TopBettorsTable data={top_bettors} />
           </div>
         </section>
 
         {/* Heatmaps Section */}
-        <section className="animate-fade-in-delayed" style={{ animationDelay: "1.3s" }}>
+        <section id="heatmaps" className="animate-fade-in-delayed" style={{ animationDelay: "1.3s" }}>
           <div className="space-y-8">
             <ProtectedComponent 
               title="Activity Heatmap" 
@@ -666,6 +666,8 @@ export default function Page() {
             </ProtectedComponent>
           </div>
         </section>
+
+
       </main>
 
       {/* Chart Modal */}
