@@ -10,9 +10,20 @@ import argparse
 from datetime import datetime, date
 from typing import Dict, Any, List, Optional
 import sys
+import os
+from dotenv import load_dotenv
 
-# Database path
-DB_PATH = "betting_transactions.db"
+# Load environment variables
+load_dotenv('.env.local')  # Load local environment first
+load_dotenv()  # Load any other .env files
+
+# Environment-based configuration
+IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
+
+if IS_PRODUCTION:
+    DB_PATH = "/app/data/betting_transactions.db"
+else:
+    DB_PATH = "data/betting_transactions.db"
 
 def get_connection():
     """Get database connection with proper datetime handling."""

@@ -3,8 +3,20 @@ import sqlite3
 import json
 from datetime import datetime, date
 from typing import Dict, Any
+import os
+from dotenv import load_dotenv
 
-DB_PATH = "comprehensive_claiming_transactions_fixed.db"
+# Load environment variables
+load_dotenv('.env.local')  # Load local environment first
+load_dotenv()  # Load any other .env files
+
+# Environment-based configuration
+IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
+
+if IS_PRODUCTION:
+    DB_PATH = "/app/data/comprehensive_claiming_transactions_fixed.db"
+else:
+    DB_PATH = "data/comprehensive_claiming_transactions_fixed.db"
 
 def get_connection():
     """Get database connection with proper datetime handling."""
