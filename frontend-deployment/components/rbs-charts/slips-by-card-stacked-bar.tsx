@@ -8,7 +8,7 @@ import type { TimeframeCardCounts } from "@/lib/data-types"
 import { formatNumber } from "@/lib/utils"
 import { CHART_COLORS } from "@/lib/chart-colors"
 
-const CARD_COUNTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const CARD_COUNTS = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 interface SlipsByCardStackedBarProps {
   data: TimeframeCardCounts[]
@@ -32,7 +32,7 @@ export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: S
     // Fill in actual data - card_counts is a number array where index corresponds to card count
     period.card_counts.forEach((bets, index) => {
       if (bets > 0) {
-        const cardCount = index + 1 // card counts start from 1
+        const cardCount = index + 2 // card counts start from 2
         const key = `${cardCount}cards`
         transformed[key] = bets
         transformed.total += bets

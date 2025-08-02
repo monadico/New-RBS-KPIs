@@ -62,7 +62,7 @@ def get_custom_range_metrics(start_date: str, end_date: str) -> Dict[str, Any]:
         print(f"Querying database for date range: {start_date} to {end_date}")
         print(f"Datetime range: {start_datetime} to {end_datetime}")
         
-        # Query transactions within the date range
+        # Query transactions within the date range (filter out claiming transactions with 0 cards)
         query = """
         SELECT 
             COUNT(*) as total_submissions,
@@ -75,7 +75,7 @@ def get_custom_range_metrics(start_date: str, end_date: str) -> Dict[str, Any]:
             COUNT(DISTINCT CASE WHEN token = 'RBSD' THEN from_address END) as rbsd_users,
             AVG(CAST(n_cards AS REAL)) as avg_cards_per_slip
         FROM betting_transactions 
-        WHERE timestamp >= ? AND timestamp <= ?
+        WHERE timestamp >= ? AND timestamp <= ? AND n_cards >= 2
         """
         
         cursor.execute(query, (start_datetime, end_datetime))
@@ -152,7 +152,7 @@ def get_daily_activity(cursor, start_datetime: str, end_datetime: str) -> List[D
         SUM(CASE WHEN token = 'Jerry' THEN CAST(amount AS REAL) ELSE 0 END) as jerry_volume,
         SUM(CASE WHEN token = 'RBSD' THEN CAST(amount AS REAL) ELSE 0 END) as rbsd_volume
     FROM betting_transactions 
-    WHERE timestamp >= ? AND timestamp <= ?
+    WHERE timestamp >= ? AND timestamp <= ? AND n_cards >= 2
     GROUP BY DATE(timestamp)
     ORDER BY date
     """
