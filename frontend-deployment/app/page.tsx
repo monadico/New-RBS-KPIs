@@ -461,87 +461,99 @@ export default function Page() {
           customRangeConfirmed={customRangeConfirmed}
         />
 
-        {/* Metrics Section - Row 1: Primary Metrics */}
-        <section id="overview" className="animate-fade-in-up">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <MetricCard
-              title="Total Submissions"
-              value={filteredMetrics.total_submissions}
-              format="number"
-              accentColor="text-rbs-lime"
-              icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
-            />
-            <MetricCard
-              title="Active Bettors"
-              value={filteredMetrics.total_active_addresses}
-              format="number"
-              accentColor="text-rbs-lime"
-              icon={<Users className="w-5 h-5 text-rbs-over" />}
-            />
-            <MetricCard
-              title="$MON Volume"
-              value={filteredMetrics.total_mon_volume}
-              format="currency"
-              accentColor="text-rbs-lime"
-              icon={<DollarSign className="w-5 h-5 text-rbs-focused" />}
-            />
-            <MetricCard
-              title="$JERRY Volume"
-              value={filteredMetrics.total_jerry_volume}
-              format="currency"
-              accentColor="text-rbs-lime"
-              icon={<DollarSign className="w-5 h-5 text-rbs-boxing" />}
-            />
+        {/* Betting Analytics Section */}
+        <section className="space-y-8">
+          {/* Betting Metrics Cards */}
+          <div className="space-y-6">
+            {/* Primary Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 animate-fade-in-up">
+              <MetricCard
+                title="Total Submissions"
+                value={filteredMetrics.total_submissions}
+                format="number"
+                accentColor="text-rbs-lime"
+                icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
+              />
+              <MetricCard
+                title="Active Bettors"
+                value={filteredMetrics.total_active_addresses}
+                format="number"
+                accentColor="text-rbs-lime"
+                icon={<Users className="w-5 h-5 text-rbs-over" />}
+              />
+              <MetricCard
+                title="$MON Volume"
+                value={filteredMetrics.total_mon_volume}
+                format="currency"
+                accentColor="text-rbs-lime"
+                icon={<DollarSign className="w-5 h-5 text-rbs-focused" />}
+              />
+              <MetricCard
+                title="$JERRY Volume"
+                value={filteredMetrics.total_jerry_volume}
+                format="currency"
+                accentColor="text-rbs-lime"
+                icon={<DollarSign className="w-5 h-5 text-rbs-boxing" />}
+              />
+            </div>
+
+            {/* Average Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+              <MetricCard
+                title="Avg Submissions per Day"
+                value={filteredMetrics.avg_submissions_per_day}
+                format="number"
+                accentColor="text-rbs-lime"
+                icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
+              />
+              <MetricCard
+                title={selectedTimeframe === "daily" ? "Daily Active Users" : selectedTimeframe === "weekly" ? "Weekly Active Users" : selectedTimeframe === "monthly" ? "Monthly Active Users" : selectedTimeframe === "custom" && customRangeConfirmed ? "Custom Range Active Users" : "Weekly Active Users"}
+                value={getActiveUsersForTimeframe()}
+                format="number"
+                accentColor="text-rbs-lime"
+                icon={<Users className="w-5 h-5 text-rbs-over" />}
+              />
+              <MetricCard
+                title="Avg Cards per RareLink Slip"
+                value={filteredMetrics.avg_cards_per_slip}
+                format="decimal"
+                accentColor="text-rbs-lime"
+                icon={<CreditCard className="w-5 h-5 text-rbs-focused" />}
+              />
+            </div>
+          </div>
+
+          {/* Betting Activity Charts */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed" style={{ animationDelay: "0.7s" }}>
+            <SubmissionActivityChart data={timeframeData} onChartClick={handleSubmissionChartClick} />
+            <NewBettorsChart data={timeframeData} onChartClick={handleNewBettorsChartClick} />
+            <MonJerryVolumeArea data={timeframeData} onChartClick={handleVolumeChartClick} />
+          </div>
+
+          {/* Betting Distribution Charts */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed" style={{ animationDelay: "0.8s" }}>
+            <div className="lg:col-span-1">
+              <PlayerActivityPie data={player_activity.categories} totalPlayers={player_activity.total_players} />
+            </div>
+            <div className="lg:col-span-1">
+              <TokenVolumeDistributionPie data={timeframeData} onChartClick={handleTokenVolumeDistributionClick} />
+            </div>
+            <div className="lg:col-span-1">
+              <OverallSlipsPie data={overall_slips_by_card_count} />
+            </div>
+          </div>
+
+          {/* Betting Detailed Charts */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-delayed" style={{ animationDelay: "0.9s" }}>
+            <SlipsByCardStackedBar data={cardCountData} onChartClick={handleCardCountChartClick} />
+            <TotalAvgCardsChart data={timeframeData} onChartClick={handleTotalAvgCardsChartClick} />
           </div>
         </section>
 
-
-
-        {/* Metrics Section - Row 2: Averages */}
-        <section className="animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <MetricCard
-              title="Avg Submissions per Day"
-              value={filteredMetrics.avg_submissions_per_day}
-              format="number"
-              accentColor="text-rbs-lime"
-              icon={<TrendingUp className="w-5 h-5 text-rbs-accent" />}
-            />
-            <MetricCard
-              title={selectedTimeframe === "daily" ? "Daily Active Users" : selectedTimeframe === "weekly" ? "Weekly Active Users" : selectedTimeframe === "monthly" ? "Monthly Active Users" : selectedTimeframe === "custom" && customRangeConfirmed ? "Custom Range Active Users" : "Weekly Active Users"}
-              value={getActiveUsersForTimeframe()}
-              format="number"
-              accentColor="text-rbs-lime"
-              icon={<Users className="w-5 h-5 text-rbs-over" />}
-            />
-            <MetricCard
-              title="Avg Cards per RareLink Slip"
-              value={filteredMetrics.avg_cards_per_slip}
-              format="decimal"
-              accentColor="text-rbs-lime"
-              icon={<CreditCard className="w-5 h-5 text-rbs-focused" />}
-            />
-          </div>
-        </section>
-
-        {/* Charts Section - Row 1: Three Large Charts */}
-        <section
-          id="submissions"
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed"
-          style={{ animationDelay: "0.7s" }}
-        >
-          <SubmissionActivityChart data={timeframeData} onChartClick={handleSubmissionChartClick} />
-          <NewBettorsChart data={timeframeData} onChartClick={handleNewBettorsChartClick} />
-          <MonJerryVolumeArea data={timeframeData} onChartClick={handleVolumeChartClick} />
-        </section>
-
-        {/* Claiming Metrics Section */}
-        <section
-          id="claiming-metrics"
-          className="animate-fade-in-delayed"
-          style={{ animationDelay: "0.75s" }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        {/* Claiming Analytics Section */}
+        <section className="space-y-8">
+          {/* Claiming Metrics Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-delayed" style={{ animationDelay: "1.0s" }}>
             <MetricCard
               title="Total Claimer Addresses"
               value={
@@ -577,8 +589,8 @@ export default function Page() {
             />
           </div>
           
-          {/* Claiming Volume Distribution Chart */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Claiming Distribution Chart */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed" style={{ animationDelay: "1.1s" }}>
             <div className="lg:col-span-1">
               <ClaimingVolumeDistributionPie 
                 monVolume={
@@ -594,103 +606,51 @@ export default function Page() {
                 onChartClick={handleClaimingVolumeDistributionClick}
               />
             </div>
-          </div>
-        </section>
-
-        {/* Claiming Activity Section - Coming Soon */}
-        {/* <section
-          id="claiming"
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed"
-          style={{ animationDelay: "0.8s" }}
-        >
-          <div className="lg:col-span-1">
-            <div className="h-full flex flex-col space-y-6">
-              <div className="flex-1">
-                <ClaimingVolumeChart data={claimingData} onChartClick={handleClaimingVolumeClick} />
-              </div>
-              <div className="flex-1">
-                <ClaimingTokenDistributionPie data={claimingData} onChartClick={handleClaimingTokenDistributionClick} />
-              </div>
-            </div>
-          </div>
-          <div className="lg:col-span-2">
-            <div className="h-full flex flex-col space-y-6">
-              <div className="flex-1">
-                <ClaimingActivityTimeline data={claimingData} onChartClick={handleClaimingActivityClick} />
-              </div>
-              <div className="flex-1">
-                <ClaimingUserActivityChart data={claimingData} onChartClick={handleClaimingUserActivityClick} />
-              </div>
-            </div>
-          </div>
-        </section> */}
-
-        {/* Charts Section - Row 2: Three Charts (Balanced Layout) */}
-        <section
-          id="players"
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed"
-          style={{ animationDelay: "0.9s" }}
-        >
-          <div className="lg:col-span-1">
-            <div className="h-full flex flex-col space-y-6">
-              <div className="flex-1">
-                <PlayerActivityPie data={player_activity.categories} totalPlayers={player_activity.total_players} />
-              </div>
-              <div className="flex-1">
-                <OverallSlipsPie data={overall_slips_by_card_count} />
-              </div>
-              <div className="flex-1">
-                <TokenVolumeDistributionPie data={timeframeData} onChartClick={handleTokenVolumeDistributionClick} />
-              </div>
-            </div>
-          </div>
-          <div className="lg:col-span-2">
-            <div className="h-full flex flex-col space-y-6">
-              <div className="flex-1">
-            <SlipsByCardStackedBar data={cardCountData} onChartClick={handleCardCountChartClick} />
-          </div>
-              <div className="flex-1">
-                <TotalAvgCardsChart data={timeframeData} onChartClick={handleTotalAvgCardsChartClick} />
+            <div className="lg:col-span-2">
+              {/* Placeholder for future claiming charts */}
+              <div className="h-full flex items-center justify-center bg-card-base rounded-lg border border-border-base">
+                <p className="text-text-secondary text-center">
+                  More claiming analytics coming soon...
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Tables Section */}
-        <section className="animate-fade-in-delayed" style={{ animationDelay: "1.5s" }}>
-          <div className="mb-8">
+        <section className="animate-fade-in-delayed" style={{ animationDelay: "1.2s" }}>
+          <div className="space-y-8">
             <ProtectedComponent 
               title="Daily Statistics" 
               description="Login to view detailed daily analytics and performance metrics"
             >
               <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
             </ProtectedComponent>
-          </div>
-          {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
-            <div className="mb-8">
+            
+            {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
               <ProtectedComponent 
                 title="RBS Stats by Periods" 
                 description="Login to view aggregated performance metrics for different time periods"
               >
                 <RbsPeriodsTable data={rbs_stats_by_periods} />
               </ProtectedComponent>
-            </div>
-          )}
-          {cohort_retention && cohort_retention.length > 0 && (
-            <div className="mb-8">
+            )}
+            
+            {cohort_retention && cohort_retention.length > 0 && (
               <ProtectedComponent 
                 title="Cohort Retention Analysis" 
                 description="Login to view weekly user retention patterns and engagement metrics"
               >
                 <CohortRetentionTable data={cohort_retention} />
               </ProtectedComponent>
-            </div>
-          )}
-          <TopBettorsTable data={top_bettors} />
+            )}
+            
+            <TopBettorsTable data={top_bettors} />
+          </div>
         </section>
 
         {/* Heatmaps Section */}
-        <section className="animate-fade-in-delayed" style={{ animationDelay: "1.6s" }}>
+        <section className="animate-fade-in-delayed" style={{ animationDelay: "1.3s" }}>
           <div className="space-y-8">
             <ProtectedComponent 
               title="Activity Heatmap" 
