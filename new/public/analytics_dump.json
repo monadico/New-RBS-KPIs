@@ -1,14 +1,14 @@
 {
   "success": true,
   "metadata": {
-    "generated_at": "2025-07-25T13:04:18.968527Z",
+    "generated_at": "2025-08-01T20:59:44.336952Z",
     "timeframes_available": [
       "daily",
       "weekly",
       "monthly"
     ],
     "default_timeframe": "weekly",
-    "initial_generation": true
+    "full_generation": true
   },
   "total_metrics": {
     "total_submissions": 2533839,
@@ -82,39 +82,39 @@
     },
     {
       "period": "Last 90 Days",
-      "mon_volume": 444610.140157507,
+      "mon_volume": 423110.20215750695,
       "jerry_volume": 74638.2,
-      "total_volume": 519248.340157507,
-      "submissions": 2290997,
-      "active_bettors": 272198,
-      "total_cards": 5856354
+      "total_volume": 497748.40215750696,
+      "submissions": 2190276,
+      "active_bettors": 255914,
+      "total_cards": 5563484
     },
     {
       "period": "Last 30 Days",
-      "mon_volume": 215313.7131554394,
-      "jerry_volume": 31100.45,
-      "total_volume": 246414.16315543943,
-      "submissions": 1156248,
-      "active_bettors": 132158,
-      "total_cards": 2626747
+      "mon_volume": 159876.53858,
+      "jerry_volume": 24264.85,
+      "total_volume": 184141.38858,
+      "submissions": 827403,
+      "active_bettors": 115776,
+      "total_cards": 1878919
     },
     {
       "period": "Last 7 Days",
-      "mon_volume": 71131.7,
-      "jerry_volume": 8994.5,
-      "total_volume": 80126.2,
-      "submissions": 292233,
-      "active_bettors": 72222,
-      "total_cards": 681210
+      "mon_volume": 0.0,
+      "jerry_volume": 0.0,
+      "total_volume": 0.0,
+      "submissions": 0,
+      "active_bettors": 0,
+      "total_cards": 0
     },
     {
       "period": "Last Day",
-      "mon_volume": 2079.9,
-      "jerry_volume": 23.5,
-      "total_volume": 2103.4,
-      "submissions": 6072,
-      "active_bettors": 2217,
-      "total_cards": 13337
+      "mon_volume": 0.0,
+      "jerry_volume": 0.0,
+      "total_volume": 0.0,
+      "submissions": 0,
+      "active_bettors": 0,
+      "total_cards": 0
     }
   ],
   "cohort_retention": [
