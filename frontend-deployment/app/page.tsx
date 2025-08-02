@@ -52,6 +52,7 @@ export default function Page() {
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [claimingAnalytics, setClaimingAnalytics] = useState<any>(null)
   const [customRangeData, setCustomRangeData] = useState<any>(null)
+  const [claimingCustomRangeData, setClaimingCustomRangeData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
@@ -159,15 +160,6 @@ export default function Page() {
     console.log("Date range changed:", startDate, endDate)
   }
 
-  // Handle reset to default configuration
-  const handleReset = () => {
-    setSelectedTimeframe("weekly")
-    setCustomStartDate(undefined)
-    setCustomEndDate(undefined)
-    setCustomRangeConfirmed(false)
-    setCustomRangeData(null)
-  }
-
   // Handle confirm custom range
   const handleConfirmCustomRange = async () => {
     if (!customStartDate || !customEndDate) {
@@ -192,20 +184,43 @@ export default function Page() {
       
       console.log(`📅 Custom range: ${startDateStr} to ${endDateStr}`)
       
-      const response = await fetch(`${apiUrl}/api/custom-range?start_date=${startDateStr}&end_date=${endDateStr}`)
+      // Fetch betting custom range data
+      const bettingResponse = await fetch(`${apiUrl}/api/custom-range?start_date=${startDateStr}&end_date=${endDateStr}`)
       
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      if (!bettingResponse.ok) {
+        throw new Error(`HTTP ${bettingResponse.status}: ${bettingResponse.statusText}`)
       }
       
-      const customData = await response.json()
-      console.log('✅ Custom range data received:', customData.total_metrics)
-      setCustomRangeData(customData)
+      const bettingCustomData = await bettingResponse.json()
+      console.log('✅ Betting custom range data received:', bettingCustomData.total_metrics)
+      setCustomRangeData(bettingCustomData)
+
+      // Fetch claiming custom range data
+      const claimingResponse = await fetch(`${apiUrl}/api/claiming/custom-range?start_date=${startDateStr}&end_date=${endDateStr}`)
+      
+      if (!claimingResponse.ok) {
+        console.warn('⚠️ Claiming custom range API failed, using existing claiming data')
+        // Keep existing claiming data if API fails
+      } else {
+        const claimingCustomData = await claimingResponse.json()
+        console.log('✅ Claiming custom range data received:', claimingCustomData.total_metrics)
+        setClaimingCustomRangeData(claimingCustomData)
+      }
       
     } catch (err: any) {
       console.error('❌ Error fetching custom range data:', err)
       setError('Failed to fetch custom range data')
     }
+  }
+
+  // Handle reset
+  const handleReset = () => {
+    setSelectedTimeframe("weekly")
+    setCustomStartDate(undefined)
+    setCustomEndDate(undefined)
+    setCustomRangeConfirmed(false)
+    setCustomRangeData(null)
+    setClaimingCustomRangeData(null)
   }
 
   // Chart click handlers
@@ -529,21 +544,33 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <MetricCard
               title="Total Claimer Addresses"
-              value={claimingAnalytics?.total_metrics?.total_unique_claimers || 0}
+              value={
+                selectedTimeframe === "custom" && customRangeConfirmed && claimingCustomRangeData
+                  ? claimingCustomRangeData.total_metrics.total_unique_claimers
+                  : claimingAnalytics?.total_metrics?.total_unique_claimers || 0
+              }
               format="number"
               accentColor="text-rbs-lime"
               icon={<Users className="w-5 h-5 text-rbs-over" />}
             />
             <MetricCard
               title="Total MON Claimed"
-              value={claimingAnalytics?.total_metrics?.total_mon_volume || 0}
+              value={
+                selectedTimeframe === "custom" && customRangeConfirmed && claimingCustomRangeData
+                  ? claimingCustomRangeData.total_metrics.total_mon_claimed
+                  : claimingAnalytics?.total_metrics?.total_mon_volume || 0
+              }
               format="currency"
               accentColor="text-rbs-lime"
               icon={<DollarSign className="w-5 h-5 text-rbs-under" />}
             />
             <MetricCard
               title="Total JERRY Claimed"
-              value={claimingAnalytics?.total_metrics?.total_jerry_volume || 0}
+              value={
+                selectedTimeframe === "custom" && customRangeConfirmed && claimingCustomRangeData
+                  ? claimingCustomRangeData.total_metrics.total_jerry_claimed
+                  : claimingAnalytics?.total_metrics?.total_jerry_volume || 0
+              }
               format="currency"
               accentColor="text-rbs-lime"
               icon={<DollarSign className="w-5 h-5 text-rbs-focused" />}
@@ -554,8 +581,16 @@ export default function Page() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-1">
               <ClaimingVolumeDistributionPie 
-                monVolume={claimingAnalytics?.total_metrics?.total_mon_volume || 0}
-                jerryVolume={claimingAnalytics?.total_metrics?.total_jerry_volume || 0}
+                monVolume={
+                  selectedTimeframe === "custom" && customRangeConfirmed && claimingCustomRangeData
+                    ? claimingCustomRangeData.total_metrics.total_mon_claimed
+                    : claimingAnalytics?.total_metrics?.total_mon_volume || 0
+                }
+                jerryVolume={
+                  selectedTimeframe === "custom" && customRangeConfirmed && claimingCustomRangeData
+                    ? claimingCustomRangeData.total_metrics.total_jerry_claimed
+                    : claimingAnalytics?.total_metrics?.total_jerry_volume || 0
+                }
                 onChartClick={handleClaimingVolumeDistributionClick}
               />
             </div>

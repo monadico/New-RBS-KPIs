@@ -45,7 +45,7 @@ def get_custom_range_metrics(start_date: str, end_date: str) -> Dict[str, Any]:
             COUNT(*) as total_claims,
             COUNT(DISTINCT from_address) as total_unique_claimers,
             SUM(CASE WHEN token = 'MON' THEN CAST(amount AS REAL) ELSE 0 END) as total_mon_claimed,
-            SUM(CASE WHEN token = 'Jerry' THEN CAST(amount AS REAL) ELSE 0 END) as total_jerry_claimed
+            SUM(CASE WHEN token = 'JERRY' THEN CAST(amount AS REAL) ELSE 0 END) as total_jerry_claimed
         FROM claiming_transactions
         WHERE DATE(timestamp, 'utc') >= ? AND DATE(timestamp, 'utc') <= ?
         """
@@ -91,7 +91,7 @@ def get_daily_activity(start_date: str, end_date: str) -> list:
             COUNT(*) as claims,
             COUNT(DISTINCT from_address) as unique_claimers,
             SUM(CASE WHEN token = 'MON' THEN CAST(amount AS REAL) ELSE 0 END) as mon_claimed,
-            SUM(CASE WHEN token = 'Jerry' THEN CAST(amount AS REAL) ELSE 0 END) as jerry_claimed
+            SUM(CASE WHEN token = 'JERRY' THEN CAST(amount AS REAL) ELSE 0 END) as jerry_claimed
         FROM claiming_transactions
         WHERE DATE(timestamp, 'utc') >= ? AND DATE(timestamp, 'utc') <= ?
         GROUP BY DATE(timestamp, 'utc')
