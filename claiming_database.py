@@ -473,7 +473,7 @@ async def process_all_claiming_transactions(db: ComprehensiveClaimingDatabase, c
     
     return inserted_count
 
-def save_to_database(mon_data: List[Dict[str, Any]], jerry_data: List[Dict[str, Any]], rbsd_data: List[Dict[str, Any]], db_path: str = "comprehensive_claiming_transactions_fixed.db"):
+def save_to_database(mon_data: List[Dict[str, Any]], jerry_data: List[Dict[str, Any]], rbsd_data: List[Dict[str, Any]], db_path: str = "data/comprehensive_claiming_transactions_fixed.db"):
     """Save the fetched data to the database."""
     print(f"\n💾 SAVING TO DATABASE: {db_path}")
     print("=" * 50)
@@ -588,7 +588,7 @@ async def main():
     args = parser.parse_args()
     
     # Initialize database
-    db = ComprehensiveClaimingDatabase(db_path="comprehensive_claiming_transactions_fixed.db")
+    db = ComprehensiveClaimingDatabase(db_path="data/comprehensive_claiming_transactions_fixed.db")
     
     # Initialize Hypersync client
     config = ClientConfig(

@@ -35,7 +35,7 @@ if IS_PRODUCTION:
     FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/claiming_analytics_dump.json"
     COMPRESSED_FILE = "/app/new/public/claiming_analytics_dump.json.gz"
 else:
-    DB_PATH = os.getenv('CLAIMING_DB_PATH', 'comprehensive_claiming_transactions_fixed.db')
+    DB_PATH = os.getenv('CLAIMING_DB_PATH', 'data/comprehensive_claiming_transactions_fixed.db')
     OUTPUT_FILE = "claiming_analytics_dump.json"
     FRONTEND_PUBLIC = "new/public/claiming_analytics_dump.json"
     FRONTEND_DEPLOYMENT_PUBLIC = "frontend-deployment/public/claiming_analytics_dump.json"
@@ -44,7 +44,7 @@ else:
 class ClaimingAnalytics:
     """Main analytics class for claiming transaction analysis."""
     
-    def __init__(self, db_path: str = "comprehensive_claiming_transactions.db"):
+    def __init__(self, db_path: str = "data/comprehensive_claiming_transactions_fixed.db"):
         self.db_path = db_path
         self.conn = None
         self.cursor = None
