@@ -11,6 +11,7 @@ import os
 import sys
 from dotenv import load_dotenv
 from custom_range_query import get_custom_range_metrics
+from claiming_custom_range_query import get_custom_range_metrics as get_claiming_custom_range_metrics
 
 # Load environment variables
 load_dotenv('.env.local')  # Load local environment first
@@ -55,6 +56,7 @@ async def root():
             "/api/claiming/stats": "Get claiming statistics",
             "/api/claiming/volume-data": "Get claiming volume data for charts",
             "/api/custom-range": "Get analytics for custom date range (start_date&end_date)",
+            "/api/claiming/custom-range": "Get claiming analytics for custom date range (start_date&end_date)",
             "/docs": "API documentation"
         }
     }
@@ -193,6 +195,25 @@ async def get_custom_range_analytics(
         
     except Exception as e:
         print(f"❌ Error in custom range query: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/claiming/custom-range")
+async def get_claiming_custom_range_analytics(
+    start_date: str = Query(..., description="Start date in YYYY-MM-DD format"),
+    end_date: str = Query(..., description="End date in YYYY-MM-DD format")
+):
+    """Get claiming analytics data for a custom date range by querying the database directly"""
+    try:
+        print(f"🔍 Claiming custom range query: {start_date} to {end_date}")
+
+        # Call the claiming custom range query function
+        result = get_claiming_custom_range_metrics(start_date, end_date)
+
+        print(f"✅ Claiming custom range query completed successfully")
+        return result
+
+    except Exception as e:
+        print(f"❌ Error in claiming custom range query: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 # Serve static files (your Next.js build)
