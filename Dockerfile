@@ -19,6 +19,8 @@ COPY betting_database.py .
 COPY claiming_database.py .
 COPY json_query.py .
 COPY claiming_query.py .
+COPY custom_range_query.py .
+COPY claiming_custom_range_query.py .
 COPY api_server.py .
 COPY update_database.sh .
 RUN chmod +x update_database.sh
