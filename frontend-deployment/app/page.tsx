@@ -51,6 +51,7 @@ export default function Page() {
   const [customRangeConfirmed, setCustomRangeConfirmed] = useState(false)
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [claimingAnalytics, setClaimingAnalytics] = useState<any>(null)
+  const [customRangeData, setCustomRangeData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
@@ -101,39 +102,27 @@ export default function Page() {
           setData(json)
         }
 
-        // Fetch claiming analytics data
+        // Fetch claiming analytics data - same pattern as betting data
         console.log('🔍 Fetching claiming analytics...')
         const claimingResponse = await fetch(`${apiUrl}/api/claiming/analytics`)
         console.log('📡 Claiming API Response status:', claimingResponse.status)
         console.log('📡 Claiming API Response ok:', claimingResponse.ok)
         
-        if (claimingResponse.ok) {
-          const claimingJson = await claimingResponse.json()
-          console.log('✅ Using claiming API data')
-          console.log('📊 Claiming data received:', claimingJson.total_metrics)
+        if (!claimingResponse.ok) {
+          console.log('⚠️ Claiming API failed, falling back to static JSON')
+          // Fallback to static claiming JSON
+          const staticClaimingResponse = await fetch('/claiming_analytics_dump.json')
+          if (!staticClaimingResponse.ok) {
+            throw new Error(`Claiming HTTP ${staticClaimingResponse.status}: ${staticClaimingResponse.statusText}`)
+          }
+          const claimingJson = await staticClaimingResponse.json()
+          if (!claimingJson.success) throw new Error(claimingJson.error || 'Claiming JSON error')
+          console.log('📁 Using static claiming JSON data')
           setClaimingAnalytics(claimingJson)
         } else {
-          console.log('⚠️ Claiming API failed, trying static JSON')
-          // Fallback to static claiming JSON
-          try {
-            console.log('🔄 Trying static claiming JSON...')
-            const staticClaimingResponse = await fetch('/claiming_analytics_dump.json')
-            console.log('📡 Static claiming JSON Response status:', staticClaimingResponse.status)
-            console.log('📡 Static claiming JSON Response ok:', staticClaimingResponse.ok)
-            
-            if (staticClaimingResponse.ok) {
-              const claimingJson = await staticClaimingResponse.json()
-              console.log('📁 Using static claiming JSON data')
-              console.log('📊 Static claiming data received:', claimingJson.total_metrics)
-              setClaimingAnalytics(claimingJson)
-            } else {
-              console.log('❌ Static claiming JSON failed with status:', staticClaimingResponse.status)
-              setClaimingAnalytics(null)
-            }
-          } catch (claimingErr) {
-            console.log('❌ Static claiming JSON also failed with error:', claimingErr)
-            setClaimingAnalytics(null)
-          }
+          const claimingJson = await claimingResponse.json()
+          console.log('✅ Using claiming API data')
+          setClaimingAnalytics(claimingJson)
         }
       } catch (err: any) {
         console.error('❌ Error loading analytics data:', err)
@@ -176,11 +165,47 @@ export default function Page() {
     setCustomStartDate(undefined)
     setCustomEndDate(undefined)
     setCustomRangeConfirmed(false)
+    setCustomRangeData(null)
   }
 
   // Handle confirm custom range
-  const handleConfirmCustomRange = () => {
+  const handleConfirmCustomRange = async () => {
+    if (!customStartDate || !customEndDate) {
+      console.error('❌ Custom start and end dates are required')
+      return
+    }
+
     setCustomRangeConfirmed(true)
+    
+    try {
+      console.log('🔍 Fetching custom range data...')
+      
+      // Environment-based API URL
+      const isProduction = process.env.NODE_ENV === 'production'
+      const apiUrl = isProduction 
+        ? 'https://f8s8sk80ok44gw04osco04so.173.249.24.245.sslip.io'
+        : 'http://localhost:8000'
+      
+      // Format dates for API
+      const startDateStr = customStartDate.toISOString().split('T')[0]
+      const endDateStr = customEndDate.toISOString().split('T')[0]
+      
+      console.log(`📅 Custom range: ${startDateStr} to ${endDateStr}`)
+      
+      const response = await fetch(`${apiUrl}/api/custom-range?start_date=${startDateStr}&end_date=${endDateStr}`)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      }
+      
+      const customData = await response.json()
+      console.log('✅ Custom range data received:', customData.total_metrics)
+      setCustomRangeData(customData)
+      
+    } catch (err: any) {
+      console.error('❌ Error fetching custom range data:', err)
+      setError('Failed to fetch custom range data')
+    }
   }
 
   // Chart click handlers
@@ -306,7 +331,10 @@ export default function Page() {
   const getActiveUsersForTimeframe = () => {
     if (!data) return 0
     
-    if (selectedTimeframe === "custom" && customRangeConfirmed && customStartDate && customEndDate) {
+    if (selectedTimeframe === "custom" && customRangeConfirmed && customRangeData) {
+      // Use custom range data
+      return customRangeData.total_metrics.total_active_addresses
+    } else if (selectedTimeframe === "custom" && customRangeConfirmed && customStartDate && customEndDate) {
       // Use filtered data for custom timeframe
       const filteredData = getFilteredTimeframeData(data, selectedTimeframe, customStartDate, customEndDate, customRangeConfirmed)
       return filteredData.length > 0 ? filteredData[filteredData.length - 1].active_addresses : 0
@@ -370,8 +398,17 @@ export default function Page() {
   console.log("Selected timeframe:", selectedTimeframe)
   console.log("Timeframe data length:", timeframeData?.length)
 
-  // Get filtered metrics for custom timeframe
-  const filteredMetrics = getFilteredMetrics(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
+  // Get filtered metrics - use custom range data if available, otherwise use filtered data
+  const filteredMetrics = selectedTimeframe === "custom" && customRangeConfirmed && customRangeData 
+    ? {
+        total_submissions: customRangeData.total_metrics.total_submissions,
+        total_active_addresses: customRangeData.total_metrics.total_active_addresses,
+        total_mon_volume: customRangeData.total_metrics.total_mon_volume,
+        total_jerry_volume: customRangeData.total_metrics.total_jerry_volume,
+        avg_submissions_per_day: customRangeData.average_metrics.avg_submissions_per_day,
+        avg_cards_per_slip: customRangeData.average_metrics.avg_cards_per_slip
+      }
+    : getFilteredMetrics(data, selectedTimeframe, customRangeConfirmed ? customStartDate : undefined, customRangeConfirmed ? customEndDate : undefined, customRangeConfirmed)
 
   const {
     total_metrics,
