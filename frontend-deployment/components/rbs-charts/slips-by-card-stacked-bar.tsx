@@ -9,7 +9,7 @@ import { formatNumber } from "@/lib/utils"
 import { CHART_COLORS } from "@/lib/chart-colors"
 import { ChartContainer } from "@/components/ui/chart"
 
-const CARD_COUNTS = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+const CARD_COUNTS = [2, 3, 4, 5, 6, 7]
 
 interface SlipsByCardStackedBarProps {
   data: TimeframeCardCounts[]
