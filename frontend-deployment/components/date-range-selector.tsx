@@ -286,7 +286,7 @@ export function EnhancedTimeframeSelector({
               </Button>
             )}
             
-            {/* Reset to Weekly Button */}
+            {/* Reset Button */}
             {onReset && (
               <Button
                 variant="outline"
@@ -295,7 +295,7 @@ export function EnhancedTimeframeSelector({
                 className="bg-surface-elevated hover:bg-surface border-border-subtle"
               >
                 <RotateCcw className="h-4 w-4 mr-2" />
-                Reset to Weekly
+                Reset
               </Button>
             )}
           </div>
