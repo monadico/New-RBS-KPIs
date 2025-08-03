@@ -133,7 +133,7 @@ export function TotalAvgCardsChart({ data, onChartClick, isModal = false }: Tota
   }
 
   const content = (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group lg:col-span-full">
+    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500 group">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="space-y-2">
@@ -216,12 +216,9 @@ export function TotalAvgCardsChart({ data, onChartClick, isModal = false }: Tota
   if (onChartClick) {
     return (
       <div 
-        className="cursor-pointer transition-all duration-200 group hover:scale-[1.02] hover:shadow-glow-medium relative"
+        className="cursor-pointer transition-all duration-200 group relative"
         onClick={onChartClick}
       >
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 rounded-lg" />
-        
         {/* Expand icon overlay */}
         <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <div className="p-2 bg-bg-elevated/90 backdrop-blur-sm rounded-lg border border-border-subtle">
