@@ -95,8 +95,8 @@ export function DateRangeSelector({
                 if (date < effectiveMinDate) return true
                 // Can't select dates after maximum end date
                 if (date > effectiveMaxDate) return true
-                // Can't select start date after current end date
-                if (endDate && date > endDate) return true
+                // Can't select start date after or equal to current end date
+                if (endDate && date >= endDate) return true
                 return false
               }}
               initialFocus
@@ -144,8 +144,8 @@ export function DateRangeSelector({
                 if (date < effectiveMinDate) return true
                 // Can't select dates after maximum end date
                 if (date > effectiveMaxDate) return true
-                // Can't select end date before current start date
-                if (startDate && date < startDate) return true
+                // Can't select end date before or equal to current start date
+                if (startDate && date <= startDate) return true
                 return false
               }}
               initialFocus
@@ -168,7 +168,7 @@ export function DateRangeSelector({
       {/* Validation Message */}
       {!isDateRangeValid && (
         <div className="text-rbs-alert text-xs font-medium">
-          Start date must be before end date
+          End date must be after start date
         </div>
       )}
     </div>
@@ -218,25 +218,13 @@ export function EnhancedTimeframeSelector({
     if (endDate) setLocalEndDate(endDate)
   }, [startDate, endDate])
 
+  // Validation for date range
+  const isDateRangeValid = localStartDate <= localEndDate
+
   const handleDateChange = (newStartDate: Date, newEndDate: Date) => {
     setLocalStartDate(newStartDate)
     setLocalEndDate(newEndDate)
-    
-    // If only start date was changed, set end date to a reasonable default
-    if (newStartDate !== localStartDate && newEndDate === localEndDate) {
-      // Set end date to 7 days after start date, or max available date
-      const defaultEndDate = new Date(newStartDate)
-      defaultEndDate.setDate(defaultEndDate.getDate() + 7)
-      
-      // Don't exceed the max available date from API data
-      const maxDate = availableDateRange?.max || new Date()
-      const finalEndDate = defaultEndDate > maxDate ? maxDate : defaultEndDate
-        
-      setLocalEndDate(finalEndDate)
-      onDateRangeChange?.(newStartDate, finalEndDate)
-    } else {
-      onDateRangeChange?.(newStartDate, newEndDate)
-    }
+    onDateRangeChange?.(newStartDate, newEndDate)
   }
 
   const buttonClass = (timeframe: string) =>
@@ -278,8 +266,15 @@ export function EnhancedTimeframeSelector({
             className="bg-surface-elevated p-4 rounded-lg border border-border-subtle"
           />
           
+          {/* Validation Message */}
+          {!isDateRangeValid && (
+            <div className="text-rbs-alert text-xs font-medium text-center">
+              End date must be after start date
+            </div>
+          )}
+          
           {/* Confirm Button */}
-          {!customRangeConfirmed && localStartDate && localEndDate && (
+          {!customRangeConfirmed && localStartDate && localEndDate && isDateRangeValid && (
             <Button
               onClick={onConfirmCustomRange}
               className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-2 rounded-lg font-medium"
