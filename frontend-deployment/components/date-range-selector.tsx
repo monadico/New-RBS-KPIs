@@ -43,15 +43,6 @@ export function DateRangeSelector({
   console.log("DateRangeSelector - startDate:", startDate)
   console.log("DateRangeSelector - endDate:", endDate)
 
-  const handleReset = () => {
-    // Reset to default dates
-    const defaultStart = new Date("2025-02-04")
-    const defaultEnd = effectiveMaxDate
-    
-    onStartDateChange(defaultStart)
-    onEndDateChange(defaultEnd)
-  }
-
   const isDateRangeValid = startDate <= endDate
 
   return (
@@ -153,17 +144,6 @@ export function DateRangeSelector({
           </PopoverContent>
         </Popover>
       </div>
-
-      {/* Reset Button */}
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handleReset}
-        className="bg-surface-elevated hover:bg-surface border-border-subtle"
-      >
-        <RotateCcw className="h-4 w-4 mr-2" />
-        Reset
-      </Button>
 
       {/* Validation Message */}
       {!isDateRangeValid && (
@@ -294,30 +274,31 @@ export function EnhancedTimeframeSelector({
             </div>
           )}
           
-          {/* Confirm Button */}
-          {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
-            <Button
-              onClick={onConfirmCustomRange}
-              className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-2 rounded-lg font-medium"
-            >
-              {rangeModified ? "Update Range" : "Confirm Range"}
-            </Button>
-          )}
-        </div>
-      )}
-
-      {/* Reset Button - Only shown when custom is selected */}
-      {selectedTimeframe === "custom" && onReset && (
-        <div className="flex justify-center mt-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onReset}
-            className="bg-surface-elevated hover:bg-surface border-border-subtle"
-          >
-            <RotateCcw className="h-4 w-4 mr-2" />
-            Reset to Weekly
-          </Button>
+          {/* Action Buttons */}
+          <div className="flex gap-3">
+            {/* Confirm Button */}
+            {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
+              <Button
+                onClick={onConfirmCustomRange}
+                className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-2 rounded-lg font-medium"
+              >
+                {rangeModified ? "Update Range" : "Confirm Range"}
+              </Button>
+            )}
+            
+            {/* Reset to Weekly Button */}
+            {onReset && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onReset}
+                className="bg-surface-elevated hover:bg-surface border-border-subtle"
+              >
+                <RotateCcw className="h-4 w-4 mr-2" />
+                Reset to Weekly
+              </Button>
+            )}
+          </div>
         </div>
       )}
     </div>
