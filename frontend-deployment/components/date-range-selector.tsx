@@ -212,11 +212,19 @@ export function EnhancedTimeframeSelector({
   
   const [localStartDate, setLocalStartDate] = useState(startDate || defaultStartDate)
   const [localEndDate, setLocalEndDate] = useState(endDate || defaultEndDate)
+  const [rangeModified, setRangeModified] = useState(false)
 
   useEffect(() => {
     if (startDate) setLocalStartDate(startDate)
     if (endDate) setLocalEndDate(endDate)
   }, [startDate, endDate])
+
+  // Reset rangeModified when customRangeConfirmed changes to true
+  useEffect(() => {
+    if (customRangeConfirmed) {
+      setRangeModified(false)
+    }
+  }, [customRangeConfirmed])
 
   // Validation for date range
   const isDateRangeValid = localStartDate <= localEndDate
@@ -224,6 +232,12 @@ export function EnhancedTimeframeSelector({
   const handleDateChange = (newStartDate: Date, newEndDate: Date) => {
     setLocalStartDate(newStartDate)
     setLocalEndDate(newEndDate)
+    
+    // Mark range as modified if it's different from the current confirmed range
+    if (customRangeConfirmed && (newStartDate !== startDate || newEndDate !== endDate)) {
+      setRangeModified(true)
+    }
+    
     onDateRangeChange?.(newStartDate, newEndDate)
   }
 
@@ -273,13 +287,20 @@ export function EnhancedTimeframeSelector({
             </div>
           )}
           
+          {/* Range Modified Message */}
+          {rangeModified && isDateRangeValid && (
+            <div className="text-amber-500 text-xs font-medium text-center">
+              Date range modified - click "Update Range" to apply changes
+            </div>
+          )}
+          
           {/* Confirm Button */}
-          {!customRangeConfirmed && localStartDate && localEndDate && isDateRangeValid && (
+          {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
             <Button
               onClick={onConfirmCustomRange}
               className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-2 rounded-lg font-medium"
             >
-              Confirm Range
+              {rangeModified ? "Update Range" : "Confirm Range"}
             </Button>
           )}
         </div>
