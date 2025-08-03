@@ -23,7 +23,7 @@ IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
 if IS_PRODUCTION:
     DB_PATH = "/app/data/betting_transactions.db"
 else:
-    DB_PATH = "data/betting_transactions.db"
+    DB_PATH = "betting_transactions.db"
 
 def get_connection():
     """Get database connection with proper datetime handling."""
