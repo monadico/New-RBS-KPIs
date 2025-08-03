@@ -25,7 +25,7 @@ export const CHART_COLORS = {
   
   // Specific use cases
   volume: {
-    mon: "#D0FF12",        // Arctic Lime for $MON
+    mon: "#4A90E2",        // Bright Monad Blue for $MON
     jerry: "#EC305D",      // Boxing Pink for $JERRY
   },
   
@@ -66,8 +66,8 @@ export const CHART_COLORS = {
     },
     volume: {
       mon: {
-        start: "rgba(208, 255, 18, 0.4)",
-        end: "rgba(208, 255, 18, 0.05)",
+        start: "rgba(74, 144, 226, 0.4)",
+        end: "rgba(74, 144, 226, 0.05)",
       },
       jerry: {
         start: "rgba(236, 48, 93, 0.4)",

@@ -45,6 +45,7 @@ export function PlayerActivityPie({ data, totalPlayers }: PlayerActivityPieProps
               outerRadius={80}
               paddingAngle={2}
               dataKey="player_count"
+              isAnimationActive={false}
             >
               {data.map((entry, index) => (
                 <Cell

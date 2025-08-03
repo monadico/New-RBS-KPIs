@@ -24,7 +24,7 @@ export function TokenVolumeDistributionPie({ data, onChartClick, isModal = false
     {
       name: "$MON Volume",
       value: totalMonVolume,
-      color: "#D0FF12",
+      color: "#4A90E2",
       percentage: totalVolume > 0 ? ((totalMonVolume / totalVolume) * 100).toFixed(1) : "0"
     },
     {
@@ -164,11 +164,13 @@ export function TokenVolumeDistributionPie({ data, onChartClick, isModal = false
   if (onChartClick) {
     return (
       <div 
-        className="cursor-pointer transition-all duration-200 group hover:scale-[1.02] hover:shadow-glow-medium relative"
+        className="cursor-pointer transition-all duration-200 group relative"
         onClick={onChartClick}
       >
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 rounded-lg" />
+        {/* Border shine effect */}
+        <div className="absolute inset-0 rounded-lg overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -skew-x-12 -translate-x-full group-hover:translate-x-full" />
+        </div>
         
         {/* Expand icon overlay */}
         <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -177,7 +179,7 @@ export function TokenVolumeDistributionPie({ data, onChartClick, isModal = false
           </div>
         </div>
         
-        <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500">
+        <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
           {content}
         </Card>
       </div>
@@ -185,7 +187,7 @@ export function TokenVolumeDistributionPie({ data, onChartClick, isModal = false
   }
 
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500">
+    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
       {content}
     </Card>
   )

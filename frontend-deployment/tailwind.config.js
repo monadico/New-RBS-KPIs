@@ -144,26 +144,13 @@ module.exports = {
         "inner-glow": "inset 0 1px 0 rgba(255, 255, 255, 0.05)",
       },
       animation: {
-        "fade-in-up": "fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-        "fade-in-delayed": "fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both",
-        "scale-in": "scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+        // Removed heavy animations for performance
         "glow-pulse": "glowPulse 3s ease-in-out infinite",
         float: "float 6s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
       },
       keyframes: {
-        fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        scaleIn: {
-          "0%": { opacity: "0", transform: "scale(0.95)" },
-          "100%": { opacity: "1", transform: "scale(1)" },
-        },
+        // Removed heavy keyframes for performance
         glowPulse: {
           "0%, 100%": { boxShadow: "0 0 20px rgba(208, 255, 18, 0.1)" },
           "50%": { boxShadow: "0 0 40px rgba(208, 255, 18, 0.2)" },

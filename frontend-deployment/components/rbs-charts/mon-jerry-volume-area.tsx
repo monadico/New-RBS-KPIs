@@ -58,8 +58,8 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
       <AreaChart data={data} margin={{ top: 20, right: 40, left: 30, bottom: 20 }}>
         <defs>
           <linearGradient id="monVolumeGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#D0FF12" stopOpacity={0.4} />
-            <stop offset="95%" stopColor="#D0FF12" stopOpacity={0.05} />
+            <stop offset="5%" stopColor="#4A90E2" stopOpacity={0.4} />
+            <stop offset="95%" stopColor="#4A90E2" stopOpacity={0.05} />
           </linearGradient>
           <linearGradient id="jerryVolumeGradient" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#EC305D" stopOpacity={0.4} />
@@ -97,14 +97,16 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
           stroke="#EC305D"
           fill="url(#jerryVolumeGradient)"
           strokeWidth={2}
+          isAnimationActive={false}
         />
         <Area
           type="monotone"
           dataKey="mon_volume"
           stackId="1"
-          stroke="#D0FF12"
+          stroke="#4A90E2"
           fill="url(#monVolumeGradient)"
           strokeWidth={2}
+          isAnimationActive={false}
         />
       </AreaChart>
     </ResponsiveContainer>
@@ -144,7 +146,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
           config={{
             mon_volume: {
               label: "$MON Volume",
-              color: "#D0FF12",
+              color: "#4A90E2",
             },
             jerry_volume: {
               label: "$JERRY Volume",
@@ -162,10 +164,13 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
   if (onChartClick) {
     return (
       <div 
-        className="cursor-pointer transition-all duration-200 group hover:scale-[1.02] hover:shadow-glow-medium relative"
+        className="cursor-pointer transition-all duration-200 group relative"
         onClick={onChartClick}
       >
-        <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 rounded-lg" />
+        {/* Border shine effect */}
+        <div className="absolute inset-0 rounded-lg overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -skew-x-12 -translate-x-full group-hover:translate-x-full" />
+        </div>
         
         <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <div className="p-2 bg-bg-elevated/90 backdrop-blur-sm rounded-lg border border-border-subtle">
@@ -173,7 +178,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
           </div>
         </div>
         
-        <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group w-full overflow-hidden">
+        <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500 group w-full overflow-hidden relative">
           {content}
         </Card>
       </div>
@@ -181,7 +186,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
   }
 
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 group w-full overflow-hidden">
+    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500 group w-full overflow-hidden">
       {content}
     </Card>
   )

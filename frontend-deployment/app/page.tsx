@@ -79,12 +79,9 @@ export default function Page() {
         const apiUrl = isProduction 
           ? 'https://f8s8sk80ok44gw04osco04so.173.249.24.245.sslip.io'
           : 'http://localhost:8000'
-        console.log('🔍 Trying API URL:', `${apiUrl}/api/analytics`)
         
-        // Fetch betting analytics data
+                // Fetch betting analytics data
         const response = await fetch(`${apiUrl}/api/analytics`)
-        console.log('📡 API Response status:', response.status)
-        console.log('📡 API Response ok:', response.ok)
         
         if (!response.ok) {
           console.log('⚠️ API failed, falling back to static JSON')
@@ -99,7 +96,7 @@ export default function Page() {
           setData(json)
         } else {
           const json = await response.json()
-          console.log('✅ Using API data')
+          console.log('📡 Using API data')
           setData(json)
         }
 
@@ -466,7 +463,7 @@ export default function Page() {
           {/* Betting Metrics Cards */}
           <div className="space-y-6">
             {/* Primary Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 animate-fade-in-up">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <MetricCard
                 title="Total Submissions"
                 value={filteredMetrics.total_submissions}
@@ -498,7 +495,7 @@ export default function Page() {
             </div>
 
             {/* Average Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <MetricCard
                 title="Avg Submissions per Day"
                 value={filteredMetrics.avg_submissions_per_day}
@@ -524,14 +521,14 @@ export default function Page() {
           </div>
 
           {/* Betting Activity Charts */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed" style={{ animationDelay: "0.7s" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <SubmissionActivityChart data={timeframeData} onChartClick={handleSubmissionChartClick} />
             <NewBettorsChart data={timeframeData} onChartClick={handleNewBettorsChartClick} />
             <MonJerryVolumeArea data={timeframeData} onChartClick={handleVolumeChartClick} />
           </div>
 
           {/* Betting Distribution Charts */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed" style={{ animationDelay: "0.8s" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-1">
               <PlayerActivityPie data={player_activity.categories} totalPlayers={player_activity.total_players} />
             </div>
@@ -544,7 +541,7 @@ export default function Page() {
           </div>
 
           {/* Betting Detailed Charts */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-delayed" style={{ animationDelay: "0.9s" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <SlipsByCardStackedBar data={cardCountData} onChartClick={handleCardCountChartClick} />
             <TotalAvgCardsChart data={timeframeData} onChartClick={handleTotalAvgCardsChartClick} />
           </div>
@@ -553,7 +550,7 @@ export default function Page() {
         {/* Claiming Analytics Section */}
         <section className="space-y-8">
           {/* Claiming Metrics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-delayed" style={{ animationDelay: "1.0s" }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <MetricCard
               title="Total Claimer Addresses"
               value={
@@ -590,7 +587,7 @@ export default function Page() {
           </div>
           
           {/* Claiming Distribution Chart */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-delayed" style={{ animationDelay: "1.1s" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-1">
               <ClaimingVolumeDistributionPie 
                 monVolume={
@@ -618,7 +615,7 @@ export default function Page() {
         </section>
 
         {/* Stats and Retention Section */}
-        <section id="stats-retention" className="animate-fade-in-delayed" style={{ animationDelay: "1.2s" }}>
+        <section id="stats-retention">
           <div className="space-y-8">
             <ProtectedComponent 
               title="Daily Statistics" 
@@ -650,7 +647,7 @@ export default function Page() {
         </section>
 
         {/* Heatmaps Section */}
-        <section id="heatmaps" className="animate-fade-in-delayed" style={{ animationDelay: "1.3s" }}>
+        <section id="heatmaps">
           <div className="space-y-8">
             <ProtectedComponent 
               title="Activity Heatmap" 

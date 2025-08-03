@@ -12,7 +12,7 @@ interface ClaimingTokenDistributionPieProps {
 export function ClaimingTokenDistributionPie({ data, onChartClick, isModal = false }: ClaimingTokenDistributionPieProps) {
   // Placeholder data structure - will be updated when claiming data is available
   const chartData = data.length > 0 ? data : [
-    { name: "MON", value: 0, color: "#8884d8" },
+    { name: "MON", value: 0, color: "#4A90E2" },
     { name: "JERRY", value: 0, color: "#82ca9d" },
   ]
 

@@ -97,7 +97,8 @@ export function SubmissionActivityChart({ data, onChartClick, isModal = false }:
           />
           <Tooltip content={<CustomTooltip />} cursor={{ fill: CHART_COLORS.cursor }} />
           <Bar 
-            yAxisId="left" 
+            yAxisId="left"
+            isAnimationActive={false}
             dataKey="submissions" 
             fill={CHART_COLORS.activity.submissions} 
             radius={[4, 4, 0, 0]} 
@@ -109,6 +110,7 @@ export function SubmissionActivityChart({ data, onChartClick, isModal = false }:
             dataKey="active_addresses"
             stroke={CHART_COLORS.activity.bettors}
             strokeWidth={3}
+            isAnimationActive={false}
             dot={{ fill: CHART_COLORS.activity.bettors, strokeWidth: 0, r: 4 }}
             activeDot={{ 
               r: 6, 
@@ -233,11 +235,13 @@ export function SubmissionActivityChart({ data, onChartClick, isModal = false }:
   if (onChartClick) {
     return (
       <div 
-        className="cursor-pointer transition-all duration-200 group hover:scale-[1.02] hover:shadow-glow-medium relative"
+        className="cursor-pointer transition-all duration-200 group relative"
         onClick={onChartClick}
       >
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 rounded-lg" />
+        {/* Border shine effect */}
+        <div className="absolute inset-0 rounded-lg overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -skew-x-12 -translate-x-full group-hover:translate-x-full" />
+        </div>
         
         {/* Expand icon overlay */}
         <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -246,7 +250,7 @@ export function SubmissionActivityChart({ data, onChartClick, isModal = false }:
           </div>
         </div>
         
-        <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500">
+        <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
           {content}
         </Card>
       </div>
@@ -254,7 +258,7 @@ export function SubmissionActivityChart({ data, onChartClick, isModal = false }:
   }
 
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500">
+    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
       {content}
     </Card>
   )
