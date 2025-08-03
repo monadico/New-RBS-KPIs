@@ -21,7 +21,7 @@ export function ClaimingVolumeDistributionPie({ monVolume, jerryVolume, onChartC
     {
       name: "$MON Claimed",
       value: monVolume,
-      color: "#D0FF12",
+      color: "#4A90E2",
       percentage: totalVolume > 0 ? ((monVolume / totalVolume) * 100).toFixed(1) : "0"
     },
     {

@@ -36,17 +36,24 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
               })
             })()}
           </p>
-          {payload.map((entry: any, index: number) => (
-            <div key={index} className="flex items-center gap-2">
-              <div 
-                className="w-3 h-3 rounded-full" 
-                style={{ backgroundColor: entry.color }}
-              />
-              <span className="text-text-primary text-sm">
-                {entry.dataKey === 'mon_volume' ? '$MON Volume' : '$JERRY Volume'}: {formatCurrency(entry.value)}
-              </span>
-            </div>
-          ))}
+          {payload
+            .sort((a: any, b: any) => {
+              // Sort MON first, then JERRY
+              if (a.dataKey === 'mon_volume') return -1
+              if (b.dataKey === 'mon_volume') return 1
+              return 0
+            })
+            .map((entry: any, index: number) => (
+              <div key={index} className="flex items-center gap-2">
+                <div 
+                  className="w-3 h-3 rounded-full" 
+                  style={{ backgroundColor: entry.color }}
+                />
+                <span className="text-text-primary text-sm">
+                  {entry.dataKey === 'mon_volume' ? 'MON' : 'JERRY'}: {formatCurrency(entry.value)}
+                </span>
+              </div>
+            ))}
         </div>
       )
     }
@@ -85,11 +92,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
           tickFormatter={formatCurrency}
           dx={-15}
         />
-        {isModal ? (
-          <ChartTooltip content={customTooltip} />
-        ) : (
-          <ChartTooltip content={<ChartTooltipContent formatter={(value) => formatCurrency(Number(value))} />} />
-        )}
+        <ChartTooltip content={customTooltip} />
         <Area
           type="monotone"
           dataKey="jerry_volume"
