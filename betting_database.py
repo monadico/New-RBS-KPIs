@@ -300,6 +300,9 @@ async def fetch_mon_transactions(client: HypersyncClient, start_block: int, end_
                 to=CONTRACT_ADDRESSES_1,
                 sighash=[SIG_HASH_1]
             )],
+            logs=[
+                LogSelection(address=CONTRACT_ADDRESSES_1)
+            ],
             field_selection=FieldSelection(
                 block=['timestamp', 'number'],
                 transaction=['hash', 'from', 'to', 'value', 'input', 'status', 'block_number'],
@@ -327,16 +330,15 @@ async def fetch_mon_transactions(client: HypersyncClient, start_block: int, end_
                 # Calculate cards in slip from transaction input
                 cards_in_slip = calculate_cards_in_slip_from_tx(tx.input)
 
-                # Get bet_id_decoded from logs
+                # Get bet_id from RBS contract logs
                 bet_id_decoded = 0
                 if response.data.logs:
                     for log in response.data.logs:
-                        if log.transaction_hash == tx.hash and len(log.topics) >= 3:
-                            # Look for the card event log (topic 0 = CARDS_LOG_TOPIC_0)
-                            if (log.topics and log.topics[0] and 
-                                log.topics[0].lower() == '0xefc52bf7792453af1461fa9a7097486359b41a048898b6d542c0f03389487187'):
-                                bet_id_decoded = hex_to_int(log.topics[2])
-                                break
+                        if (log.transaction_hash == tx.hash and 
+                            log.address and log.address.lower() in [addr.lower() for addr in CONTRACT_ADDRESSES_1] 
+                            and log.topics and len(log.topics) >= 3):
+                            bet_id_decoded = hex_to_int(log.topics[2])  # Convert hex to int
+                            break  # Use the first valid bet_id found
                 
                 # Calculate bet amount (MON units)
                 bet_amt = hex_to_int(tx.value) / 1e18
@@ -453,9 +455,13 @@ async def fetch_jerry_transactions(client: HypersyncClient, start_block: int, en
                         if len(data_hex) >= end_index:
                             card_count_hex = data_hex[start_index:end_index]
                             cards_in_slip = hex_to_int(card_count_hex)
-                        
-                        if len(card_event_log.topics) >= 3:
-                            bet_id_decoded = hex_to_int(card_event_log.topics[2])
+                    
+                    # Get bet_id from RBS contract logs (not just card event log)
+                    for log in tx_logs:
+                        if (log.address and log.address.lower() in [addr.lower() for addr in CONTRACT_ADDRESSES_1] 
+                            and log.topics and len(log.topics) >= 3):
+                            bet_id_decoded = hex_to_int(log.topics[2])  # Convert hex to int
+                            break  # Use the first valid bet_id found
 
                     # Calculate bet amount from Jerry log
                     bet_amt = 0
@@ -486,18 +492,19 @@ async def fetch_jerry_transactions(client: HypersyncClient, start_block: int, en
 # MAIN EXECUTION
 # =============================================================================
 
-async def process_all_transactions(db: BettingDatabase, client: HypersyncClient, start_block: int = None):
-    """Process all transactions from start_block to current height."""
+async def process_all_transactions(db: BettingDatabase, client: HypersyncClient, start_block: int = None, end_block: int = None):
+    """Process all transactions from start_block to end_block."""
     if start_block is None:
         start_block = db.get_last_processed_block()
         if start_block == 0:
             start_block = 0  # Start from block 0 for complete historical data
     
-    end_block = await client.get_height()
-    print(f"Current blockchain height: {end_block}")
+    if end_block is None:
+        end_block = await client.get_height()
+        print(f"Current blockchain height: {end_block}")
     
     if start_block >= end_block:
-        print(f"No new blocks to process (last processed: {start_block}, current: {end_block})")
+        print(f"No new blocks to process (last processed: {start_block}, end: {end_block})")
         return 0
     
     print(f"Processing blocks {start_block} to {end_block}")
@@ -528,6 +535,7 @@ async def main():
     parser = argparse.ArgumentParser(description="Betting Database System")
     parser.add_argument("--incremental", action="store_true", help="Only fetch new data")
     parser.add_argument("--start-block", type=int, help="Start from specific block")
+    parser.add_argument("--end-block", type=int, help="End at specific block")
     parser.add_argument("--stats", action="store_true", help="Show database statistics")
     # Set default database path based on environment
     if IS_PRODUCTION:
@@ -570,10 +578,16 @@ async def main():
         else:
             start_block = 0  # Start from beginning
         
-        print(f"Starting data processing from block {start_block}")
+        # Determine end block
+        if args.end_block is not None:
+            end_block = args.end_block
+        else:
+            end_block = await client.get_height()
+        
+        print(f"Starting data processing from block {start_block} to {end_block}")
         
         # Process and store data
-        inserted_count = await process_all_transactions(db, client, start_block)
+        inserted_count = await process_all_transactions(db, client, start_block, end_block)
         
         if inserted_count > 0:
             print(f"\nProcessing complete! Inserted {inserted_count} new transactions.")
