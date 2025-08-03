@@ -133,7 +133,7 @@ export function TotalAvgCardsChart({ data, onChartClick, isModal = false }: Tota
   }
 
   const content = (
-    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500 group">
+    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500 group flex flex-col h-full">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="space-y-2">
@@ -151,7 +151,7 @@ export function TotalAvgCardsChart({ data, onChartClick, isModal = false }: Tota
           </div>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-grow">
         <ChartContainer
           config={{
             total_cards: {
@@ -163,7 +163,7 @@ export function TotalAvgCardsChart({ data, onChartClick, isModal = false }: Tota
               color: "#1E90FF",
             },
           }}
-          className="h-full"
+          className="h-full w-full"
         >
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data} margin={{ top: 20, right: 40, left: 30, bottom: 20 }}>

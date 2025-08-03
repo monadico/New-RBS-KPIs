@@ -7,6 +7,7 @@ import { CreditCard, TrendingUp } from "lucide-react"
 import type { TimeframeCardCounts } from "@/lib/data-types"
 import { formatNumber } from "@/lib/utils"
 import { CHART_COLORS } from "@/lib/chart-colors"
+import { ChartContainer } from "@/components/ui/chart"
 
 const CARD_COUNTS = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -45,8 +46,13 @@ export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: S
   // Calculate totals for all card counts
   const totalBets = transformedData.reduce((sum, period) => sum + period.total, 0)
 
-  // Use smaller height for modal to ensure it fits within bounds and shows X-axis
-  const chartHeight = isModal ? "h-[450px]" : "h-[500px]"
+  // Chart config for ChartContainer
+  const chartConfig = {
+    cards: {
+      label: "Cards",
+      color: "#2563eb",
+    },
+  }
 
   // Custom tooltip for modal chart
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -134,8 +140,8 @@ export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: S
   }
 
   const content = (
-    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500">
-      <CardHeader className="pb-3">
+    <Card className="bg-surface border-border-subtle shadow-card-medium hover:shadow-card-elevated transition-all duration-500 flex flex-col h-full">
+      <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-accent-muted rounded-lg border border-accent-primary/20">
@@ -153,13 +159,13 @@ export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: S
         </div>
       </CardHeader>
 
-      <CardContent>
-        <div className={`${chartHeight} w-full`}>
+      <CardContent className="flex-grow">
+        <ChartContainer config={chartConfig} className="h-full w-full">
           {transformedData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={transformedData}
-                margin={{ top: 20, right: 40, left: 50, bottom: isModal ? 80 : 40 }}
+                margin={{ top: 20, right: 40, left: 30, bottom: isModal ? 80 : 20 }}
               >
                 <XAxis
                   dataKey="period"
@@ -207,7 +213,7 @@ export function SlipsByCardStackedBar({ data, onChartClick, isModal = false }: S
               <p>No data available</p>
             </div>
           )}
-        </div>
+        </ChartContainer>
       </CardContent>
     </Card>
   )
