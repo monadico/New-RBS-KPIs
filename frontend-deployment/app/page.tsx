@@ -54,6 +54,7 @@ export default function Page() {
   const [customRangeData, setCustomRangeData] = useState<any>(null)
   const [claimingCustomRangeData, setClaimingCustomRangeData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [customRangeLoading, setCustomRangeLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
   
@@ -164,6 +165,7 @@ export default function Page() {
       return
     }
 
+    setCustomRangeLoading(true)
     setCustomRangeConfirmed(true)
     
     try {
@@ -207,6 +209,8 @@ export default function Page() {
     } catch (err: any) {
       console.error('❌ Error fetching custom range data:', err)
       setError('Failed to fetch custom range data')
+    } finally {
+      setCustomRangeLoading(false)
     }
   }
 
@@ -456,6 +460,7 @@ export default function Page() {
           onReset={handleReset}
           onConfirmCustomRange={handleConfirmCustomRange}
           customRangeConfirmed={customRangeConfirmed}
+          customRangeLoading={customRangeLoading}
         />
 
         {/* Betting Analytics Section */}

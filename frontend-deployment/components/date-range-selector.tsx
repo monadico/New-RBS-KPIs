@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
-import { Calendar as CalendarIcon, ChevronDown, RotateCcw } from "lucide-react"
+import { Calendar as CalendarIcon, ChevronDown, RotateCcw, Loader2 } from "lucide-react"
 import { format, parseISO, isValid } from "date-fns"
 
 interface DateRangeSelectorProps {
@@ -167,6 +167,7 @@ interface EnhancedTimeframeSelectorProps {
   onReset?: () => void
   customRangeConfirmed?: boolean
   onConfirmCustomRange?: () => void
+  customRangeLoading?: boolean
 }
 
 export function EnhancedTimeframeSelector({
@@ -179,7 +180,8 @@ export function EnhancedTimeframeSelector({
   className,
   onReset,
   customRangeConfirmed,
-  onConfirmCustomRange
+  onConfirmCustomRange,
+  customRangeLoading
 }: EnhancedTimeframeSelectorProps) {
   // Set default dates based on available range
   const defaultStartDate = availableDateRange?.min || new Date("2025-02-04")
@@ -276,15 +278,23 @@ export function EnhancedTimeframeSelector({
           
           {/* Action Buttons */}
           <div className="flex gap-3">
-            {/* Confirm Button */}
-            {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
-              <Button
-                onClick={onConfirmCustomRange}
-                className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-2 rounded-lg font-medium"
-              >
-                {rangeModified ? "Update Range" : "Confirm Range"}
-              </Button>
-            )}
+                      {/* Confirm Button */}
+          {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
+            <Button
+              onClick={onConfirmCustomRange}
+              disabled={customRangeLoading}
+              className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {customRangeLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Querying...
+                </>
+              ) : (
+                rangeModified ? "Update Range" : "Confirm Range"
+              )}
+            </Button>
+          )}
             
             {/* Reset Button */}
             {onReset && (
