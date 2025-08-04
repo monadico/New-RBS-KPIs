@@ -29,7 +29,7 @@ load_dotenv()  # Load any other .env files
 IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
 
 if IS_PRODUCTION:
-    DB_PATH = "/app/data/comprehensive_claiming_transactions.db"
+    DB_PATH = "/app/data/comprehensive_claiming_transactions_fixed.db"
     OUTPUT_FILE = "/app/claiming_analytics_dump.json"
     FRONTEND_PUBLIC = "/app/new/public/claiming_analytics_dump.json"
     FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/claiming_analytics_dump.json"
