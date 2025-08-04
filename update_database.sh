@@ -128,6 +128,17 @@ else
     exit 1
 fi
 
+# Generate winrate analytics JSON
+log_message "Generating winrate analytics JSON..."
+python3 winrate_query.py
+
+if [ $? -eq 0 ]; then
+    log_message "Winrate analytics JSON generated successfully"
+else
+    log_message "ERROR: Winrate analytics JSON generation failed"
+    exit 1
+fi
+
 # Copy the updated JSON files to the frontend deployment directory
 if [ -f "new/public/analytics_dump.json" ]; then
     cp new/public/analytics_dump.json frontend-deployment/public/analytics_dump.json
@@ -137,6 +148,11 @@ fi
 if [ -f "new/public/claiming_analytics_dump.json" ]; then
     cp new/public/claiming_analytics_dump.json frontend-deployment/public/claiming_analytics_dump.json
     log_message "Copied claiming analytics JSON to frontend deployment"
+fi
+
+if [ -f "new/public/winrate_analytics_dump.json" ]; then
+    cp new/public/winrate_analytics_dump.json frontend-deployment/public/winrate_analytics_dump.json
+    log_message "Copied winrate analytics JSON to frontend deployment"
 fi
 
 # Show database statistics
