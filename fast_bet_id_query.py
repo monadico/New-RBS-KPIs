@@ -17,6 +17,7 @@ import os
 import time
 import logging
 import datetime
+import sqlite3
 from datetime import datetime
 from dotenv import load_dotenv
 from typing import List, Dict, Any
@@ -50,6 +51,88 @@ def hex_to_int(hex_str: str) -> int:
     if not hex_str or hex_str == '0x':
         return 0
     return int(hex_str, 16)
+
+def get_database_block_range(db_path: str = "betting_transactions.db") -> tuple[int, int]:
+    """Get the min and max block numbers from the database."""
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute("""
+            SELECT MIN(block_number) as min_block, MAX(block_number) as max_block 
+            FROM betting_transactions
+        """)
+        result = cursor.fetchone()
+        min_block, max_block = result
+        return min_block, max_block
+    finally:
+        conn.close()
+
+def update_bet_ids_batch(bet_id_map: Dict[str, int], db_path: str = "betting_transactions.db", batch_size: int = 1000):
+    """Update bet IDs in the database using batch processing."""
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    try:
+        # Convert dict to list of tuples for batch processing
+        items = list(bet_id_map.items())
+        total_items = len(items)
+        updated_count = 0
+        
+        print(f"🔄 Updating {total_items:,} bet IDs in batches of {batch_size}...")
+        
+        for i in range(0, total_items, batch_size):
+            batch = items[i:i + batch_size]
+            
+            with conn:  # This creates a transaction
+                for tx_hash, bet_id in batch:
+                    cursor.execute("""
+                        UPDATE betting_transactions 
+                        SET bet_id = ? 
+                        WHERE tx_hash = ?
+                    """, (bet_id, tx_hash))
+                    updated_count += cursor.rowcount
+            
+            # Progress update
+            if (i + batch_size) % (batch_size * 10) == 0 or i + batch_size >= total_items:
+                print(f"  ✅ Updated {min(i + batch_size, total_items):,}/{total_items:,} bet IDs")
+        
+        print(f"✅ Database update complete! Updated {updated_count:,} bet IDs")
+        return updated_count
+        
+    finally:
+        conn.close()
+
+def get_database_stats(db_path: str = "betting_transactions.db") -> Dict[str, int]:
+    """Get database statistics."""
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    try:
+        # Total transactions
+        cursor.execute("SELECT COUNT(*) FROM betting_transactions")
+        total_transactions = cursor.fetchone()[0]
+        
+        # MON transactions
+        cursor.execute("SELECT COUNT(*) FROM betting_transactions WHERE token = 'MON'")
+        mon_transactions = cursor.fetchone()[0]
+        
+        # Transactions with bet_id
+        cursor.execute("SELECT COUNT(*) FROM betting_transactions WHERE bet_id > 0")
+        with_bet_id = cursor.fetchone()[0]
+        
+        # MON transactions with bet_id
+        cursor.execute("SELECT COUNT(*) FROM betting_transactions WHERE token = 'MON' AND bet_id > 0")
+        mon_with_bet_id = cursor.fetchone()[0]
+        
+        return {
+            'total_transactions': total_transactions,
+            'mon_transactions': mon_transactions,
+            'with_bet_id': with_bet_id,
+            'mon_with_bet_id': mon_with_bet_id
+        }
+    finally:
+        conn.close()
 
 async def stream_bet_ids_ultra_fast(client: HypersyncClient, start_block: int, end_block: int) -> List[Dict[str, Any]]:
     """
@@ -149,7 +232,7 @@ async def stream_bet_ids_ultra_fast(client: HypersyncClient, start_block: int, e
     return bet_ids
 
 async def main():
-    """Main execution function - optimized for bet ID and transaction hash retrieval."""
+    """Main execution function - optimized for bet ID retrieval and database update."""
     # Initialize Hypersync client
     config = ClientConfig(
         url=MONAD_HYPERSYNC_URL,
@@ -157,25 +240,46 @@ async def main():
     )
     client = HypersyncClient(config)
     
-    print("=== BET ID RETRIEVAL STREAM ===")
-    print("=" * 40)
+    print("=== BET ID RETRIEVAL & DATABASE UPDATE ===")
+    print("=" * 50)
+    
+    # Get database statistics before update
+    print("📊 DATABASE STATISTICS (BEFORE UPDATE):")
+    stats_before = get_database_stats()
+    print(f"  Total transactions: {stats_before['total_transactions']:,}")
+    print(f"  MON transactions: {stats_before['mon_transactions']:,}")
+    print(f"  Transactions with bet_id: {stats_before['with_bet_id']:,}")
+    print(f"  MON transactions with bet_id: {stats_before['mon_with_bet_id']:,}")
+    print()
+    
+    # Get block range from database
+    min_block, max_block = get_database_block_range()
+    print(f"🎯 DATABASE BLOCK RANGE:")
+    print(f"  Min block: {min_block:,}")
+    print(f"  Max block: {max_block:,}")
+    print(f"  Total blocks: {max_block - min_block:,}")
+    print()
     
     # Get current chain height
     height = await client.get_height()
     print(f"📊 Current chain height: {height:,}")
     
-    # Query recent blocks for bet IDs
-    blocks_back = 8000  # Adjust this number based on your needs
-    start_block = height - blocks_back
-    end_block = height
+    # Use entire database block range for full run
+    start_block = min_block
+    end_block = max_block
     
-    print(f"🎯 Querying blocks {start_block:,} to {height:,} ({blocks_back:,} blocks)")
+    print(f"🚀 PRODUCTION RUN: Starting bet ID retrieval from {start_block:,} to {end_block:,}")
+    print(f"   This will process {(end_block - start_block):,} blocks")
+    print(f"   Estimated time: {(end_block - start_block) / 10000:.1f} minutes (based on 10k blocks/min)")
+    print()
     
     # Get bet IDs using ultra-fast method
     bet_ids = await stream_bet_ids_ultra_fast(client, start_block, end_block)
     
-    # Print results in the requested format
-    print(f"\n📋 BET ID RESULTS:")
+    # Create bet ID mapping for database update
+    bet_id_map = {item['tx_hash']: item['bet_id'] for item in bet_ids}
+    
+    print(f"\n📋 BET ID RETRIEVAL RESULTS:")
     print("=" * 40)
     print(f"Total bet IDs found: {len(bet_ids):,}")
     print()
@@ -183,12 +287,34 @@ async def main():
     if bet_ids:
         print("tx hash - bet id")
         print("-" * 40)
-        for bet_id_data in bet_ids:
+        for bet_id_data in bet_ids[:10]:  # Show first 10 for preview
             print(f"{bet_id_data['tx_hash']} - {bet_id_data['bet_id']}")
+        if len(bet_ids) > 10:
+            print(f"... and {len(bet_ids) - 10:,} more")
+        print()
+        
+        # Update database with bet IDs
+        print("🔄 UPDATING DATABASE...")
+        updated_count = update_bet_ids_batch(bet_id_map)
+        
+        # Get database statistics after update
+        print("\n📊 DATABASE STATISTICS (AFTER UPDATE):")
+        stats_after = get_database_stats()
+        print(f"  Total transactions: {stats_after['total_transactions']:,}")
+        print(f"  MON transactions: {stats_after['mon_transactions']:,}")
+        print(f"  Transactions with bet_id: {stats_after['with_bet_id']:,}")
+        print(f"  MON transactions with bet_id: {stats_after['mon_with_bet_id']:,}")
+        
+        # Show improvement
+        improvement = stats_after['with_bet_id'] - stats_before['with_bet_id']
+        print(f"\n📈 IMPROVEMENT:")
+        print(f"  New bet IDs added: {improvement:,}")
+        print(f"  Database updates: {updated_count:,}")
+        
     else:
         print("No bet IDs found in the specified block range.")
     
-    print(f"\n✅ Retrieval complete!")
+    print(f"\n✅ Process complete!")
 
 if __name__ == "__main__":
     asyncio.run(main())

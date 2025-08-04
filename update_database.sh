@@ -83,6 +83,17 @@ else
     exit 1
 fi
 
+# Run the bet ID retrieval and database update
+log_message "Starting bet ID retrieval and database update..."
+python3 fast_bet_id_query.py
+
+if [ $? -eq 0 ]; then
+    log_message "Bet ID retrieval and database update completed successfully"
+else
+    log_message "ERROR: Bet ID retrieval and database update failed"
+    exit 1
+fi
+
 # Run the claiming database update with incremental flag
 log_message "Starting incremental claiming database update..."
 log_message "Claiming database file exists: $(ls -la /app/data/comprehensive_claiming_transactions_fixed.db 2>/dev/null || echo 'No claiming database file')"
