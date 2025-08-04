@@ -15,6 +15,7 @@ import { MonJerryVolumeArea } from "@/components/rbs-charts/mon-jerry-volume-are
 import { TotalAvgCardsChart } from "@/components/rbs-charts/total-avg-cards-chart"
 import { TokenVolumeDistributionPie } from "@/components/rbs-charts/token-volume-distribution-pie"
 import { ClaimingVolumeDistributionPie } from "@/components/rbs-charts/claiming-volume-distribution-pie"
+import { WinratePieChart } from "@/components/winrate-pie-chart"
 
 // Claiming Chart Components
 // import { ClaimingVolumeChart } from "@/components/claiming-charts/claiming-volume-chart"
@@ -51,6 +52,7 @@ export default function Page() {
   const [customRangeConfirmed, setCustomRangeConfirmed] = useState(false)
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [claimingAnalytics, setClaimingAnalytics] = useState<any>(null)
+  const [winrateData, setWinrateData] = useState<any>(null)
   const [customRangeData, setCustomRangeData] = useState<any>(null)
   const [claimingCustomRangeData, setClaimingCustomRangeData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -122,6 +124,30 @@ export default function Page() {
           const claimingJson = await claimingResponse.json()
           console.log('✅ Using claiming API data')
           setClaimingAnalytics(claimingJson)
+        }
+
+        // Fetch winrate analytics data - same pattern as other data
+        console.log('🔍 Fetching winrate analytics...')
+        const winrateResponse = await fetch(`${apiUrl}/api/winrate`)
+        console.log('📡 Winrate API Response status:', winrateResponse.status)
+        console.log('📡 Winrate API Response ok:', winrateResponse.ok)
+        
+        if (!winrateResponse.ok) {
+          console.log('⚠️ Winrate API failed, falling back to static JSON')
+          // Fallback to static winrate JSON
+          const staticWinrateResponse = await fetch('/winrate_analytics_dump.json')
+          if (!staticWinrateResponse.ok) {
+            console.log('⚠️ Static winrate JSON also failed')
+            setWinrateData(null)
+          } else {
+            const winrateJson = await staticWinrateResponse.json()
+            console.log('📁 Using static winrate JSON data')
+            setWinrateData(winrateJson)
+          }
+        } else {
+          const winrateJson = await winrateResponse.json()
+          console.log('✅ Using winrate API data')
+          setWinrateData(winrateJson)
         }
       } catch (err: any) {
         console.error('❌ Error loading analytics data:', err)
@@ -592,8 +618,8 @@ export default function Page() {
           </div>
           
           {/* Claiming Distribution Chart */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-1">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+            <div className="lg:col-span-1 h-full">
               <ClaimingVolumeDistributionPie 
                 monVolume={
                   selectedTimeframe === "custom" && customRangeConfirmed && claimingCustomRangeData
@@ -608,13 +634,8 @@ export default function Page() {
                 onChartClick={handleClaimingVolumeDistributionClick}
               />
             </div>
-            <div className="lg:col-span-2">
-              {/* Placeholder for future claiming charts */}
-              <div className="h-full flex items-center justify-center bg-card-base rounded-lg border border-border-base">
-                <p className="text-text-secondary text-center">
-                  More claiming analytics coming soon...
-                </p>
-              </div>
+            <div className="lg:col-span-2 h-full">
+              <WinratePieChart winrateData={winrateData} />
             </div>
           </div>
         </section>

@@ -38,10 +38,12 @@ if IS_PRODUCTION:
     DB_PATH = "/app/data/betting_transactions.db"
     JSON_FILE_PATH = "/app/new/public/analytics_dump.json"
     CLAIMING_JSON_FILE_PATH = "/app/new/public/claiming_analytics_dump.json"
+    WINRATE_JSON_FILE_PATH = "/app/new/public/winrate_analytics_dump.json"
 else:
     DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
     JSON_FILE_PATH = "new/public/analytics_dump.json"
     CLAIMING_JSON_FILE_PATH = "new/public/claiming_analytics_dump.json"
+    WINRATE_JSON_FILE_PATH = "new/public/winrate_analytics_dump.json"
 
 @app.get("/")
 async def root():
@@ -57,6 +59,7 @@ async def root():
             "/api/claiming/volume-data": "Get claiming volume data for charts",
             "/api/custom-range": "Get analytics for custom date range (start_date&end_date)",
             "/api/claiming/custom-range": "Get claiming analytics for custom date range (start_date&end_date)",
+            "/api/winrate": "Get winrate analytics data",
             "/docs": "API documentation"
         }
     }
@@ -214,6 +217,24 @@ async def get_claiming_custom_range_analytics(
 
     except Exception as e:
         print(f"❌ Error in claiming custom range query: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/winrate")
+async def get_winrate_analytics():
+    """Get winrate analytics data from pre-computed JSON file"""
+    try:
+        json_file = Path(WINRATE_JSON_FILE_PATH)
+        if json_file.exists():
+            print("📁 Serving pre-computed winrate analytics JSON...")
+            with open(json_file, 'r') as f:
+                data = json.load(f)
+            print("✅ Winrate analytics JSON served successfully")
+            return data
+        else:
+            print("❌ Winrate analytics JSON file not found")
+            return {"error": "Winrate data not found. Run winrate_query.py first."}
+    except Exception as e:
+        print(f"❌ Error reading winrate analytics JSON: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 # Serve static files (your Next.js build)

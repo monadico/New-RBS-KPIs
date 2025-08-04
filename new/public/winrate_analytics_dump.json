@@ -1,0 +1,25 @@
+{
+  "labels": [
+    "Won",
+    "Lost/Undecided"
+  ],
+  "datasets": [
+    {
+      "data": [
+        194053,
+        1261497
+      ],
+      "backgroundColor": [
+        "#4CAF50",
+        "#FF5722"
+      ],
+      "borderColor": [
+        "#45a049",
+        "#e53935"
+      ],
+      "borderWidth": 2
+    }
+  ],
+  "winrate_percentage": 13.33,
+  "total_bets": 1455550
+}

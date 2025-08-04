@@ -2,6 +2,7 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { ChartContainer } from "@/components/ui/chart"
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts"
 import { PieChart as PieChartIcon } from "lucide-react"
 import { formatCurrency } from "@/lib/utils"
@@ -176,7 +177,7 @@ export function ClaimingVolumeDistributionPie({ monVolume, jerryVolume, onChartC
           </div>
         </div>
         
-        <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
+        <Card className="h-full bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
           {content}
         </Card>
       </div>
@@ -184,7 +185,7 @@ export function ClaimingVolumeDistributionPie({ monVolume, jerryVolume, onChartC
   }
 
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
+    <Card className="h-full bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
       {content}
     </Card>
   )

@@ -25,21 +25,21 @@ def get_winrate_stats() -> Dict[str, Any]:
     claiming_cursor = claiming_conn.cursor()
     
     try:
-        # Get total bets with bet_id up to July 2nd, 2025
+        # Get total bets with bet_id (all time)
         betting_cursor.execute("""
             SELECT COUNT(DISTINCT bet_id) as total_bets
             FROM betting_transactions 
-            WHERE bet_id > 0 AND timestamp <= '2025-07-02'
+            WHERE bet_id > 0
         """)
         total_bets = betting_cursor.fetchone()[0]
         
         # Get won bets (bet_id exists in both tables)
-        # First, get all bet_ids from claiming database up to July 2nd, 2025
-        claiming_cursor.execute("SELECT DISTINCT bet_id FROM claiming_transactions WHERE bet_id > 0 AND timestamp <= '2025-07-02'")
+        # First, get all bet_ids from claiming database (all time)
+        claiming_cursor.execute("SELECT DISTINCT bet_id FROM claiming_transactions WHERE bet_id > 0")
         claimed_bet_ids = set(row[0] for row in claiming_cursor.fetchall())
         
-        # Then count how many of these exist in betting database up to July 2nd, 2025
-        betting_cursor.execute("SELECT DISTINCT bet_id FROM betting_transactions WHERE bet_id > 0 AND timestamp <= '2025-07-02'")
+        # Then count how many of these exist in betting database (all time)
+        betting_cursor.execute("SELECT DISTINCT bet_id FROM betting_transactions WHERE bet_id > 0")
         betting_bet_ids = set(row[0] for row in betting_cursor.fetchall())
         
         # Find intersection (won bets)
@@ -52,18 +52,17 @@ def get_winrate_stats() -> Dict[str, Any]:
         # Calculate winrate percentage
         winrate_percentage = (won_bets / total_bets * 100) if total_bets > 0 else 0
         
-        # Get additional statistics up to July 2nd, 2025
+        # Get additional statistics (all time)
         betting_cursor.execute("""
             SELECT COUNT(*) as total_transactions,
                    COUNT(CASE WHEN token = 'MON' THEN 1 END) as mon_transactions,
                    COUNT(CASE WHEN token = 'JERRY' THEN 1 END) as jerry_transactions
             FROM betting_transactions
-            WHERE timestamp <= '2025-07-02'
         """)
         total_transactions, mon_transactions, jerry_transactions = betting_cursor.fetchone()
         
-        # Get claiming statistics up to July 2nd, 2025
-        claiming_cursor.execute("SELECT COUNT(*) as total_claims FROM claiming_transactions WHERE timestamp <= '2025-07-02'")
+        # Get claiming statistics (all time)
+        claiming_cursor.execute("SELECT COUNT(*) as total_claims FROM claiming_transactions")
         total_claims = claiming_cursor.fetchone()[0]
         
         return {
