@@ -183,19 +183,12 @@ export function EnhancedTimeframeSelector({
   onConfirmCustomRange,
   customRangeLoading
 }: EnhancedTimeframeSelectorProps) {
-  // Set default dates based on available range
-  const defaultStartDate = availableDateRange?.min || new Date("2025-02-04")
-  const defaultEndDate = availableDateRange?.max || new Date()
-  
-  // Debug logging
-  console.log("EnhancedTimeframeSelector - availableDateRange:", availableDateRange)
-  console.log("EnhancedTimeframeSelector - defaultStartDate:", defaultStartDate)
-  console.log("EnhancedTimeframeSelector - defaultEndDate:", defaultEndDate)
-  
-  const [localStartDate, setLocalStartDate] = useState(startDate || defaultStartDate)
-  const [localEndDate, setLocalEndDate] = useState(endDate || defaultEndDate)
+  const [localStartDate, setLocalStartDate] = useState<Date>(startDate || new Date())
+  const [localEndDate, setLocalEndDate] = useState<Date>(endDate || new Date())
   const [rangeModified, setRangeModified] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
+  // Update local dates when props change
   useEffect(() => {
     if (startDate) setLocalStartDate(startDate)
     if (endDate) setLocalEndDate(endDate)
@@ -223,6 +216,19 @@ export function EnhancedTimeframeSelector({
     onDateRangeChange?.(newStartDate, newEndDate)
   }
 
+  const handleTimeframeSelect = (timeframe: "daily" | "weekly" | "monthly" | "custom") => {
+    if (timeframe === "custom") {
+      setIsTransitioning(true)
+      // Simulate a brief loading state for better UX
+      setTimeout(() => {
+        setIsTransitioning(false)
+        onSelectTimeframe(timeframe)
+      }, 300)
+    } else {
+      onSelectTimeframe(timeframe)
+    }
+  }
+
   const buttonClass = (timeframe: string) =>
     cn(
       "px-6 py-3 rounded-full text-sm font-medium transition-all duration-300",
@@ -240,7 +246,7 @@ export function EnhancedTimeframeSelector({
             buttonClass("daily"),
             "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
           )} 
-          onClick={() => onSelectTimeframe("daily")}
+          onClick={() => handleTimeframeSelect("daily")}
         >
           Daily
         </Button>
@@ -249,7 +255,7 @@ export function EnhancedTimeframeSelector({
             buttonClass("weekly"),
             "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
           )} 
-          onClick={() => onSelectTimeframe("weekly")}
+          onClick={() => handleTimeframeSelect("weekly")}
         >
           Weekly
         </Button>
@@ -258,7 +264,7 @@ export function EnhancedTimeframeSelector({
             buttonClass("monthly"),
             "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
           )} 
-          onClick={() => onSelectTimeframe("monthly")}
+          onClick={() => handleTimeframeSelect("monthly")}
         >
           Monthly
         </Button>
@@ -267,7 +273,7 @@ export function EnhancedTimeframeSelector({
             buttonClass("custom"),
             "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
           )} 
-          onClick={() => onSelectTimeframe("custom")}
+          onClick={() => handleTimeframeSelect("custom")}
         >
           Custom Range
         </Button>
@@ -276,62 +282,77 @@ export function EnhancedTimeframeSelector({
       {/* Date Range Selector - Only shown when custom is selected */}
       {selectedTimeframe === "custom" && (
         <div className="flex flex-col items-center gap-4 animate-fade-in-up">
-          <DateRangeSelector
-            startDate={localStartDate}
-            endDate={localEndDate}
-            onStartDateChange={(date) => handleDateChange(date, localEndDate)}
-            onEndDateChange={(date) => handleDateChange(localStartDate, date)}
-            minDate={availableDateRange?.min}
-            maxDate={availableDateRange?.max}
-            className="bg-surface-elevated p-4 rounded-lg border border-border-subtle w-full max-w-md"
-          />
-          
-          {/* Validation Message */}
-          {!isDateRangeValid && (
-            <div className="text-rbs-alert text-xs font-medium text-center">
-              End date must be after start date
+          {/* Loading State */}
+          {isTransitioning && (
+            <div className="flex items-center justify-center p-8">
+              <div className="flex flex-col items-center gap-3">
+                <Loader2 className="h-8 w-8 animate-spin text-rbs-lime" />
+                <p className="text-text-secondary text-sm font-medium">Loading custom range...</p>
+              </div>
             </div>
           )}
-          
-          {/* Range Modified Message */}
-          {rangeModified && isDateRangeValid && (
-            <div className="text-amber-500 text-xs font-medium text-center">
-              Date range modified - click "Update Range" to apply changes
-            </div>
-          )}
-          
-          {/* Action Buttons - Responsive Layout */}
-          <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-            {/* Confirm Button */}
-            {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
-              <Button
-                onClick={onConfirmCustomRange}
-                disabled={customRangeLoading}
-                className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed h-12 sm:h-auto"
-              >
-                {customRangeLoading ? (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Querying...
-                  </>
-                ) : (
-                  rangeModified ? "Update Range" : "Confirm Range"
+
+          {/* Date Range Content - Only show when not transitioning */}
+          {!isTransitioning && (
+            <>
+              <DateRangeSelector
+                startDate={localStartDate}
+                endDate={localEndDate}
+                onStartDateChange={(date) => handleDateChange(date, localEndDate)}
+                onEndDateChange={(date) => handleDateChange(localStartDate, date)}
+                minDate={availableDateRange?.min}
+                maxDate={availableDateRange?.max}
+                className="bg-surface-elevated p-4 rounded-lg border border-border-subtle w-full max-w-md"
+              />
+              
+              {/* Validation Message */}
+              {!isDateRangeValid && (
+                <div className="text-rbs-alert text-xs font-medium text-center">
+                  End date must be after start date
+                </div>
+              )}
+              
+              {/* Range Modified Message */}
+              {rangeModified && isDateRangeValid && (
+                <div className="text-amber-500 text-xs font-medium text-center">
+                  Date range modified - click "Update Range" to apply changes
+                </div>
+              )}
+              
+              {/* Action Buttons - Responsive Layout */}
+              <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+                {/* Confirm Button */}
+                {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
+                  <Button
+                    onClick={onConfirmCustomRange}
+                    disabled={customRangeLoading}
+                    className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed h-12 sm:h-auto"
+                  >
+                    {customRangeLoading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Querying...
+                      </>
+                    ) : (
+                      rangeModified ? "Update Range" : "Confirm Range"
+                    )}
+                  </Button>
                 )}
-              </Button>
-            )}
-            
-            {/* Reset Button */}
-            {onReset && (
-              <Button
-                onClick={onReset}
-                variant="outline"
-                className="border-border-subtle text-text-secondary hover:bg-surface hover:text-text-primary h-12 sm:h-auto"
-              >
-                <RotateCcw className="h-4 w-4 mr-2" />
-                Reset
-              </Button>
-            )}
-          </div>
+                
+                {/* Reset Button */}
+                {onReset && (
+                  <Button
+                    onClick={onReset}
+                    variant="outline"
+                    className="border-border-subtle text-text-secondary hover:bg-surface hover:text-text-primary h-12 sm:h-auto"
+                  >
+                    <RotateCcw className="h-4 w-4 mr-2" />
+                    Reset
+                  </Button>
+                )}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

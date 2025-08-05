@@ -192,7 +192,7 @@ export function TraditionalHeatmap({ data }: TraditionalHeatmapProps) {
         <TooltipProvider>
           <div className="overflow-x-auto">
             <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-8 gap-[1px]">
+              <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] gap-[1px] sm:grid-cols-8">
                 {/* Header row with day labels */}
                 <div className="h-6" /> {/* Empty corner */}
                 {daysOfWeek.map(day => (
@@ -210,7 +210,7 @@ export function TraditionalHeatmap({ data }: TraditionalHeatmapProps) {
                   return (
                     <div key={weekKey} className="contents">
                       {/* Week label */}
-                      <div className="h-4 w-12 flex items-center justify-end pr-1 text-text-tertiary text-xs">
+                      <div className="h-4 w-20 sm:w-12 flex items-center justify-end pr-4 sm:pr-1 text-text-tertiary text-xs">
                         {weekLabel}
                       </div>
                       
