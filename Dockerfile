@@ -21,8 +21,12 @@ COPY json_query.py .
 COPY claiming_query.py .
 COPY custom_range_query.py .
 COPY claiming_custom_range_query.py .
+COPY top_claimers_query.py .
+COPY winrate_query.py .
+COPY fast_bet_id_query.py .
 COPY api_server.py .
 COPY update_database.sh .
+COPY modules/ ./modules/
 RUN chmod +x update_database.sh
 
 # Copy the entire frontend directory (including built files)
