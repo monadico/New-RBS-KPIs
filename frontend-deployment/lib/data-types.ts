@@ -38,6 +38,25 @@ export interface TopBettor {
   active_days: number
 }
 
+export interface TopClaimer {
+  address: string
+  display_address: string
+  rank: number
+  total_claimed: number
+  mon_claimed: number
+  jerry_claimed: number
+  total_claims: number
+  avg_claim_amount: number
+  mon_percentage: number
+  jerry_percentage: number
+  mon_bet: number
+  jerry_bet: number
+  total_bet: number
+  profit_percentage: number
+  total_submissions: number
+  avg_slip_size: number
+}
+
 export interface RbsStatsPeriod {
   period: string
   mon_volume: number

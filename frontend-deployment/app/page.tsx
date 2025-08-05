@@ -28,6 +28,7 @@ import { RbsDailyStatsTable } from "@/components/rbs-tables/rbs-daily-stats-tabl
 import { RbsPeriodsTable } from "@/components/rbs-tables/rbs-periods-table"
 import { CohortRetentionTable } from "@/components/rbs-tables/cohort-retention-table"
 import { TopBettorsTable } from "@/components/rbs-tables/top-bettors-table"
+import { TopClaimersTable } from "@/components/rbs-tables/top-claimers-table"
 
 // Auth Components
 import { ProtectedComponent } from "@/components/auth/protected-component"
@@ -55,6 +56,7 @@ export default function Page() {
   const [winrateData, setWinrateData] = useState<any>(null)
   const [customRangeData, setCustomRangeData] = useState<any>(null)
   const [claimingCustomRangeData, setClaimingCustomRangeData] = useState<any>(null)
+  const [topClaimers, setTopClaimers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [customRangeLoading, setCustomRangeLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -148,6 +150,22 @@ export default function Page() {
           const winrateJson = await winrateResponse.json()
           console.log('✅ Using winrate API data')
           setWinrateData(winrateJson)
+        }
+        
+        // Fetch top claimers data
+        try {
+          console.log('🔍 Fetching top claimers data...')
+          const claimersResponse = await fetch(`${apiUrl}/api/top-claimers`)
+          console.log('📡 Top claimers API Response status:', claimersResponse.status)
+          if (claimersResponse.ok) {
+            const claimersData = await claimersResponse.json()
+            console.log('✅ Top claimers data received:', claimersData.total_count)
+            setTopClaimers(claimersData.top_claimers || [])
+          } else {
+            console.error('❌ Failed to fetch top claimers:', claimersResponse.status)
+          }
+        } catch (err) {
+          console.error('❌ Error loading top claimers data:', err)
         }
       } catch (err: any) {
         console.error('❌ Error loading analytics data:', err)
@@ -651,6 +669,17 @@ export default function Page() {
             </ProtectedComponent>
             
             <TopBettorsTable data={top_bettors} />
+            
+            {topClaimers.length > 0 && (
+              <TopClaimersTable data={topClaimers} />
+            )}
+            
+            {topClaimers.length === 0 && (
+              <div className="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                <p className="text-yellow-600">Debug: No top claimers data available</p>
+                <p className="text-sm text-yellow-500">topClaimers length: {topClaimers.length}</p>
+              </div>
+            )}
             
             {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
               <ProtectedComponent 

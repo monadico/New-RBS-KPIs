@@ -17,6 +17,7 @@ import { TotalAvgCardsChart } from "@/components/rbs-charts/total-avg-cards-char
 // Table Components
 import { RbsStatsTable } from "@/components/rbs-tables/rbs-stats-table"
 import { TopBettorsTable } from "@/components/rbs-tables/top-bettors-table"
+import { TopClaimersTable } from "@/components/rbs-tables/top-claimers-table"
 
 // Heatmap Components
 import { DayOfWeekHeatmaps } from "@/components/rbs-heatmaps/day-of-week-heatmaps"
@@ -33,6 +34,7 @@ import { TimeframeSelector } from "@/components/timeframe-selector"
 export default function Page() {
   const [selectedTimeframe, setSelectedTimeframe] = useState<"daily" | "weekly" | "monthly">("weekly")
   const [data, setData] = useState<AnalyticsData | null>(null)
+  const [topClaimers, setTopClaimers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
@@ -69,6 +71,27 @@ export default function Page() {
         setError(err instanceof Error ? err.message : 'Failed to load analytics data')
       } finally {
         setLoading(false)
+      }
+      
+      // Fetch top claimers data independently
+      try {
+        console.log('🔍 Fetching top claimers data...')
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://f8s8sk80ok44gw04osco04so.173.249.24.245.sslip.io'
+        console.log('API URL:', apiUrl)
+        const claimersResponse = await fetch(`${apiUrl}/api/top-claimers`)
+        console.log('📡 Top claimers API Response status:', claimersResponse.status)
+        console.log('📡 Top claimers API Response ok:', claimersResponse.ok)
+        if (claimersResponse.ok) {
+          const claimersData = await claimersResponse.json()
+          console.log('Top claimers data:', claimersData)
+          setTopClaimers(claimersData.top_claimers || [])
+          console.log('✅ Top claimers data set successfully')
+        } else {
+          console.error('Failed to fetch top claimers:', claimersResponse.status)
+        }
+      } catch (err) {
+        console.error('Error loading top claimers data:', err)
+        // Don't fail the whole page if claimers data fails
       }
     }
 
@@ -238,6 +261,17 @@ export default function Page() {
             </div>
           )}
           <TopBettorsTable data={top_bettors} />
+          {topClaimers.length > 0 && (
+            <div className="mt-8">
+              <TopClaimersTable data={topClaimers} />
+            </div>
+          )}
+          {topClaimers.length === 0 && (
+            <div className="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+              <p className="text-yellow-600">Debug: No top claimers data available</p>
+              <p className="text-sm text-yellow-500">topClaimers length: {topClaimers.length}</p>
+            </div>
+          )}
         </section>
 
         {/* Heatmaps Section */}

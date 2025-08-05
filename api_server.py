@@ -12,6 +12,7 @@ import sys
 from dotenv import load_dotenv
 from custom_range_query import get_custom_range_metrics
 from claiming_custom_range_query import get_custom_range_metrics as get_claiming_custom_range_metrics
+from top_claimers_query import get_top_claimers, format_claimer_data
 
 # Load environment variables
 load_dotenv('.env.local')  # Load local environment first
@@ -59,6 +60,7 @@ async def root():
             "/api/claiming/volume-data": "Get claiming volume data for charts",
             "/api/custom-range": "Get analytics for custom date range (start_date&end_date)",
             "/api/claiming/custom-range": "Get claiming analytics for custom date range (start_date&end_date)",
+            "/api/top-claimers": "Get top claimers with betting data and profit calculations",
             "/api/winrate": "Get winrate analytics data",
             "/docs": "API documentation"
         }
@@ -217,6 +219,37 @@ async def get_claiming_custom_range_analytics(
 
     except Exception as e:
         print(f"❌ Error in claiming custom range query: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/top-claimers")
+async def get_top_claimers_api(limit: int = Query(20, description="Number of top claimers to return")):
+    """Get top claimers with betting data and profit calculations"""
+    try:
+        print(f"🔍 Fetching top {limit} claimers...")
+        
+        # Get top claimers data
+        top_claimers = get_top_claimers(limit)
+        
+        if not top_claimers:
+            return {"error": "No claimers found"}
+        
+        # Format the data for API response
+        formatted_claimers = format_claimer_data(top_claimers)
+        
+        print(f"✅ Top claimers query completed successfully")
+        return {
+            "top_claimers": formatted_claimers,
+            "total_count": len(formatted_claimers),
+            "summary": {
+                "total_claimed": sum(c['total_claimed'] for c in formatted_claimers),
+                "total_claims": sum(c['total_claims'] for c in formatted_claimers),
+                "total_bet": sum(c['total_bet'] for c in formatted_claimers),
+                "total_submissions": sum(c['total_submissions'] for c in formatted_claimers)
+            }
+        }
+        
+    except Exception as e:
+        print(f"❌ Error in top claimers query: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/winrate")
