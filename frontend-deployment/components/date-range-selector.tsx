@@ -48,14 +48,14 @@ export function DateRangeSelector({
   return (
     <div className={cn("flex flex-col sm:flex-row items-center gap-4", className)}>
       {/* Start Date Selector */}
-      <div className="flex items-center gap-2">
-        <span className="text-text-secondary text-sm font-medium min-w-[80px]">Start Date:</span>
+      <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+        <span className="text-text-secondary text-sm font-medium min-w-[80px] text-center sm:text-left">Start Date:</span>
         <Popover open={startCalendarOpen} onOpenChange={setStartCalendarOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
               className={cn(
-                "w-[200px] justify-between bg-surface border-border-subtle",
+                "w-full sm:w-[200px] justify-between bg-surface border-border-subtle h-12 sm:h-auto",
                 "hover:bg-surface-elevated hover:border-border-medium",
                 "text-text-primary font-medium",
                 !isDateRangeValid && "border-rbs-alert"
@@ -97,14 +97,14 @@ export function DateRangeSelector({
       </div>
 
       {/* End Date Selector */}
-      <div className="flex items-center gap-2">
-        <span className="text-text-secondary text-sm font-medium min-w-[70px]">End Date:</span>
+      <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+        <span className="text-text-secondary text-sm font-medium min-w-[80px] text-center sm:text-left">End Date:</span>
         <Popover open={endCalendarOpen} onOpenChange={setEndCalendarOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
               className={cn(
-                "w-[200px] justify-between bg-surface border-border-subtle",
+                "w-full sm:w-[200px] justify-between bg-surface border-border-subtle h-12 sm:h-auto",
                 "hover:bg-surface-elevated hover:border-border-medium",
                 "text-text-primary font-medium",
                 !isDateRangeValid && "border-rbs-alert"
@@ -232,19 +232,43 @@ export function EnhancedTimeframeSelector({
     )
 
   return (
-    <div className={cn("space-y-6", className)}>
-      {/* Timeframe Buttons */}
-      <div className="flex justify-center gap-4 animate-fade-in-up">
-        <Button className={buttonClass("daily")} onClick={() => onSelectTimeframe("daily")}>
+    <div className={cn("space-y-4 sm:space-y-6", className)}>
+      {/* Timeframe Buttons - Responsive Layout */}
+      <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 animate-fade-in-up">
+        <Button 
+          className={cn(
+            buttonClass("daily"),
+            "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
+          )} 
+          onClick={() => onSelectTimeframe("daily")}
+        >
           Daily
         </Button>
-        <Button className={buttonClass("weekly")} onClick={() => onSelectTimeframe("weekly")}>
+        <Button 
+          className={cn(
+            buttonClass("weekly"),
+            "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
+          )} 
+          onClick={() => onSelectTimeframe("weekly")}
+        >
           Weekly
         </Button>
-        <Button className={buttonClass("monthly")} onClick={() => onSelectTimeframe("monthly")}>
+        <Button 
+          className={cn(
+            buttonClass("monthly"),
+            "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
+          )} 
+          onClick={() => onSelectTimeframe("monthly")}
+        >
           Monthly
         </Button>
-        <Button className={buttonClass("custom")} onClick={() => onSelectTimeframe("custom")}>
+        <Button 
+          className={cn(
+            buttonClass("custom"),
+            "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
+          )} 
+          onClick={() => onSelectTimeframe("custom")}
+        >
           Custom Range
         </Button>
       </div>
@@ -259,7 +283,7 @@ export function EnhancedTimeframeSelector({
             onEndDateChange={(date) => handleDateChange(localStartDate, date)}
             minDate={availableDateRange?.min}
             maxDate={availableDateRange?.max}
-            className="bg-surface-elevated p-4 rounded-lg border border-border-subtle"
+            className="bg-surface-elevated p-4 rounded-lg border border-border-subtle w-full max-w-md"
           />
           
           {/* Validation Message */}
@@ -276,33 +300,32 @@ export function EnhancedTimeframeSelector({
             </div>
           )}
           
-          {/* Action Buttons */}
-          <div className="flex gap-3">
-                      {/* Confirm Button */}
-          {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
-            <Button
-              onClick={onConfirmCustomRange}
-              disabled={customRangeLoading}
-              className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {customRangeLoading ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Querying...
-                </>
-              ) : (
-                rangeModified ? "Update Range" : "Confirm Range"
-              )}
-            </Button>
-          )}
+          {/* Action Buttons - Responsive Layout */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+            {/* Confirm Button */}
+            {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
+              <Button
+                onClick={onConfirmCustomRange}
+                disabled={customRangeLoading}
+                className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed h-12 sm:h-auto"
+              >
+                {customRangeLoading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Querying...
+                  </>
+                ) : (
+                  rangeModified ? "Update Range" : "Confirm Range"
+                )}
+              </Button>
+            )}
             
             {/* Reset Button */}
             {onReset && (
               <Button
-                variant="outline"
-                size="sm"
                 onClick={onReset}
-                className="bg-surface-elevated hover:bg-surface border-border-subtle"
+                variant="outline"
+                className="border-border-subtle text-text-secondary hover:bg-surface hover:text-text-primary h-12 sm:h-auto"
               >
                 <RotateCcw className="h-4 w-4 mr-2" />
                 Reset

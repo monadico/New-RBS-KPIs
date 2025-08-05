@@ -1053,6 +1053,9 @@ video {
 .h-\[420px\] {
   height: 420px;
 }
+.h-\[300px\] {
+  height: 300px;
+}
 .max-h-96 {
   max-height: 24rem;
 }
@@ -3649,16 +3652,56 @@ body {
     top: auto;
   }
 
+  .sm\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
+  .sm\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
   .sm\:mt-0 {
     margin-top: 0px;
+  }
+
+  .sm\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
+  .sm\:mt-8 {
+    margin-top: 2rem;
   }
 
   .sm\:flex {
     display: flex;
   }
 
+  .sm\:h-\[420px\] {
+    height: 420px;
+  }
+
+  .sm\:h-\[400px\] {
+    height: 400px;
+  }
+
+  .sm\:h-auto {
+    height: auto;
+  }
+
+  .sm\:w-auto {
+    width: auto;
+  }
+
+  .sm\:w-\[200px\] {
+    width: 200px;
+  }
+
   .sm\:max-w-sm {
     max-width: 24rem;
+  }
+
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sm\:flex-row {
@@ -3677,18 +3720,68 @@ body {
     gap: 0.625rem;
   }
 
+  .sm\:gap-6 {
+    gap: 1.5rem;
+  }
+
+  .sm\:gap-4 {
+    gap: 1rem;
+  }
+
   .sm\:space-x-2 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(0.5rem * var(--tw-space-x-reverse));
     margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
+  .sm\:space-y-6 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+  }
+
+  .sm\:space-y-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+  }
+
   .sm\:rounded-lg {
     border-radius: 0.5rem;
   }
 
+  .sm\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .sm\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .sm\:py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
   .sm\:text-left {
     text-align: left;
+  }
+
+  .sm\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.375rem;
+  }
+
+  .sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
   }
 
   .data-\[state\=open\]\:sm\:slide-in-from-bottom-full[data-state="open"] {
@@ -3787,6 +3880,15 @@ body {
 
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.75rem;
   }
 }
 

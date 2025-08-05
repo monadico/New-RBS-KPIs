@@ -484,11 +484,11 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-bg-base">
       <DashboardHeader />
-      <main className="container mx-auto px-6 py-8 space-y-8">
+      <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-8 space-y-6 sm:space-y-8">
         {/* Main Title and Subtitle */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-text-primary tracking-tight mb-2">RBS Analytics Dashboard</h1>
-          <p className="text-text-secondary text-base leading-relaxed max-w-2xl mx-auto">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary tracking-tight mb-2">RBS Analytics Dashboard</h1>
+          <p className="text-text-secondary text-sm sm:text-base leading-relaxed max-w-2xl mx-auto px-4">
             Check out the latest metrics of your favorite sports betting app!
           </p>
         </div>
@@ -508,11 +508,11 @@ export default function Page() {
         />
 
         {/* Betting Analytics Section */}
-        <section id="overview" className="space-y-8">
+        <section id="overview" className="space-y-6 sm:space-y-8">
           {/* Betting Metrics Cards */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Primary Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               <MetricCard
                 title="Total Submissions"
                 value={filteredMetrics.total_submissions}
@@ -544,7 +544,7 @@ export default function Page() {
             </div>
 
             {/* Average Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               <MetricCard
                 title="Avg Submissions per Day"
                 value={filteredMetrics.avg_submissions_per_day}
@@ -570,36 +570,36 @@ export default function Page() {
           </div>
 
           {/* Betting Activity Charts */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             <SubmissionActivityChart data={timeframeData} onChartClick={handleSubmissionChartClick} />
             <NewBettorsChart data={timeframeData} onChartClick={handleNewBettorsChartClick} />
             <MonJerryVolumeArea data={timeframeData} onChartClick={handleVolumeChartClick} />
           </div>
 
           {/* Betting Distribution Charts */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="sm:col-span-1">
               <PlayerActivityPie data={player_activity.categories} totalPlayers={player_activity.total_players} />
             </div>
-            <div className="lg:col-span-1">
+            <div className="sm:col-span-1">
               <TokenVolumeDistributionPie data={timeframeData} onChartClick={handleTokenVolumeDistributionClick} />
             </div>
-            <div className="lg:col-span-1">
+            <div className="sm:col-span-2 lg:col-span-1">
               <OverallSlipsPie data={overall_slips_by_card_count} />
             </div>
           </div>
 
           {/* Betting Detailed Charts */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <SlipsByCardStackedBar data={cardCountData} onChartClick={handleCardCountChartClick} />
             <TotalAvgCardsChart data={timeframeData} onChartClick={handleTotalAvgCardsChartClick} />
           </div>
         </section>
 
         {/* Claiming Analytics Section */}
-        <section className="space-y-8">
+        <section className="space-y-6 sm:space-y-8">
           {/* Claiming Metrics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <MetricCard
               title="Total Claimer Addresses"
               value={
@@ -636,7 +636,7 @@ export default function Page() {
           </div>
           
           {/* Claiming Distribution Chart */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
             <div className="lg:col-span-1 h-full">
               <ClaimingVolumeDistributionPie 
                 monVolume={
@@ -660,7 +660,7 @@ export default function Page() {
 
         {/* Stats and Retention Section */}
         <section id="stats-retention">
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <TopBettorsTable data={top_bettors} />
             
             {topClaimers.length > 0 && (
@@ -668,7 +668,7 @@ export default function Page() {
             )}
             
             {topClaimers.length === 0 && (
-              <div className="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+              <div className="mt-6 sm:mt-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
                 <p className="text-yellow-600">Debug: No top claimers data available</p>
                 <p className="text-sm text-yellow-500">topClaimers length: {topClaimers.length}</p>
               </div>
@@ -703,7 +703,7 @@ export default function Page() {
 
         {/* Heatmaps Section */}
         <section id="heatmaps">
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <ProtectedComponent 
               title="Activity Heatmap" 
               description="Login to view detailed activity patterns and heatmap analytics"

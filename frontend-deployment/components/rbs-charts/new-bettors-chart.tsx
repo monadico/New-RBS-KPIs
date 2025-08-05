@@ -274,7 +274,7 @@ export function NewBettorsChart({ data, onChartClick, isModal = false }: NewBett
             </div>
           </CardHeader>
           <CardContent>
-            <div className="relative h-[420px] p-2 pb-4">
+            <div className="relative h-[300px] sm:h-[420px] p-2 pb-4">
               <ChartContainer
                 config={{
                   new_bettors: {
@@ -289,12 +289,12 @@ export function NewBettorsChart({ data, onChartClick, isModal = false }: NewBett
                 className="h-full w-full"
               >
                 <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={dataWithCumulative} margin={{ top: 10, right: 20, left: 20, bottom: 30 }}>
+                  <ComposedChart data={dataWithCumulative} margin={{ top: 5, right: 10, left: 10, bottom: 20 }}>
                     <XAxis
                       dataKey="start_date"
                       tickLine={false}
                       axisLine={false}
-                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10, fontWeight: 500 }}
                       tickFormatter={(value) => {
                         // Parse date as local time to avoid timezone issues
                         const [year, month, day] = value.split('-').map(Number)
@@ -310,37 +310,37 @@ export function NewBettorsChart({ data, onChartClick, isModal = false }: NewBett
                       yAxisId="left"
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: CHART_COLORS.axis.text, fontSize: 11, fontWeight: 500 }}
+                      tick={{ fill: CHART_COLORS.axis.text, fontSize: 9, fontWeight: 500 }}
                       tickFormatter={formatNumber}
-                      dx={-40}
+                      dx={-30}
                     />
                     <YAxis
                       yAxisId="right"
                       orientation="right"
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: CHART_COLORS.axis.text, fontSize: 11, fontWeight: 500 }}
+                      tick={{ fill: CHART_COLORS.axis.text, fontSize: 9, fontWeight: 500 }}
                       tickFormatter={formatNumber}
-                      dx={20}
+                      dx={15}
                       hide={true}
                     />
                     <Tooltip content={<CustomTooltip />} cursor={{ fill: CHART_COLORS.cursor }} />
-                    <Legend verticalAlign="bottom" height={30} wrapperStyle={{ paddingTop: 10 }} />
+                    <Legend verticalAlign="bottom" height={20} wrapperStyle={{ paddingTop: 5 }} />
                     <Bar 
                       yAxisId="left"
                       dataKey="new_bettors"
                       fill={CHART_COLORS.activity.newBettors}
-                      radius={[4, 4, 0, 0]}
-                      maxBarSize={20}
+                      radius={[2, 2, 0, 0]}
+                      maxBarSize={15}
                     />
                     <Line
                       yAxisId="right"
                       type="monotone"
                       dataKey="cumulative_bettors"
                       stroke={CHART_COLORS.activity.bettors}
-                      strokeWidth={2}
-                      dot={{ fill: CHART_COLORS.activity.bettors, strokeWidth: 2, r: 4 }}
-                      activeDot={{ r: 6, stroke: CHART_COLORS.activity.bettors, strokeWidth: 2 }}
+                      strokeWidth={1.5}
+                      dot={{ fill: CHART_COLORS.activity.bettors, strokeWidth: 1.5, r: 3 }}
+                      activeDot={{ r: 4, stroke: CHART_COLORS.activity.bettors, strokeWidth: 1.5 }}
                     />
                   </ComposedChart>
                 </ResponsiveContainer>

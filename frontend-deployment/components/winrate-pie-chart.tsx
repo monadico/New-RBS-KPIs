@@ -88,7 +88,8 @@ export function WinratePieChart({ winrateData, loading = false, error = null }: 
       </CardHeader>
 
       <CardContent className="h-full flex flex-col">
-        <div className="h-[400px] w-full flex items-center gap-4">
+        {/* Mobile: Vertical layout with legend below */}
+        <div className="h-[400px] sm:h-[400px] w-full flex flex-col sm:flex-row items-center gap-4">
           {/* Chart */}
           <div className="flex-1 h-full min-w-0">
             <ChartContainer
@@ -104,8 +105,8 @@ export function WinratePieChart({ winrateData, loading = false, error = null }: 
                     data={chartData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={50}
-                    outerRadius={100}
+                    innerRadius={40}
+                    outerRadius={80}
                     paddingAngle={5}
                     dataKey="value"
                   >
@@ -119,8 +120,8 @@ export function WinratePieChart({ winrateData, loading = false, error = null }: 
             </ChartContainer>
           </div>
 
-          {/* Legend */}
-          <div className="flex-1 space-y-2 min-w-0">
+          {/* Legend - Mobile: below chart, Desktop: beside chart */}
+          <div className="flex-1 space-y-2 min-w-0 w-full sm:w-auto">
             {chartData.map((item, index) => {
               const IconComponent = item.icon
               return (

@@ -148,7 +148,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
         </div>
       </CardHeader>
       <CardContent>
-        <div className="relative h-[420px] p-2 pb-4">
+        <div className="relative h-[300px] sm:h-[420px] p-2 pb-4">
           <ChartContainer
             config={{
               mon_volume: {
@@ -163,7 +163,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
             className="h-full w-full"
           >
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data} margin={{ top: 10, right: 20, left: 20, bottom: 30 }}>
+              <AreaChart data={data} margin={{ top: 5, right: 10, left: 10, bottom: 20 }}>
                 <defs>
                   <linearGradient id="monVolumeGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#4A90E2" stopOpacity={0.4} />
@@ -178,8 +178,8 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
                   dataKey="start_date"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
-                  dy={10}
+                  tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 10, fontWeight: 500 }}
+                  dy={5}
                   tickFormatter={(value) => {
                     const [year, month, day] = value.split('-').map(Number)
                     const date = new Date(year, month - 1, day)
@@ -190,19 +190,19 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
+                  tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 9, fontWeight: 500 }}
                   tickFormatter={formatCurrency}
-                  dx={-15}
+                  dx={-10}
                 />
                 <Tooltip content={customTooltip} />
-                <Legend verticalAlign="bottom" height={30} wrapperStyle={{ paddingTop: 10 }} />
+                <Legend verticalAlign="bottom" height={20} wrapperStyle={{ paddingTop: 5 }} />
                 <Area
                   type="monotone"
                   dataKey="jerry_volume"
                   stackId="1"
                   stroke="#EC305D"
                   fill="url(#jerryVolumeGradient)"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                 />
                 <Area
                   type="monotone"
@@ -210,7 +210,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
                   stackId="1"
                   stroke="#4A90E2"
                   fill="url(#monVolumeGradient)"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                 />
               </AreaChart>
             </ResponsiveContainer>
