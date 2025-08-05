@@ -2,8 +2,8 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Bar, ComposedChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
+import { ChartContainer } from "@/components/ui/chart"
+import { Bar, ComposedChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts"
 import { BarChart3, TrendingUp } from "lucide-react"
 import type { PeriodData } from "@/lib/data-types"
 import { formatNumber } from "@/lib/utils"
@@ -20,8 +20,8 @@ export function SubmissionActivityChart({ data, onChartClick, isModal = false }:
   const totalSubmissions = data.reduce((sum, period) => sum + period.submissions, 0)
   const totalActiveAddresses = data.reduce((sum, period) => sum + period.active_addresses, 0)
   
-  // Use smaller height for modal to ensure it fits within bounds and shows X-axis
-  const chartHeight = isModal ? "h-[450px]" : "h-[400px]"
+  // Standardized height for all charts
+  const chartHeight = "h-[400px]"
 
   // Custom tooltip for modal chart
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -235,7 +235,7 @@ export function SubmissionActivityChart({ data, onChartClick, isModal = false }:
   if (onChartClick) {
     return (
       <div 
-        className="cursor-pointer transition-all duration-200 group relative"
+        className="cursor-pointer group relative"
         onClick={onChartClick}
       >
         {/* Border shine effect */}
@@ -250,16 +250,188 @@ export function SubmissionActivityChart({ data, onChartClick, isModal = false }:
           </div>
         </div>
         
-        <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
-          {content}
+        <Card className="bg-surface border-border-subtle shadow-card-medium">
+          <CardHeader className="pb-4">
+            <div className="flex items-start justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                    <BarChart3 className="w-4 h-4 text-orange-400" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-text-primary tracking-tight">Submission Activity</CardTitle>
+                </div>
+                <CardDescription className="text-text-secondary text-sm leading-relaxed">
+                  Daily submission volume and active bettor trends over time.
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="relative h-[420px] p-2 pb-4">
+              <ChartContainer
+                config={{
+                  submissions: {
+                    label: "Daily submission volume",
+                    color: CHART_COLORS.activity.submissions,
+                  },
+                  active_addresses: {
+                    label: "Active bettor trends",
+                    color: CHART_COLORS.activity.bettors,
+                  },
+                }}
+                className="h-full w-full"
+              >
+                <ResponsiveContainer width="100%" height="100%">
+                  <ComposedChart data={data} margin={{ top: 10, right: 20, left: 20, bottom: 30 }}>
+                    <XAxis
+                      dataKey="start_date"
+                      tickLine={false}
+                      axisLine={false}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                      tickFormatter={(value) => {
+                        // Parse date as local time to avoid timezone issues
+                        const [year, month, day] = value.split('-').map(Number)
+                        const date = new Date(year, month - 1, day) // month is 0-indexed
+                        return date.toLocaleDateString('en-US', { 
+                          month: 'short', 
+                          day: 'numeric' 
+                        })
+                      }}
+                      textAnchor="middle"
+                    />
+                    <YAxis
+                      yAxisId="left"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: CHART_COLORS.axis.text, fontSize: 11, fontWeight: 500 }}
+                      tickFormatter={formatNumber}
+                      dx={-40}
+                    />
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: CHART_COLORS.axis.text, fontSize: 11, fontWeight: 500 }}
+                      tickFormatter={formatNumber}
+                      dx={20}
+                      hide={true}
+                    />
+                    <Tooltip content={<CustomTooltip />} cursor={{ fill: CHART_COLORS.cursor }} />
+                    <Legend verticalAlign="bottom" height={30} wrapperStyle={{ paddingTop: 10 }} />
+                    <Bar 
+                      yAxisId="left"
+                      dataKey="submissions"
+                      fill={CHART_COLORS.activity.submissions}
+                      radius={[4, 4, 0, 0]}
+                      maxBarSize={20}
+                    />
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="active_addresses"
+                      stroke={CHART_COLORS.activity.bettors}
+                      strokeWidth={2}
+                      dot={{ fill: CHART_COLORS.activity.bettors, strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, stroke: CHART_COLORS.activity.bettors, strokeWidth: 2 }}
+                    />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </div>
+          </CardContent>
         </Card>
       </div>
     )
   }
 
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500">
-      {content}
+    <Card className="bg-surface border-border-subtle shadow-card-medium">
+      <CardHeader className="pb-4">
+        <div className="flex items-start justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                <BarChart3 className="w-4 h-4 text-orange-400" />
+              </div>
+              <CardTitle className="text-xl font-bold text-text-primary tracking-tight">Submission Activity</CardTitle>
+            </div>
+            <CardDescription className="text-text-secondary text-sm leading-relaxed">
+              Daily submission volume and active bettor trends over time.
+            </CardDescription>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer
+          config={{
+            submissions: {
+              label: "Daily submission volume",
+              color: CHART_COLORS.activity.submissions,
+            },
+            active_addresses: {
+              label: "Active bettor trends",
+              color: CHART_COLORS.activity.bettors,
+            },
+          }}
+          className={chartHeight}
+        >
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart data={data} margin={{ top: 20, right: 40, left: 50, bottom: 40 }}>
+              <XAxis
+                dataKey="start_date"
+                tickLine={false}
+                axisLine={false}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                tickFormatter={(value) => {
+                  // Parse date as local time to avoid timezone issues
+                  const [year, month, day] = value.split('-').map(Number)
+                  const date = new Date(year, month - 1, day) // month is 0-indexed
+                  return date.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })
+                }}
+              />
+              <YAxis
+                yAxisId="left"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: CHART_COLORS.axis.text, fontSize: 11, fontWeight: 500 }}
+                tickFormatter={formatNumber}
+                dx={-40}
+              />
+              <YAxis
+                yAxisId="right"
+                orientation="right"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: CHART_COLORS.axis.text, fontSize: 11, fontWeight: 500 }}
+                tickFormatter={formatNumber}
+                dx={20}
+                hide={true}
+              />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill: CHART_COLORS.cursor }} />
+              <Bar 
+                yAxisId="left"
+                dataKey="submissions"
+                fill={CHART_COLORS.activity.submissions}
+                radius={[4, 4, 0, 0]}
+                maxBarSize={20}
+              />
+              <Line
+                yAxisId="right"
+                type="monotone"
+                dataKey="active_addresses"
+                stroke={CHART_COLORS.activity.bettors}
+                strokeWidth={2}
+                dot={{ fill: CHART_COLORS.activity.bettors, strokeWidth: 2, r: 4 }}
+                activeDot={{ r: 6, stroke: CHART_COLORS.activity.bettors, strokeWidth: 2 }}
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+      </CardContent>
     </Card>
   )
 }

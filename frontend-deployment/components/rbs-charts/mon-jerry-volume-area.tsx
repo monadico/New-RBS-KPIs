@@ -2,8 +2,8 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { ChartContainer } from "@/components/ui/chart"
+import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts"
 import { DollarSign, TrendingUp } from "lucide-react"
 import type { PeriodData } from "@/lib/data-types"
 import { formatCurrency } from "@/lib/utils"
@@ -19,6 +19,9 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
   const totalMonVolume = data.reduce((sum, period) => sum + period.mon_volume, 0)
   const totalJerryVolume = data.reduce((sum, period) => sum + period.jerry_volume, 0)
   const totalVolume = totalMonVolume + totalJerryVolume
+
+  // Standardized height for all charts
+  const chartHeight = "h-[400px]"
 
   // Custom tooltip for modal mode (no ChartContainer context needed)
   const customTooltip = ({ active, payload, label }: any) => {
@@ -92,7 +95,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
           tickFormatter={formatCurrency}
           dx={-15}
         />
-        <ChartTooltip content={customTooltip} />
+        <Tooltip content={customTooltip} />
         <Area
           type="monotone"
           dataKey="jerry_volume"
@@ -145,21 +148,74 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
         </div>
       </CardHeader>
       <CardContent>
-        <ChartContainer
-          config={{
-            mon_volume: {
-              label: "$MON Volume",
-              color: "#4A90E2",
-            },
-            jerry_volume: {
-              label: "$JERRY Volume",
-              color: "#EC305D",
-            },
-          }}
-          className="h-[400px] w-full"
-        >
-          {chartContent}
-        </ChartContainer>
+        <div className="relative h-[420px] p-2 pb-4">
+          <ChartContainer
+            config={{
+              mon_volume: {
+                label: "$MON betting volume",
+                color: CHART_COLORS.volume.mon,
+              },
+              jerry_volume: {
+                label: "$JERRY betting volume",
+                color: CHART_COLORS.volume.jerry,
+              },
+            }}
+            className="h-full w-full"
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={data} margin={{ top: 10, right: 20, left: 20, bottom: 30 }}>
+                <defs>
+                  <linearGradient id="monVolumeGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#4A90E2" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#4A90E2" stopOpacity={0.05} />
+                  </linearGradient>
+                  <linearGradient id="jerryVolumeGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#EC305D" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#EC305D" stopOpacity={0.05} />
+                  </linearGradient>
+                </defs>
+                <XAxis
+                  dataKey="start_date"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
+                  dy={10}
+                  tickFormatter={(value) => {
+                    const [year, month, day] = value.split('-').map(Number)
+                    const date = new Date(year, month - 1, day)
+                    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                  }}
+                  textAnchor="middle"
+                />
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: "rgba(248, 250, 252, 0.4)", fontSize: 11, fontWeight: 500 }}
+                  tickFormatter={formatCurrency}
+                  dx={-15}
+                />
+                <Tooltip content={customTooltip} />
+                <Legend verticalAlign="bottom" height={30} wrapperStyle={{ paddingTop: 10 }} />
+                <Area
+                  type="monotone"
+                  dataKey="jerry_volume"
+                  stackId="1"
+                  stroke="#EC305D"
+                  fill="url(#jerryVolumeGradient)"
+                  strokeWidth={2}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="mon_volume"
+                  stackId="1"
+                  stroke="#4A90E2"
+                  fill="url(#monVolumeGradient)"
+                  strokeWidth={2}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </div>
       </CardContent>
     </>
   )
@@ -167,7 +223,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
   if (onChartClick) {
     return (
       <div 
-        className="cursor-pointer transition-all duration-200 group relative"
+        className="cursor-pointer group relative"
         onClick={onChartClick}
       >
         {/* Border shine effect */}
@@ -181,7 +237,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
           </div>
         </div>
         
-        <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500 group w-full overflow-hidden relative">
+        <Card className="bg-surface border-border-subtle shadow-card-medium group w-full overflow-hidden relative">
           {content}
         </Card>
       </div>
@@ -189,7 +245,7 @@ export function MonJerryVolumeArea({ data, onChartClick, isModal = false }: MonJ
   }
 
   return (
-    <Card className="bg-surface border-border-subtle shadow-card-medium transition-all duration-500 group w-full overflow-hidden">
+    <Card className="bg-surface border-border-subtle shadow-card-medium group w-full overflow-hidden">
       {content}
     </Card>
   )
