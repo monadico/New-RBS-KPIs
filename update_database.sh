@@ -128,6 +128,17 @@ else
     exit 1
 fi
 
+# Generate top claimers analytics JSON
+log_message "Generating top claimers analytics JSON..."
+python3 top_claimers_query.py
+
+if [ $? -eq 0 ]; then
+    log_message "Top claimers analytics JSON generated successfully"
+else
+    log_message "ERROR: Top claimers analytics JSON generation failed"
+    exit 1
+fi
+
 # Generate winrate analytics JSON
 log_message "Generating winrate analytics JSON..."
 python3 winrate_query.py
@@ -148,6 +159,11 @@ fi
 if [ -f "new/public/claiming_analytics_dump.json" ]; then
     cp new/public/claiming_analytics_dump.json frontend-deployment/public/claiming_analytics_dump.json
     log_message "Copied claiming analytics JSON to frontend deployment"
+fi
+
+if [ -f "new/public/top_claimers_dump.json" ]; then
+    cp new/public/top_claimers_dump.json frontend-deployment/public/top_claimers_dump.json
+    log_message "Copied top claimers JSON to frontend deployment"
 fi
 
 if [ -f "new/public/winrate_analytics_dump.json" ]; then
