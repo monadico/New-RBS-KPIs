@@ -201,17 +201,17 @@ export function RbsDailyStatsTable({ data }: RbsDailyStatsTableProps) {
       
       <CardContent>
         {/* Search and Controls */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <Search className="h-4 w-4 text-text-secondary" />
             <Input
               placeholder="Search all columns..."
               value={globalFilter ?? ""}
               onChange={(event) => setGlobalFilter(event.target.value)}
-              className="w-64 bg-surface-elevated border-border-subtle"
+              className="w-full sm:w-64 bg-surface-elevated border-border-subtle"
             />
           </div>
-          <div className="text-sm text-text-secondary">
+          <div className="text-sm text-text-secondary text-center sm:text-left">
             Showing {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to{" "}
             {Math.min(
               (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,
@@ -223,61 +223,63 @@ export function RbsDailyStatsTable({ data }: RbsDailyStatsTableProps) {
 
         {/* Table */}
         <div className="rounded-lg border border-border-subtle overflow-hidden">
-          <Table>
-            <TableHeader className="bg-surface-elevated">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <TableHead
-                      key={header.id}
-                      className={`text-text-primary font-semibold ${
-                        header.column.getCanSort() ? "cursor-pointer select-none hover:bg-surface" : ""
-                      }`}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      <div className="flex items-center gap-2">
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {getSortIcon(header.column)}
-                      </div>
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    className="hover:bg-surface-elevated transition-colors"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="text-text-primary">
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </TableCell>
+          <div className="overflow-x-auto">
+            <Table className="min-w-full">
+              <TableHeader className="bg-surface-elevated">
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <TableHead
+                        key={header.id}
+                        className={`text-text-primary font-semibold whitespace-nowrap ${
+                          header.column.getCanSort() ? "cursor-pointer select-none hover:bg-surface" : ""
+                        }`}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        <div className="flex items-center gap-2">
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {getSortIcon(header.column)}
+                        </div>
+                      </TableHead>
                     ))}
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={columns.length} className="h-24 text-center text-text-secondary">
-                    No results found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      className="hover:bg-surface-elevated transition-colors"
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id} className="text-text-primary whitespace-nowrap">
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={columns.length} className="h-24 text-center text-text-secondary">
+                      No results found.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4">
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="sm"
               onClick={() => table.setPageIndex(0)}
               disabled={!table.getCanPreviousPage()}
-              className="bg-surface-elevated hover:bg-surface border-border-subtle"
+              className="bg-surface-elevated hover:bg-surface border-border-subtle h-8 px-2 sm:px-3 text-xs"
             >
               First
             </Button>
@@ -286,7 +288,7 @@ export function RbsDailyStatsTable({ data }: RbsDailyStatsTableProps) {
               size="sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
-              className="bg-surface-elevated hover:bg-surface border-border-subtle"
+              className="bg-surface-elevated hover:bg-surface border-border-subtle h-8 px-2 sm:px-3 text-xs"
             >
               Previous
             </Button>
@@ -295,7 +297,7 @@ export function RbsDailyStatsTable({ data }: RbsDailyStatsTableProps) {
               size="sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
-              className="bg-surface-elevated hover:bg-surface border-border-subtle"
+              className="bg-surface-elevated hover:bg-surface border-border-subtle h-8 px-2 sm:px-3 text-xs"
             >
               Next
             </Button>
@@ -304,7 +306,7 @@ export function RbsDailyStatsTable({ data }: RbsDailyStatsTableProps) {
               size="sm"
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               disabled={!table.getCanNextPage()}
-              className="bg-surface-elevated hover:bg-surface border-border-subtle"
+              className="bg-surface-elevated hover:bg-surface border-border-subtle h-8 px-2 sm:px-3 text-xs"
             >
               Last
             </Button>

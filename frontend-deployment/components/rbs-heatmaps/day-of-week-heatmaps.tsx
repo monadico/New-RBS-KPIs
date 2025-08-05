@@ -91,7 +91,7 @@ export function DayOfWeekHeatmaps({ data }: DayOfWeekHeatmapsProps) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <TooltipProvider>
           {/* Submissions by Day */}
           <div className="bg-bg-elevated p-4 rounded-xl border border-border-subtle">
@@ -126,7 +126,7 @@ export function DayOfWeekHeatmaps({ data }: DayOfWeekHeatmapsProps) {
           </div>
 
           {/* $JERRY Volume by Day */}
-          <div className="bg-bg-elevated p-4 rounded-xl border border-border-subtle">
+          <div className="bg-bg-elevated p-4 rounded-xl border border-border-subtle sm:col-span-2 lg:col-span-1">
             <h3 className="text-text-primary text-base font-semibold mb-4">$JERRY Volume</h3>
             <div className="flex justify-around items-end h-32">
               {daysOfWeek.map((day) => (
