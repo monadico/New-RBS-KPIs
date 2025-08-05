@@ -46,7 +46,7 @@ export function DateRangeSelector({
   const isDateRangeValid = startDate <= endDate
 
   return (
-    <div className={cn("flex flex-col sm:flex-row items-center gap-4", className)}>
+    <div className={cn("flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-6", className)}>
       {/* Start Date Selector */}
       <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
         <span className="text-text-secondary text-sm font-medium min-w-[80px] text-center sm:text-left">Start Date:</span>
@@ -144,18 +144,10 @@ export function DateRangeSelector({
           </PopoverContent>
         </Popover>
       </div>
-
-      {/* Validation Message */}
-      {!isDateRangeValid && (
-        <div className="text-rbs-alert text-xs font-medium">
-          End date must be after start date
-        </div>
-      )}
     </div>
   )
 }
 
-// Enhanced timeframe selector that includes custom date range
 interface EnhancedTimeframeSelectorProps {
   selectedTimeframe: "daily" | "weekly" | "monthly" | "custom"
   onSelectTimeframe: (timeframe: "daily" | "weekly" | "monthly" | "custom") => void
@@ -239,12 +231,12 @@ export function EnhancedTimeframeSelector({
 
   return (
     <div className={cn("space-y-4 sm:space-y-6", className)}>
-      {/* Timeframe Buttons - Responsive Layout */}
-      <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 animate-fade-in-up">
+      {/* Timeframe Buttons - Enhanced Desktop Layout */}
+      <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 lg:gap-6 animate-fade-in-up">
         <Button 
           className={cn(
             buttonClass("daily"),
-            "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
+            "h-12 sm:h-auto px-6 py-3 sm:py-3 lg:px-8 lg:py-4 text-base sm:text-sm lg:text-base font-medium"
           )} 
           onClick={() => handleTimeframeSelect("daily")}
         >
@@ -253,7 +245,7 @@ export function EnhancedTimeframeSelector({
         <Button 
           className={cn(
             buttonClass("weekly"),
-            "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
+            "h-12 sm:h-auto px-6 py-3 sm:py-3 lg:px-8 lg:py-4 text-base sm:text-sm lg:text-base font-medium"
           )} 
           onClick={() => handleTimeframeSelect("weekly")}
         >
@@ -262,7 +254,7 @@ export function EnhancedTimeframeSelector({
         <Button 
           className={cn(
             buttonClass("monthly"),
-            "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
+            "h-12 sm:h-auto px-6 py-3 sm:py-3 lg:px-8 lg:py-4 text-base sm:text-sm lg:text-base font-medium"
           )} 
           onClick={() => handleTimeframeSelect("monthly")}
         >
@@ -271,7 +263,7 @@ export function EnhancedTimeframeSelector({
         <Button 
           className={cn(
             buttonClass("custom"),
-            "h-12 sm:h-auto px-6 py-3 sm:py-3 text-base sm:text-sm font-medium"
+            "h-12 sm:h-auto px-6 py-3 sm:py-3 lg:px-8 lg:py-4 text-base sm:text-sm lg:text-base font-medium"
           )} 
           onClick={() => handleTimeframeSelect("custom")}
         >
@@ -279,9 +271,9 @@ export function EnhancedTimeframeSelector({
         </Button>
       </div>
 
-      {/* Date Range Selector - Only shown when custom is selected */}
+      {/* Date Range Selector - Enhanced Desktop Layout */}
       {selectedTimeframe === "custom" && (
-        <div className="flex flex-col items-center gap-4 animate-fade-in-up">
+        <div className="flex flex-col items-center gap-4 lg:gap-6 animate-fade-in-up">
           {/* Loading State */}
           {isTransitioning && (
             <div className="flex items-center justify-center p-8">
@@ -292,41 +284,46 @@ export function EnhancedTimeframeSelector({
             </div>
           )}
 
-          {/* Date Range Content - Only show when not transitioning */}
+          {/* Date Range Content - Enhanced Desktop Layout */}
           {!isTransitioning && (
             <>
-              <DateRangeSelector
-                startDate={localStartDate}
-                endDate={localEndDate}
-                onStartDateChange={(date) => handleDateChange(date, localEndDate)}
-                onEndDateChange={(date) => handleDateChange(localStartDate, date)}
-                minDate={availableDateRange?.min}
-                maxDate={availableDateRange?.max}
-                className="bg-surface-elevated p-4 rounded-lg border border-border-subtle w-full max-w-md"
-              />
+              {/* Centered Date Range Container */}
+              <div className="w-full max-w-2xl lg:max-w-4xl flex justify-center">
+                <div className="bg-surface-elevated p-4 lg:p-6 rounded-lg border border-border-subtle w-full max-w-2xl">
+                  <DateRangeSelector
+                    startDate={localStartDate}
+                    endDate={localEndDate}
+                    onStartDateChange={(date) => handleDateChange(date, localEndDate)}
+                    onEndDateChange={(date) => handleDateChange(localStartDate, date)}
+                    minDate={availableDateRange?.min}
+                    maxDate={availableDateRange?.max}
+                    className="w-full"
+                  />
+                </div>
+              </div>
               
               {/* Validation Message */}
               {!isDateRangeValid && (
-                <div className="text-rbs-alert text-xs font-medium text-center">
+                <div className="text-rbs-alert text-xs lg:text-sm font-medium text-center">
                   End date must be after start date
                 </div>
               )}
               
               {/* Range Modified Message */}
               {rangeModified && isDateRangeValid && (
-                <div className="text-amber-500 text-xs font-medium text-center">
+                <div className="text-amber-500 text-xs lg:text-sm font-medium text-center">
                   Date range modified - click "Update Range" to apply changes
                 </div>
               )}
               
-              {/* Action Buttons - Responsive Layout */}
-              <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+              {/* Centered Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center items-center w-full max-w-2xl">
                 {/* Confirm Button */}
                 {((!customRangeConfirmed || rangeModified) && localStartDate && localEndDate && isDateRangeValid) && (
                   <Button
                     onClick={onConfirmCustomRange}
                     disabled={customRangeLoading}
-                    className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed h-12 sm:h-auto"
+                    className="bg-rbs-lime text-rbs-black hover:bg-rbs-lime/90 px-6 py-3 lg:px-8 lg:py-4 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed h-12 sm:h-auto lg:text-base min-w-[140px]"
                   >
                     {customRangeLoading ? (
                       <>
@@ -344,7 +341,7 @@ export function EnhancedTimeframeSelector({
                   <Button
                     onClick={onReset}
                     variant="outline"
-                    className="border-border-subtle text-text-secondary hover:bg-surface hover:text-text-primary h-12 sm:h-auto"
+                    className="border-border-subtle text-text-secondary hover:bg-surface hover:text-text-primary h-12 sm:h-auto lg:px-8 lg:py-4 lg:text-base min-w-[120px]"
                   >
                     <RotateCcw className="h-4 w-4 mr-2" />
                     Reset
