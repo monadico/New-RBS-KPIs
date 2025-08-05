@@ -661,13 +661,6 @@ export default function Page() {
         {/* Stats and Retention Section */}
         <section id="stats-retention">
           <div className="space-y-8">
-            <ProtectedComponent 
-              title="Daily Statistics" 
-              description="Login to view detailed daily analytics and performance metrics"
-            >
-              <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
-            </ProtectedComponent>
-            
             <TopBettorsTable data={top_bettors} />
             
             {topClaimers.length > 0 && (
@@ -680,6 +673,13 @@ export default function Page() {
                 <p className="text-sm text-yellow-500">topClaimers length: {topClaimers.length}</p>
               </div>
             )}
+            
+            <ProtectedComponent 
+              title="Daily Statistics" 
+              description="Login to view detailed daily analytics and performance metrics"
+            >
+              <RbsDailyStatsTable data={data.timeframes?.daily?.activity_over_time || data.activity_over_time || []} />
+            </ProtectedComponent>
             
             {rbs_stats_by_periods && rbs_stats_by_periods.length > 0 && (
               <ProtectedComponent 
