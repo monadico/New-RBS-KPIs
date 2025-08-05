@@ -88,9 +88,9 @@ export function WinratePieChart({ winrateData, loading = false, error = null }: 
       </CardHeader>
 
       <CardContent className="h-full flex flex-col">
-        <div className="h-[400px] w-full flex items-center gap-6">
+        <div className="h-[400px] w-full flex items-center gap-4">
           {/* Chart */}
-          <div className="flex-1 h-full">
+          <div className="flex-1 h-full min-w-0">
             <ChartContainer
               config={{
                 Won: { label: "Won", color: "#4CAF50" },
@@ -120,27 +120,27 @@ export function WinratePieChart({ winrateData, loading = false, error = null }: 
           </div>
 
           {/* Legend */}
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-2 min-w-0">
             {chartData.map((item, index) => {
               const IconComponent = item.icon
               return (
                 <div
                   key={item.name}
-                  className="flex items-center justify-between p-3 rounded-xl bg-bg-elevated border border-border-subtle hover:border-border-medium transition-all duration-300 w-full"
+                  className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated border border-border-subtle hover:border-border-medium transition-all duration-300 w-full"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
+                    <div className="flex items-center gap-1 flex-shrink-0">
                       <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: item.color }} />
-                      <IconComponent className="w-4 h-4 text-text-secondary" />
+                      <IconComponent className="w-3 h-3 text-text-secondary" />
                     </div>
-                    <div>
-                      <p className="text-text-primary text-sm font-medium">{item.name}</p>
-                      <p className="text-text-tertiary text-xs">{item.value.toLocaleString()} bets</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-text-primary text-xs font-medium truncate">{item.name}</p>
+                      <p className="text-text-tertiary text-xs truncate">{item.value.toLocaleString()} bets</p>
                     </div>
                   </div>
 
-                  <div className="text-right">
-                    <p className="text-text-primary text-sm font-bold">{item.percentage}%</p>
+                  <div className="text-right flex-shrink-0 ml-2">
+                    <p className="text-text-primary text-xs font-bold">{item.percentage}%</p>
                   </div>
                 </div>
               )
