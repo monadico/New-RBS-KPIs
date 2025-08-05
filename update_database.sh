@@ -83,6 +83,10 @@ else
     exit 1
 fi
 
+# Wait for database connections to be released
+log_message "Waiting 60 seconds for database connections to be released..."
+sleep 60
+
 # Run the bet ID retrieval and database update
 log_message "Starting bet ID retrieval and database update..."
 python3 fast_bet_id_query.py
@@ -93,6 +97,10 @@ else
     log_message "ERROR: Bet ID retrieval and database update failed"
     exit 1
 fi
+
+# Wait for database connections to be released
+log_message "Waiting 60 seconds for database connections to be released..."
+sleep 60
 
 # Run the claiming database update with incremental flag
 log_message "Starting incremental claiming database update..."
