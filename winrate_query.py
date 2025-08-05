@@ -12,16 +12,31 @@ import json
 import os
 from datetime import datetime
 from typing import Dict, Any
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+MONAD_HYPERSYNC_URL = os.getenv("MONAD_HYPERSYNC_URL", "https://monad-testnet.hypersync.xyz")
+HYPERSYNC_BEARER_TOKEN = os.getenv("HYPERSYNC_BEARER_TOKEN")
+
+# Database path configuration
+if os.getenv("IS_PRODUCTION"):
+    BETTING_DB_PATH = "/app/data/betting_transactions.db"
+    CLAIMING_DB_PATH = "/app/data/comprehensive_claiming_transactions_fixed.db"
+else:
+    BETTING_DB_PATH = "betting_transactions.db"
+    CLAIMING_DB_PATH = "data/comprehensive_claiming_transactions_fixed.db"
 
 def get_winrate_stats() -> Dict[str, Any]:
     """Calculate overall winrate statistics."""
     
     # Connect to betting database
-    betting_conn = sqlite3.connect("betting_transactions.db")
+    betting_conn = sqlite3.connect(BETTING_DB_PATH)
     betting_cursor = betting_conn.cursor()
     
     # Connect to claiming database
-    claiming_conn = sqlite3.connect("data/comprehensive_claiming_transactions_fixed.db")
+    claiming_conn = sqlite3.connect(CLAIMING_DB_PATH)
     claiming_cursor = claiming_conn.cursor()
     
     try:

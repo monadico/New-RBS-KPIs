@@ -3,4 +3,5 @@ uvicorn[standard]==0.24.0
 pandas==2.1.4
 python-dotenv==1.0.0
 hypersync==0.8.5
-strenum>=0.4.15,<0.4.16 
+strenum>=0.4.15,<0.4.16
+tqdm==4.66.1 

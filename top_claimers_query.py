@@ -12,12 +12,27 @@ import json
 import os
 from datetime import datetime
 from typing import Dict, List, Any
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+MONAD_HYPERSYNC_URL = os.getenv("MONAD_HYPERSYNC_URL", "https://monad-testnet.hypersync.xyz")
+HYPERSYNC_BEARER_TOKEN = os.getenv("HYPERSYNC_BEARER_TOKEN")
+
+# Database path configuration
+if os.getenv("IS_PRODUCTION"):
+    BETTING_DB_PATH = "/app/data/betting_transactions.db"
+    CLAIMING_DB_PATH = "/app/data/comprehensive_claiming_transactions_fixed.db"
+else:
+    BETTING_DB_PATH = "betting_transactions.db"
+    CLAIMING_DB_PATH = "data/comprehensive_claiming_transactions_fixed.db"
 
 def get_top_claimers(limit: int = 20) -> List[Dict[str, Any]]:
     """Get top claimers based on claiming transactions."""
     
-    conn_claiming = sqlite3.connect("data/comprehensive_claiming_transactions_fixed.db")
-    conn_betting = sqlite3.connect("betting_transactions.db")
+    conn_claiming = sqlite3.connect(CLAIMING_DB_PATH)
+    conn_betting = sqlite3.connect(BETTING_DB_PATH)
     cursor_claiming = conn_claiming.cursor()
     cursor_betting = conn_betting.cursor()
     

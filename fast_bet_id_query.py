@@ -32,6 +32,12 @@ load_dotenv()
 MONAD_HYPERSYNC_URL = os.getenv("MONAD_HYPERSYNC_URL", "https://monad-testnet.hypersync.xyz")
 HYPERSYNC_BEARER_TOKEN = os.getenv("HYPERSYNC_BEARER_TOKEN")
 
+# Database path configuration
+if os.getenv("IS_PRODUCTION"):
+    DB_PATH = "/app/data/betting_transactions.db"
+else:
+    DB_PATH = "betting_transactions.db"
+
 # Contract addresses and event signatures
 CONTRACT_ADDRESSES = ['0x3ad50059d6008b711209a509fe58e68f0b672a42', '0x740990cb01e893a371a050736c62ae0b779109e7']
 CARDS_LOG_TOPIC_0 = '0xefc52bf7792453af1461fa9a7097486359b41a048898b6d542c0f03389487187'
@@ -52,8 +58,11 @@ def hex_to_int(hex_str: str) -> int:
         return 0
     return int(hex_str, 16)
 
-def get_database_block_range(db_path: str = "betting_transactions.db") -> tuple[int, int]:
+def get_database_block_range(db_path: str = None) -> tuple[int, int]:
     """Get the min and max block numbers from the database."""
+    if db_path is None:
+        db_path = DB_PATH
+    
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
@@ -68,8 +77,11 @@ def get_database_block_range(db_path: str = "betting_transactions.db") -> tuple[
     finally:
         conn.close()
 
-def update_bet_ids_batch(bet_id_map: Dict[str, int], db_path: str = "betting_transactions.db", batch_size: int = 1000):
+def update_bet_ids_batch(bet_id_map: Dict[str, int], db_path: str = None, batch_size: int = 1000):
     """Update bet IDs in the database using batch processing."""
+    if db_path is None:
+        db_path = DB_PATH
+    
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
@@ -103,8 +115,11 @@ def update_bet_ids_batch(bet_id_map: Dict[str, int], db_path: str = "betting_tra
     finally:
         conn.close()
 
-def get_database_stats(db_path: str = "betting_transactions.db") -> Dict[str, int]:
+def get_database_stats(db_path: str = None) -> Dict[str, int]:
     """Get database statistics."""
+    if db_path is None:
+        db_path = DB_PATH
+    
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
