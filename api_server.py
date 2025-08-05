@@ -26,9 +26,25 @@ IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
 app = FastAPI(title="Betting Analytics API", version="1.0.0")
 
 # Add CORS middleware to allow frontend requests
+# Define allowed origins based on environment
+if IS_PRODUCTION:
+    ALLOWED_ORIGINS = [
+        "https://rarebetsportsanalytics.io",
+        "https://c4woc08wws0c44gk4sswgwg8.173.249.24.245.sslip.io",
+        "http://localhost:3000",  # For local development
+        "http://localhost:3001",  # For local development
+    ]
+else:
+    ALLOWED_ORIGINS = [
+        "http://localhost:3000",
+        "http://localhost:3001", 
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3001",
+    ]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify your frontend domain
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
