@@ -162,10 +162,35 @@ export default function Page() {
             console.log('✅ Top claimers data received:', claimersData.total_count)
             setTopClaimers(claimersData.top_claimers || [])
           } else {
-            console.error('❌ Failed to fetch top claimers:', claimersResponse.status)
+            console.log('⚠️ Top claimers API failed, falling back to static JSON')
+            // Fallback to static top claimers JSON
+            const staticClaimersResponse = await fetch('/top_claimers_dump.json')
+            if (staticClaimersResponse.ok) {
+              const claimersJson = await staticClaimersResponse.json()
+              console.log('📁 Using static top claimers JSON data')
+              setTopClaimers(claimersJson.top_claimers || [])
+            } else {
+              console.error('❌ Static top claimers JSON also failed')
+              setTopClaimers([])
+            }
           }
         } catch (err) {
-          console.error('❌ Error loading top claimers data:', err)
+          console.error('❌ Error loading top claimers data, trying fallback:', err)
+          // Try static JSON as fallback
+          try {
+            const staticClaimersResponse = await fetch('/top_claimers_dump.json')
+            if (staticClaimersResponse.ok) {
+              const claimersJson = await staticClaimersResponse.json()
+              console.log('📁 Using static top claimers JSON fallback')
+              setTopClaimers(claimersJson.top_claimers || [])
+            } else {
+              console.error('❌ Static top claimers fallback also failed')
+              setTopClaimers([])
+            }
+          } catch (fallbackErr) {
+            console.error('❌ Top claimers fallback error:', fallbackErr)
+            setTopClaimers([])
+          }
         }
       } catch (err: any) {
         console.error('❌ Error loading analytics data:', err)
