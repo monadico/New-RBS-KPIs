@@ -53,9 +53,9 @@ app.add_middleware(
 # Environment-based paths
 if IS_PRODUCTION:
     DB_PATH = "/app/data/betting_transactions.db"
-    JSON_FILE_PATH = "/app/new/public/analytics_dump.json"
-    CLAIMING_JSON_FILE_PATH = "/app/new/public/claiming_analytics_dump.json"
-    WINRATE_JSON_FILE_PATH = "/app/new/public/winrate_analytics_dump.json"
+    JSON_FILE_PATH = "/app/data/analytics_dump.json"
+    CLAIMING_JSON_FILE_PATH = "/app/data/claiming_analytics_dump.json"
+    WINRATE_JSON_FILE_PATH = "/app/data/winrate_analytics_dump.json"
 else:
     DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
     JSON_FILE_PATH = "new/public/analytics_dump.json"

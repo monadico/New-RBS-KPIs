@@ -30,10 +30,10 @@ IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
 
 if IS_PRODUCTION:
     DB_PATH = "/app/data/betting_transactions.db"
-    OUTPUT_FILE = "/app/analytics_dump.json"
-    FRONTEND_PUBLIC = "/app/new/public/analytics_dump.json"
-    FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/analytics_dump.json"
-    COMPRESSED_FILE = "/app/new/public/analytics_dump.json.gz"
+    OUTPUT_FILE = "/app/data/analytics_dump.json"
+FRONTEND_PUBLIC = "/app/data/analytics_dump.json"
+FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/analytics_dump.json"
+COMPRESSED_FILE = "/app/data/analytics_dump.json.gz"
 else:
     DB_PATH = os.getenv('DB_PATH', 'betting_transactions.db')
     OUTPUT_FILE = "analytics_dump.json"

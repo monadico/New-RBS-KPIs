@@ -30,10 +30,10 @@ IS_PRODUCTION = os.getenv('IS_PRODUCTION', 'false').lower() == 'true'
 
 if IS_PRODUCTION:
     DB_PATH = "/app/data/comprehensive_claiming_transactions_fixed.db"
-    OUTPUT_FILE = "/app/claiming_analytics_dump.json"
-    FRONTEND_PUBLIC = "/app/new/public/claiming_analytics_dump.json"
-    FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/claiming_analytics_dump.json"
-    COMPRESSED_FILE = "/app/new/public/claiming_analytics_dump.json.gz"
+    OUTPUT_FILE = "/app/data/claiming_analytics_dump.json"
+FRONTEND_PUBLIC = "/app/data/claiming_analytics_dump.json"
+FRONTEND_DEPLOYMENT_PUBLIC = "/app/frontend-deployment/public/claiming_analytics_dump.json"
+COMPRESSED_FILE = "/app/data/claiming_analytics_dump.json.gz"
 else:
     DB_PATH = os.getenv('CLAIMING_DB_PATH', 'data/comprehensive_claiming_transactions_fixed.db')
     OUTPUT_FILE = "claiming_analytics_dump.json"

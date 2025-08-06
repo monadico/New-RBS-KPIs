@@ -112,6 +112,7 @@ def generate_pie_chart_data(stats: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 def save_winrate_data(data: Dict[str, Any], output_file: str = "new/public/winrate_analytics_dump.json"):
+def save_winrate_data(data: Dict[str, Any], output_file: str = "data/winrate_analytics_dump.json"):
     """Save winrate data to JSON file."""
     
     # Create directory if it doesn't exist
