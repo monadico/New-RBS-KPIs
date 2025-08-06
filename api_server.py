@@ -36,6 +36,8 @@ if IS_PRODUCTION:
     ]
 else:
     ALLOWED_ORIGINS = [
+        "https://rarebetsportsanalytics.io",  # Production domain
+        "https://c4woc08wws0c44gk4sswgwg8.173.249.24.245.sslip.io",  # Backend domain
         "http://localhost:3000",
         "http://localhost:3001", 
         "http://127.0.0.1:3000",
