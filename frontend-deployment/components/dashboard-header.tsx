@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/components/auth/auth-context"
 import { Button } from "@/components/ui/button"
-import { LogOut, User, Trophy } from "lucide-react"
+import { LogOut, User, Trophy, Home } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { LoginModal } from "@/components/auth/login-modal"
@@ -70,11 +70,28 @@ export function DashboardHeader() {
     { label: "Heatmaps", href: "#heatmaps", isLink: false, icon: undefined },
   ]
 
-  // Add raffle tab for admin users
-  const adminNavItems = isAuthenticated ? [
-    ...navItems,
-    { label: "Raffle", href: "/raffle", isLink: true, icon: Trophy }
-  ] : navItems
+  // Navigation items based on current page and authentication
+  const getNavItems = () => {
+    if (!isAuthenticated) {
+      return navItems
+    }
+    
+    // If we're on the raffle page, show Dashboard link
+    if (pathname === '/raffle') {
+      return [
+        { label: "Dashboard", href: "/", isLink: true, icon: Home },
+        { label: "Raffle", href: "/raffle", isLink: true, icon: Trophy }
+      ]
+    }
+    
+    // If we're on the main dashboard, show normal nav + raffle
+    return [
+      ...navItems,
+      { label: "Raffle", href: "/raffle", isLink: true, icon: Trophy }
+    ]
+  }
+
+  const adminNavItems = getNavItems()
 
   const handleNavClick = (href: string, label: string) => {
     setActiveNav(label)
