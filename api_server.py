@@ -286,6 +286,130 @@ async def get_winrate_analytics():
         print(f"❌ Error reading winrate analytics JSON: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/api/raffle/select-winner")
+async def select_raffle_winner(request: dict):
+    """Select a raffle winner based on RareLink submissions within a time range"""
+    try:
+        start_time = request.get("start_time")
+        end_time = request.get("end_time")
+        
+        if not start_time or not end_time:
+            raise HTTPException(status_code=400, detail="Start time and end time are required")
+        
+        print(f"🎰 Raffle selection: {start_time} to {end_time}")
+        
+        # Connect to database
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        
+        # Query RareLink submissions within the time range
+        cursor.execute("""
+            SELECT 
+                bet_id,
+                from_address,
+                timestamp,
+                n_cards
+            FROM betting_transactions 
+            WHERE timestamp BETWEEN ? AND ?
+            ORDER BY timestamp ASC
+        """, [start_time, end_time])
+        
+        submissions = cursor.fetchall()
+        
+        if not submissions:
+            raise HTTPException(status_code=404, detail="No RareLink submissions found in the specified time range")
+        
+        # Process submissions to create entry pool
+        entry_pool = []
+        user_entries = {}
+        total_submissions = len(submissions)
+        
+        for submission in submissions:
+            bet_id, wallet_address, timestamp, n_cards = submission
+            entry_count = n_cards or 0
+            
+            # Add user to entry pool based on number of player props
+            for i in range(entry_count):
+                entry_pool.append(wallet_address)
+            
+            # Track user entries for winner info
+            if wallet_address not in user_entries:
+                user_entries[wallet_address] = 0
+            user_entries[wallet_address] += entry_count
+        
+        if not entry_pool:
+            raise HTTPException(status_code=404, detail="No valid entries found in the specified time range")
+        
+        # Select random winner from entry pool
+        import random
+        winner_address = random.choice(entry_pool)
+        winner_entries = user_entries[winner_address]
+        
+        # Find the bet_id for the winner
+        winner_bet_id = None
+        for submission in submissions:
+            if submission[1] == winner_address:  # wallet_address
+                winner_bet_id = submission[0]  # bet_id
+                break
+        
+        # Get example transactions for the winner
+        cursor.execute("""
+            SELECT 
+                tx_hash,
+                timestamp,
+                token,
+                amount,
+                n_cards,
+                bet_id,
+                block_number
+            FROM betting_transactions 
+            WHERE from_address = ?
+            ORDER BY timestamp DESC
+            LIMIT 10
+        """, [winner_address])
+        
+        winner_transactions = cursor.fetchall()
+        
+        # Format transactions for API response
+        formatted_transactions = []
+        for tx in winner_transactions:
+            tx_hash, timestamp, token, amount, n_cards, bet_id, block_number = tx
+            formatted_transactions.append({
+                "tx_hash": tx_hash,
+                "timestamp": timestamp,
+                "token": token,
+                "amount": amount,
+                "n_cards": n_cards,
+                "bet_id": bet_id,
+                "block_number": block_number
+            })
+        
+        result = {
+            "winner": {
+                "bet_id": winner_bet_id,
+                "wallet_address": winner_address,
+                "entries": winner_entries
+            },
+            "total_entries": len(entry_pool),
+            "total_submissions": total_submissions,
+            "unique_participants": len(user_entries),
+            "selection_window": {
+                "start_time": start_time,
+                "end_time": end_time
+            },
+            "example_transactions": formatted_transactions
+        }
+        
+        conn.close()
+        print(f"✅ Raffle winner selected successfully")
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error in raffle selection: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 # Serve static files (your Next.js build)
 @app.get("/{path:path}")
 async def serve_frontend(path: str):
