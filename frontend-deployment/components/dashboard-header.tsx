@@ -5,7 +5,9 @@ import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/components/auth/auth-context"
 import { Button } from "@/components/ui/button"
-import { LogOut, User } from "lucide-react"
+import { LogOut, User, Trophy } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 type DashboardHeaderProps = {}
 
@@ -14,6 +16,7 @@ export function DashboardHeader() {
   const [isVisible, setIsVisible] = useState(true) // State to control header visibility
   const [lastScrollY, setLastScrollY] = useState(0) // State to store last scroll position
   const { isAuthenticated, logout, sessionInfo } = useAuth()
+  const pathname = usePathname()
 
   // Effect to handle scroll behavior
   useEffect(() => {
@@ -60,10 +63,16 @@ export function DashboardHeader() {
   }, [lastScrollY]) // Re-run effect when lastScrollY changes
 
   const navItems = [
-    { label: "Overview", href: "#overview" },
-    { label: "Stats and Retention", href: "#stats-retention" },
-    { label: "Heatmaps", href: "#heatmaps" },
+    { label: "Overview", href: "#overview", isLink: false, icon: undefined },
+    { label: "Stats and Retention", href: "#stats-retention", isLink: false, icon: undefined },
+    { label: "Heatmaps", href: "#heatmaps", isLink: false, icon: undefined },
   ]
+
+  // Add raffle tab for admin users
+  const adminNavItems = isAuthenticated ? [
+    ...navItems,
+    { label: "Raffle", href: "/raffle", isLink: true, icon: Trophy }
+  ] : navItems
 
   const handleNavClick = (href: string, label: string) => {
     setActiveNav(label)
@@ -87,21 +96,43 @@ export function DashboardHeader() {
         <div className="flex items-center justify-between">
           {/* Main Navigation */}
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => handleNavClick(item.href, item.label)}
-                className={cn(
-                  "relative text-sm font-medium py-2 px-3 rounded-lg transition-all duration-300",
-                  "before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-0.5 before:bg-rbs-lime before:rounded-full before:transition-all before:duration-300",
-                  activeNav === item.label
-                    ? "text-text-primary before:w-full before:opacity-100"
-                    : "text-text-secondary hover:text-text-primary hover:before:w-2/3 hover:before:opacity-70",
-                )}
-              >
-                {item.label}
-              </button>
-            ))}
+            {adminNavItems.map((item) => {
+              const isActive = item.isLink 
+                ? pathname === item.href 
+                : activeNav === item.label
+              
+              const baseClassName = cn(
+                "relative text-sm font-medium py-2 px-3 rounded-lg transition-all duration-300 flex items-center gap-2",
+                "before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-0.5 before:bg-rbs-lime before:rounded-full before:transition-all before:duration-300",
+                isActive
+                  ? "text-text-primary before:w-full before:opacity-100"
+                  : "text-text-secondary hover:text-text-primary hover:before:w-2/3 hover:before:opacity-70",
+              )
+              
+              if (item.isLink) {
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={baseClassName}
+                  >
+                    {item.icon && <item.icon className="w-4 h-4" />}
+                    {item.label}
+                  </Link>
+                )
+              } else {
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNavClick(item.href, item.label)}
+                    className={baseClassName}
+                  >
+                    {item.icon && <item.icon className="w-4 h-4" />}
+                    {item.label}
+                  </button>
+                )
+              }
+            })}
           </nav>
 
           {/* Auth Section */}
