@@ -195,7 +195,6 @@ def format_claimer_data(claimers: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     
     return formatted_claimers
 
-def save_top_claimers_data(data: List[Dict[str, Any]], output_file: str = "new/public/top_claimers_dump.json"):
 def save_top_claimers_data(data: List[Dict[str, Any]], output_file: str = "data/top_claimers_dump.json"):
     """Save top claimers data to JSON file."""
     
