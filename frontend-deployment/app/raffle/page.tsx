@@ -24,6 +24,9 @@ interface RaffleResult {
   selection_window: {
     start_time: string
     end_time: string
+    total_submissions_processed?: number
+    total_cards_processed?: number
+    distinct_users?: number
   }
   example_transactions: Array<{
     tx_hash: string
@@ -73,6 +76,7 @@ export default function RafflePage() {
         ? 'https://f8s8sk80ok44gw04osco04so.173.249.24.245.sslip.io'
         : 'http://localhost:8000'
       
+      console.log('🎰 Attempting raffle API call...')
       const response = await fetch(`${apiUrl}/api/raffle/select-winner`, {
         method: 'POST',
         headers: {
@@ -85,14 +89,38 @@ export default function RafflePage() {
       })
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.detail || 'Failed to select winner')
+        console.log('⚠️ Raffle API failed, checking error details...')
+        let errorMessage = 'Failed to select winner'
+        
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.detail || errorMessage
+        } catch {
+          // If we can't parse error JSON, use status text
+          errorMessage = `API Error: ${response.status} ${response.statusText}`
+        }
+        
+        // For production, provide user-friendly error message
+        if (isProduction) {
+          setError('Raffle service is temporarily unavailable. Please try again later or contact support.')
+        } else {
+          setError(errorMessage)
+        }
+        return
       }
 
       const result = await response.json()
+      console.log('✅ Raffle completed successfully')
       setRaffleResult(result)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
+      console.error('❌ Raffle error:', err)
+      
+      // Network/connection errors
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        setError('Unable to connect to raffle service. Please check your connection and try again.')
+      } else {
+        setError(err instanceof Error ? err.message : 'An unexpected error occurred')
+      }
     } finally {
       setIsLoading(false)
     }
@@ -252,10 +280,23 @@ export default function RafflePage() {
 
               {/* Selection Window */}
               <div className="p-4 bg-bg-base rounded-lg border border-border-subtle shadow-sm">
-                <h4 className="font-semibold mb-2 text-text-primary">Selection Window</h4>
-                <div className="text-sm text-text-secondary">
-                  <div>Start: {new Date(raffleResult.selection_window.start_time).toLocaleString()}</div>
-                  <div>End: {new Date(raffleResult.selection_window.end_time).toLocaleString()}</div>
+                <h4 className="font-semibold mb-4 text-text-primary">Selection Window</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <div className="text-sm text-text-secondary mb-2">Time Range:</div>
+                    <div className="text-sm text-text-primary">
+                      <div>Start: {new Date(raffleResult.selection_window.start_time).toLocaleString()}</div>
+                      <div>End: {new Date(raffleResult.selection_window.end_time).toLocaleString()}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-text-secondary mb-2">Processing Summary:</div>
+                    <div className="text-sm text-text-primary space-y-1">
+                      <div>Total Submissions: <span className="text-rbs-lime">{raffleResult.selection_window.total_submissions_processed?.toLocaleString() || raffleResult.total_submissions.toLocaleString()}</span></div>
+                      <div>Total Cards Processed: <span className="text-rbs-lime">{raffleResult.selection_window.total_cards_processed?.toLocaleString() || 'N/A'}</span></div>
+                      <div>Distinct Users: <span className="text-rbs-lime">{raffleResult.selection_window.distinct_users?.toLocaleString() || raffleResult.unique_participants.toLocaleString()}</span></div>
+                    </div>
+                  </div>
                 </div>
               </div>
 

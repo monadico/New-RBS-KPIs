@@ -298,7 +298,27 @@ async def select_raffle_winner(request: dict):
         
         print(f"🎰 Raffle selection: {start_time} to {end_time}")
         
+        # Convert frontend dates to proper UTC format for database
+        from datetime import datetime, timezone
+        
+        # Parse the UTC dates from frontend
+        start_dt = datetime.fromisoformat(start_time.replace('Z', '+00:00'))
+        end_dt = datetime.fromisoformat(end_time.replace('Z', '+00:00'))
+        
+        # Convert to the exact format we want for database query
+        # Use the date part and create full day range in UTC
+        start_date_str = start_dt.strftime('%Y-%m-%d')
+        end_date_str = end_dt.strftime('%Y-%m-%d')
+        
+        # Create full day ranges in UTC
+        query_start = f"{start_date_str}T00:00:00"
+        query_end = f"{end_date_str}T23:59:59"
+        
+        print(f"🔍 Frontend dates: {start_time} to {end_time}")
+        print(f"🔍 Query dates: {query_start} to {query_end}")
+        
         # Connect to database
+        print(f"🔗 Connecting to database: {DB_PATH}")
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         
@@ -312,7 +332,51 @@ async def select_raffle_winner(request: dict):
             FROM betting_transactions 
             WHERE timestamp BETWEEN ? AND ?
             ORDER BY timestamp ASC
-        """, [start_time, end_time])
+        """, [query_start, query_end])
+        
+        submissions = cursor.fetchall()
+        print(f"🔍 Debug - Found {len(submissions)} submissions")
+        
+        # Debug: Check actual date range in results
+        if submissions:
+            print(f"🔍 Debug - First submission: {submissions[0][2]}")
+            print(f"🔍 Debug - Last submission: {submissions[-1][2]}")
+        
+        # Debug: Run the same query as our manual test
+        cursor.execute("""
+            SELECT COUNT(*) as total_submissions, 
+                   COUNT(DISTINCT from_address) as distinct_users, 
+                   SUM(n_cards) as sum_of_n_cards 
+            FROM betting_transactions 
+            WHERE timestamp BETWEEN ? AND ?
+        """, [query_start, query_end])
+        
+        debug_stats = cursor.fetchone()
+        print(f"🔍 Debug stats - Submissions: {debug_stats[0]}, Users: {debug_stats[1]}, Cards: {debug_stats[2]}")
+        
+        # Also check with the exact format from our manual query
+        cursor.execute("""
+            SELECT COUNT(*) as total_submissions, 
+                   COUNT(DISTINCT from_address) as distinct_users, 
+                   SUM(n_cards) as sum_of_n_cards 
+            FROM betting_transactions 
+            WHERE timestamp BETWEEN '2025-07-01T00:00:00' AND '2025-07-02T23:59:59'
+        """)
+        
+        manual_stats = cursor.fetchone()
+        print(f"🔍 Manual query stats - Submissions: {manual_stats[0]}, Users: {manual_stats[1]}, Cards: {manual_stats[2]}")
+        
+        # Re-run the original query to get the submissions data
+        cursor.execute("""
+            SELECT 
+                bet_id,
+                from_address,
+                timestamp,
+                n_cards
+            FROM betting_transactions 
+            WHERE timestamp BETWEEN ? AND ?
+            ORDER BY timestamp ASC
+        """, [query_start, query_end])
         
         submissions = cursor.fetchall()
         
@@ -367,7 +431,7 @@ async def select_raffle_winner(request: dict):
             AND timestamp BETWEEN ? AND ?
             ORDER BY timestamp DESC
             LIMIT 10
-        """, [winner_address, start_time, end_time])
+        """, [winner_address, query_start, query_end])
         
         winner_transactions = cursor.fetchall()
         
@@ -385,6 +449,9 @@ async def select_raffle_winner(request: dict):
                 "block_number": block_number
             })
         
+        # Calculate additional statistics
+        total_cards_processed = sum(submission[3] or 0 for submission in submissions)  # n_cards
+        
         result = {
             "winner": {
                 "bet_id": winner_bet_id,
@@ -396,7 +463,10 @@ async def select_raffle_winner(request: dict):
             "unique_participants": len(user_entries),
             "selection_window": {
                 "start_time": start_time,
-                "end_time": end_time
+                "end_time": end_time,
+                "total_submissions_processed": total_submissions,
+                "total_cards_processed": total_cards_processed,
+                "distinct_users": len(user_entries)
             },
             "example_transactions": formatted_transactions
         }
