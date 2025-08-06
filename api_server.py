@@ -352,7 +352,7 @@ async def select_raffle_winner(request: dict):
                 winner_bet_id = submission[0]  # bet_id
                 break
         
-        # Get example transactions for the winner
+        # Get example transactions for the winner from the raffle time window
         cursor.execute("""
             SELECT 
                 tx_hash,
@@ -363,10 +363,11 @@ async def select_raffle_winner(request: dict):
                 bet_id,
                 block_number
             FROM betting_transactions 
-            WHERE from_address = ?
+            WHERE from_address = ? 
+            AND timestamp BETWEEN ? AND ?
             ORDER BY timestamp DESC
             LIMIT 10
-        """, [winner_address])
+        """, [winner_address, start_time, end_time])
         
         winner_transactions = cursor.fetchall()
         
